@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinguaForge — Translate &amp; Learn</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- ── App header ──────────────────────────────────────────────────────────── -->
+<header class="app-header">
+  <div class="app-logo">
+    <span class="logo-mark">LinguaForge</span>
+    <span class="logo-sub">148 languages · built from scratch</span>
+  </div>
+  <button class="header-link" id="open-flashcards" type="button">📚 My Flashcards</button>
+</header>
+
+<!-- ── Main app ────────────────────────────────────────────────────────────── -->
+<main class="app-main">
+
+  <!-- ── Input card ─────────────────────────────────────────────────────── -->
+  <div class="input-card">
+    <h1 class="app-headline">Translate &amp; understand any language</h1>
+    <p class="app-sub">Type or speak text in any language. We detect it, translate it, and help you learn it.</p>
+
+    <!-- Language row -->
+    <div class="lang-row">
+      <div class="lang-group">
+        <div class="lang-group-label">I'm reading / hearing…</div>
+        <div class="lp-wrap" id="src-wrap">
+          <button class="lp-btn" id="src-btn" type="button">
+            <span class="lp-icon" id="src-icon">🔍</span>
+            <span class="lp-name" id="src-name">Auto-detect</span>
+            <span class="lp-chevron">▾</span>
+          </button>
+          <div class="lp-dropdown hidden" id="src-dropdown"></div>
+        </div>
+      </div>
+
+      <button class="lang-swap" id="swap-btn" type="button" title="Swap languages">⇄</button>
+
+      <div class="lang-group">
+        <div class="lang-group-label">Help me in…</div>
+        <div class="lp-wrap" id="tgt-wrap">
+          <button class="lp-btn" id="tgt-btn" type="button">
+            <span class="lp-icon" id="tgt-icon">🌐</span>
+            <span class="lp-name" id="tgt-name">English</span>
+            <span class="lp-chevron">▾</span>
+          </button>
+          <div class="lp-dropdown hidden" id="tgt-dropdown"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text input -->
+    <div class="textarea-wrap">
+      <textarea
+        id="main-input"
+        rows="4"
+        placeholder="Type or paste text in any language…
+
+Try:  もしもし、予約したいんですが
+      El gato exploró la casa antigua
+      Bonjour, comment allez-vous ?"
+      spellcheck="false"
+      autocomplete="off"></textarea>
+      <button class="mic-btn" id="mic-btn" type="button" title="Speak text">
+        <span id="mic-icon" class="mic-icon-inner">🎙</span>
+      </button>
+    </div>
+    <div id="mic-status" class="mic-status hidden">🔴 Listening… speak now</div>
+
+    <button class="go-btn" id="go-btn" type="button">
+      <span id="go-label">Translate &amp; Explain</span>
+      <span id="go-spinner" class="go-spinner hidden"></span>
+    </button>
+  </div>
+
+  <!-- ── Results (shown after analysis) ────────────────────────────────── -->
+  <div id="results" class="hidden">
+
+    <!-- Detection result -->
+    <div class="result-card" id="detect-card">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- Translation result -->
+    <div class="result-card translation-result-card" id="trans-card">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- Learning sections -->
+    <div class="learn-stack">
+
+      <details class="learn-item" id="learn-words">
+        <summary>
+          <span class="li-icon">🔤</span>
+          <span class="li-title">Word-by-word breakdown</span>
+          <span class="li-badge" id="badge-words"></span>
+          <span class="li-arrow">›</span>
+        </summary>
+        <div class="li-body" id="body-words"></div>
+      </details>
+
+      <details class="learn-item" id="learn-grammar">
+        <summary>
+          <span class="li-icon">📝</span>
+          <span class="li-title">Grammar notes</span>
+          <span class="li-badge" id="badge-grammar"></span>
+          <span class="li-arrow">›</span>
+        </summary>
+        <div class="li-body" id="body-grammar"></div>
+      </details>
+
+      <details class="learn-item" id="learn-vocab">
+        <summary>
+          <span class="li-icon">💾</span>
+          <span class="li-title">Key vocabulary — save to flashcards</span>
+          <span class="li-badge" id="badge-vocab"></span>
+          <span class="li-arrow">›</span>
+        </summary>
+        <div class="li-body" id="body-vocab"></div>
+      </details>
+
+      <details class="learn-item learn-advanced" id="learn-advanced">
+        <summary>
+          <span class="li-icon">🔬</span>
+          <span class="li-title">Technical analysis</span>
+          <span class="li-badge li-badge-dim">Morphology &amp; POS — for linguists</span>
+          <span class="li-arrow">›</span>
+        </summary>
+        <div class="li-body" id="body-advanced"></div>
+      </details>
+
+      <details class="learn-item" id="learn-attention">
+        <summary>
+          <span class="li-icon">🧠</span>
+          <span class="li-title">Attention heatmap</span>
+          <span class="li-badge li-badge-dim" id="attn-badge">Source → target alignment</span>
+          <span class="li-arrow">›</span>
+        </summary>
+        <div class="li-body" id="body-attention"></div>
+      </details>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Flashcard drawer ─────────────────────────────────────────────────────── -->
+<div class="fc-overlay hidden" id="fc-overlay"></div>
+<aside class="fc-drawer hidden" id="fc-drawer">
+  <div class="fc-drawer-header">
+    <h2>My Flashcards</h2>
+    <button class="fc-close" id="close-flashcards" type="button">✕</button>
+  </div>
+
+  <div class="fc-section">
+    <h3>Review — SM-2</h3>
+    <div id="review-area"><p class="muted-sm">Loading…</p></div>
+  </div>
+
+  <div class="fc-section">
+    <h3>Add a card</h3>
+    <div class="fc-add-row">
+      <input id="add-front" placeholder="Word / phrase">
+      <input id="add-back"  placeholder="Meaning / translation">
+      <select id="add-lang">
+        <option value="es">es</option>
+        <option value="en">en</option>
+        <option value="fr">fr</option>
+        <option value="de">de</option>
+      </select>
+      <button id="add-btn" type="button">Add</button>
+    </div>
+  </div>
+
+  <div class="fc-section fc-section-table">
+    <h3>Deck <span id="deck-stats-inline"></span></h3>
+    <table id="deck-table">
+      <thead>
+        <tr><th>Front</th><th>Back</th><th>Lang</th><th>Due</th><th>Ease</th><th>Int.</th><th></th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</aside>
+
+<script src="/app.js"></script>
+</body>
+</html>
