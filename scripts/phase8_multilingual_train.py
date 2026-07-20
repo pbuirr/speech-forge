@@ -43,6 +43,7 @@ import time
 from pathlib import Path
 
 import torch
+from torch.cuda.amp import autocast, GradScaler
 import torch.nn as nn
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -56,7 +57,7 @@ from speech_engine.nmt import Seq2SeqNMT, collate_pairs, nmt_loss, save_checkpoi
 
 LANG_TOKENS = {"es": "<ES>", "fr": "<FR>", "de": "<DE>"}
 
-# ── Corpus paths ──────────────────────────────────────────────────────────────
+# ── Corpus paths ───────────────────────────────────────────────────────────────
 
 def _corpus_path(lang: str) -> Path:
     filtered = ROOT / "data" / "corpora" / f"{lang}_en_filtered.tsv"
@@ -67,7 +68,7 @@ def _corpus_path(lang: str) -> Path:
 CORPORA: dict[str, Path] = {lang: _corpus_path(lang) for lang in ("es", "fr", "de")}
 
 
-# ── Data loading ──────────────────────────────────────────────────────────────
+# ── Data loading ───────────────────────────────────────────────────────────────
 
 def load_corpus(path: Path) -> list[tuple[str, str]]:
     pairs = []
@@ -99,7 +100,7 @@ def load_all_pairs(
     return triples
 
 
-# ── Vocabulary ────────────────────────────────────────────────────────────────
+# ── Vocabulary ─────────────────────────────────────────────────────────────────
 
 def build_shared_vocab(
     triples: list[tuple[str, str, str]],
@@ -145,7 +146,7 @@ def encode_pair(
     return src_ids, tgt_ids
 
 
-# ── Training ──────────────────────────────────────────────────────────────────
+# ── Training ───────────────────────────────────────────────────────────────────
 
 def train(
     model: Seq2SeqNMT,
@@ -177,6 +178,7 @@ def train(
          {"params": no_decay_params, "weight_decay": 0.0}],
         lr=lr, betas=(0.9, 0.98), eps=1e-9,
     )
+    scaler = GradScaler()
 
     total_steps  = epochs * math.ceil(len(data) / batch_size)
     warmup_steps = max(1, total_steps // 10)
@@ -233,14 +235,17 @@ def train(
                 tgt_in     = tgt_in.to(device)
                 tgt_out    = tgt_out.to(device)
 
-                logits = model(src_tensor, tgt_in)
-                n_micro = math.ceil(len(batch) / micro_size)
-                loss    = nmt_loss(logits, tgt_out, pad_id=PAD_ID) / n_micro
-                loss.backward()
+                with autocast():
+                    logits = model(src_tensor, tgt_in)
+                    n_micro = math.ceil(len(batch) / micro_size)
+                    loss    = nmt_loss(logits, tgt_out, pad_id=PAD_ID) / n_micro
+                scaler.scale(loss).backward()
                 accum_loss += loss.item()
 
+            scaler.unscale_(optimizer)
             nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-            optimizer.step()
+            scaler.step(optimizer)
+            scaler.update()
             scheduler.step()
 
             total_loss += accum_loss
@@ -260,7 +265,7 @@ def train(
             print(f"  [checkpoint] saved → {ckpt}")
 
 
-# ── Quick evaluation ──────────────────────────────────────────────────────────
+# ── Quick evaluation ───────────────────────────────────────────────────────────
 
 def quick_eval(
     model: Seq2SeqNMT,
@@ -290,7 +295,7 @@ def quick_eval(
     model.train()
 
 
-# ── CLI ───────────────────────────────────────────────────────────────────────
+# ── CLI ────────────────────────────────────────────────────────────────────────
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
@@ -324,7 +329,7 @@ def main() -> None:
         args.vocab        = 2_000
         args.save_every   = 0
 
-    # ── Device ────────────────────────────────────────────────────────────────
+    # ── Device ──────────────────────────────────────────────────────────────
     if not args.no_mps and torch.backends.mps.is_available():
         device = torch.device("mps")
         print("Using MPS (Apple Silicon GPU)")
@@ -335,12 +340,12 @@ def main() -> None:
         device = torch.device("cpu")
         print("Using CPU")
 
-    # ── Load corpora ──────────────────────────────────────────────────────────
+    # ── Load corpora ────────────────────────────────────────────────────────
     print("\nLoading corpora…")
     triples = load_all_pairs(max_per_lang=args.max_per_lang)
     print(f"  Total: {len(triples):,} pairs across {len(CORPORA)} languages")
 
-    # ── Build / load vocabulary ───────────────────────────────────────────────
+    # ── Build / load vocabulary ─────────────────────────────────────────────
     vocab_path = ROOT / "data" / "models" / "multilingual_vocab.json"
     if vocab_path.exists() and args.load:
         print(f"\nLoading shared vocab from {vocab_path}…")
@@ -357,7 +362,7 @@ def main() -> None:
         tid = vocab._token_to_id.get(tok, "MISSING")
         print(f"  {tok} → id {tid}")
 
-    # ── Encode all pairs ──────────────────────────────────────────────────────
+    # ── Encode all pairs ────────────────────────────────────────────────────
     print("\nEncoding pairs…")
     encoded: list[tuple[list[int], list[int]]] = []
     for lang, src, tgt in triples:
@@ -374,13 +379,14 @@ def main() -> None:
     eval_triples = triples[:split]
     print(f"  {len(train_data):,} train / {split:,} held-out for eval samples")
 
-    # ── Model ─────────────────────────────────────────────────────────────────
+    # ── Model ────────────────────────────────────────────────────────────────
     V = vocab.vocab_size
     start_epoch = 1
 
     if args.load:
         print(f"\nLoading checkpoint: {args.load}")
-        model, _, _, meta = load_checkpoint(args.load, device=device)
+        model, _, _, meta = load_checkpoint(args.load)
+        model = model.to(device)
         start_epoch = meta.get("epoch", 0) + 1
         print(f"  Resuming from epoch {start_epoch}")
     else:
@@ -400,7 +406,7 @@ def main() -> None:
     print(f"  {n_params:,} parameters")
     print(f"  Training for {args.epochs} epochs")
 
-    # ── Train ─────────────────────────────────────────────────────────────────
+    # ── Train ────────────────────────────────────────────────────────────────
     print(f"\nTraining…")
     train(
         model, train_data, vocab,
@@ -416,13 +422,13 @@ def main() -> None:
         bpe_dropout=args.bpe_dropout,
     )
 
-    # ── Save final model ───────────────────────────────────────────────────────
+    # ── Save final model ────────────────────────────────────────────────────
     save_checkpoint(model, vocab, vocab, args.out,
                     meta={"direction": "multi→en", "epoch": start_epoch + args.epochs - 1,
                           "langs": list(LANG_TOKENS.keys())})
     print(f"\nSaved → {args.out}")
 
-    # ── Quick eval ────────────────────────────────────────────────────────────
+    # ── Quick eval ───────────────────────────────────────────────────────────
     quick_eval(model, eval_triples, vocab, device, n=9)
 
 

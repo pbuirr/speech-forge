@@ -1,278 +1,172 @@
 {
-  "timestamp": "2026-07-13T05:36:51.537908+00:00",
+  "timestamp": "2026-07-17T05:11:54.978280+00:00",
   "src_lang": "es",
   "tgt_lang": "en",
-  "checkpoint": "data/models/nmt_es_en_avg.pt",
-  "test_split_file": "/Users/user/dev/linguaforge/data/splits/es_en_test_seed42.tsv",
-  "split_seed": 42,
-  "n_train": "unknown",
-  "n_test": 200,
+  "checkpoint": "data\\models\\nmt_es_en_v3.pt",
+  "n_train": 965298,
+  "n_test": 54700,
   "beam_size": 4,
-  "protect_entities": false,
-  "bleu": 27.7063,
-  "bleu_detail": {
-    "bleu": 27.7063,
-    "bp": 1.0,
-    "precisions": [
-      55.9914,
-      33.476,
-      21.7759,
-      14.4373
-    ],
-    "hyp_len": 3238,
-    "ref_len": 3023,
-    "n_sentences": 200
-  },
+  "bleu": 22.4494,
+  "bp": 1.0,
+  "precisions": [
+    47.7877,
+    27.717,
+    17.3235,
+    11.0693
+  ],
+  "hyp_len": 726848,
+  "ref_len": 648387,
+  "n_sentences": 54700,
   "samples": [
     {
-      "source": "me tomó varias horas pintar esa habitación.",
-      "reference": "it took me several hours to paint that room.",
-      "hypothesis": "it took me several hours to paint that room.",
-      "sentence_bleu": 100.0
+      "source": "ahora, lo mejor que puedes hacer, es dejar la casa y marcharte.",
+      "reference": "because no son of mine is a homosexual.",
+      "hypothesis": "the best you can donow, is to leave the house and leave you and leave",
+      "sentence_bleu": 8.23
     },
     {
-      "source": "los organismos de inversión colectiva constituyen, desde hace tiempo, el primer instrumento de ahorro, el instrumento a través del cual millones de ciudadanos individuales, no expertos, no profesionales, consagran o entregan los ahorros de su vida a estos organismos.",
-      "reference": "collective investment undertakings have for some time been the primary savings vehicle through which millions of ordinary citizens, without any specialist knowledge, have invested their life savings.",
-      "hypothesis": "collective investment bodies are, for years, the first saving, the instrument of savor, through which millions individual citizens, non-experts, do not experts, are consensuor delisavings of their lives to these organisms.",
-      "sentence_bleu": 10.05
+      "source": "el arte es la mentira que nos permite comprender la verdad.",
+      "reference": "art is the lie that enables us to realize the truth.",
+      "hypothesis": "art is the liart that allowus to understand the truth true truth",
+      "sentence_bleu": 22.24
     },
     {
-      "source": "trae a tu amigo.",
-      "reference": "bring along your friend.",
-      "hypothesis": "bring your friend to your friend.",
-      "sentence_bleu": 31.24
+      "source": "¿por qué dejaste que ocurriera?",
+      "reference": "why did you allow it to happen?",
+      "hypothesis": "why did you let it happenit? why did",
+      "sentence_bleu": 31.56
     },
     {
-      "source": "un amigo mío viene esta tarde.",
-      "reference": "a friend of mine is coming this evening.",
-      "hypothesis": "a friend of mine is coming this afterno",
-      "sentence_bleu": 86.33
+      "source": "señor presidente, señorías, las enmiendas del parlamento han mejorado claramente no solo la directiva inicial, que habíamos presentado al parlamento y al consejo, sino también la posición común y, muy especialmente, en este punto al que se refería el ponente, la microgeneración, una nueva y prometedora tecnología.",
+      "reference": "mr president, ladies and gentlemen, parliament’s amendments have clearly improved not just the initial directive, which we had presented to parliament and the council, but also the common position and, in particular, on this point which the rapporteur referred to, microgeneration, a new and promising technology.",
+      "hypothesis": "mr president, ladies and gentlemen, parliament's amendments have clearly improved not only the initidirective, which we presented to parliament and the council, but also the common position and, particularly in this point referred to by the rapporteur, microgeneration, a new and promistechnology technology.",
+      "sentence_bleu": 49.4
     },
     {
-      "source": "señor presidente, la disponibilidad de contenidos es uno de los factores esenciales para el desarrollo de nuevos servicios de la sociedad de la información, en concreto los servicios móviles de tercera generación y más allá.",
-      "reference": "mr president, availability of content is one of the essential factors for the development of new information society services, in particular third generation mobile services and beyond.",
-      "hypothesis": "mr president, the availability of content is one of the essential factors for the development of new information society services, in particular the mobile services of third generation and even further.",
-      "sentence_bleu": 67.74
+      "source": "tengo órdenes de dispararle a cualquiera que esté afuera tras el toque de queda.",
+      "reference": "the orders are that any person out after curfew may be shot on sight.",
+      "hypothesis": "i have orders to shooanyone who is outside the touch of left.",
+      "sentence_bleu": 9.73
     },
     {
-      "source": "¿cómo se dice \"adiós\" en alemán?",
-      "reference": "how do you say \"good bye\" in german?",
-      "hypothesis": "what is 'adamanis' in german? 'addi",
-      "sentence_bleu": 20.83
-    },
-    {
-      "source": "el informe refleja claramente lo profundos que son sus conocimientos acerca del tema.",
-      "reference": "the report clearly reflects his profound knowledge of the subject.",
-      "hypothesis": "the report clearly reflects the deep aspect that are its knowledge on the subject.",
-      "sentence_bleu": 29.26
-    },
-    {
-      "source": "créanme, señorías, que me molesta estar aquí delante y decir que no puedo aceptar la suma que proponen.",
-      "reference": "ladies and gentlemen, i am really embarrassed to have to stand here and say i cannot accept the figure you propose.",
-      "hypothesis": "believe me, ladies and gentlemen, to me mind that it bolies here and to say that i cannot accept the sum they are proposing.",
-      "sentence_bleu": 22.13
-    },
-    {
-      "source": "china todavía no es una democracia, ni tampoco respeta los derechos humanos, haciendo de la seguridad la responsabilidad principal de la onu, y tiene un papel vital que desempeñar en el mundo.",
-      "reference": "china is still not a democracy or a respecter of human rights, making security the main responsibility of the un and it has a vital role to play in the world.",
-      "hypothesis": "chinis not yet a democracy, nor does it respect human rights, making safety the main responsibility of the un, and has a vital role to play in the world.",
-      "sentence_bleu": 45.03
-    },
-    {
-      "source": "a nadie le gusta perder.",
-      "reference": "no one likes losing.",
-      "hypothesis": "no one likes to loslose. no",
-      "sentence_bleu": 41.11
-    },
-    {
-      "source": "lo mejor sería que los partidos se comprometieran, coincidiendo con la entrada en vigor del reglamento, a hacer públicos ellos mismos a través de internet todos los datos relativos a ingresos por donaciones.",
-      "reference": "it would be for the best if, when the regulation takes effect, the political parties themselves were to undertake to post on the internet all data relating to income from donations.",
-      "hypothesis": "the best parties are committed to agreeing with the entry into force of the regulation, to make public access to all data relating to income by donations.",
-      "sentence_bleu": 18.35
-    },
-    {
-      "source": "la publicidad sobre implantes mamarios en particular, y por supuesto de cualquier tipo de implantes, tiene que estar regulada.",
-      "reference": "breast implant advertising specifically - indeed implant advertising of any kind - should be regulated.",
-      "hypothesis": "advertising on breast implantants in particular and of course of any kind from implants, must be regulated. advertis",
-      "sentence_bleu": 16.2
-    },
-    {
-      "source": "tú sales el museo",
-      "reference": "you leave the museum",
-      "hypothesis": "you look at the museum seo",
-      "sentence_bleu": 31.24
-    },
-    {
-      "source": "él necesita pedir",
-      "reference": "he needs to ask for",
-      "hypothesis": "he needs to ask him",
-      "sentence_bleu": 75.98
-    },
-    {
-      "source": "tom estaba calvo.",
-      "reference": "tom was bald.",
-      "hypothesis": "tom was hot. tom was sil",
-      "sentence_bleu": 29.07
-    },
-    {
-      "source": "él llamó siempre",
-      "reference": "he called always",
-      "hypothesis": "he always called him he called",
-      "sentence_bleu": 31.24
-    },
-    {
-      "source": "preferiría salir que quedarme adentro.",
-      "reference": "i'd rather go out than stay indoors.",
-      "hypothesis": "i would prefer to go inside. i would rather",
-      "sentence_bleu": 15.62
-    },
-    {
-      "source": "pero también quería saber si la información era realmente cierta.",
-      "reference": "however, he was also keen to find out whether the accounts were true.",
-      "hypothesis": "but i also wanted to know whether the information was really true tru",
-      "sentence_bleu": 14.95
-    },
-    {
-      "source": "bancos, empresas, todos recuperan rápidamente los costes derivados de la conversión de moneda o son compensados.",
-      "reference": "banks and companies will all earn back the costs incurred during the currency conversion, or they will receive compensation.",
-      "hypothesis": "businesses, businesses, they all recovery quickly the costs arising from convertion of currency or are compensated for companies,",
-      "sentence_bleu": 10.48
-    },
-    {
-      "source": "– señor presidente, señor comisario, señorías, quiero comenzar dando las gracias al sr. rocard, que ahora se encuentra ausente, por plantear esta cuestión en la sesión plenaria del parlamento europeo.",
-      "reference": "– mr president, commissioner, ladies and gentlemen, i would like to begin by thanking mr rocard, who is now absent, for raising this issue in the plenary of the european parliament.",
-      "hypothesis": "mr president, commissioner, ladies and gentlemen, i would like to begin by thanking mr rocard, who is now abuse, for this matter at the plenary session of the european parliament.",
-      "sentence_bleu": 68.67
-    },
-    {
-      "source": "es tarde. debe ir a casa.",
-      "reference": "it's late. you have to go home.",
-      "hypothesis": "it must go home. this is afterno",
-      "sentence_bleu": 24.45
-    },
-    {
-      "source": "en cuanto a las supuestas fuerzas de mantenimiento de la paz, como las de la comunidad económica del áfrica occidental (cedeao), los precedentes de sierra leona y de liberia demuestran que, en general, no hacen más que añadir otra banda armada a las que ya se enfrentan de espaldas a la población.",
-      "reference": "as for what are claimed to be peacekeeping forces, for example those of ecowas, previous experience in sierra leone and liberia has demonstrated that, in general, they did nothing other than add one more armed gang to those that are already preying on the population.",
-      "hypothesis": "with regard to the supposed forces of maintenance peace, such as those of the economic community in western africa, the precedent of sierleona and liberia show that, in general, they do nothing more than add another armed bandon which they are already facing back to the population.",
-      "sentence_bleu": 12.63
-    },
-    {
-      "source": "¿quién sos vos para hablarme así?",
-      "reference": "who are you to talk to me like that?",
-      "hypothesis": "who are you coming to talk like this, are you",
-      "sentence_bleu": 29.0
-    },
-    {
-      "source": "señorías, hemos aprobado, y el jueves vamos a aprobar en el pleno, 100 millones de ayuda humanitaria para ese país.",
-      "reference": "ladies and gentlemen, we have approved, and on thursday we are going to approve in plenary session, eur 100 million in humanitarian aid for that country.",
-      "hypothesis": "ladies and gentlemen, we voted on thursday we will be able to approve in plenary, 100 million humanitarian aid for that country.",
-      "sentence_bleu": 36.12
-    },
-    {
-      "source": "no me quiero acostar.",
-      "reference": "i don't want to go to bed.",
-      "hypothesis": "i don't want to go to har",
-      "sentence_bleu": 84.09
-    },
-    {
-      "source": "tocaste justamente el tema que yo quería discutir.",
-      "reference": "you just touched on the topic i would like to discuss.",
-      "hypothesis": "it was precisely the issue i wanted to discuss the issue that i wanted",
-      "sentence_bleu": 10.51
-    },
-    {
-      "source": "asimismo era muy esperado, porque la calidad de los servicios, a causa sobre todo de la competencia desenfrenada de las compañías, todavía suscita numerosas críticas.",
-      "reference": "it is very much awaited too, as the fierce competition between companies means the quality of services is still, it has to be said, a cause for considerable criticism.",
-      "hypothesis": "it was also very hope, because the quality of services, above all, mainly unconfronted competence of the companies, it still gives rise to many criticism.",
-      "sentence_bleu": 9.69
-    },
-    {
-      "source": "ella diseñó en el aeropuerto",
-      "reference": "she designed at the airport",
-      "hypothesis": "she designed at the airport she designed",
-      "sentence_bleu": 68.04
-    },
-    {
-      "source": "¿por qué no cenas conmigo esta noche?",
-      "reference": "why don't you have dinner with me tonight?",
-      "hypothesis": "why don't you have dinwith me tonnight? nigh",
-      "sentence_bleu": 46.71
-    },
-    {
-      "source": "en mi opinión, los conflictos en todo el mundo tendrían que resolverse con medios diplomáticos, en particular en el marco de las naciones unidas.",
-      "reference": "in my opinion, conflicts throughout the world should be settled through diplomatic means, within the framework of the united nations in particular.",
-      "hypothesis": "in my opinion, conflicts throughout the world would have to be resolved with diplomatic means, particularly within the framework of the united nations.",
-      "sentence_bleu": 51.31
-    },
-    {
-      "source": "¿estás libre esta noche?",
-      "reference": "are you free tonight?",
-      "hypothesis": "are you free tonnighevennigh",
-      "sentence_bleu": 66.87
-    },
-    {
-      "source": "necesitamos el desarrollo de un proceso medioambiental y, especialmente, necesitamos un proceso social que se integre como una parte importante en el proceso global iniciado a partir de la cumbre de lisboa.",
-      "reference": "we need an environmental process and, especially, we also need a social process as an important part of the total process which was developed from the lisbon summit.",
-      "hypothesis": "we need the development of an environmental process and, especially we need a social process integrated as an important part of the global process initiated from the lisbon summit.",
-      "sentence_bleu": 45.56
-    },
-    {
-      "source": "las perspectivas desde las cuales se llevó a cabo tal investigación incluyeron claramente la de los derechos de los ciudadanos.",
-      "reference": "the perspectives from which the inquiry was conducted clearly included that of citizens' rights.",
-      "hypothesis": "the prospect since this investigation was carried out clearly included in the rights of citizens' rights of rights, which were clearly",
-      "sentence_bleu": 11.14
-    },
-    {
-      "source": "el señor smith ha venido.",
-      "reference": "mr. smith came.",
-      "hypothesis": "mr smith has come by mr smith",
+      "source": "nunca he estado en st. louis.",
+      "reference": "i look forward to this, mr. head.",
+      "hypothesis": "i've never been to st. louis. louis,",
       "sentence_bleu": 18.58
     },
     {
-      "source": "los estados miembros ya han tomado una decisión.",
-      "reference": "the member states have now decided.",
-      "hypothesis": "the member states have already made a decision made by the",
-      "sentence_bleu": 31.7
+      "source": "bueno, pero llegará.",
+      "reference": "all right, but at least he's coming.",
+      "hypothesis": "well, but it will come",
+      "sentence_bleu": 18.3
     },
     {
-      "source": "me gustaría una habitación con una buena vista.",
-      "reference": "i'd like a room with a good view.",
-      "hypothesis": "i would like a room with a good sight.",
-      "sentence_bleu": 63.89
+      "source": "tom no podía entender por qué no le gustaba a mary.",
+      "reference": "tom couldn't understand why mary didn't like him.",
+      "hypothesis": "tom couldn't understand why he didn't like mary why mary didn't like mary.",
+      "sentence_bleu": 43.24
     },
     {
-      "source": "las señales positivas recibidas del consejo también en cuanto a los aspectos relativos a la protección de los datos son muy satisfactorias.",
-      "reference": "it is most encouraging to receive favourable indications from the council, including in data protection matters.",
-      "hypothesis": "the positive signs received from the council also as regards data protection aspects of data protection are very satisfactory.",
-      "sentence_bleu": 10.66
+      "source": "la promesa que te hice la semana pasada todavía vale.",
+      "reference": "the promise i made to you last week still holds true.",
+      "hypothesis": "the promise i made to you last week is still worth last week.",
+      "sentence_bleu": 61.15
     },
     {
-      "source": "tampoco sé si lo que dice es cierto.",
-      "reference": "nor do i know if what it says is true.",
-      "hypothesis": "i do not know whether what he says is true.",
-      "sentence_bleu": 27.9
+      "source": "todo es culpa de pepito.",
+      "reference": "it's all pepito's fault.",
+      "hypothesis": "it's all the peppepplfa",
+      "sentence_bleu": 47.29
     },
     {
-      "source": "la realidad es que se trata de transferencias de los estados miembros y ese es precisamente el argumento utilizado por los estados miembros a la hora de discutir las posiciones de los contribuyentes netos.",
-      "reference": "the fact is that they are transfers from the member states, and that is precisely the argument used by the member states when the positions of net contributors are under discussion.",
-      "hypothesis": "the reality is that it is about transfers of member states and that is precisely the argument used by member states in dealing with the positions of net taxpayers.",
-      "sentence_bleu": 37.08
+      "source": "la revisión constituye una oportunidad no sólo de rectificar las deficiencias sino también de mantener disposiciones cruciales que son útiles y necesarias para la supervivencia de las frágiles comunidades que dependen de la pesca en europa.",
+      "reference": "the review is an opportunity not only rectify shortcomings but also to preserve crucial provisions which are worthwhile and necessary for the survival of europe's fragile fisheries-dependent communities.",
+      "hypothesis": "the revision is an opportunity not only to rectithe deficiencies but also to maintain crucial provisions which are useful and necessary for survival of fragile communicommunities that depend on fishing in europe in europe.",
+      "sentence_bleu": 28.53
     },
     {
-      "source": "la directiva facilitará la solución de estos problemas, pero son los estados miembros en su legislación nacional los que finalmente deben conseguir que la mujer pueda trabajar plenamente sin que por ello su vida personal y familiar se llene de problemas.",
-      "reference": "the directive will help solve these problems, but it is the member states, through their national legislation, which ultimately need to ensure that women can work full-time without their personal or family lives being badly affected as a result.",
-      "hypothesis": "the directive will make a solution to these problems, but it is the member states in their national legislation that finally must get women to work fully without hence their personal life and family life fille with problems.",
-      "sentence_bleu": 24.93
+      "source": "- ¡hazlo funcionar así!",
+      "reference": "-make it work like that!",
+      "hypothesis": "- do it work like that! - do it!",
+      "sentence_bleu": 39.28
+    },
+    {
+      "source": "ahora podrás administrar el puesto de salchichas de snidely whiplash",
+      "reference": "now you can manage the snidely whiplash slaw-dogs stand.",
+      "hypothesis": "you will now be able to administrthe sndelly whiplash's snidely wh",
+      "sentence_bleu": 13.55
+    },
+    {
+      "source": "hola damas, y hilda",
+      "reference": "hello ladies, and hilda.",
+      "hypothesis": "helllame, and hdhld",
+      "sentence_bleu": 27.22
+    },
+    {
+      "source": "recibí una propuesta del grupo del partido de los socialistas europeos y de los verdes para añadir un nuevo punto \"observatorio europeo contra el racismo y la xenofobia\".",
+      "reference": "i have received a request from the group of the party of european socialists and the group of the greens/european free alliance to add a new item on the \"european monitoring centre on racism and xenophobia\" .",
+      "hypothesis": "i received a proposal from the group of the party of european socialists and the greens to add a new european monitoring point on racism and xenophobia\". \" i was received a group of",
+      "sentence_bleu": 42.53
+    },
+    {
+      "source": "¿qué quieres que me ponga?",
+      "reference": "what do you want me to wear?",
+      "hypothesis": "what do you want me to put me?",
+      "sentence_bleu": 72.6
+    },
+    {
+      "source": "- su marido aún duerme.",
+      "reference": "- he's still sleeping.",
+      "hypothesis": "- her husband still slehaving a sle",
+      "sentence_bleu": 20.56
+    },
+    {
+      "source": "eso es todo, willis.",
+      "reference": "that's it, willis.",
+      "hypothesis": "that is all, all the willis",
+      "sentence_bleu": 18.58
+    },
+    {
+      "source": "hemos sido económicos.",
+      "reference": "we have been economical.",
+      "hypothesis": "we have been economeconomic",
+      "sentence_bleu": 66.87
+    },
+    {
+      "source": "la cuestión merecía estudio.",
+      "reference": "the question deserved study.",
+      "hypothesis": "i studied the matter deserstudied the matter.",
+      "sentence_bleu": 18.58
+    },
+    {
+      "source": "me llevé tu paraguas por error.",
+      "reference": "i took your umbrella by mistake.",
+      "hypothesis": "i took your umbumbrella by",
+      "sentence_bleu": 43.99
+    },
+    {
+      "source": "llamen a sus familias, encuentren una bolsa de dormir... porque nadie se va hasta que encontremos una pista a seguir.",
+      "reference": "call your families, find a sleeping bag, because nobody is leaving until we find a strand to pull on.",
+      "hypothesis": "they call their families, they find a bag of sleep..because no one goes until we find a gusta to go aside...",
+      "sentence_bleu": 20.33
+    },
+    {
+      "source": "ninguno de los dos somos tan ricos como querríamos.",
+      "reference": "we're both not as rich as we wish we were.",
+      "hypothesis": "none of us are as riceither of us as ricwe would like we would want",
+      "sentence_bleu": 9.78
+    },
+    {
+      "source": "lo dices así...",
+      "reference": "that's quite easy to say...",
+      "hypothesis": "you say that...... you",
+      "sentence_bleu": 23.53
+    },
+    {
+      "source": "- más te vale.",
+      "reference": "i will be back for the wedding.",
+      "hypothesis": "- you better be worth better",
+      "sentence_bleu": 18.7
     }
-  ],
-  "meta": {
-    "direction": "es→en",
-    "epoch": 125,
-    "averaged_from": [
-      "data/models/nmt_es_en_ep75.pt",
-      "data/models/nmt_es_en_ep100.pt",
-      "data/models/nmt_es_en_ep125.pt"
-    ],
-    "n_averaged": 3
-  }
+  ]
 }

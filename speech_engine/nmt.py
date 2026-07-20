@@ -419,11 +419,13 @@ class Seq2SeqNMT(nn.Module):
         max_len: int = 100,
         bos_id: int = BOS_ID,
         eos_id: int = EOS_ID,
+        word_penalty: float = 0.0,
+        coverage_penalty: float = 0.0,
     ) -> list[int]:
         """Translate, using greedy (beam_size=1) or beam search (beam_size>1)."""
         if beam_size <= 1:
             return self.translate_greedy(src_ids, max_len=max_len, bos_id=bos_id, eos_id=eos_id)
-        return self.translate_beam(src_ids, beam_size=beam_size, max_len=max_len, bos_id=bos_id, eos_id=eos_id)
+        return self.translate_beam(src_ids, beam_size=beam_size, max_len=max_len, bos_id=bos_id, 	eos_id=eos_id,word_penalty=word_penalty, coverage_penalty=coverage_penalty)
 
     @torch.no_grad()
     def translate_with_attention(

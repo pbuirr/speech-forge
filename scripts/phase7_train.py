@@ -26,6 +26,7 @@ import time
 from pathlib import Path
 
 import torch
+from torch.cuda.amp import autocast, GradScaler
 import torch.nn as nn
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -271,6 +272,7 @@ def train(
          {"params": no_decay_params, "weight_decay": 0.0}],
         lr=lr, betas=(0.9, 0.98), eps=1e-9,
     )
+    scaler = GradScaler()
 
     total_steps  = epochs * math.ceil(len(data) / batch_size)
     warmup_steps = max(1, total_steps // 10)
@@ -323,15 +325,17 @@ def train(
                 src_tensor = src_tensor.to(device)
                 tgt_in     = tgt_in.to(device)
                 tgt_out    = tgt_out.to(device)
-
-                logits = model(src_tensor, tgt_in)
-                n_micro = math.ceil(len(batch) / micro_size)
-                loss   = nmt_loss(logits, tgt_out, pad_id=0) / n_micro
-                loss.backward()
+                with autocast():
+                    logits = model(src_tensor, tgt_in)
+                    n_micro = math.ceil(len(batch) / micro_size)
+                    loss   = nmt_loss(logits, tgt_out, pad_id=0) / n_micro
+                scaler.scale(loss).backward()
                 accum_loss += loss.item()
 
+            scaler.unscale_(optimizer)
             nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-            optimizer.step()
+            scaler.step(optimizer)
+            scaler.update()
             scheduler.step()
 
             total_loss += accum_loss
@@ -385,6 +389,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--batch",     type=int, default=128)
     p.add_argument("--lr",        type=float, default=5e-4)
     p.add_argument("--beam",      type=int, default=4)
+    p.add_argument("--word_penalty",     type=float, default=0.0, help="Beam search word penalty (negative = prefer shorter)")
+    p.add_argument("--coverage_penalty", type=float, default=0.0, help="Beam search coverage penalty (0.1-0.4 typical)")	
     p.add_argument("--d_model",   type=int, default=256)
     p.add_argument("--n_layers",  type=int, default=3)
     p.add_argument("--d_ff",      type=int, default=512)
@@ -405,8 +411,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    # ── Device selection: MPS (Apple Silicon GPU) > CPU ──────────────────────
-    if not args.no_mps and torch.backends.mps.is_available():
+    # ── Device selection: CUDA (NVIDIA GPU) > MPS (Apple Silicon GPU) > CPU ──
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+        print(f"Using CUDA ({torch.cuda.get_device_name(0)})")
+    elif not args.no_mps and torch.backends.mps.is_available():
         device = torch.device("mps")
         print("Using MPS (Apple Silicon GPU)")
     else:
@@ -430,7 +439,7 @@ def main() -> None:
         model = model.to(device)
         src_ids = sv.encode(args.translate.lower())
         src_t   = torch.tensor([src_ids], device=device)
-        out     = model.translate(src_t, beam_size=args.beam)
+        out     = model.translate(src_t, beam_size=args.beam, word_penalty=args.word_penalty, 	coverage_penalty=args.coverage_penalty)
         print(f"→ {tv.decode(out)}")
         return
 
@@ -450,7 +459,8 @@ def main() -> None:
     # Only use training split — test set must never enter the training pipeline.
     curated = load_corpus(CORPUS_PATH)
     curated_train = [p for p in curated if p in train_raw_set]
-    generated_extra = [p for p in train_raw if p not in set(curated_train)]
+    curated_train_set = set(curated_train)
+    generated_extra = [p for p in train_raw if p not in curated_train_set]
     max_extra = max(0, args.max_pairs - 2 * len(curated_train))
     if len(generated_extra) > max_extra:
         random.shuffle(generated_extra)
