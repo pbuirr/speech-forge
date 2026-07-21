@@ -195,23 +195,43 @@ def normalize_es_input(text: str) -> PrepResult:
 # ── Post-processing ────────────────────────────────────────────────────────────
 
 def postprocess_en_output(text: str) -> str:
-    """
-    Clean up raw decoder output for display:
-    - Capitalize first letter
-    - Remove adjacent duplicate words (already done in server, kept here for pipeline use)
-    - Trim whitespace
-    """
+    """Clean up raw BPE decoder output for display."""
     text = text.strip()
     if not text:
         return text
-    # Deduplicate adjacent words
+
+    # 1. Remove adjacent duplicate words ("the the cat" → "the cat")
     words = text.split()
-    deduped = [words[0]]
+    deduped: list[str] = [words[0]]
     for w in words[1:]:
-        if w != deduped[-1]:
+        if w.lower() != deduped[-1].lower():
             deduped.append(w)
     text = " ".join(deduped)
-    # Capitalize
+
+    # 2. Fix punctuation spacing — no space before . , ! ? ; : )
+    text = re.sub(r'\s+([.,!?;:\)])', r'\1', text)
+    # Space after opening paren if missing
+    text = re.sub(r'\(\s*', '(', text)
+
+    # 3. Standalone "i" → "I"
+    text = re.sub(r'(?<![a-zA-Z])i(?![a-zA-Z])', 'I', text)
+
+    # 4. Strip obvious BPE truncation artifacts at end — trailing incomplete
+    #    subword tokens are usually 1-3 chars with no vowel or all consonants.
+    words = text.split()
+    if len(words) > 1:
+        last = words[-1].rstrip('.,!?')
+        if len(last) <= 3 and last.isalpha() and not re.search(r'[aeiou]', last, re.I):
+            words = words[:-1]
+            text = " ".join(words)
+
+    # 5. Ensure sentence ends with punctuation
+    if text and text[-1] not in '.!?':
+        # Only add a period for sentence-length output (3+ words)
+        if len(text.split()) >= 3:
+            text += '.'
+
+    # 6. Capitalize first letter
     return text[0].upper() + text[1:] if text else text
 
 

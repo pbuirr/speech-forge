@@ -58,6 +58,12 @@ _CURATED: dict[str, Path] = {
     "es→en": PROJECT_ROOT / "data" / "corpora" / "es_en.tsv",
 }
 
+# Multilingual model covers ES/FR/DE → EN with language-token conditioning.
+# Falls back to monolingual checkpoints if the multilingual one is absent.
+MULTILINGUAL_CHECKPOINT = PROJECT_ROOT / "data" / "models" / "nmt_multilingual_16k_ep100.pt"
+MULTILINGUAL_LANGS = {"es", "fr", "de"}
+LANG_TOKENS = {"es": "<ES>", "fr": "<FR>", "de": "<DE>"}
+
 NMT_CHECKPOINTS = {
     "es→en": PROJECT_ROOT / "data" / "models" / "nmt_es_en.pt",
     "fr→en": PROJECT_ROOT / "data" / "models" / "nmt_fr_en.pt",
@@ -78,9 +84,6 @@ def _get_fallback(direction: str):
     """Return (or build) the IBM Model 1 fallback for a language pair."""
     if direction not in _lex_cache:
         src, tgt = direction.split("→")
-        # Combine all available corpora: large real corpus + curated pairs
-        # IBM Model 1 is trained on the merged set so curated pairs anchor
-        # rare/specific forms that would drown in the noisy real corpus alone.
         corpora = []
         real = CORPUS_PATHS.get(direction)
         if real and real.exists():
@@ -93,18 +96,34 @@ def _get_fallback(direction: str):
         )
     return _lex_cache[direction]
 
+
 # NMT models — loaded lazily on first /api/translate call.
-_nmt_cache: dict[str, tuple] = {}  # direction → (model, src_vocab, tgt_vocab)
+# _nmt_cache["__multi__"] holds the shared multilingual model.
+_nmt_cache: dict[str, tuple] = {}
 
 
 def _get_nmt(direction: str):
-    if direction not in _nmt_cache:
-        ckpt_path = NMT_CHECKPOINTS.get(direction)
-        if ckpt_path is None or not ckpt_path.exists():
-            return None
-        model, src_vocab, tgt_vocab, _ = load_checkpoint(ckpt_path)
-        _nmt_cache[direction] = (model, src_vocab, tgt_vocab)
-    return _nmt_cache.get(direction)
+    """Return (model, src_vocab, tgt_vocab) for the given direction.
+
+    Prefers the multilingual 16k model for ES/FR/DE → EN when available.
+    Falls back to per-language monolingual checkpoints, then returns None.
+    """
+    src_lang = direction.split("→")[0]
+    use_multi = src_lang in MULTILINGUAL_LANGS and MULTILINGUAL_CHECKPOINT.exists()
+
+    cache_key = "__multi__" if use_multi else direction
+    if cache_key not in _nmt_cache:
+        if use_multi:
+            model, src_vocab, tgt_vocab, _ = load_checkpoint(MULTILINGUAL_CHECKPOINT)
+            _nmt_cache[cache_key] = (model, src_vocab, tgt_vocab)
+        else:
+            ckpt_path = NMT_CHECKPOINTS.get(direction)
+            if ckpt_path is None or not ckpt_path.exists():
+                return None
+            model, src_vocab, tgt_vocab, _ = load_checkpoint(ckpt_path)
+            _nmt_cache[cache_key] = (model, src_vocab, tgt_vocab)
+
+    return _nmt_cache.get(cache_key)
 
 
 def _load_deck() -> FlashcardDeck:
@@ -409,21 +428,24 @@ def _translate(self: Handler, data: dict) -> None:
 
     result = _get_nmt(direction)
     if result is None:
-        available = [d for d, p in NMT_CHECKPOINTS.items() if p.exists()]
+        multi_note = " (multilingual model not found)" if MULTILINGUAL_CHECKPOINT.exists() is False else ""
+        available = (
+            [f"{l}→en" for l in MULTILINGUAL_LANGS] if MULTILINGUAL_CHECKPOINT.exists()
+            else [d for d, p in NMT_CHECKPOINTS.items() if p.exists()]
+        )
         return self._send_json({
             "error": (
-                f"No trained model for {direction!r}. "
-                f"Run: .venv/bin/python3 scripts/phase7_train.py  to train one. "
+                f"No trained model for {direction!r}{multi_note}. "
                 f"Available: {available or 'none yet'}"
             )
         }, 404)
 
     model, src_vocab, tgt_vocab = result
     device = next(model.parameters()).device
+    src_lang = direction.split("→")[0]
+    is_multi = src_lang in MULTILINGUAL_LANGS and MULTILINGUAL_CHECKPOINT.exists()
 
     # ── Linguistic preprocessing ─────────────────────────────────────────────
-    # Normalize OOV constructs before BPE encoding so the model sees
-    # known tokens instead of UNK. E.g. "$20" → "20 dólares".
     if direction == "es→en":
         prep = normalize_es_input(text)
         normalized_text = prep.normalized
@@ -431,9 +453,20 @@ def _translate(self: Handler, data: dict) -> None:
         prep = None
         normalized_text = text
 
-    src_ids = src_vocab.encode(normalized_text.lower())
-    if not src_ids:
+    bpe_ids = src_vocab.encode(normalized_text.lower(), add_bos=True, add_eos=True)
+    if not bpe_ids:
         return self._send_json({"translation": ""})
+
+    # Multilingual: prepend language token before BOS so encoder sees it first
+    if is_multi:
+        lang_tok = LANG_TOKENS[src_lang]
+        lang_id  = src_vocab._token_to_id.get(lang_tok)
+        if lang_id is not None:
+            src_ids = [lang_id] + bpe_ids
+        else:
+            src_ids = bpe_ids
+    else:
+        src_ids = bpe_ids
 
     src_tensor = torch.tensor([src_ids], dtype=torch.long, device=device)
 
@@ -445,8 +478,9 @@ def _translate(self: Handler, data: dict) -> None:
 
     translation = tgt_vocab.decode(out_ids)
 
-    # Source tokens (BPE pieces, for the heatmap axis labels)
-    src_tokens = [src_vocab._id_to_token.get(i, "?") for i in src_ids]
+    # Source tokens for the heatmap — skip the leading language token if present
+    src_ids_for_labels = src_ids[1:] if is_multi else src_ids
+    src_tokens = [src_vocab._id_to_token.get(i, "?") for i in src_ids_for_labels]
     # Target tokens aligned with the attention rows
     tgt_tokens = [tgt_vocab._id_to_token.get(i, "?") for i in out_ids]
 
