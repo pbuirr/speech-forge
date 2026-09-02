@@ -1,0 +1,455 @@
+{
+  "timestamp": "2026-07-21T19:56:52.321631+00:00",
+  "checkpoint": "/Users/user/dev/linguaforge/data/models/nmt_multilingual_16k_ep100.pt",
+  "beam_size": 4,
+  "n_per_lang": 500,
+  "combined_bleu": 29.8693,
+  "languages": {
+    "es": {
+      "lang": "es",
+      "n_pairs": 500,
+      "elapsed_s": 574.6,
+      "bleu": 31.5538,
+      "bp": 0.9717,
+      "precisions": [
+        62.399,
+        39.1592,
+        26.0987,
+        17.4393
+      ],
+      "hyp_len": 7303,
+      "ref_len": 7513,
+      "n_sentences": 500,
+      "samples": [
+        {
+          "source": "ayer hablamos con un ciudadano europeo orgulloso de serlo, el sr. blix, que nos pidió que europa tenga una posición más activa y además nos explicó, aunque no lo pidió, que si la inspección pudiera proseguir durante dos meses más, como ha propuesto mohammed el baradei, que es el experto egipcio, se podrían obtener frutos.",
+          "reference": "yesterday we spoke with a european citizen who was proud to be one, dr blix, who asked europe to take a more active position and who also explained to us, although he did not ask for it, that if the inspections could continue for two more months, as proposed by mohammed elbaradei, the egyptian expert, results could be achieved.",
+          "hypothesis": "yesterday we spoke with a proud european citizen, mr blix, who asked us to have a more active position and also explained to us, although the inspection did not ask us to continue for two months, as mohammed baradei, which is the egyptian expert.",
+          "sentence_bleu": 26.3
+        },
+        {
+          "source": "desde que se publicó la comunicación, el presidente jatamí ha sido confirmado en su cargo por una mayoría de tres cuartos y los ataques terroristas en estados unidos han concentrado la atención sobre la zona inmediatamente contigua a irán. irán ha condenado de manera inequívoca estos actos terroristas.",
+          "reference": "since the communication was published, president khatami has been confirmed in office by a seventy-five per cent majority, and the world's attention has been focused on iran's immediate neighbours by the terrorist attacks in the usa, which iran has unambiguously condemned.",
+          "hypothesis": "since the communication was published by president jatami has been confirmed by a majority of three quarters and the terrorists in the united states have concentrated the attention of the area immediately with iran, they will have condemned these terrorist acts.",
+          "sentence_bleu": 15.02
+        },
+        {
+          "source": "¿tenemos un problema?",
+          "reference": "do we have a problem?",
+          "hypothesis": "do we have a problem?",
+          "sentence_bleu": 100.0
+        },
+        {
+          "source": "el párrafo 18 quiere \"favorecer la continuidad del proceso de apertura del mercado en la ue\" y el párrafo 42 considera que \"es esencial culminar la liberalización de los mercados energéticos\".",
+          "reference": "paragraph 18 wants to \"promote further market opening in the eu\" and paragraph 42 considers that \"it is essential to complete the liberalisation of energy markets' ' .",
+          "hypothesis": "paragraph 18 wants 'favouring the continuity of the market opening process in the eu' and paragraph 42 believes that 'it is essential to culminate the liberalisation of energy market'.",
+          "sentence_bleu": 25.4
+        },
+        {
+          "source": "sin embargo, en esta ocasión los ponentes han trabajado muy bien para asegurar que se acepten las prioridades de las comisiones, los diferentes grupos políticos y los que tienen intereses externos que han presionado eficazmente.",
+          "reference": "however, on this occasion the rapporteurs have worked extremely well to ensure that the priorities of the committees, the different political groups and those with outside interests who have lobbied effectively are taken on board.",
+          "hypothesis": "however, on this occasion, the rapporteur has worked very well to ensure that the priorities of the commission, different political groups and those who have had an effective pressure on our own foreign interests.",
+          "sentence_bleu": 37.86
+        },
+        {
+          "source": "hace diez años desde que murió.",
+          "reference": "it has been ten years since he died.",
+          "hypothesis": "ten years since he died.",
+          "sentence_bleu": 54.88
+        },
+        {
+          "source": "creo que este parlamento europeo tiene que estar orgulloso de que se hayan escuchado y considerado todas las opiniones.",
+          "reference": "i think that this european parliament should be proud that every point of view has been heard and every point of view considered.",
+          "hypothesis": "i believe that this european parliament must be proud of hearing and considered all the opinions.",
+          "sentence_bleu": 17.38
+        },
+        {
+          "source": "precisamente por eso es por lo que la comisión ha pedido y obtenido la autorización del consejo para entablar negociaciones con los seis terceros países que se mencionan en las conclusiones del consejo europeo de faro.",
+          "reference": "this is exactly why the commission asked for and obtained authorisation from the council to enter into negotiations with the six third countries mentioned in the faro european council conclusions.",
+          "hypothesis": "that is precisely why the commission has asked and obtained the council authorisation to bring about negotiations with the six third countries mentioned in the conclusion of the faro european council.",
+          "sentence_bleu": 40.9
+        },
+        {
+          "source": "la pareja transformó la química en una ciencia moderna.",
+          "reference": "the couple transformed chemistry into a modern science.",
+          "hypothesis": "the couple turned chemical into a modern science.",
+          "sentence_bleu": 51.33
+        },
+        {
+          "source": "debemos apelar a la opinión pública respecto al asunto.",
+          "reference": "we must appeal to public opinion about the matter.",
+          "hypothesis": "we must call on public opinion on the matter.",
+          "sentence_bleu": 27.3
+        },
+        {
+          "source": "la comisión ha sido, con mucho, demasiado dubitativa en la ejecución.",
+          "reference": "the commission has been far too tentative in enforcement.",
+          "hypothesis": "the commission has been far too dubious in execution.",
+          "sentence_bleu": 66.06
+        },
+        {
+          "source": "no me toques con tus manos enjabonadas.",
+          "reference": "don't touch me with your soapy hands.",
+          "hypothesis": "don't touch me with your angry hands.",
+          "sentence_bleu": 70.71
+        },
+        {
+          "source": "se trata de un asunto urgente.",
+          "reference": "it is a matter of urgency.",
+          "hypothesis": "this is an urgent matter.",
+          "sentence_bleu": 22.35
+        },
+        {
+          "source": "reduzcamos drásticamente las 85 000 páginas de la legislación de la ue.",
+          "reference": "let us cut eu law down drastically from its 85 000 pages.",
+          "hypothesis": "we drastically reduce the 85 000 pages of eu legislation.",
+          "sentence_bleu": 15.43
+        },
+        {
+          "source": "su bicicleta es mejor que la mía.",
+          "reference": "your bike is better than mine.",
+          "hypothesis": "his bicycle is better than mine.",
+          "sentence_bleu": 61.48
+        },
+        {
+          "source": "no obstante, tengo que ser absolutamente crítica con dos de ellas.",
+          "reference": "however, i must be absolutely critical in relation to two of them.",
+          "hypothesis": "however, i must be absolutely critical of two of them.",
+          "sentence_bleu": 57.45
+        },
+        {
+          "source": "por tanto, podían escucharse dos personas favorables a ella y, por razones de equilibrio, ahora voy a ceder la palabra al sr. lannoye, que va a intervenir, según me parece, en contra.",
+          "reference": "therefore, we were permitted to hear two speakers who are in favour and, in order to be fair, i shall now give the floor to mr lannoye, who i believe is going to speak against.",
+          "hypothesis": "they could therefore listen to two people in favour of it and, for the reasons of balance, i shall now give the floor to mr lannoye, who will intervene, in my view, against it.",
+          "sentence_bleu": 31.24
+        },
+        {
+          "source": "el apartado 2 del artículo 3 establecerá lo siguiente: «la unión ofrecerá a sus ciudadanos un espacio de libertad, seguridad y justicia sin fronteras interiores y un mercado único en el que la competencia sea libre y no esté falseada».",
+          "reference": "article 3(2) will read: 'the union shall offer its citizens an area of freedom, security and justice without internal frontiers, and an internal market where competition is free and undistorted'.",
+          "hypothesis": "paragraph 2 of article 3 will be the following: 'the union will offer its citizens a area of freedom, security and justice without internal borders and a single market in which competition is free and is not falsed'.",
+          "sentence_bleu": 32.33
+        },
+        {
+          "source": "¿te lo puedes imaginar?",
+          "reference": "can you imagine?",
+          "hypothesis": "can you imagine it?",
+          "sentence_bleu": 47.29
+        },
+        {
+          "source": "este té está bueno.",
+          "reference": "this tea tastes good.",
+          "hypothesis": "this tea is good.",
+          "sentence_bleu": 50.81
+        }
+      ]
+    },
+    "fr": {
+      "lang": "fr",
+      "n_pairs": 500,
+      "elapsed_s": 418.6,
+      "bleu": 29.3062,
+      "bp": 0.9653,
+      "precisions": [
+        59.9564,
+        36.6828,
+        24.1124,
+        16.0185
+      ],
+      "hyp_len": 7337,
+      "ref_len": 7596,
+      "n_sentences": 500,
+      "samples": [
+        {
+          "source": "sur ce point, le parlement européen et le conseil se sont l'un et l'autre engagés à trouver une solution avant la clôture de la procédure budgétaire.",
+          "reference": "in this area, both the european parliament and the council have undertaken to find a solution before the close of the budget procedure.",
+          "hypothesis": "on this point, the european parliament and the council have one and the other committed to finding a solution before the conclusion of the budgetary procedure.",
+          "sentence_bleu": 38.21
+        },
+        {
+          "source": "la proposition du conseil vise à étendre les délits pour lesquels la surveillance transfrontalière est possible aux fraudes organisées, aux délits dans le cadre des filières d'immigration clandestine, au blanchiment d'argent de la criminalité organisée et au trafic de substances radioactives.",
+          "reference": "the council proposal is intended to extend the range of offences liable to cross-border surveillance by adding to them organised fraud, offences in connection with the trafficking in human beings, the laundering of proceeds from organised crime and dealing in radioactive materials.",
+          "hypothesis": "the council proposal seeks to reduce the offences for which transborder monitoring is possible for organisations, offences within the framework of illegal immigration fires, to laundering the money of the criminal crime and radioactive products.",
+          "sentence_bleu": 8.23
+        },
+        {
+          "source": "accepterons-nous d'affirmer que la dignité peut varier selon l'âge, la capacité, la santé ou le mode de création de l'embryon.",
+          "reference": "are we to accept the view that dignity may vary according to age, ability, health, or the manner in which an embryo is created?",
+          "hypothesis": "we shall accept that dignity can varie, according to the age, capability, health or the fashion of the strategy.",
+          "sentence_bleu": 10.72
+        },
+        {
+          "source": "il faudra d'abord élucider le mensonge que je qualifierai de mensonge du siècle, à savoir que l'irak posséderait des armes de destruction massive susceptibles de menacer la sécurité du monde.",
+          "reference": "we must first expose the falsehood, which i would call the falsehood of the century, the claim that iraq possesses weapons of mass destruction that could threaten global security.",
+          "hypothesis": "first of all, i will have to choose the lie that i will describe from the century, that is that iraq would have weapons of mass destruction, which could threaten the safety of the world.",
+          "sentence_bleu": 11.71
+        },
+        {
+          "source": "nous sommes mis à l'épreuve par notre volonté en faveur des individus, des citoyens, cherchant à faire valoir leurs droits garantis par le droit communautaire.",
+          "reference": "we are tested by our will in favour of the individual, the citizen, seeking their rights under community law.",
+          "hypothesis": "we have shown that our will in favour of individuals, citizens seeking to validate their rights by community law.",
+          "sentence_bleu": 31.13
+        },
+        {
+          "source": "excusez-moi mais, pouvez-vous m'indiquer comment se rendre à central park ?",
+          "reference": "excuse me, but could you tell me how to get to central park?",
+          "hypothesis": "excuse me, but can you tell me how to get to central park?",
+          "sentence_bleu": 78.25
+        },
+        {
+          "source": "le premier concerne une mise à jour plus rapide des plans d'urgence sous réserve de faisabilité.",
+          "reference": "one is faster updating of contingency plans subject to practicability.",
+          "hypothesis": "the first concerns a faster update of emergency plans under feasibility reserves.",
+          "sentence_bleu": 12.36
+        },
+        {
+          "source": "les cadres supérieurs passent beaucoup de temps à former leurs subordonnés.",
+          "reference": "senior executives spend a lot of time training their subordinates.",
+          "hypothesis": "the higher chests spend a lot of time building their subordinations.",
+          "sentence_bleu": 43.36
+        },
+        {
+          "source": "la question clé reste naturellement : les mesures feront-elles en sorte, dans la pratique, que les navires inférieurs aux normes soient retirés de la circulation ?",
+          "reference": "of course, the key question is will these measures actually lead to sub-standard ships being taken out of service?",
+          "hypothesis": "the key question is, of course, that measures will be taken out in practice, that vessels will be removed from traffic?",
+          "sentence_bleu": 15.45
+        },
+        {
+          "source": "aimerait-il cela ?",
+          "reference": "would he like that?",
+          "hypothesis": "would he like that?",
+          "sentence_bleu": 100.0
+        },
+        {
+          "source": "la berd a fait preuve à mon égard d'une grande ouverture et une grande volonté de coopération, et m'a ainsi permis de travailler de manière à la fois intéressante et instructive sur ce rapport.",
+          "reference": "the ebrd responded to me with great openness and willingness to cooperate, thus making my work on this report both interesting and informative.",
+          "hypothesis": "the ebrd has shown me a great openness and a great will of cooperation and thus allow me to work in a way that is both interesting and instructive about this report.",
+          "sentence_bleu": 12.66
+        },
+        {
+          "source": "il est impératif que nous réfléchissions sérieusement à la manière de promouvoir et de renforcer le partenariat transatlantique aujourd'hui.",
+          "reference": "it is imperative that we think seriously about how to foster and strengthen the transatlantic relationship today.",
+          "hypothesis": "it is essential for us to think seriously about how to promote and strengthen the transatlantic partnership today.",
+          "sentence_bleu": 41.68
+        },
+        {
+          "source": "c'est quelqu'un que je veux que vous rencontriez.",
+          "reference": "this is someone i want you to meet.",
+          "hypothesis": "that's someone i want you to meet.",
+          "sentence_bleu": 72.9
+        },
+        {
+          "source": "madame la présidente en exercice du conseil, vous ne vous êtes pas prononcée, parce que, indubitablement, comme vous l' avez dit, l' état espagnol n' a encore présenté aucune proposition formelle.",
+          "reference": "madam president-in-office of the council, you have not commented because clearly, as you said, the spanish state has still not made any formal proposal.",
+          "hypothesis": "madam president-in-office of the council, you are not pronounced, because the spanish state has not yet presented any formal proposal.",
+          "sentence_bleu": 39.11
+        },
+        {
+          "source": "je suis plus solide que tu ne le penses.",
+          "reference": "i'm tougher than you think.",
+          "hypothesis": "i'm more solid than you think.",
+          "sentence_bleu": 43.47
+        },
+        {
+          "source": "il était clairement affirmé, dans ces conclusions, que le conseil reconnaît l’importance de ce fonds pour la paix et le conseil souligne par ailleurs assez clairement que le financement de ces opérations de paix créera une impulsion notable et d’importance en vue de renforcer la capacité des africains � créer et préserver la paix sur l’ensemble du continent.",
+          "reference": "it was clearly stated in these conclusions that the council recognises the importance of this peace facility and it also makes the point quite clearly that the financing of these peace operations will create a noteworthy and important impulse in strengthening the capacity of the african people to create and preserve peace on the whole continent.",
+          "hypothesis": "it was clearly said in these conclusions, that the council acknowledges the importance of this money for peace and the council also stresses quite clearly that the funding of these peace operations will create a significant boost and importance in order to strengthen the ability of the regions and preserve peace throughout the continent.",
+          "sentence_bleu": 29.77
+        },
+        {
+          "source": "nous devons reporter notre départ.",
+          "reference": "we have to postpone our departure.",
+          "hypothesis": "we must postpone our departure.",
+          "sentence_bleu": 43.99
+        },
+        {
+          "source": "les organisations agricoles et les représentants des agriculteurs au pe ont manifesté leur mécontentement.",
+          "reference": "agricultural organisations and farmers' representatives in the european parliament were furious.",
+          "hypothesis": "the agricultural institutions and farmers in the group have expressed their discontent.",
+          "sentence_bleu": 15.54
+        },
+        {
+          "source": "nous savons combien il est important que cette décision soit prise.",
+          "reference": "we know how important it is that this decision is made.",
+          "hypothesis": "we know how important this decision is to be taken.",
+          "sentence_bleu": 42.46
+        },
+        {
+          "source": "nous voulons que les fonds soient dépensés aux fins prévues, raison pour laquelle nous exerçons un contrôle des dépenses, principalement par le biais de la commission du contrôle budgétaire, mais également au stade de la planification financière.",
+          "reference": "we want the funds to be spent on the purposes for which they are intended, which is why we exercise control over spending, firstly through the committee on budgetary control, but also at the financing planning stage.",
+          "hypothesis": "we want the funds to be spent on the planned purposes, which is why we exercise control of expenses, especially through the committee on budgetary control but also at the level of financial planning on the matter.",
+          "sentence_bleu": 51.09
+        }
+      ]
+    },
+    "de": {
+      "lang": "de",
+      "n_pairs": 500,
+      "elapsed_s": 331.4,
+      "bleu": 28.5409,
+      "bp": 0.9557,
+      "precisions": [
+        59.3659,
+        35.9556,
+        23.543,
+        15.8266
+      ],
+      "hyp_len": 6182,
+      "ref_len": 6462,
+      "n_sentences": 500,
+      "samples": [
+        {
+          "source": "mit diesem instrument wird ein markt geschaffen.",
+          "reference": "with this instrument a market is to be created.",
+          "hypothesis": "this instrument will create a market with this instrument in the union.",
+          "sentence_bleu": 23.0
+        },
+        {
+          "source": "tom weiß, was er sagen will.",
+          "reference": "tom knows what he wants to say.",
+          "hypothesis": "tom knows what he wants to say.",
+          "sentence_bleu": 100.0
+        },
+        {
+          "source": "wir wünschen, dass dies möglich ist, dass die dort endlich das tun, worauf die mazedonier alle warten, und ich habe auch nichts dagegen, dass sie eingesetzt wird.",
+          "reference": "we want it to be possible for them finally to do what the macedonians are all waiting for and i have nothing against it being used.",
+          "hypothesis": "we wish that this is possible that those who are finally waiting to do what the macedonians are all waiting for and i have no objection to it being implemented.",
+          "sentence_bleu": 43.55
+        },
+        {
+          "source": "herr präsident, herr kommissar, meine kolleginnen und kollegen! ich glaube, aus dieser schrecklichen katastrophe durch den hurrikan mitch ergeben sich für die europäische politik vor allem drei herausforderungen: erstens: wir müssen beim wiederaufbau in den ländern helfen.",
+          "reference": "mr president, commissioner, ladies and gentlemen, i think that the awful disaster caused by hurricane mitch sets three main challenges for european policy.",
+          "hypothesis": "mr president, commissioner, ladies and gentlemen, i believe that this terrible disaster, by the hurrikan mitch is in favour of european policy, especially three challenges: first of all, we must help to build up in countries.",
+          "sentence_bleu": 20.75
+        },
+        {
+          "source": "dafür sind grenzüberschreitende kontakte, internationale kontakte und erfahrungen von großer bedeutung.",
+          "reference": "in order to achieve this, contact across borders, international contact and experience are of great importance.",
+          "hypothesis": "it is of great importance to border contacts, international contacts and experiences.",
+          "sentence_bleu": 11.65
+        },
+        {
+          "source": "james hatte große angst, im unterricht fehler zu machen und zurechtgewiesen zu werden.",
+          "reference": "james had a great fear of making mistakes in class and being reprimanded.",
+          "hypothesis": "james was very afraid to make mistakes in class and become legal.",
+          "sentence_bleu": 27.85
+        },
+        {
+          "source": "eine schlussbemerkung: die kommission erwähnt zu recht die notwendigkeit der koordinierung der steuerpolitiken.",
+          "reference": "by way of conclusion i would like to mention that the commission is quite right to touch on the need for the coordination of fiscal policies.",
+          "hypothesis": "a conclusion: the commission is right to mention the need to harmonise tax policy.",
+          "sentence_bleu": 10.44
+        },
+        {
+          "source": "im englischen gibt es einige lehnwörter aus dem japanischen.",
+          "reference": "in english there are some words borrowed from japanese.",
+          "hypothesis": "in english, there are some lean words from japanese.",
+          "sentence_bleu": 33.57
+        },
+        {
+          "source": "inzwischen lacht niemand mehr.",
+          "reference": "now, no one is laughing any more.",
+          "hypothesis": "no one laughs anymore.",
+          "sentence_bleu": 22.34
+        },
+        {
+          "source": "ich erinnere mich, einen alten mann nach dem weg gefragt zu haben.",
+          "reference": "i remember asking an old man the way.",
+          "hypothesis": "i remember asking an old man out of the way.",
+          "sentence_bleu": 63.16
+        },
+        {
+          "source": "ich spreche von einem löwen.",
+          "reference": "i speak of a lion.",
+          "hypothesis": "i'm talking about a lion.",
+          "sentence_bleu": 35.93
+        },
+        {
+          "source": "das schmeckt scheußlich.",
+          "reference": "that tastes terrible.",
+          "hypothesis": "it tastes awful.",
+          "sentence_bleu": 37.99
+        },
+        {
+          "source": "hierbei hat der kommissionsvorschlag eine gute basis geboten.",
+          "reference": "the commission proposal provides a good basis for doing this.",
+          "hypothesis": "the commission proposal has offered a good basis for this.",
+          "sentence_bleu": 48.33
+        },
+        {
+          "source": "drittens wird in meinem bericht erläutert, daß rassisch bedingte vorurteile und diskriminierungen die ganze gesellschaft vergiften, auch die weiße bevölkerung.",
+          "reference": "thirdly my report notes that racial prejudice and discrimination poisons our whole society, including for white people.",
+          "hypothesis": "thirdly, my report explains that racist prejudices and discrimination are poisoned by the whole society as well as the white population.",
+          "sentence_bleu": 10.81
+        },
+        {
+          "source": "willkommen auf stufe 3!",
+          "reference": "welcome to level three.",
+          "hypothesis": "welcome to study 3!",
+          "sentence_bleu": 47.29
+        },
+        {
+          "source": "sie musste ihrer heimatstadt adieu sagen.",
+          "reference": "she was forced to say farewell to the city of her birth.",
+          "hypothesis": "she had to say goodbye.",
+          "sentence_bleu": 9.52
+        },
+        {
+          "source": "wenn du ein neues auto kaufst, was machst du dann mit dem alten?",
+          "reference": "if you buy a new car, what will you do with the old one?",
+          "hypothesis": "if you buy a new car, what are you doing with that old one?",
+          "sentence_bleu": 54.45
+        },
+        {
+          "source": "das haben wir nicht da und kriegen wir auch nicht wieder rein.",
+          "reference": "we haven't got that in stock, and we won't be getting it back in again.",
+          "hypothesis": "we don't have that again and we won't get in.",
+          "sentence_bleu": 15.75
+        },
+        {
+          "source": "dieses buch ist uns sehr nützlich.",
+          "reference": "this book is of great use to us.",
+          "hypothesis": "this book is very useful to us.",
+          "sentence_bleu": 35.64
+        },
+        {
+          "source": "er kennt sich in geometrie gut aus.",
+          "reference": "he is well versed in geometry.",
+          "hypothesis": "he knows well in geometry.",
+          "sentence_bleu": 33.42
+        }
+      ]
+    }
+  },
+  "audit": {
+    "es": {
+      "path": "/Users/user/dev/linguaforge/data/corpora/es_en_filtered.tsv",
+      "total_rows": 298198,
+      "no_tab_rows": 0,
+      "empty_src_rows": 0,
+      "empty_tgt_rows": 0,
+      "total_bad": 0,
+      "bad_pct": 0.0,
+      "no_tab_examples": []
+    },
+    "fr": {
+      "path": "/Users/user/dev/linguaforge/data/corpora/fr_en_filtered.tsv",
+      "total_rows": 297526,
+      "no_tab_rows": 0,
+      "empty_src_rows": 0,
+      "empty_tgt_rows": 0,
+      "total_bad": 0,
+      "bad_pct": 0.0,
+      "no_tab_examples": []
+    },
+    "de": {
+      "path": "/Users/user/dev/linguaforge/data/corpora/de_en_filtered.tsv",
+      "total_rows": 438237,
+      "no_tab_rows": 0,
+      "empty_src_rows": 0,
+      "empty_tgt_rows": 0,
+      "total_bad": 0,
+      "bad_pct": 0.0,
+      "no_tab_examples": []
+    }
+  }
+}
