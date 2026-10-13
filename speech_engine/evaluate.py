@@ -86,6 +86,43 @@ def levenshtein(ref: list, hyp: list) -> int:
 
 # ── CER and WER ───────────────────────────────────────────────────────────────
 
+def align_units(reference: list, hypothesis: list) -> list:
+    """Return one minimum-edit alignment as (reference, hypothesis) pairs.
+
+    None denotes an inserted/deleted unit. Substitution-first tie handling is
+    deterministic; ambiguous alignments are not verified linguistic relations.
+    """
+    table=[[0]*(len(hypothesis)+1) for _ in range(len(reference)+1)]
+    for i in range(len(reference)+1): table[i][0]=i
+    for j in range(len(hypothesis)+1): table[0][j]=j
+    for i,r in enumerate(reference,1):
+        for j,h in enumerate(hypothesis,1):
+            table[i][j]=min(table[i-1][j]+1,table[i][j-1]+1,table[i-1][j-1]+(r!=h))
+    pairs=[]
+    i,j=len(reference),len(hypothesis)
+    while i or j:
+        if i and j and reference[i-1]==hypothesis[j-1] and table[i][j]==table[i-1][j-1]:
+            pairs.append((reference[i-1],hypothesis[j-1])); i-=1; j-=1
+        elif i and j and table[i][j]==table[i-1][j-1]+1:
+            pairs.append((reference[i-1],hypothesis[j-1])); i-=1; j-=1
+        elif i and table[i][j]==table[i-1][j]+1:
+            pairs.append((reference[i-1],None)); i-=1
+        else:
+            pairs.append((None,hypothesis[j-1])); j-=1
+    return pairs[::-1]
+
+
+def edit_counts(reference: list, hypothesis: list) -> dict:
+    """Minimum-edit alignment counts; deterministic substitution-first tie handling.
+
+    Counts describe one optimal alignment, not the linguistic cause of an error.
+    Works with words, characters or language-specific token units supplied by caller.
+    """
+    counts={'substitutions':0,'deletions':0,'insertions':0,'matches':0}
+    for r,h in align_units(reference,hypothesis):
+        counts['insertions' if r is None else 'deletions' if h is None else 'matches' if r==h else 'substitutions']+=1
+    return counts
+
 def char_error_rate(
     references: list[str],
     hypotheses: list[str],
@@ -218,10 +255,14 @@ def evaluate_dataset(
             token_lengths = batch["token_lengths"]
 
             # Forward pass
-            log_probs = model(mel)                             # (T_out, B, V)
+            log_probs = model(mel, mel_lengths)                # (T_out, B, V)
 
             # Decode hypotheses
-            hyps = decoder_fn(log_probs, tokenizer)
+            # Padded frames must never contribute characters to the hypothesis.
+            output_lengths = model.encoder_output_length(mel_lengths)
+            hyps = []
+            for i, length in enumerate(output_lengths):
+                hyps.extend(decoder_fn(log_probs[:int(length), i:i+1], tokenizer))
 
             # Decode references from token IDs
             refs = []

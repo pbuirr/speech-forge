@@ -77,6 +77,8 @@ class PrepResult:
         """Return anchors whose numeric value does not appear in the translation."""
         failures = []
         digits_in_output = set(re.findall(r"\d+", translation))
+        digits_in_output.update(re.sub(r'[,\.]','',value)
+            for value in re.findall(r'\b\d+(?:[,\.]\d+)*\b',translation))
         for a in self.anchors:
             if a.numeric_val and a.numeric_val not in digits_in_output:
                 failures.append(a)
@@ -200,13 +202,8 @@ def postprocess_en_output(text: str) -> str:
     if not text:
         return text
 
-    # 1. Remove adjacent duplicate words ("the the cat" → "the cat")
-    words = text.split()
-    deduped: list[str] = [words[0]]
-    for w in words[1:]:
-        if w.lower() != deduped[-1].lower():
-            deduped.append(w)
-    text = " ".join(deduped)
+    # Repetition can be grammatical ("had had", "that that"). Preserve words;
+    # generation failures belong in review signals, not destructive cleanup.
 
     # 2. Fix punctuation spacing — no space before . , ! ? ; : )
     text = re.sub(r'\s+([.,!?;:\)])', r'\1', text)
@@ -216,14 +213,8 @@ def postprocess_en_output(text: str) -> str:
     # 3. Standalone "i" → "I"
     text = re.sub(r'(?<![a-zA-Z])i(?![a-zA-Z])', 'I', text)
 
-    # 4. Strip obvious BPE truncation artifacts at end — trailing incomplete
-    #    subword tokens are usually 1-3 chars with no vowel or all consonants.
-    words = text.split()
-    if len(words) > 1:
-        last = words[-1].rstrip('.,!?')
-        if len(last) <= 3 and last.isalpha() and not re.search(r'[aeiou]', last, re.I):
-            words = words[:-1]
-            text = " ".join(words)
+    # Spelling alone cannot establish truncation: TV, CD, sky and shy are valid.
+    # Preserve final words; surface uncertain model output rather than deleting it.
 
     # 5. Ensure sentence ends with punctuation
     if text and text[-1] not in '.!?':
@@ -242,17 +233,16 @@ def detect_translation_failure(
     src_tokens: list[str] | None = None,
 ) -> bool:
     """
-    Flag a translation as likely failed using four independent signals:
+    Return an uncalibrated review hint from four heuristic signals.
+    These can miss fluent errors or flag correct output; neither attention
+    concentration nor subword fragmentation establishes semantic correctness.
 
     1. Length truncation — output < 30% source length (truncated output)
     2. Degeneration     — repeated characters (e.g. "aaaa")
-    3. Attention entropy — avg > 0.50 means scattered cross-attention,
-                          i.e. the model couldn't find clear source-target
-                          alignments — strong signal of OOV / domain mismatch
-    4. BPE fragmentation — if >35% of BPE source tokens are single characters,
-                          the input contains words the vocab never saw, and
-                          the model is pattern-matching on individual letters,
-                          which produces nonsense
+    3. Attention entropy — scattered attention may warrant review.
+    4. BPE fragmentation — many character pieces may warrant review for the
+                          current word-based models; valid words and scripts
+                          can also be represented by character pieces.
     """
     src_words = len(source.split())
     out_words = len(translation.split())

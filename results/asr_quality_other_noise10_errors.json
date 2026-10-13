@@ -1,0 +1,3392 @@
+{
+  "source_report": "results\\asr_quality_other_noise10.json",
+  "checkpoint_sha256": "85c89af52c92039122a8266e72562ff677fc08bc70e9f00da969175b9698c852",
+  "aggregate": {
+    "wer": 0.964050854888207,
+    "cer": 0.7196475472337541,
+    "word_edits": {
+      "substitutions": 1145,
+      "deletions": 1048,
+      "insertions": 6,
+      "matches": 88
+    },
+    "character_edits": {
+      "substitutions": 1994,
+      "deletions": 6473,
+      "insertions": 27,
+      "matches": 3336
+    },
+    "space_alignment": {
+      "deletions": 881,
+      "matches": 1041,
+      "substitutions": 372,
+      "insertions": 1
+    },
+    "critical_lexical_forms": {
+      "negation_forms": {
+        "reference_occurrences": 31,
+        "deletions": 9,
+        "substitutions": 21,
+        "exact_aligned_matches": 1
+      },
+      "number_forms": {
+        "reference_occurrences": 27,
+        "substitutions": 14,
+        "deletions": 13
+      },
+      "name_spelling_probes": {
+        "reference_occurrences": 3,
+        "substitutions": 1,
+        "deletions": 2
+      }
+    },
+    "frequent_character_errors": [
+      {
+        "reference": " ",
+        "hypothesis": null,
+        "count": 881
+      },
+      {
+        "reference": "a",
+        "hypothesis": null,
+        "count": 546
+      },
+      {
+        "reference": "e",
+        "hypothesis": null,
+        "count": 522
+      },
+      {
+        "reference": "n",
+        "hypothesis": null,
+        "count": 457
+      },
+      {
+        "reference": "o",
+        "hypothesis": null,
+        "count": 399
+      },
+      {
+        "reference": "r",
+        "hypothesis": null,
+        "count": 365
+      },
+      {
+        "reference": "t",
+        "hypothesis": null,
+        "count": 353
+      },
+      {
+        "reference": "h",
+        "hypothesis": null,
+        "count": 341
+      },
+      {
+        "reference": "i",
+        "hypothesis": null,
+        "count": 331
+      },
+      {
+        "reference": "s",
+        "hypothesis": null,
+        "count": 289
+      },
+      {
+        "reference": "d",
+        "hypothesis": null,
+        "count": 287
+      },
+      {
+        "reference": "l",
+        "hypothesis": null,
+        "count": 239
+      },
+      {
+        "reference": "c",
+        "hypothesis": null,
+        "count": 174
+      },
+      {
+        "reference": "m",
+        "hypothesis": null,
+        "count": 174
+      },
+      {
+        "reference": "w",
+        "hypothesis": null,
+        "count": 169
+      }
+    ]
+  },
+  "by_librispeech_speaker": {
+    "1688": {
+      "wer": 1.0,
+      "cer": 0.8178294573643411,
+      "word_edits": {
+        "substitutions": 14,
+        "deletions": 38,
+        "insertions": 0,
+        "matches": 0
+      },
+      "character_edits": {
+        "substitutions": 24,
+        "deletions": 187,
+        "insertions": 0,
+        "matches": 47
+      },
+      "space_alignment": {
+        "deletions": 37,
+        "matches": 10,
+        "substitutions": 1
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 37
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 20
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "y",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 4
+        }
+      ]
+    },
+    "1998": {
+      "wer": 1.0,
+      "cer": 0.775,
+      "word_edits": {
+        "substitutions": 21,
+        "deletions": 29,
+        "insertions": 0,
+        "matches": 0
+      },
+      "character_edits": {
+        "substitutions": 37,
+        "deletions": 149,
+        "insertions": 0,
+        "matches": 54
+      },
+      "space_alignment": {
+        "deletions": 27,
+        "matches": 15,
+        "substitutions": 6
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 27
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "y",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "k",
+          "hypothesis": null,
+          "count": 3
+        }
+      ]
+    },
+    "2033": {
+      "wer": 0.9038461538461539,
+      "cer": 0.6647727272727273,
+      "word_edits": {
+        "substitutions": 53,
+        "deletions": 41,
+        "insertions": 0,
+        "matches": 10
+      },
+      "character_edits": {
+        "substitutions": 111,
+        "deletions": 240,
+        "insertions": 0,
+        "matches": 177
+      },
+      "space_alignment": {
+        "deletions": 36,
+        "matches": 55,
+        "substitutions": 15
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 36
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 22
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 20
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 18
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "i",
+          "hypothesis": "e",
+          "count": 6
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 6
+        }
+      ]
+    },
+    "2414": {
+      "wer": 1.0666666666666667,
+      "cer": 0.6987951807228916,
+      "word_edits": {
+        "substitutions": 24,
+        "deletions": 6,
+        "insertions": 2,
+        "matches": 0
+      },
+      "character_edits": {
+        "substitutions": 55,
+        "deletions": 59,
+        "insertions": 2,
+        "matches": 52
+      },
+      "space_alignment": {
+        "matches": 18,
+        "substitutions": 12,
+        "deletions": 3
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "e",
+          "hypothesis": "t",
+          "count": 3
+        },
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "b",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "r",
+          "hypothesis": "t",
+          "count": 3
+        },
+        {
+          "reference": "u",
+          "hypothesis": "f",
+          "count": 2
+        }
+      ]
+    },
+    "2609": {
+      "wer": 0.9393939393939394,
+      "cer": 0.6629526462395543,
+      "word_edits": {
+        "substitutions": 41,
+        "deletions": 21,
+        "insertions": 0,
+        "matches": 4
+      },
+      "character_edits": {
+        "substitutions": 84,
+        "deletions": 153,
+        "insertions": 1,
+        "matches": 122
+      },
+      "space_alignment": {
+        "deletions": 19,
+        "matches": 35,
+        "substitutions": 18
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "p",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 4
+        }
+      ]
+    },
+    "3005": {
+      "wer": 1.0,
+      "cer": 0.728110599078341,
+      "word_edits": {
+        "substitutions": 22,
+        "deletions": 17,
+        "insertions": 1,
+        "matches": 1
+      },
+      "character_edits": {
+        "substitutions": 43,
+        "deletions": 115,
+        "insertions": 0,
+        "matches": 59
+      },
+      "space_alignment": {
+        "deletions": 12,
+        "matches": 21,
+        "substitutions": 5
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "y",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 4
+        }
+      ]
+    },
+    "3080": {
+      "wer": 0.9574468085106383,
+      "cer": 0.7278481012658228,
+      "word_edits": {
+        "substitutions": 42,
+        "deletions": 48,
+        "insertions": 0,
+        "matches": 4
+      },
+      "character_edits": {
+        "substitutions": 69,
+        "deletions": 276,
+        "insertions": 0,
+        "matches": 129
+      },
+      "space_alignment": {
+        "deletions": 37,
+        "matches": 42,
+        "substitutions": 12
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 37
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 23
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 21
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 18
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 18
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 16
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "y",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 8
+        }
+      ]
+    },
+    "3331": {
+      "wer": 0.9732142857142857,
+      "cer": 0.7035830618892508,
+      "word_edits": {
+        "substitutions": 58,
+        "deletions": 51,
+        "insertions": 0,
+        "matches": 3
+      },
+      "character_edits": {
+        "substitutions": 97,
+        "deletions": 335,
+        "insertions": 0,
+        "matches": 182
+      },
+      "space_alignment": {
+        "deletions": 34,
+        "matches": 57,
+        "substitutions": 21
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 35
+        },
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 34
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 34
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 27
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 24
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 20
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 16
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 9
+        }
+      ]
+    },
+    "3528": {
+      "wer": 0.975609756097561,
+      "cer": 0.7083333333333334,
+      "word_edits": {
+        "substitutions": 24,
+        "deletions": 16,
+        "insertions": 0,
+        "matches": 1
+      },
+      "character_edits": {
+        "substitutions": 41,
+        "deletions": 112,
+        "insertions": 0,
+        "matches": 63
+      },
+      "space_alignment": {
+        "matches": 19,
+        "deletions": 12,
+        "substitutions": 8
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": " ",
+          "hypothesis": "i",
+          "count": 4
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "k",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "f",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "e",
+          "hypothesis": "t",
+          "count": 3
+        }
+      ]
+    },
+    "3538": {
+      "wer": 0.9130434782608695,
+      "cer": 0.7259475218658892,
+      "word_edits": {
+        "substitutions": 30,
+        "deletions": 33,
+        "insertions": 0,
+        "matches": 6
+      },
+      "character_edits": {
+        "substitutions": 37,
+        "deletions": 210,
+        "insertions": 2,
+        "matches": 96
+      },
+      "space_alignment": {
+        "deletions": 26,
+        "substitutions": 7,
+        "matches": 35
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 26
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 21
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 16
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 16
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "y",
+          "hypothesis": null,
+          "count": 5
+        }
+      ]
+    },
+    "367": {
+      "wer": 0.956140350877193,
+      "cer": 0.6690017513134852,
+      "word_edits": {
+        "substitutions": 62,
+        "deletions": 47,
+        "insertions": 0,
+        "matches": 5
+      },
+      "character_edits": {
+        "substitutions": 122,
+        "deletions": 257,
+        "insertions": 3,
+        "matches": 192
+      },
+      "space_alignment": {
+        "substitutions": 26,
+        "deletions": 34,
+        "matches": 58
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 34
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 23
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 20
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "k",
+          "hypothesis": null,
+          "count": 6
+        }
+      ]
+    },
+    "3764": {
+      "wer": 1.0,
+      "cer": 0.7371134020618557,
+      "word_edits": {
+        "substitutions": 21,
+        "deletions": 16,
+        "insertions": 0,
+        "matches": 0
+      },
+      "character_edits": {
+        "substitutions": 36,
+        "deletions": 107,
+        "insertions": 0,
+        "matches": 51
+      },
+      "space_alignment": {
+        "deletions": 13,
+        "matches": 16,
+        "substitutions": 7
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "d",
+          "hypothesis": "t",
+          "count": 3
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 3
+        }
+      ]
+    },
+    "3997": {
+      "wer": 0.9777777777777777,
+      "cer": 0.7336244541484717,
+      "word_edits": {
+        "substitutions": 25,
+        "deletions": 19,
+        "insertions": 0,
+        "matches": 1
+      },
+      "character_edits": {
+        "substitutions": 43,
+        "deletions": 124,
+        "insertions": 1,
+        "matches": 62
+      },
+      "space_alignment": {
+        "matches": 21,
+        "substitutions": 9,
+        "deletions": 13
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "p",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "m",
+          "hypothesis": "t",
+          "count": 3
+        }
+      ]
+    },
+    "4198": {
+      "wer": 0.9180327868852459,
+      "cer": 0.6624605678233438,
+      "word_edits": {
+        "substitutions": 40,
+        "deletions": 16,
+        "insertions": 0,
+        "matches": 5
+      },
+      "character_edits": {
+        "substitutions": 79,
+        "deletions": 129,
+        "insertions": 2,
+        "matches": 109
+      },
+      "space_alignment": {
+        "deletions": 16,
+        "matches": 34,
+        "substitutions": 15,
+        "insertions": 1
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 16
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "b",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 3
+        }
+      ]
+    },
+    "4294": {
+      "wer": 0.9690721649484536,
+      "cer": 0.73125,
+      "word_edits": {
+        "substitutions": 46,
+        "deletions": 48,
+        "insertions": 0,
+        "matches": 3
+      },
+      "character_edits": {
+        "substitutions": 73,
+        "deletions": 278,
+        "insertions": 0,
+        "matches": 129
+      },
+      "space_alignment": {
+        "deletions": 43,
+        "matches": 44,
+        "substitutions": 9
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 43
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 28
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 22
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 21
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 16
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 9
+        }
+      ]
+    },
+    "4350": {
+      "wer": 0.9411764705882353,
+      "cer": 0.7081081081081081,
+      "word_edits": {
+        "substitutions": 49,
+        "deletions": 47,
+        "insertions": 0,
+        "matches": 6
+      },
+      "character_edits": {
+        "substitutions": 61,
+        "deletions": 332,
+        "insertions": 0,
+        "matches": 162
+      },
+      "space_alignment": {
+        "deletions": 40,
+        "matches": 52,
+        "substitutions": 8
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 40
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 31
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 29
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 23
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 23
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 22
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 18
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 18
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "f",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 8
+        }
+      ]
+    },
+    "4852": {
+      "wer": 1.0,
+      "cer": 0.702054794520548,
+      "word_edits": {
+        "substitutions": 35,
+        "deletions": 20,
+        "insertions": 0,
+        "matches": 0
+      },
+      "character_edits": {
+        "substitutions": 62,
+        "deletions": 143,
+        "insertions": 0,
+        "matches": 87
+      },
+      "space_alignment": {
+        "deletions": 16,
+        "matches": 28,
+        "substitutions": 12
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 16
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "f",
+          "hypothesis": null,
+          "count": 5
+        }
+      ]
+    },
+    "533": {
+      "wer": 1.0,
+      "cer": 0.6876876876876877,
+      "word_edits": {
+        "substitutions": 32,
+        "deletions": 27,
+        "insertions": 1,
+        "matches": 1
+      },
+      "character_edits": {
+        "substitutions": 94,
+        "deletions": 132,
+        "insertions": 3,
+        "matches": 107
+      },
+      "space_alignment": {
+        "deletions": 21,
+        "matches": 24,
+        "substitutions": 18
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 21
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "f",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "a",
+          "hypothesis": "i",
+          "count": 4
+        },
+        {
+          "reference": "d",
+          "hypothesis": "t",
+          "count": 4
+        }
+      ]
+    },
+    "5442": {
+      "wer": 1.0,
+      "cer": 0.7947368421052632,
+      "word_edits": {
+        "substitutions": 14,
+        "deletions": 25,
+        "insertions": 0,
+        "matches": 0
+      },
+      "character_edits": {
+        "substitutions": 14,
+        "deletions": 137,
+        "insertions": 0,
+        "matches": 39
+      },
+      "space_alignment": {
+        "deletions": 23,
+        "matches": 10,
+        "substitutions": 3
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 23
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "k",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 4
+        }
+      ]
+    },
+    "5484": {
+      "wer": 0.9659090909090909,
+      "cer": 0.6827133479212254,
+      "word_edits": {
+        "substitutions": 57,
+        "deletions": 28,
+        "insertions": 0,
+        "matches": 3
+      },
+      "character_edits": {
+        "substitutions": 104,
+        "deletions": 206,
+        "insertions": 2,
+        "matches": 147
+      },
+      "space_alignment": {
+        "matches": 54,
+        "substitutions": 17,
+        "deletions": 19
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "y",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 6
+        }
+      ]
+    },
+    "5764": {
+      "wer": 0.9565217391304348,
+      "cer": 0.7509881422924901,
+      "word_edits": {
+        "substitutions": 24,
+        "deletions": 20,
+        "insertions": 0,
+        "matches": 2
+      },
+      "character_edits": {
+        "substitutions": 27,
+        "deletions": 163,
+        "insertions": 0,
+        "matches": 63
+      },
+      "space_alignment": {
+        "deletions": 17,
+        "matches": 25,
+        "substitutions": 3
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "f",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "b",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 5
+        }
+      ]
+    },
+    "6070": {
+      "wer": 0.9438202247191011,
+      "cer": 0.7603485838779956,
+      "word_edits": {
+        "substitutions": 30,
+        "deletions": 54,
+        "insertions": 0,
+        "matches": 5
+      },
+      "character_edits": {
+        "substitutions": 38,
+        "deletions": 311,
+        "insertions": 0,
+        "matches": 110
+      },
+      "space_alignment": {
+        "deletions": 51,
+        "matches": 32,
+        "substitutions": 5
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 51
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 26
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 25
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 23
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 22
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 22
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "y",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 7
+        }
+      ]
+    },
+    "6128": {
+      "wer": 0.9702970297029703,
+      "cer": 0.775,
+      "word_edits": {
+        "substitutions": 37,
+        "deletions": 61,
+        "insertions": 0,
+        "matches": 3
+      },
+      "character_edits": {
+        "substitutions": 40,
+        "deletions": 363,
+        "insertions": 0,
+        "matches": 117
+      },
+      "space_alignment": {
+        "deletions": 55,
+        "matches": 35,
+        "substitutions": 8
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 55
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 38
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 34
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 30
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 25
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 18
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 16
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 8
+        }
+      ]
+    },
+    "6432": {
+      "wer": 0.9871794871794872,
+      "cer": 0.7202072538860104,
+      "word_edits": {
+        "substitutions": 40,
+        "deletions": 37,
+        "insertions": 0,
+        "matches": 1
+      },
+      "character_edits": {
+        "substitutions": 66,
+        "deletions": 211,
+        "insertions": 1,
+        "matches": 109
+      },
+      "space_alignment": {
+        "matches": 34,
+        "deletions": 32,
+        "substitutions": 12
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 32
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 18
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 5
+        }
+      ]
+    },
+    "6938": {
+      "wer": 0.9761904761904762,
+      "cer": 0.6892430278884463,
+      "word_edits": {
+        "substitutions": 34,
+        "deletions": 5,
+        "insertions": 2,
+        "matches": 3
+      },
+      "character_edits": {
+        "substitutions": 90,
+        "deletions": 80,
+        "insertions": 3,
+        "matches": 81
+      },
+      "space_alignment": {
+        "deletions": 6,
+        "substitutions": 21,
+        "matches": 25
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "r",
+          "hypothesis": "t",
+          "count": 5
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": " ",
+          "hypothesis": "i",
+          "count": 4
+        },
+        {
+          "reference": "e",
+          "hypothesis": " ",
+          "count": 4
+        },
+        {
+          "reference": "o",
+          "hypothesis": "t",
+          "count": 3
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 3
+        },
+        {
+          "reference": "m",
+          "hypothesis": "t",
+          "count": 3
+        }
+      ]
+    },
+    "7018": {
+      "wer": 0.9448275862068966,
+      "cer": 0.68646408839779,
+      "word_edits": {
+        "substitutions": 72,
+        "deletions": 65,
+        "insertions": 0,
+        "matches": 8
+      },
+      "character_edits": {
+        "substitutions": 133,
+        "deletions": 363,
+        "insertions": 1,
+        "matches": 228
+      },
+      "space_alignment": {
+        "substitutions": 26,
+        "deletions": 52,
+        "matches": 71
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 52
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 47
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 27
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 26
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 25
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 21
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 20
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 16
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 8
+        }
+      ]
+    },
+    "7105": {
+      "wer": 0.9642857142857143,
+      "cer": 0.7315436241610739,
+      "word_edits": {
+        "substitutions": 33,
+        "deletions": 21,
+        "insertions": 0,
+        "matches": 2
+      },
+      "character_edits": {
+        "substitutions": 60,
+        "deletions": 157,
+        "insertions": 1,
+        "matches": 81
+      },
+      "space_alignment": {
+        "deletions": 18,
+        "matches": 28,
+        "substitutions": 14
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 21
+        },
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 18
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "v",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 4
+        }
+      ]
+    },
+    "7902": {
+      "wer": 1.0,
+      "cer": 0.77,
+      "word_edits": {
+        "substitutions": 22,
+        "deletions": 21,
+        "insertions": 0,
+        "matches": 0
+      },
+      "character_edits": {
+        "substitutions": 29,
+        "deletions": 125,
+        "insertions": 0,
+        "matches": 46
+      },
+      "space_alignment": {
+        "deletions": 19,
+        "matches": 17,
+        "substitutions": 6
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 19
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "y",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 4
+        }
+      ]
+    },
+    "7975": {
+      "wer": 0.9649122807017544,
+      "cer": 0.8298611111111112,
+      "word_edits": {
+        "substitutions": 27,
+        "deletions": 83,
+        "insertions": 0,
+        "matches": 4
+      },
+      "character_edits": {
+        "substitutions": 21,
+        "deletions": 457,
+        "insertions": 0,
+        "matches": 98
+      },
+      "space_alignment": {
+        "deletions": 78,
+        "substitutions": 3,
+        "matches": 30
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 78
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 38
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 31
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 31
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 30
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 29
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 25
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 25
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 24
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 20
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "f",
+          "hypothesis": null,
+          "count": 12
+        }
+      ]
+    },
+    "8131": {
+      "wer": 1.0,
+      "cer": 0.6949152542372882,
+      "word_edits": {
+        "substitutions": 23,
+        "deletions": 21,
+        "insertions": 0,
+        "matches": 0
+      },
+      "character_edits": {
+        "substitutions": 30,
+        "deletions": 133,
+        "insertions": 1,
+        "matches": 73
+      },
+      "space_alignment": {
+        "deletions": 15,
+        "matches": 20,
+        "substitutions": 6
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "w",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "y",
+          "hypothesis": null,
+          "count": 4
+        }
+      ]
+    },
+    "8188": {
+      "wer": 0.92,
+      "cer": 0.7387755102040816,
+      "word_edits": {
+        "substitutions": 19,
+        "deletions": 27,
+        "insertions": 0,
+        "matches": 4
+      },
+      "character_edits": {
+        "substitutions": 39,
+        "deletions": 142,
+        "insertions": 0,
+        "matches": 64
+      },
+      "space_alignment": {
+        "deletions": 23,
+        "matches": 18,
+        "substitutions": 7
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 23
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 12
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "f",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 4
+        }
+      ]
+    },
+    "8280": {
+      "wer": 0.9846153846153847,
+      "cer": 0.661849710982659,
+      "word_edits": {
+        "substitutions": 40,
+        "deletions": 24,
+        "insertions": 0,
+        "matches": 1
+      },
+      "character_edits": {
+        "substitutions": 66,
+        "deletions": 160,
+        "insertions": 3,
+        "matches": 120
+      },
+      "space_alignment": {
+        "deletions": 20,
+        "matches": 31,
+        "substitutions": 18
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 20
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 17
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 15
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 13
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 11
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "m",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "p",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": " ",
+          "hypothesis": "t",
+          "count": 3
+        }
+      ]
+    },
+    "8461": {
+      "wer": 0.9615384615384616,
+      "cer": 0.7137681159420289,
+      "word_edits": {
+        "substitutions": 34,
+        "deletions": 16,
+        "insertions": 0,
+        "matches": 2
+      },
+      "character_edits": {
+        "substitutions": 69,
+        "deletions": 127,
+        "insertions": 1,
+        "matches": 80
+      },
+      "space_alignment": {
+        "substitutions": 14,
+        "deletions": 14,
+        "matches": 27
+      },
+      "critical_lexical_forms": {},
+      "frequent_character_errors": [
+        {
+          "reference": " ",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "a",
+          "hypothesis": null,
+          "count": 14
+        },
+        {
+          "reference": "r",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "e",
+          "hypothesis": null,
+          "count": 10
+        },
+        {
+          "reference": "u",
+          "hypothesis": null,
+          "count": 9
+        },
+        {
+          "reference": "l",
+          "hypothesis": null,
+          "count": 8
+        },
+        {
+          "reference": "h",
+          "hypothesis": null,
+          "count": 7
+        },
+        {
+          "reference": "d",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "t",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "i",
+          "hypothesis": null,
+          "count": 6
+        },
+        {
+          "reference": "g",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "s",
+          "hypothesis": null,
+          "count": 5
+        },
+        {
+          "reference": "o",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "c",
+          "hypothesis": null,
+          "count": 4
+        },
+        {
+          "reference": "n",
+          "hypothesis": null,
+          "count": 4
+        }
+      ]
+    }
+  },
+  "limits": "One minimum-edit alignment. Spaces are English transcription separators, not universal word boundaries. Opt-in English lexical probes measure spelling retention, not semantic scope, factual fidelity or verified proper names. No automatic transcript corrections."
+}

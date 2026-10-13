@@ -1,46 +1,15 @@
 """
-speech_engine/morphology.py — Morpheme segmentation, POS tagging, and morphological analysis.
+Corpus-backed and contextual word analysis with independent BPE subwords.
 
-Built from scratch: no NLTK, no spaCy, no Stanza.
+English affix stripping proposes stems and morphemes; it is not validated
+lemmatization. Loaded CoNLL-U resources provide attested alternatives and train
+a language-specific bigram POS model. Context choices remain predictions.
+Without resources, other languages have heuristic POS rules but no morphology
+analyzer. Missing analyses stay unavailable, with the surface retained as a
+compatibility fallback in root. Confidence is uncalibrated (None).
 
-Three main components:
-
-  BPE Segmenter
-      Byte-Pair Encoding applied at the morpheme level.  Given a corpus,
-      iteratively merges the most frequent character-pair until the target
-      vocabulary size is reached.  Works for ANY language — especially good
-      for agglutinative languages (Turkish, Finnish, Hungarian, Swahili)
-      where words can have dozens of suffixes.
-
-  POS Tagger
-      Three-layer approach:
-        1. Rule-based: suffix/prefix patterns that strongly predict POS
-           (works for Latin/Germanic/Romance/Slavic scripts)
-        2. Statistical: bigram HMM-like model (trainable from tagged data)
-        3. Language-specific overrides (closed-class words like articles,
-           prepositions, conjunctions that are fixed per language)
-
-  MorphologyEngine
-      Combines segmentation and POS tagging.  Adds:
-        - Root extraction (strips affixes to canonical form)
-        - Morphological feature tagging (number, gender, case, tense)
-        - Language-family awareness:
-            agglutinative:  Turkish, Finnish, Hungarian, Swahili, Basque, Korean
-            fusional:       Russian, Arabic (verb roots), Spanish, Latin
-            isolating:      Chinese, Vietnamese, Thai, Lao
-            polysynthetic:  Inuktitut, Cherokee, Mohawk (structural, not full)
-
-Usage::
-
-    engine = MorphologyEngine()
-    analysis = engine.analyze("unbelievably", lang="en")
-    # → MorphAnalysis(root="believe", morphemes=["un", "believe", "able", "ly"],
-    #                 pos="ADV", features={"derivation": "adverb-forming"})
-
-    # Train BPE on a corpus
-    segmenter = BPESegmenter(vocab_size=2000)
-    segmenter.fit(["Koşmak istiyorum", "Gidiyorum", ...])
-    segmenter.segment("koşmaktadır")  # → ["koş", "mak", "ta", "dır"]
+BPE merges frequent character pairs. Its pieces do not establish linguistic
+morpheme boundaries and are exposed separately in subwords.
 """
 
 from __future__ import annotations
@@ -51,6 +20,13 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
+import unicodedata
+import math
+
+from speech_engine.linguistic_resources import CorpusLexicon, language_code, normalized_form
+from speech_engine.unknown_words import UnknownWordModel
+from speech_engine.sentence_boundaries import sentence_ranges, validate_ranges
+from speech_engine.pos_uncertainty import forward_backward, POSCalibration, pos_review_recommended, pos_model_fingerprint
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -103,12 +79,45 @@ class MorphFeatures:
 class MorphAnalysis:
     """Full morphological analysis of one word."""
     surface:   str                       # original word form
-    root:      str                       # canonical root / lemma
-    morphemes: list[str]                 # ordered morpheme segments
+    root:      str                       # heuristic stem or surface fallback
+    morphemes: list[str]                 # proposed segments; empty when unavailable
     pos:       str                       # POS tag
     features:  MorphFeatures             # morphological features
     lang:      str                       # language code
-    confidence: float = 1.0
+    # None means uncalibrated; rule matches are not certainty estimates.
+    confidence: Optional[float] = None
+    method: str = "unavailable"
+    subwords: list[str] = field(default_factory=list)
+    candidates: list[dict] = field(default_factory=list)
+    ud_features: dict[str, str] = field(default_factory=dict)
+    span: Optional[tuple[int, int]] = None
+    selected_candidate_indices: list[int] = field(default_factory=list)
+    pos_method: str = "heuristic_rules"
+    model_source: Optional[dict] = None
+    pos_uncertainty: Optional[dict] = None
+
+    def to_dict(self) -> dict:
+        return {
+            "surface": self.surface, "root": self.root, "pos": self.pos,
+            "morphemes": self.morphemes, "features": self.features.to_dict(),
+            "lang": self.lang, "confidence": self.confidence,
+            "pos_uncertainty": self.pos_uncertainty,
+            "pos_review_recommended": pos_review_recommended(self.pos_uncertainty),
+            "method": self.method, "subwords": self.subwords,
+            "root_status": ("corpus_attested" if self.candidates and len({c["lemma"] for c in self.candidates}) == 1 else
+                            "predicted" if self.method == "corpus_context" and len({self.candidates[i]["lemma"] for i in self.selected_candidate_indices}) == 1 else
+                            "heuristic" if self.method == "english_affix_rules" else "surface"),
+            "pos_status": ("corpus_attested" if self.candidates and len({c["pos"] for c in self.candidates}) == 1 else
+                           "predicted" if self.method == "corpus_context" else
+                           "ambiguous" if self.method == "corpus_ambiguous" else
+                           "structural" if self.method == "structural" else
+                           "predicted" if self.pos_method == "bigram_hmm" else "heuristic"),
+            "candidates": self.candidates, "ud_features": self.ud_features,
+            "span": list(self.span) if self.span is not None else None,
+            "span_unit": "unicode_codepoints",
+            "selected_candidate_indices": self.selected_candidate_indices,
+            "pos_method": self.pos_method, "model_source": self.model_source,
+        }
 
 
 @dataclass
@@ -117,6 +126,9 @@ class TokenAnalysis:
     tokens:    list[str]
     analyses:  list[MorphAnalysis]
     lang:      str
+    text:      Optional[str] = None  # Original input; absent for supplied tokens.
+    sentence_ranges: list = field(default_factory=list)
+    sentence_boundary_method: str = 'supplied_token_boundaries'
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -469,24 +481,9 @@ INFLECTION_SUFFIXES: dict[str, tuple[tuple[str, list[str]], ...]] = {
 # ══════════════════════════════════════════════════════════════════════════════
 
 class BPESegmenter:
-    """Byte-Pair Encoding morpheme segmenter, trained from scratch.
+    """Statistical subword segmenter trained using adjacent-pair frequencies.
 
-    BPE iteratively merges the most frequent adjacent character pair
-    in the vocabulary.  The result is a subword vocabulary that:
-      - keeps common words whole
-      - splits rare words into frequent sub-pieces
-      - handles morphological variation naturally
-
-    Why BPE for morphology?
-        In agglutinative languages (Turkish: 'koşmaktadır' = 'he/she is running'),
-        a word can have 5+ morphemes.  BPE discovers these boundaries automatically
-        from frequency alone, without any language-specific rules.
-
-    Usage::
-
-        seg = BPESegmenter(vocab_size=4000)
-        seg.fit(corpus_sentences)
-        pieces = seg.segment("unbelievably")   # ["un", "believ", "ably"]
+    BPE pieces are computational units, not verified linguistic morphemes.
     """
 
     def __init__(self, vocab_size: int = 4000) -> None:
@@ -591,23 +588,77 @@ class BPESegmenter:
 class POSTagger:
     """Rule-based + statistical POS tagger.
 
-    Layer 1: Closed-class lookup  (very high accuracy for function words)
-    Layer 2: Suffix/prefix rules   (high accuracy for open-class derivations)
-    Layer 3: Bigram transition     (trained from labelled data, improves context)
-    Layer 4: Capitalisation        (proper noun heuristic)
-    Layer 5: Default               (NOUN as most common open-class category)
+    Uses a language-specific bigram HMM when trained counts are available.
+    Otherwise falls back to closed-class, suffix, capitalization, and noun
+    heuristics. Neither path supplies calibrated confidence.
     """
 
     def __init__(self) -> None:
         # Bigram transition counts: (prev_pos, pos) → count
         self._transitions: Counter = Counter()
         self._emission: dict[str, Counter] = defaultdict(Counter)
+        self._models = {"en": (self._transitions, self._emission)}
+        self._decoding = {}
+        self._unknown_models = {}
+        self._calibrations = {}
+        self._model_sources = {}
+        self._model_fingerprints = {}
 
-    def tag(self, tokens: list[str], lang: str = "en") -> list[tuple[str, str]]:
+    def has_model(self, lang: str) -> bool:
+        counts = self._models.get(language_code(lang))
+        return bool(counts and counts[0] and counts[1])
+
+    def load_corpus_model(self, lexicon: CorpusLexicon) -> None:
+        self._models[lexicon.lang] = lexicon.pos_statistics()
+        self._decoding.pop(lexicon.lang, None)
+        self._unknown_models.pop(lexicon.lang, None)
+        self._calibrations.pop(lexicon.lang, None)
+        self._model_sources[lexicon.lang] = lexicon.source['sha256']
+        self._model_fingerprints.pop(lexicon.lang, None)
+
+    def model_fingerprint(self, lang):
+        code = language_code(lang)
+        if code not in self._model_fingerprints:
+            self._model_fingerprints[code] = pos_model_fingerprint(*self._models[code])
+        return self._model_fingerprints[code]
+
+    def add_calibration(self, calibration):
+        if (self._model_sources.get(calibration.language) != calibration.training_sha256
+                or self.model_fingerprint(calibration.language) != calibration.model_sha256):
+            raise ValueError('Calibration does not match the loaded training model')
+        self._calibrations[calibration.language] = calibration
+
+    def load_calibrations(self, directory):
+        directory = Path(directory)
+        if not directory.exists():
+            return []
+        if not directory.is_dir():
+            raise ValueError('Calibration path must be a directory')
+        loaded = {}
+        for path in sorted(directory.glob('*.json')):
+            calibration = POSCalibration.load(path)
+            if (calibration.language in loaded or self._model_sources.get(calibration.language) != calibration.training_sha256
+                    or self.model_fingerprint(calibration.language) != calibration.model_sha256):
+                raise ValueError('Duplicate or mismatched POS calibration')
+            loaded[calibration.language] = calibration
+        self._calibrations.update(loaded)
+        return sorted(loaded)
+
+    def tag(self, tokens: list[str], lang: str = "en", ranges=None) -> list[tuple[str, str]]:
         """Tag a token sequence. Returns list of (token, pos_tag)."""
+        if tokens and self.has_model(lang):
+            # Reset context at sentence-final punctuation rather than carrying
+            # an unrelated previous sentence into the next prediction.
+            ranges = validate_ranges(ranges, len(tokens)) if ranges is not None else sentence_ranges(tokens)
+            result = []
+            for left, right in ranges:
+                sentence = tokens[left:right]
+                result.extend(zip(sentence, self._decode(sentence, lang)))
+            return result
         result: list[tuple[str, str]] = []
         prev_pos = "BOS"
-        closed = CLOSED_CLASS.get(lang, {})
+        base_lang = lang.lower().split("-")[0]
+        closed = CLOSED_CLASS.get(base_lang, {})
 
         for i, token in enumerate(tokens):
             lower = token.lower()
@@ -617,7 +668,7 @@ class POSTagger:
 
             # Layer 2: suffix/prefix rules
             if pos is None:
-                pos = self._apply_suffix_rules(lower, lang)
+                pos = self._apply_suffix_rules(lower, base_lang)
 
             # Layer 4: capitalisation heuristic (proper noun)
             if pos is None and i > 0 and token and token[0].isupper():
@@ -632,15 +683,118 @@ class POSTagger:
 
         return result
 
-    def fit(self, tagged_sentences: list[list[tuple[str, str]]]) -> None:
+    def fit(self, tagged_sentences: list[list[tuple[str, str]]], lang: str = "en") -> None:
         """Train bigram transition and emission from tagged data."""
+        code = language_code(lang)
+        self._decoding.pop(code, None)
+        self._unknown_models.pop(code, None)
+        self._calibrations.pop(code, None)
+        self._model_sources.pop(code, None)
+        self._model_fingerprints.pop(code, None)
+        if code not in self._models:
+            self._models[code] = (Counter(), defaultdict(Counter))
+        transitions, emissions = self._models[code]
         for sent in tagged_sentences:
+            if not sent:
+                continue
             prev = "BOS"
             for token, pos in sent:
-                self._transitions[(prev, pos)] += 1
-                self._emission[token.lower()][pos] += 1
+                transitions[(prev, pos)] += 1
+                emissions[normalized_form(token)][pos] += 1
                 prev = pos
-            self._transitions[(prev, "EOS")] += 1
+            transitions[(prev, "EOS")] += 1
+
+    def tag_with_uncertainty(self, tokens: list[str], lang: str = 'en', ranges=None):
+        tagged = self.tag(tokens, lang, ranges)
+        if not tokens or not self.has_model(lang):
+            return [(token, pos, None) for token, pos in tagged]
+        distributions = []
+        ranges = validate_ranges(ranges, len(tokens)) if ranges is not None else sentence_ranges(tokens)
+        for start, end in ranges:
+            lattice, transitions = self._lattice(tokens[start:end], lang)
+            distributions.extend(forward_backward(lattice, transitions))
+        emissions = self._models[language_code(lang)][1]
+        result = [(token, pos, {'method': 'forward_backward', 'status': 'uncalibrated',
+                             'selected_pos': pos, 'model_probability': probabilities[pos],
+                             'known_form': normalized_form(token) in emissions,
+                             'candidate_count': len(probabilities), 'distribution': probabilities,
+                             'entropy_nats': -sum(p * math.log(p) for p in probabilities.values() if p > 0)})
+                for (token, pos), probabilities in zip(tagged, distributions)]
+        calibration = self._calibrations.get(language_code(lang))
+        if calibration:
+            for _, _, evidence in result:
+                estimate = calibration.estimate(evidence['model_probability'], evidence['known_form'])
+                if estimate is not None:
+                    evidence['calibration'] = estimate
+                    evidence['status'] = 'development_calibrated'
+        return result
+
+    def _lattice(self, tokens: list[str], lang: str):
+        """Build the shared log-score lattice for Viterbi and forward–backward.
+
+        Observed forms restrict candidate POS tags; unknown forms may take any
+        learned tag. Scores are model predictions, not calibrated confidence.
+        """
+        code = language_code(lang)
+        transitions, emissions = self._models[code]
+        if code not in self._decoding:
+            totals = Counter()
+            outgoing = Counter()
+            for counts in emissions.values():
+                totals.update(counts)
+            for (left, _), count in transitions.items():
+                outgoing[left] += count
+            tags = sorted(totals)
+            vocabulary = len(emissions) + 1
+            transition_log = {
+                (left, right): math.log((transitions[(left, right)] + 1) / (outgoing[left] + len(tags) + 1))
+                for left in ["BOS", *tags] for right in [*tags, "EOS"]
+            }
+            self._decoding[code] = (totals, tags, vocabulary, transition_log)
+            self._unknown_models[code] = UnknownWordModel(emissions, language=code)
+        totals, tags, vocabulary, transition_log = self._decoding[code]
+        lattice = []
+        for token in tokens:
+            observed = emissions.get(normalized_form(token), {})
+            if observed:
+                choices = sorted(observed)
+                hint = None
+            elif any(char.isalpha() for char in token):
+                # Unseen lexical words must not become punctuation just because
+                # punctuation has a favorable smoothed emission denominator.
+                choices = [tag for tag in tags if tag not in {POS.PUNCT, POS.SYM}]
+                choices = choices or tags
+                hint = None
+            else:
+                structural = {POS.NUM} if token.isdecimal() else {POS.PUNCT, POS.SYM}
+                choices = [tag for tag in tags if tag in structural]
+                choices = choices or tags
+                hint = None
+            spelling = self._unknown_models[code].scores(token, choices) if not observed and any(c.isalpha() for c in token) else {}
+            lattice.append({tag: (math.log((observed[tag] + 1) / (totals[tag] + vocabulary)) if observed
+                                  else -math.log(vocabulary) + spelling.get(tag, 0.0))
+                            for tag in choices})
+        return lattice, transition_log
+
+    def _decode(self, tokens: list[str], lang: str) -> list[str]:
+        lattice, transition_log = self._lattice(tokens, lang)
+        scores = {'BOS': 0.0}
+        backpointers = []
+        for emissions in lattice:
+            next_scores = {}
+            previous_tags = {}
+            for tag, emission in emissions.items():
+                prior = max(scores, key=lambda prev: scores[prev] + transition_log[(prev, tag)])
+                next_scores[tag] = scores[prior] + transition_log[(prior, tag)] + emission
+                previous_tags[tag] = prior
+            backpointers.append(previous_tags)
+            scores = next_scores
+        best = max(scores, key=lambda tag: scores[tag] + transition_log[(tag, "EOS")])
+        sequence = []
+        for previous_tags in reversed(backpointers):
+            sequence.append(best)
+            best = previous_tags[best]
+        return list(reversed(sequence))
 
     @staticmethod
     def _lookup_closed(token: str, closed: dict) -> Optional[str]:
@@ -816,7 +970,7 @@ ANALYTIC      = {"en", "af"}  # English has mostly lost inflection
 
 def morphological_typology(lang: str) -> str:
     """Return the morphological type of a language."""
-    code = lang.split("-")[0]
+    code = lang.lower().split("-")[0]
     if code in AGGLUTINATIVE: return "agglutinative"
     if code in FUSIONAL:      return "fusional"
     if code in ISOLATING:     return "isolating"
@@ -833,7 +987,7 @@ class MorphologyEngine:
 
     - Tokenises text
     - Applies POS tagging
-    - Segments morphemes (BPE for trained languages, rule-based for English)
+    - Proposes English morphemes using heuristic rules; reports BPE separately
     - Extracts morphological features
     - Reports language typology
 
@@ -848,18 +1002,56 @@ class MorphologyEngine:
     def __init__(self) -> None:
         self.tagger    = POSTagger()
         self._segmenters: dict[str, BPESegmenter] = {}
+        self._lexicons: dict[str, CorpusLexicon] = {}
+        self.dependency_parsers = {}
+        self._sentence_abbreviations = {}
 
     def analyze(self, text: str, lang: str = "en") -> TokenAnalysis:
         """Analyze all words in a text."""
-        tokens = self._tokenize(text, lang)
-        tagged = self.tagger.tag(tokens, lang)
-        analyses = [self._analyze_token(tok, pos, lang) for tok, pos in tagged]
-        return TokenAnalysis(tokens=tokens, analyses=analyses, lang=lang)
+        pieces = self._tokenize_with_spans(text, lang)
+        tokens = [surface for surface, _ in pieces]
+        ranges = sentence_ranges(tokens, [span for _, span in pieces], text,
+                                 self._sentence_abbreviations.get(language_code(lang), ()))
+        result = self.analyze_tokens(tokens, lang, ranges=ranges)
+        result.text = text
+        result.sentence_boundary_method = 'source_heuristics'
+        for analysis, (_, span) in zip(result.analyses, pieces):
+            analysis.span = span
+            if analysis.pos_uncertainty is not None:
+                analysis.pos_uncertainty['sentence_boundary_method'] = result.sentence_boundary_method
+        return result
+
+    def analyze_tokens(self, tokens: list[str], lang: str = "en", ranges=None) -> TokenAnalysis:
+        """Analyze one upstream sentence; explicit ranges support multiple.
+
+        Respect supplied sentence boundaries, including internal punctuation.
+        Original-text offsets are unavailable for these supplied tokens.
+        """
+        if any(not token or not token.strip() for token in tokens):
+            raise ValueError("tokens must contain non-whitespace forms")
+        ranges = ([(0, len(tokens))] if tokens else []) if ranges is None else validate_ranges(ranges, len(tokens))
+        tagged = self.tagger.tag_with_uncertainty(tokens, lang, ranges)
+        contextual = len(tokens) > 1 and self.tagger.has_model(lang)
+        analyses = []
+        for tok, pos, evidence in tagged:
+            analysis = self._analyze_token(tok, pos, lang, contextual)
+            if evidence is not None:
+                evidence['applies_to_returned_pos'] = analysis.pos == pos
+                analysis.pos_uncertainty = evidence
+            analyses.append(analysis)
+        return TokenAnalysis(tokens=list(tokens), analyses=analyses, lang=lang, sentence_ranges=list(ranges))
 
     def analyze_word(self, word: str, lang: str = "en") -> MorphAnalysis:
         """Analyze a single word."""
-        pos = self.tagger.tag([word], lang)[0][1]
-        return self._analyze_token(word, pos, lang)
+        if not word or not word.strip():
+            raise ValueError("word must contain a non-whitespace token")
+        _, pos, evidence = self.tagger.tag_with_uncertainty([word], lang)[0]
+        result = self._analyze_token(word, pos, lang)
+        if evidence is not None:
+            evidence['applies_to_returned_pos'] = result.pos == pos
+            result.pos_uncertainty = evidence
+        result.span = (0, len(word))
+        return result
 
     def get_typology(self, lang: str) -> str:
         """Return morphological typology for a language."""
@@ -867,55 +1059,178 @@ class MorphologyEngine:
 
     def add_segmenter(self, lang: str, segmenter: BPESegmenter) -> None:
         """Register a trained BPE segmenter for a language."""
-        self._segmenters[lang] = segmenter
+        self._segmenters[lang.lower().split("-")[0]] = segmenter
+
+    def add_lexicon(self, lexicon: CorpusLexicon) -> None:
+        """Register an attested form index; unknown forms retain explicit fallback."""
+        self._lexicons[lexicon.lang] = lexicon
+        self.dependency_parsers.pop(lexicon.lang, None)
+        self.tagger.load_corpus_model(lexicon)
+        self._sentence_abbreviations[lexicon.lang] = self._abbreviations(lexicon)
+
+    def load_resources(self, directory: str | Path) -> list[dict]:
+        """Load local compiled resources atomically; report corrupt/duplicate data."""
+        directory = Path(directory)
+        if not directory.exists():
+            return []
+        if not directory.is_dir():
+            raise ValueError("Linguistic resource path must be a directory")
+        loaded = {}
+        for path in sorted(directory.glob("*.json")):
+            try:
+                lexicon = CorpusLexicon.load(path)
+            except (ValueError, KeyError, TypeError) as error:
+                raise ValueError(f"Invalid linguistic resource {path.name}: {error}") from error
+            if lexicon.lang in loaded:
+                raise ValueError(f"Duplicate resource language: {lexicon.lang}")
+            loaded[lexicon.lang] = lexicon
+        self._lexicons.update(loaded)
+        for lexicon in loaded.values():
+            self.dependency_parsers.pop(lexicon.lang, None)
+            self.tagger.load_corpus_model(lexicon)
+            self._sentence_abbreviations[lexicon.lang] = self._abbreviations(lexicon)
+        return [{"language": lexicon.lang, "source": lexicon.source,
+                 "forms": lexicon.summary["forms"]} for lexicon in loaded.values()]
+
+    @staticmethod
+    def _abbreviations(lexicon):
+        _, emissions = lexicon.pos_statistics()
+        return {form[:-1].lower() for form, counts in emissions.items()
+                if form.endswith('.') and 1 < len(form) <= 8 and form[:-1].isalpha()
+                and any(tag not in {'PUNCT', 'SYM'} for tag in counts)}
+
+    def capabilities(self, lang: str) -> dict:
+        """Report available methods, without claiming validated linguistic coverage."""
+        base_lang = lang.lower().split("-")[0]
+        return {
+            "morphology": ("corpus_lookup" if base_lang in self._lexicons else
+                           "english_affix_rules" if base_lang == "en" else "unavailable"),
+            "pos": ("corpus_lookup_and_heuristic" if base_lang in self._lexicons else
+                    "heuristic" if base_lang in CLOSED_CLASS else "default_heuristic"),
+            "subwords": "bpe" if base_lang in self._segmenters else "unavailable",
+            "tokenization": "characters" if base_lang in ("zh", "ja") else "english_clitic_rules" if base_lang == "en" else "punctuation_split",
+            "corpus_forms": self._lexicons[base_lang].summary["forms"] if base_lang in self._lexicons else 0,
+            "context": "bigram_hmm" if self.tagger.has_model(lang) else "unavailable",
+            "unknown_word_pos": "locally_trained_case_variants_suffix_backoff" if self.tagger.has_model(lang) else "heuristic",
+        }
 
     # ── Internal ─────────────────────────────────────────────────────────────
 
     def _tokenize(self, text: str, lang: str) -> list[str]:
-        """Basic whitespace + punctuation tokenizer."""
-        if lang in ("zh", "ja"):
-            # Character-level tokenisation for CJK
-            return [ch for ch in text if not ch.isspace()]
-        tokens = re.findall(r"\b[\w']+\b|[^\w\s]", text)
-        return [t for t in tokens if t.strip()]
+        return [surface for surface, _ in self._tokenize_with_spans(text, lang)]
 
-    def _analyze_token(self, surface: str, pos: str, lang: str) -> MorphAnalysis:
-        base_lang = lang.split("-")[0]
+    def tokenize_with_spans(self, text: str, lang: str) -> list[tuple[str, tuple[int, int]]]:
+        """Reuse production text boundaries without invoking POS/morphology models."""
+        return self._tokenize_with_spans(text, lang)
+
+    def _tokenize_with_spans(self, text: str, lang: str) -> list[tuple[str, tuple[int, int]]]:
+        """Preserve combining marks and exact original-text offsets.
+
+        CJK remains character-oriented (base character plus marks), not a
+        claimed word segmenter. Other scripts group letters, numbers, and marks.
+        """
+        cjk = lang.lower().split("-")[0] in ("zh", "ja")
+        result = []
+        start = None
+        for i, char in enumerate(text):
+            category = unicodedata.category(char)
+            mark = category.startswith("M")
+            word = category[0] in "LN" or category == "Pc"
+            # Keep an internal apostrophe, but not a surrounding quotation mark.
+            apostrophe = (char in "'’" and start is not None and i + 1 < len(text)
+                          and unicodedata.category(text[i + 1])[0] in "LN")
+            joiner = (char in "\u200c\u200d" and start is not None and i + 1 < len(text)
+                      and unicodedata.category(text[i + 1])[0] in "LM")
+            if start is not None and (mark or (not cjk and (word or apostrophe or joiner))):
+                continue
+            if start is not None:
+                result.append((text[start:i], (start, i)))
+                start = None
+            if char.isspace():
+                continue
+            if word or mark:
+                start = i
+            else:
+                result.append((char, (i, i + 1)))
+        if start is not None:
+            result.append((text[start:], (start, len(text))))
+        if language_code(lang) == "en":
+            # English syntactic-word convention, not universal morphology.
+            # Keep each piece as an exact surface slice; do not expand can't
+            # into invented text such as 'can not'. Meanings remain ambiguous.
+            pieces = []
+            for surface, (left, right) in result:
+                remaining = surface
+                suffixes = []
+                while True:
+                    match = re.search(r"(?:n['’]t|['’](?:s|re|ve|ll|d|m))$", remaining, re.IGNORECASE)
+                    if match is None or match.start() == 0:
+                        break
+                    suffixes.append((remaining[match.start():], (left + match.start(), left + len(remaining))))
+                    remaining = remaining[:match.start()]
+                pieces.append((remaining, (left, left + len(remaining))))
+                pieces.extend(reversed(suffixes))
+            result = pieces
+        return result
+
+    def _analyze_token(self, surface: str, pos: str, lang: str, contextual: bool = False) -> MorphAnalysis:
+        base_lang = lang.lower().split("-")[0]
+
+        subwords = (self._segmenters[base_lang].segment(surface.lower())
+                    if base_lang in self._segmenters else [])
+        lexicon = self._lexicons.get(base_lang)
+        pos_method = "bigram_hmm" if self.tagger.has_model(lang) else "heuristic_rules"
+        model_source = dict(lexicon.source) if lexicon and pos_method == "bigram_hmm" else None
+        candidates = lexicon.lookup(surface) if lexicon else []
+        if candidates:
+            selected = [i for i, c in enumerate(candidates) if c["pos"] == pos] if contextual else []
+            narrowed = bool(selected and len(selected) < len(candidates))
+            if not selected:
+                selected = list(range(len(candidates)))
+            active = [candidates[i] for i in selected]
+            lemmas = {c["lemma"] for c in active}
+            tags = {c["pos"] for c in active}
+            # Preserve field-level consensus even when the complete analysis is
+            # ambiguous. Never fill a disputed field from the frequency winner.
+            shared_features = {
+                key: value for key, value in active[0]["features"].items()
+                if all(c["features"].get(key) == value for c in active)
+            }
+            features = MorphFeatures(**{
+                key.lower(): value for key, value in shared_features.items()
+                if key.lower() in MorphFeatures.__dataclass_fields__
+            })
+            return MorphAnalysis(surface, next(iter(lemmas)) if len(lemmas) == 1 else surface,
+                                 [], next(iter(tags)) if len(tags) == 1 else POS.X, features, lang,
+                                 method="corpus_context" if narrowed else "corpus_lookup" if len(candidates) == 1 else "corpus_ambiguous",
+                                 candidates=candidates, ud_features=shared_features, subwords=subwords,
+                                 selected_candidate_indices=selected,
+                                 pos_method="bigram_hmm" if narrowed else "corpus_lookup" if len(tags) == 1 else "unresolved",
+                                 model_source=model_source)
 
         # Punctuation / numbers — no morpheme analysis needed
-        if not surface[0].isalpha():
+        if not any(char.isalpha() for char in surface):
             return MorphAnalysis(
                 surface=surface, root=surface, morphemes=[surface],
-                pos=POS.PUNCT if not surface[0].isdigit() else POS.NUM,
-                features=MorphFeatures(), lang=lang,
+                pos=POS.NUM if surface[0].isdigit() else POS.PUNCT,
+                features=MorphFeatures(), lang=lang, method="structural", pos_method="structural",
             )
 
-        # BPE segmenter if trained for this language
-        if base_lang in self._segmenters:
-            morphemes = self._segmenters[base_lang].segment(surface)
-            root = morphemes[0] if morphemes else surface
-            return MorphAnalysis(
-                surface=surface, root=root, morphemes=morphemes,
-                pos=pos, features=MorphFeatures(), lang=lang,
-            )
+        # Statistical subwords are independent of linguistic morphology.
 
         # Rule-based for English
-        if base_lang == "en":
+        if base_lang == "en" and lexicon is None:
             root, morphemes, feats = _extract_en_morphemes(surface)
             return MorphAnalysis(
                 surface=surface, root=root, morphemes=morphemes,
                 pos=pos, features=feats, lang=lang,
+                method="english_affix_rules", subwords=subwords, pos_method=pos_method,
+                model_source=model_source,
             )
 
-        # Isolating languages — each word is its own morpheme
-        if morphological_typology(base_lang) == "isolating":
-            return MorphAnalysis(
-                surface=surface, root=surface, morphemes=[surface],
-                pos=pos, features=MorphFeatures(), lang=lang,
-            )
-
-        # Generic: return surface as single morpheme
+        # Lack of an analyzer does not establish a word's morpheme boundaries.
         return MorphAnalysis(
-            surface=surface, root=surface.lower(), morphemes=[surface],
-            pos=pos, features=MorphFeatures(), lang=lang,
+            surface=surface, root=surface, morphemes=[],
+            pos=pos, features=MorphFeatures(), lang=lang, subwords=subwords,
+            pos_method=pos_method, model_source=model_source,
         )

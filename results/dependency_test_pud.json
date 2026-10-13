@@ -1,0 +1,270 @@
+{
+  "corpus_sha256": "c80584f2bc2b31d5bada78a1136f9feec7ac49e5e18898db02dea434b5b8f0aa",
+  "model_sha256": "3c1420cd0cdf469ea67621c7e38c7e1c0ebadeef004090efd7975330c54564e9",
+  "source": {
+    "training_sha256": "d68e06122a702464c613076523d56740f047e5bbe89dd90ec32737e04d952143",
+    "url": "https://github.com/UniversalDependencies/UD_English-EWT/tree/4a4d77f599ea53cc405f85d0cec4b2f14f81d42b",
+    "license": "CC-BY-SA-4.0"
+  },
+  "excluded_sentences": 0,
+  "methods": {
+    "left_chain": {
+      "tokens": 18732,
+      "uas": 0.0541319666880205,
+      "las": 0.00042707666026051675,
+      "nonprojective_tokens": 1094
+    },
+    "verb_hub": {
+      "tokens": 18732,
+      "uas": 0.1840700405722827,
+      "las": 0.03053598120862695,
+      "nonprojective_tokens": 1094
+    },
+    "gold_features": {
+      "tokens": 18732,
+      "uas": 0.8242579543027974,
+      "las": 0.7727418321588725,
+      "nonprojective_tokens": 1094
+    },
+    "production_features": {
+      "tokens": 18732,
+      "uas": 0.740444159726671,
+      "las": 0.6615951313260731,
+      "nonprojective_tokens": 1094
+    }
+  },
+  "production_by_gold_relation": {
+    "mark": {
+      "tokens": 560,
+      "uas": 0.7767857142857143,
+      "las": 0.6857142857142857
+    },
+    "nsubj": {
+      "tokens": 1393,
+      "uas": 0.6805455850681982,
+      "las": 0.6037329504666188
+    },
+    "case": {
+      "tokens": 2511,
+      "uas": 0.8590203106332138,
+      "las": 0.8426921545201115
+    },
+    "det": {
+      "tokens": 2043,
+      "uas": 0.9241311796377876,
+      "las": 0.9202153695545766
+    },
+    "amod": {
+      "tokens": 1358,
+      "uas": 0.8645066273932254,
+      "las": 0.7960235640648011
+    },
+    "nmod": {
+      "tokens": 1082,
+      "uas": 0.6894639556377079,
+      "las": 0.6404805914972274
+    },
+    "cop": {
+      "tokens": 317,
+      "uas": 0.861198738170347,
+      "las": 0.8264984227129337
+    },
+    "advcl": {
+      "tokens": 292,
+      "uas": 0.4178082191780822,
+      "las": 0.17123287671232876
+    },
+    "obl": {
+      "tokens": 1244,
+      "uas": 0.6406752411575563,
+      "las": 0.5811897106109325
+    },
+    "ccomp": {
+      "tokens": 178,
+      "uas": 0.5056179775280899,
+      "las": 0.28651685393258425
+    },
+    "advmod": {
+      "tokens": 847,
+      "uas": 0.7390791027154664,
+      "las": 0.7012987012987013
+    },
+    "compound": {
+      "tokens": 773,
+      "uas": 0.7671410090556274,
+      "las": 0.6170763260025873
+    },
+    "nmod:desc": {
+      "tokens": 41,
+      "uas": 0.5121951219512195,
+      "las": 0.17073170731707318
+    },
+    "flat": {
+      "tokens": 220,
+      "uas": 0.39090909090909093,
+      "las": 0.33636363636363636
+    },
+    "root": {
+      "tokens": 1000,
+      "uas": 0.6,
+      "las": 0.6
+    },
+    "nmod:unmarked": {
+      "tokens": 111,
+      "uas": 0.5225225225225225,
+      "las": 0.2882882882882883
+    },
+    "acl:relcl": {
+      "tokens": 211,
+      "uas": 0.4075829383886256,
+      "las": 0.3033175355450237
+    },
+    "obj": {
+      "tokens": 877,
+      "uas": 0.7970353477765109,
+      "las": 0.7092360319270239
+    },
+    "aux": {
+      "tokens": 410,
+      "uas": 0.9390243902439024,
+      "las": 0.9024390243902439
+    },
+    "obl:unmarked": {
+      "tokens": 37,
+      "uas": 0.5405405405405406,
+      "las": 0.3783783783783784
+    },
+    "cc": {
+      "tokens": 575,
+      "uas": 0.7269565217391304,
+      "las": 0.7217391304347827
+    },
+    "nmod:poss": {
+      "tokens": 364,
+      "uas": 0.7527472527472527,
+      "las": 0.5851648351648352
+    },
+    "acl": {
+      "tokens": 193,
+      "uas": 0.44041450777202074,
+      "las": 0.31088082901554404
+    },
+    "xcomp": {
+      "tokens": 271,
+      "uas": 0.7896678966789668,
+      "las": 0.5276752767527675
+    },
+    "conj": {
+      "tokens": 634,
+      "uas": 0.35331230283911674,
+      "las": 0.32018927444794953
+    },
+    "nsubj:pass": {
+      "tokens": 239,
+      "uas": 0.8158995815899581,
+      "las": 0.11297071129707113
+    },
+    "aux:pass": {
+      "tokens": 274,
+      "uas": 0.9890510948905109,
+      "las": 0.35036496350364965
+    },
+    "dislocated": {
+      "tokens": 2,
+      "uas": 0.0,
+      "las": 0.0
+    },
+    "reparandum": {
+      "tokens": 1,
+      "uas": 0.0,
+      "las": 0.0
+    },
+    "nummod": {
+      "tokens": 195,
+      "uas": 0.8974358974358975,
+      "las": 0.8717948717948718
+    },
+    "appos": {
+      "tokens": 139,
+      "uas": 0.302158273381295,
+      "las": 0.17266187050359713
+    },
+    "fixed": {
+      "tokens": 82,
+      "uas": 0.1951219512195122,
+      "las": 0.1951219512195122
+    },
+    "expl": {
+      "tokens": 62,
+      "uas": 0.45161290322580644,
+      "las": 0.25806451612903225
+    },
+    "csubj": {
+      "tokens": 27,
+      "uas": 0.5185185185185185,
+      "las": 0.2222222222222222
+    },
+    "iobj": {
+      "tokens": 10,
+      "uas": 0.9,
+      "las": 0.6
+    },
+    "parataxis": {
+      "tokens": 54,
+      "uas": 0.4444444444444444,
+      "las": 0.18518518518518517
+    },
+    "orphan": {
+      "tokens": 7,
+      "uas": 0.5714285714285714,
+      "las": 0.0
+    },
+    "compound:prt": {
+      "tokens": 70,
+      "uas": 0.7571428571428571,
+      "las": 0.6285714285714286
+    },
+    "discourse": {
+      "tokens": 1,
+      "uas": 0.0,
+      "las": 0.0
+    },
+    "vocative": {
+      "tokens": 1,
+      "uas": 0.0,
+      "las": 0.0
+    },
+    "cc:preconj": {
+      "tokens": 11,
+      "uas": 0.9090909090909091,
+      "las": 0.36363636363636365
+    },
+    "det:predet": {
+      "tokens": 9,
+      "uas": 0.7777777777777778,
+      "las": 0.5555555555555556
+    },
+    "goeswith": {
+      "tokens": 1,
+      "uas": 0.0,
+      "las": 0.0
+    },
+    "advcl:relcl": {
+      "tokens": 1,
+      "uas": 1.0,
+      "las": 0.0
+    },
+    "dep": {
+      "tokens": 1,
+      "uas": 0.0,
+      "las": 0.0
+    },
+    "csubj:pass": {
+      "tokens": 3,
+      "uas": 0.6666666666666666,
+      "las": 0.0
+    }
+  },
+  "seconds": 8.160785100000794,
+  "limits": "Gold words and sentence boundaries, punctuation excluded from scoring. Gold_features is an oracle-input diagnostic, not product accuracy. Production uses existing POS/feature predictions. Exact train/dev overlap excluded; no filtering of nonprojective test trees. Scores are not calibrated. Basic syntax does not establish semantic roles or correct translation."
+}

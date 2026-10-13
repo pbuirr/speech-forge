@@ -27,15 +27,14 @@ Time reduction:
     This downsampling factor determines input_lengths for CTCLoss:
         input_lengths = ceil(mel_lengths / 2)
     It also sets the lower bound on audio length relative to transcript length:
-        CTCLoss requires input_length >= target_length
+        CTCLoss requires input_length >= target_length + adjacent token repeats.
         At 10ms/frame after 2x reduction, each output frame covers 20ms.
         A 1-second clip yields 50 encoder frames → can transcribe ≤50 characters.
 
-Parameter count (default hidden_size=256, cnn_channels=(32,64,128)):
-    ConvEncoder:  ~750K
-    BiLSTMStack:  ~2.4M
-    Classifier:   ~8K
-    Total:        ~3.2M   ← trainable on CPU in reasonable time
+The default configuration is about 4.8M parameters (vocabulary-dependent).
+The compact installed configuration is about 0.81M. Optional fourfold temporal
+subsampling reduces recurrent sequence length; accuracy and cost require evaluation.
+Legacy checkpoints retain twofold subsampling.
 """
 
 from __future__ import annotations
@@ -80,8 +79,26 @@ class ConvBlock(nn.Module):
         self.act  = nn.GELU()
         self.drop = nn.Dropout2d(dropout)
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.drop(self.act(self.bn(self.conv(x))))
+    def forward(self, x: torch.Tensor, lengths: torch.Tensor | None = None) -> torch.Tensor:
+        x = self.conv(x)
+        if lengths is None or not self.training:
+            x = self.bn(x)
+        else:
+            # Real time/frequency cells only: batch padding is not acoustic data.
+            keep = torch.arange(x.shape[-1],device=x.device)[None,:] < lengths[:,None]
+            keep = keep[:,None,None,:]
+            count = keep.sum() * x.shape[2]
+            mean = (x * keep).sum((0,2,3)) / count
+            variance = ((x - mean[None,:,None,None]).square() * keep).sum((0,2,3)) / count
+            if self.bn.track_running_stats:
+                with torch.no_grad():
+                    self.bn.num_batches_tracked.add_(1)
+                    momentum = self.bn.momentum if self.bn.momentum is not None else 1 / self.bn.num_batches_tracked.item()
+                    self.bn.running_mean.lerp_(mean.detach(),momentum)
+                    self.bn.running_var.lerp_((variance * count / (count-1).clamp_min(1)).detach(),momentum)
+            x = (x - mean[None,:,None,None]) * torch.rsqrt(variance[None,:,None,None] + self.bn.eps)
+            x = x * self.bn.weight[None,:,None,None] + self.bn.bias[None,:,None,None]
+        return self.drop(self.act(x))
 
 
 class ConvEncoder(nn.Module):
@@ -113,33 +130,46 @@ class ConvEncoder(nn.Module):
         channels: tuple[int, int, int] = (32, 64, 128),
         hidden_size: int = 256,
         dropout: float = 0.1,
+        time_reduction: int = 2,
     ) -> None:
         super().__init__()
+        if time_reduction not in (2,4):raise ValueError('Time reduction must be 2 or 4')
+        self.time_reduction=time_reduction
         c0, c1, c2 = channels
 
         # Block 1: mel stride 2, time stride 1 → (B, c0, n_mels//2, T)
         self.block1 = ConvBlock(1,  c0, (3, 3), stride=(2, 1), padding=(1, 1), dropout=dropout)
         # Block 2: mel stride 2, time stride 1 → (B, c1, n_mels//4, T)
-        self.block2 = ConvBlock(c0, c1, (3, 3), stride=(2, 1), padding=(1, 1), dropout=dropout)
+        self.block2 = ConvBlock(c0, c1, (3, 3), stride=(2, 2 if time_reduction==4 else 1), padding=(1, 1), dropout=dropout)
         # Block 3: mel stride 2, time stride 2 → (B, c2, n_mels//8, T//2)
         self.block3 = ConvBlock(c1, c2, (3, 3), stride=(2, 2), padding=(1, 1), dropout=dropout)
 
         # After block 3, the mel dimension is n_mels // 8 = 10 for n_mels=80
         mel_out = n_mels // 8  # 80 → 10
         self.proj = nn.Linear(c2 * mel_out, hidden_size)
+        self.masked_batch_norm = False
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
+    def forward(self, x: torch.Tensor, lengths: torch.Tensor | None = None) -> torch.Tensor:
         # x: (B, 1, n_mels, T)
-        x = self.block1(x)  # (B, c0, n_mels//2, T)
-        x = self.block2(x)  # (B, c1, n_mels//4, T)
-        x = self.block3(x)  # (B, c2, n_mels//8, T//2)
+        def mask_padding(value, valid):
+            if valid is None: return value
+            keep = torch.arange(value.shape[-1],device=value.device)[None,:] < valid[:,None]
+            return value * keep[:,None,None,:]
+        x = self.block1(x, lengths if self.masked_batch_norm else None)
+        x = mask_padding(x, lengths)
+        second_lengths=(lengths+1)//2 if lengths is not None and self.time_reduction==4 else lengths
+        x = self.block2(x, second_lengths if self.masked_batch_norm else None)
+        x = mask_padding(x, second_lengths)
+        final_lengths=(second_lengths+1)//2 if second_lengths is not None else None
+        x = self.block3(x, final_lengths if self.masked_batch_norm else None)
+        x = mask_padding(x, final_lengths)
 
         B, C, M, T_out = x.shape
         x = x.permute(0, 3, 1, 2).reshape(B, T_out, C * M)  # (B, T//2, C*M)
         return self.proj(x)                                    # (B, T//2, hidden_size)
 
     @staticmethod
-    def output_length(input_length: int) -> int:
+    def output_length(input_length: int, time_reduction: int = 2) -> int:
         """Exact output frame count for a given input frame count.
 
         PyTorch Conv2d output formula: floor((L + 2*p - k) / s) + 1
@@ -150,7 +180,7 @@ class ConvEncoder(nn.Module):
             input_length=300  → 150 output frames  (3s audio)
             input_length=3000 → 1500 output frames (30s audio)
         """
-        return (input_length - 1) // 2 + 1
+        return (input_length + time_reduction - 1) // time_reduction
 
 
 class BiLSTMStack(nn.Module):
@@ -205,11 +235,16 @@ class BiLSTMStack(nn.Module):
                 nn.Linear(in_size, out_size) if in_size != out_size else nn.Identity()
             )
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
+    def forward(self, x: torch.Tensor, lengths: torch.Tensor | None = None) -> torch.Tensor:
         # x: (B, T, input_size)
         for lstm, norm, drop, proj in zip(self.lstms, self.norms, self.drops, self.projs):
             residual = proj(x)             # (B, T, out_size) — same dim as LSTM output
-            out, _ = lstm(x)               # (B, T, hidden_size*2)
+            if lengths is None:
+                out, _ = lstm(x)
+            else:
+                packed = nn.utils.rnn.pack_padded_sequence(x,lengths.cpu(),batch_first=True,enforce_sorted=False)
+                encoded, _ = lstm(packed)
+                out, _ = nn.utils.rnn.pad_packed_sequence(encoded,batch_first=True,total_length=x.shape[1])
             x = norm(drop(out) + residual) # residual + normalise
         return x  # (B, T, hidden_size*2)
 
@@ -222,9 +257,8 @@ class CTCModel(nn.Module):
     A complete speech recognition model built from first principles:
         ConvEncoder → BiLSTMStack → Linear → LogSoftmax
 
-    This is Phase 3 of LinguaForge. In Phase 4 we will replace the BiLSTMStack
-    with a Transformer encoder-decoder for higher accuracy, but the ConvEncoder
-    frontend and the CTC training setup will stay the same.
+    The project also implements Transformer speech models. Architecture changes
+    require matched evaluation; their existence does not establish higher accuracy.
 
     Args:
         vocab_size:      number of output classes (from CharTokenizer.vocab_size)
@@ -254,17 +288,19 @@ class CTCModel(nn.Module):
         hidden_size: int = 256,
         num_lstm_layers: int = 3,
         dropout: float = 0.1,
+        time_reduction: int = 2,
     ) -> None:
         super().__init__()
         self.vocab_size = vocab_size
         self.n_mels = n_mels
         self.hidden_size = hidden_size
-        self.time_reduction = 2  # CNN reduces time by 2× (block 3 stride)
+        self.time_reduction = time_reduction
 
         self.encoder = ConvEncoder(
             n_mels=n_mels,
             channels=cnn_channels,
             hidden_size=hidden_size,
+            time_reduction=time_reduction,
             dropout=dropout,
         )
         self.rnn = BiLSTMStack(
@@ -304,7 +340,7 @@ class CTCModel(nn.Module):
                     elif "bias" in name:
                         nn.init.zeros_(p)
 
-    def forward(self, mel: torch.Tensor) -> torch.Tensor:
+    def forward(self, mel: torch.Tensor, mel_lengths: torch.Tensor | None = None) -> torch.Tensor:
         """Run the full model.
 
         Args:
@@ -315,8 +351,9 @@ class CTCModel(nn.Module):
             where T_out = ceil(T / 2)
         """
         x = mel.unsqueeze(1)            # (B, 1, n_mels, T)
-        x = self.encoder(x)             # (B, T//2, hidden_size)
-        x = self.rnn(x)                 # (B, T//2, hidden_size*2)
+        x = self.encoder(x, mel_lengths)
+        lengths = self.encoder_output_length(mel_lengths) if mel_lengths is not None else None
+        x = self.rnn(x, lengths)
         x = self.classifier(x)          # (B, T//2, vocab_size)
         x = torch.log_softmax(x, dim=-1)
         return x.permute(1, 0, 2)       # (T//2, B, vocab_size) — time-first
@@ -333,12 +370,7 @@ class CTCModel(nn.Module):
         Returns:
             (B,) int64 — number of encoder output frames per example
         """
-        lengths = torch.tensor(
-            [ConvEncoder.output_length(int(l)) for l in mel_lengths],
-            dtype=torch.long,
-            device=mel_lengths.device,
-        )
-        return lengths
+        return (mel_lengths.to(dtype=torch.long) + self.time_reduction - 1) // self.time_reduction
 
     def count_parameters(self) -> int:
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
@@ -356,7 +388,7 @@ class CTCModel(nn.Module):
             f"  hidden_size:   {self.hidden_size}\n"
             f"  vocab_size:    {self.vocab_size}\n"
             f"  time_reduce:   {self.time_reduction}×  "
-            f"(T mel frames → T/2 encoder frames)\n"
+            f"(T mel frames → ceil(T/{self.time_reduction}) encoder frames)\n"
             f"{'─'*44}\n"
             f"  ConvEncoder    {enc_p:.3f}M parameters\n"
             f"  BiLSTMStack    {rnn_p:.3f}M parameters\n"

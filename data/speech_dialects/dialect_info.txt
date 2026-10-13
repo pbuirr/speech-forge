@@ -1,0 +1,27 @@
+The Dialects
+The recordings delivered in this data set cover a broad set of dialects from UK
+and Ireland. Participants were asked to self identify which set they felt
+they belonged to.
+The dialects represented in the recordings are:
+ * Irish English
+ * Midlands English
+ * Northern English
+ * Scottish English
+ * Southern English
+ * Welsh English
+
+The Elicitation Lines
+Different elicitation scripts were generated for each speaker, however a few
+sentences were included in all the elicitation scripts. The scripts were crafted
+for each dialect so that specific linguistic features present in that dialect
+could be contrasted against other dialects, as well as capturing pronunciation
+variants of for example place names.
+
+Various sources were used for the elicitation scripts. Each line presented in
+the data set has a LINE_ID which refers to the identifier given to the source
+line used for the scripts. The LINE_ID can therefore be used to find the same
+line from different speakers, or different dialects.
+
+The sources for the lines are various such as Wikipedia, The Rainbow Passage,
+lines to perform tasks on a virtual assistant which were edited for length and
+adding target words for accent elicitation while keeping the content intact.

@@ -502,9 +502,11 @@ body {
 
 .trans-model-note {
   margin-top: 0.65rem;
-  font-size: 0.75rem;
-  color: var(--text-3);
+  font-size: 0.85rem;
+  color: var(--text-2);
+  line-height: 1.5;
 }
+.trans-model-note a { color: var(--accent); }
 
 .trans-unavail {
   color: var(--text-2);

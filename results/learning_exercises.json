@@ -1,0 +1,94 @@
+{
+  "fixture": "tests/fixtures/learning_cases.json",
+  "cases": 12,
+  "fixture_sha256": "3b8800db2541a614cd33f1b13938ce6ddfbb14ffaa6da2825c1036afc629afd9",
+  "languages": [
+    "ar",
+    "en",
+    "es",
+    "fa",
+    "fr",
+    "hi",
+    "ja",
+    "ru",
+    "tr",
+    "zh"
+  ],
+  "implementations": {
+    "baseline": {
+      "correct_cloze_prompts": 3,
+      "total": 12,
+      "failures": [
+        {
+          "language": "ru",
+          "text": "Это «дом».",
+          "expected_prompt": "Это «____».",
+          "actual_prompt": "____ — authored reference"
+        },
+        {
+          "language": "ar",
+          "text": "هذا كتاب، جميل.",
+          "expected_prompt": "هذا ____، جميل.",
+          "actual_prompt": "____ — authored reference"
+        },
+        {
+          "language": "hi",
+          "text": "यह घर।",
+          "expected_prompt": "यह ____।",
+          "actual_prompt": "____ — authored reference"
+        },
+        {
+          "language": "fa",
+          "text": "من می‌روم، امروز.",
+          "expected_prompt": "من ____، امروز.",
+          "actual_prompt": "____ — authored reference"
+        },
+        {
+          "language": "zh",
+          "text": "我爱学习。",
+          "expected_prompt": "我爱____。",
+          "actual_prompt": "____ — authored reference"
+        },
+        {
+          "language": "ja",
+          "text": "私は日本語を学ぶ。",
+          "expected_prompt": "私は____を学ぶ。",
+          "actual_prompt": "____ — authored reference"
+        },
+        {
+          "language": "tr",
+          "text": "Bu İSTANBUL, güzel.",
+          "expected_prompt": "Bu ____, güzel.",
+          "actual_prompt": "____ — authored reference"
+        },
+        {
+          "language": "fr",
+          "text": "Un café.",
+          "expected_prompt": "Un ____.",
+          "actual_prompt": "____ — authored reference"
+        },
+        {
+          "language": "en",
+          "text": "The  cat\nrests.",
+          "expected_prompt": "The  ____\nrests.",
+          "actual_prompt": "The ____ rests."
+        }
+      ]
+    },
+    "current": {
+      "correct_cloze_prompts": 12,
+      "total": 12,
+      "failures": []
+    }
+  },
+  "limits": "Authored regression cases, not representative corpora or a study of learning outcomes. Chinese/Japanese multi-character targets have explicit authored spans; this does not establish word segmentation quality. No model inference or training occurs.",
+  "baseline_module_sha256": "894274373db73968dc24b7bcbe799b5519a51becaaefceca2dc160077105ce8a",
+  "grammar_health": {
+    "language": "en",
+    "sentences": 2077,
+    "corpus_sha256": "fa024f43dc5da3c5ac02563bc9bd0e974f46cbb1560823976a8f342a37dc494a",
+    "completed_checks": 18693,
+    "failures": [],
+    "limits": "Checks rule execution and valid offsets, not linguistic correctness of findings."
+  }
+}

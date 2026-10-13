@@ -1,0 +1,1900 @@
+{
+  "checkpoint": "data\\training\\nmt_source_contrast_flat\\best.pt",
+  "checkpoint_sha256": "69ddb8e2fefd0a1a676780e1728b3f2fecb18eb0e05256b8cb12a3776831f0e5",
+  "data_sha256": "4b5ec70fc2a27cb1db0d2dae0feaab58098a17fadaa08e8cd24a8e330e9ba6df",
+  "metadata": {
+    "direction": "es→en",
+    "seed": 731,
+    "corpus_sha256": "6cfdec3b2a59218a223436ad49d2d4bc3930b1089e630ed1c7d46a6ad334b500",
+    "counts": {
+      "train": 59864,
+      "dev": 1005,
+      "test": 1040
+    },
+    "split_policy": "saved partitions; validated source/target disjointness",
+    "dataset": "Bounded source-conditioning objective comparison; effective batch64; no synthetic translations",
+    "quality_status": "experimental; development-loss selection; single-reference evaluation pending",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3050",
+    "learning_rate": 0.0004,
+    "source_contrast_weight": 0.2,
+    "accum_steps": 4,
+    "curriculum_epochs": 0,
+    "split_sha256": {
+      "train": "6cfdec3b2a59218a223436ad49d2d4bc3930b1089e630ed1c7d46a6ad334b500",
+      "dev": "201e53888eb85a77c6cc27977e2c04baddbba6894938531a265083e8eaa1acc9",
+      "test": "87dc02499505800087a23b4894c672150b7cfa75e99eb2cc8dbd2b96a2a8a3a0"
+    },
+    "warm_start": "data\\models\\nmt_es_en.pt",
+    "training_corpus": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\training\\nmt_source_contrast_flat\\train.tsv",
+    "decoding_policy": "preserve_numeric_fragments",
+    "parameters": 1204736,
+    "epoch": 2,
+    "dev_token_nll": 2.370778369192625
+  },
+  "device": "cpu",
+  "decoder": "beam_4",
+  "decoding_options": {
+    "eos_boost": true,
+    "repeat_guard": true,
+    "no_repeat_ngram": 3,
+    "allow_repeated_fragments": false,
+    "allow_repeated_digits": true
+  },
+  "sample_seed": 3031,
+  "prior_evaluation_excluded": 801,
+  "examples": 200,
+  "excluded_overlap": 0,
+  "metrics": {
+    "raw": {
+      "bleu": 10.2084,
+      "bp": 1.0,
+      "precisions": [
+        40.1796,
+        14.4536,
+        6.4365,
+        2.9053
+      ],
+      "hyp_len": 4455,
+      "ref_len": 4407,
+      "n_sentences": 200,
+      "character_f2_6_no_space": 42.319178903197646,
+      "exact_match_lowercase": 0.0
+    },
+    "application": {
+      "bleu": 10.2133,
+      "bp": 1.0,
+      "precisions": [
+        40.1976,
+        14.4604,
+        6.4397,
+        2.9068
+      ],
+      "hyp_len": 4453,
+      "ref_len": 4407,
+      "n_sentences": 200,
+      "character_f2_6_no_space": 42.32338096703364,
+      "exact_match_lowercase": 0.0
+    }
+  },
+  "copy_source_baseline": {
+    "bleu": 0.32,
+    "bp": 1.0,
+    "precisions": [
+      3.9712,
+      0.8102,
+      0.1478,
+      0.022
+    ],
+    "hyp_len": 5137,
+    "ref_len": 4407,
+    "n_sentences": 200
+  },
+  "review_flag_rate": 0.05,
+  "latency_median_s": 0.09995109999726992,
+  "latency_p95_s": 0.283889194997755,
+  "elapsed_s": 23.456720300004235,
+  "limits": "single-reference lowercase whitespace BLEU; custom character F2; no semantic correctness or calibrated confidence claim; lexical fallback not included",
+  "rows": [
+    {
+      "source": "cuando los precios de las viviendas dejan de aumentar, los compradores recientes pueden perder el entusiasmo de seguir pagando sus hipotecas –y los inversores pierden la fe en los títulos con respaldo hipotecario.",
+      "reference": "when home prices stop rising, recent homebuyers may lose the enthusiasm to continue paying their mortgages – and investors lose faith in mortgage-backed securities.",
+      "raw": "when the prices of the viens leaving auliar, the recent understanding the interviews can continue to follow their hites and inverse inversators in the article with the potechitary.",
+      "application": "When the prices of the viens leaving auliar, the recent understanding the interviews can continue to follow their hites and inverse inversators in the article with the potechitary.",
+      "latency_s": 0.18166269999346696,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4069379310344827
+    },
+    {
+      "source": "esto es válido para cada país, porque asia hoy es un centro importante de crecimiento económico global.",
+      "reference": "this matters for every country, because asia is now an important center of global economic growth.",
+      "raw": "this is vallido for every country, because it is a important center of economic growing major global voic",
+      "application": "This is vallido for every country, because it is a important center of economic growing major global voic.",
+      "latency_s": 0.07198510000307579,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3786529411764705
+    },
+    {
+      "source": "las máquinas más avanzadas del sector, desde los instrumentos de imágenes de ultra alta resolución hasta los robots quirúrgicos, todavía siguen estando plenamente controladas por los seres humanos.",
+      "reference": "the sector’s most advanced machines, from ultra-high-resolution imaging instruments to surgical robots, are still fully controlled by humans.",
+      "raw": "the most avanzated sector, from the instructions of ural instruction to resolution to the robotts who still controled by serious humans.",
+      "application": "The most avanzated sector, from the instructions of ural instruction to resolution to the robotts who still controled by serious humans.",
+      "latency_s": 0.10096199999679811,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4034744680851063
+    },
+    {
+      "source": "en octubre de 1993, melchior ndadaye fue asesinado por miembros del ejército. ndadave fue el primer presidente civil, hutu, no procedente de bururi, y electo democráticamente.",
+      "reference": "in october 1993, the killing by members of the army of melchior ndadaye, the first civilian, hutu, non-bururi, and democratically elected president provoked a bloody reaction by the hutu.",
+      "raw": "in october 1993, melchior ndaye was killed by members of the army nadve was the first president civil president, hu, not process of bururi, and elector, and the democratically elecent.",
+      "application": "In october 1993, melchior ndaye was killed by members of the army nadve was the first president civil president, hu, not process of bururi, and elector, and the democratically elecent.",
+      "latency_s": 0.17232070000318345,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39122777777777773
+    },
+    {
+      "source": "las razones por las que ha sido así se encuentran en el segundo libro: hall of mirrors, de mi amigo, maestro y patrocinador barry eichengreen.",
+      "reference": "the reasons why are found in the second book: hall of mirrors, by my friend, teacher, and patron, barry eichengreen.",
+      "raw": "the reason for the reasons has been so it in the second book: hall of mirrors, of my friends, master and patrifighting and eichengre.",
+      "application": "The reason for the reasons has been so it in the second book: hall of mirrors, of my friends, master and patrifighting and eichengre.",
+      "latency_s": 0.10675649999757297,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.417646
+    },
+    {
+      "source": "y, con el desempleo en niveles tenazmente altos, muchos hogares ahorran para tener efectivo adicional en caso de perder el empleo o de verse obligados a reducir las horas de trabajo.",
+      "reference": "and, with unemployment stubbornly high, many households are saving in order to have additional cash if they should lose their job or be put on shorter hours.",
+      "raw": "y, with the employment in nivelopment alts, many howevers saving adaditional case in case of suffering the summer employee to reduce hours of the work.",
+      "application": "Y, with the employment in nivelopment alts, many howevers saving adaditional case in case of suffering the summer employee to reduce hours of the work.",
+      "latency_s": 0.10979629999201279,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39577307692307695
+    },
+    {
+      "source": "las autoridades obtienen esos cálculos convirtiendo los ingresos en dólares en una medida de los ingresos reales mediante un índice de precios que refleja los cambios de los precios de los bienes y servicios existentes, pero dicho índice no refleja los nuevos productos ni las mejoras de los bienes y servicios existentes.",
+      "reference": "the authorities arrive at their estimates by converting dollar incomes into a measure of real income by using a price index that reflects the changes in the prices of existing goods and services. but that price index does not reflect new products or improvements to existing goods and services.",
+      "raw": "the authorities objects are warming the convironment in dollars in a media of the income media reflecting prices that reflaces of welcome and exists, but saying the products of the improducting neties of the refess, networkers and the reduces and the new social servicts and the",
+      "application": "The authorities objects are warming the convironment in dollars in a media of the income media reflecting prices that reflaces of welcome and exists, but saying the products of the improducting neties of the refess, networkers and the reduces and the new social servicts and the.",
+      "latency_s": 0.3003831999958493,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4714380000000001
+    },
+    {
+      "source": "será necesario reconstruir a las ciudades de kabul, mazar, herat y otras como centros de vida económica y cultural.",
+      "reference": "cities such as kabul, mazar, herat and others will need to be rebuilt as centers of economic and cultural life.",
+      "raw": "it will be necessary to rebuilt the cities of kabul, mazar, mat and others like economic life and cultural culture.",
+      "application": "It will be necessary to rebuilt the cities of kabul, mazar, mat and others like economic life and cultural culture.",
+      "latency_s": 0.08432879998872522,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38427906976744186
+    },
+    {
+      "source": "duraría unos 24 meses y el mundo no se desacoplaría de la contracción de los ee.uu.",
+      "reference": "it would last about 24 months, and the world would not decouple from the us contraction.",
+      "raw": "it would hardly a few months and the world would not be development of the e.u.",
+      "application": "It would hardly a few months and the world would not be development of the e.u.",
+      "latency_s": 0.046042900008615106,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.398872
+    },
+    {
+      "source": "el informe del consejo fue producto de veinte meses de consultas con muchos expertos en el ru y otros países, y también tuvo en cuenta un informe anterior para el que presté testimonio.",
+      "reference": "the council’s report was the product of 20 months of consultation with many experts in the uk and beyond, and also built on a prior report to which i contributed testimony.",
+      "raw": "the council report was produced by twenty months of consulates with many experts in the ru and other countries, and others had also been in a previous report to the testimony.",
+      "application": "The council report was produced by twenty months of consulates with many experts in the ru and other countries, and others had also been in a previous report to the testimony.",
+      "latency_s": 0.11825880000833422,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3701698113207547
+    },
+    {
+      "source": "este año se cumple el décimo aniversario del inicio de negociaciones sobre el programa nuclear iraní entre los ministerios de asuntos exteriores de irán y de un triunvirato europeo formado por alemania, francia y el reino unido.",
+      "reference": "this year marks the tenth anniversary of the launch, at the foreign-minister level, of negotiations between iran and the european triumvirate of germany, france, and the united kingdom on iran’s nuclear program.",
+      "raw": "this year is the anniversary of business initiations on the nuclear program of irani ministry among isters of iranian african affairs and of an european court formed by alaneura, france and the united nations.",
+      "application": "This year is the anniversary of business initiations on the nuclear program of irani ministry among isters of iranian african affairs and of an european court formed by alaneura, france and the united nations.",
+      "latency_s": 0.2084647000010591,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43669342105263154
+    },
+    {
+      "source": "de hecho, es posible que la economía mundial en 2013 resulte ser un ambiente donde resulte muy difícil encontrar abrigo.",
+      "reference": "indeed, the global economy in 2013 could be a very difficult environment in which to find shelter.",
+      "raw": "in fact, it is possible that the world economy in 2013 result to be an ambident where you were very difficult to find aprich.",
+      "application": "In fact, it is possible that the world economy in 2013 result to be an ambident where you were very difficult to find aprich.",
+      "latency_s": 0.0697714999987511,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.34858648648648644
+    },
+    {
+      "source": "por lo que se dice, siente una sensación aún mayor de responsabilidad para demostrar que se ganó su puesto en base al mérito, no al privilegio.",
+      "reference": "from all accounts, he feels an even greater sense of responsibility to prove that he gained his position on the basis of merit, not privilege.",
+      "raw": "for what is saying a sensation still more of responsibility to demove that he won his position in the memorio, not to privilegio.",
+      "application": "For what is saying a sensation still more of responsibility to demove that he won his position in the memorio, not to privilegio.",
+      "latency_s": 0.09394449999672361,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3925204545454545
+    },
+    {
+      "source": "competencia con las máquinas",
+      "reference": "racing the machine",
+      "raw": "competition with the machine machines.",
+      "application": "Competition with the machine machines.",
+      "latency_s": 0.0199270000011893,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4875666666666667
+    },
+    {
+      "source": "la que lo percibe exitoso tiene a los años 60 y 70 como fantasía onírica.",
+      "reference": "those who see him as successful have the 1960's and 1970's as their dream fantasy.",
+      "raw": "the expercibe extitous is 60 and 70 as an oniric as a fantic.",
+      "application": "The expercibe extitous is 60 and 70 as an oniric as a fantic.",
+      "latency_s": 0.04347750000306405,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4153076923076924
+    },
+    {
+      "source": "en términos evolutivos, podemos entender fácilmente el altruismo para con los parientes y otros que pueden corresponder nuestra ayuda.",
+      "reference": "in evolutionary terms, we can easily understand altruism toward kin and others who can reciprocate our help.",
+      "raw": "in evolutions, we can understand easily easilism for parties and others can corresponse our help.",
+      "application": "In evolutions, we can understand easily easilism for parties and others can corresponse our help.",
+      "latency_s": 0.0693120999931125,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3896
+    },
+    {
+      "source": "el décimo segundo plan quinquenal de china reduce la perspectiva de crecimiento (al 7%) para crear “espacio” a fin de lidiar con cuestiones como la equidad, la sustentabilidad y el medio ambiente.",
+      "reference": "china’s 12th five-year plan lowers the growth forecast (to 7%) to create “space” to deal with issues like equity, sustainability, and the environment.",
+      "raw": "the second secondary plan fifinquenal reduces the perspective of growing (7to create space spaces like the equent of lidarity and the middle environment.",
+      "application": "The second secondary plan fifinquenal reduces the perspective of growing (7to create space spaces like the equent of lidarity and the middle environment.",
+      "latency_s": 0.148450499997125,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4169614035087719
+    },
+    {
+      "source": "las donaciones son deducibles a nivel federal sólo si el donante no recibe más que un valor incidental por el aporte, lo que obviamente no sucedería en esta situación.",
+      "reference": "charitable contributions are deductible at the federal level only if the donor receives no more than incidental value for the contribution, which obviously wouldn’t be the case in this situation.",
+      "raw": "donations are deduciblogs to nivel federal only if the donant does not receive more than an incidental value for the support, what is obviously not sucated in this situation.",
+      "application": "Donations are deduciblogs to nivel federal only if the donant does not receive more than an incidental value for the support, what is obviously not sucated in this situation.",
+      "latency_s": 0.13622650000615977,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35937627118644067
+    },
+    {
+      "source": "el mundo, incluido estados unidos, desaprueba los asentamientos israelíes.",
+      "reference": "the world, including the united states, disapproves of the israeli settlements.",
+      "raw": "the world, including the united states, united israeli assembs.",
+      "application": "The world, including the united states, united israeli assembs.",
+      "latency_s": 0.03789449999749195,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43616521739130437
+    },
+    {
+      "source": "johannesburgo – mientras la reserva federal de los estados unidos comienza a abandonar el programa de estímulo que inició hace casi un decenio, en las economías emergentes crece el temor a que un fortalecimiento del dólar traiga problemas para cumplir con los pagos de deudas denominadas en esa moneda.",
+      "reference": "johannesburg – as the us federal reserve embarks on the “great unwinding” of the stimulus program it began nearly a decade ago, emerging economies are growing anxious that a stronger dollar will adversely affect their ability to service dollar-denominated debt.",
+      "raw": "johannsburgo while the reserve of the united states beginning to abandoning the program that initiated almost a decensorship in the economies creating the issue that a downs to bring the u.s.",
+      "application": "Johannsburgo while the reserve of the united states beginning to abandoning the program that initiated almost a decensorship in the economies creating the issue that a downs to bring the u.s.",
+      "latency_s": 0.30150200000207406,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.408528125
+    },
+    {
+      "source": "hasta que comprendamos el porqué de estos cambios inesperados, es preciso ser cautos en la presentación de los resultados de las encuestas y en su uso como guía para las decisiones oficiales.",
+      "reference": "until we understand what’s driving these unexpected changes, we need to be mindful of how survey findings are presented, and how they inform policymaking decisions.",
+      "raw": "until we buy the portion of these inexpections, it is price to be caused in the result of the encus and in their use for official decisions.",
+      "application": "Until we buy the portion of these inexpections, it is price to be caused in the result of the encus and in their use for official decisions.",
+      "latency_s": 0.08326909999595955,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3864390243902439
+    },
+    {
+      "source": "nos encontramos en medio de una crisis financiera causada por la grave distorsión de los precios de todo tipo de riesgos y por el colapso de la burbuja inmobiliaria que se desarrolló en la primera mitad de esta década.",
+      "reference": "we are in the midst of a financial crisis caused by the serious mispricing of all kinds of risks and by the collapse of the housing bubble that developed in the first half of this decade.",
+      "raw": "we found the middle of a financial crisis caused by the grave distorsion of all kind of risges and for the collapse of the buja inmobiliaria who developed in the first decame.",
+      "application": "We found the middle of a financial crisis caused by the grave distorsion of all kind of risges and for the collapse of the buja inmobiliaria who developed in the first decame.",
+      "latency_s": 0.16163230000529438,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38508769230769235
+    },
+    {
+      "source": "a fin de poder entender las sensaciones, tenemos que retroceder desde su expresión superficial en nuestra experiencia consciente para explorar con más detenimiento la manera en la que el cerebro trabaja cuando tenemos esas sensaciones.",
+      "reference": "in order to understand feelings, we need to step back from their superficial expression in our conscious experiences and dig deeper into how the brain works when we have these experiences.",
+      "raw": "at the end of power understanding sensations, we have to retract from his official expression in our conscious experience to explorate with more detaining the detention in the arebrate that we have workers when we have sensations.",
+      "application": "At the end of power understanding sensations, we have to retract from his official expression in our conscious experience to explorate with more detaining the detention in the arebrate that we have workers when we have sensations.",
+      "latency_s": 0.17306059999100398,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39960422535211265
+    },
+    {
+      "source": "por supuesto, los \"nuevos\" tal vez no sean mejores y hasta podrían ser peores -quizá significativamente peores.",
+      "reference": "of course, the “new” may not be better and could be worse – perhaps significantly worse.",
+      "raw": "for course, \"new os\" perhaps not seven better and until they could be worse - who meaning to be petors.",
+      "application": "For course, \"new os\" perhaps not seven better and until they could be worse - who meaning to be petors.",
+      "latency_s": 0.05976979999104515,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39683030303030303
+    },
+    {
+      "source": "la otra amenaza de la argentina, la de no saldar su deuda con el fmi, constituyó una gravísima amenaza para el antiguo sistema y a algunos les pareció una respuesta justificada tras años de malos consejos en materia de formulación de políticas por parte del fmi y de los países del g-7.",
+      "reference": "argentina's other threat, not to repay the imf, challenged the old system just as profoundly and seemed for some to be a justified response to years of bad policy advice from the imf and the g-7 countries.",
+      "raw": "the other threat of the argentina, not saying his deudes with the fmi, constituted a gravices for the antigue system and some pared a couple of malawyers in malan political countries.",
+      "application": "The other threat of the argentina, not saying his deudes with the fmi, constituted a gravices for the antigue system and some pared a couple of malawyers in malan political countries.",
+      "latency_s": 0.2522708999895258,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3795073529411765
+    },
+    {
+      "source": "eso lleva a que su uso genere una presión tecnológica hacia convertir la información de las personas en datos registrables y utilizables.",
+      "reference": "like the system of mass production, they are “inherently political,” because their core functionality demands certain social practices and discourages others.",
+      "raw": "that has been to that his use genere a technological pression to become the information of the registrators and utilizable.",
+      "application": "That has been to that his use genere a technological pression to become the information of the registrators and utilizable.",
+      "latency_s": 0.08563359999970999,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37219459459459453
+    },
+    {
+      "source": "se han flexibilizado las restricciones en materia de licencias en varias esferas clave.",
+      "reference": "licensing restrictions in a number of key areas have been loosened.",
+      "raw": "they have flexilized the restrictions in materia of licenses in several claves.",
+      "application": "They have flexilized the restrictions in materia of licenses in several claves.",
+      "latency_s": 0.05763539999315981,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4335296296296296
+    },
+    {
+      "source": "oxfam international se refiere a estas operaciones como “despojo de tierras”.",
+      "reference": "oxfam international calls some of these deals “land grabs.”",
+      "raw": "oxfam international refereness to these operations as unpower of mistakes.",
+      "application": "Oxfam international refereness to these operations as unpower of mistakes.",
+      "latency_s": 0.046426000000792556,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3774961538461538
+    },
+    {
+      "source": "esta guerra en particular no ha sido buena para la economía por tres razones.",
+      "reference": "this war, in particular, has not been good for the economy, for three reasons.",
+      "raw": "this war in particular has not been good for the economy for three reasons.",
+      "application": "This war in particular has not been good for the economy for three reasons.",
+      "latency_s": 0.03294649999588728,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.33042727272727274
+    },
+    {
+      "source": "sin embargo, los votantes han catapultado a políticos de izquierda en argentina, bolivia, brasil, chile, costa rica, ecuador, perú, venezuela y uruguay, mientras que lópez conserva la capacidad –y quizás la voluntad- de movilizar a sus partidarios.",
+      "reference": "but voters have catapulted left-wing politicians to power in argentina, bolivia, brazil, chile, costa rica, ecuador, peru, venezuela, and uruguay, while lópez retains the ability – and perhaps the will – to mobilize his supporters.",
+      "raw": "however, voters have cataled political politicians in argentina, bolivia, brazil, costa ric, peruezuela and ruguaya and uguay, while the conservative consercations, and the revolution, and revoluntee of their particiviliations.",
+      "application": "However, voters have cataled political politicians in argentina, bolivia, brazil, costa ric, peruezuela and ruguaya and uguay, while the conservative consercations, and the revolution, and revoluntee of their particiviliations.",
+      "latency_s": 0.275186599988956,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45650222222222225
+    },
+    {
+      "source": "comencemos con algunos elementos de dinámica aeronáutica simple, utilizando una analogía que a mi colega de pimco, bill gross, se le ocurrió para describir los riesgos económicos que enfrenta la economía estadounidense.",
+      "reference": "let us start with some simple aeronautic dynamics, using an analogy that my pimco colleague, bill gross, came up with to describe the economic risks facing the american economy.",
+      "raw": "we started with some dinamic elements of moneys aeronalle, utilizing a anallogy that my colleagues of pmco, bill took place to describate the economic risses that the enomy of conomics were ferenomic conomy to enecontest.",
+      "application": "We started with some dinamic elements of moneys aeronalle, utilizing a anallogy that my colleagues of pmco, bill took place to describate the economic risses that the enomy of conomics were ferenomic conomy to enecontest.",
+      "latency_s": 0.28942790000292007,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4385174418604651
+    },
+    {
+      "source": "londres ha sido por mucho tiempo un centro financiero de todo el continente.",
+      "reference": "london has long been a financial center for the entire continent.",
+      "raw": "london has been a long time in financial center of all the continue.",
+      "application": "London has been a long time in financial center of all the continue.",
+      "latency_s": 0.046992599993245676,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42598181818181813
+    },
+    {
+      "source": "la fiscalía empezó entonces a hablar de la joven como un francotirador checheno, de una familia de francotiradores.",
+      "reference": "the prosecution then began to speak of the young girl as a chechen sniper, from a family of snipers.",
+      "raw": "the fisque started then to speak of the young as a chright, of a chinese family of francoti-fradors.",
+      "application": "The fisque started then to speak of the young as a chright, of a chinese family of francoti-fradors.",
+      "latency_s": 0.06675529999483842,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4079888888888888
+    },
+    {
+      "source": "londres – un informe reciente ha revelado que el patrimonio de las cinco familias más ricas de gran bretaña es mayor que el del 20 por ciento de las más pobres del país combinadas.",
+      "reference": "london – a recent report revealed that the five richest families in britain are worth more than the country’s poorest 20% combined.",
+      "raw": "london is a recent report has revealed that the patrium of five families of the largest of the 20 percent of the most poor.",
+      "application": "London is a recent report has revealed that the patrium of five families of the largest of the 20 percent of the most poor.",
+      "latency_s": 0.11304979999840725,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40271904761904764
+    },
+    {
+      "source": "el partido de putin obtuvo el poder en rusia a través de elecciones, lo mismo que el partido justicia y desarrollo del presidente turco recep tayyip erdoğan, el fidesz del primer ministro viktor orbán en hungría y el régimen militar del presidente abdel fattah el sisi en egipto.",
+      "reference": "putin’s party was elected in russia, as was president recep tayyip erdoğan’s justice and development party in turkey, prime minister viktor orbán’s fidesz in hungary, and president abdel fattah el-sisi’s military regime in egypt.",
+      "raw": "the power of putin ower in russia through elections, what the same part of justice and development president turkip tayip erdoan, the prime minister of the first ministration of koriban in the group of the presidential regime of the regime.",
+      "application": "The power of putin ower in russia through elections, what the same part of justice and development president turkip tayip erdoan, the prime minister of the first ministration of koriban in the group of the presidential regime of the regime.",
+      "latency_s": 0.2994332999951439,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4614533333333333
+    },
+    {
+      "source": "la siguiente es otra manera.",
+      "reference": "here is another way.",
+      "raw": "the next is another way.",
+      "application": "The next is another way.",
+      "latency_s": 0.012246600002981722,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47972000000000004
+    },
+    {
+      "source": "los profesionales médicos saben que a menudo las terapias nuevas aparentemente prometedoras, después de un estudio minucioso, resultan ineficaces o incluso perjudiciales.",
+      "reference": "medical professionals know how often seemingly promising new therapies turn out, after careful study, not to work, or even to be harmful.",
+      "raw": "the professional methods know that often the terapies new apparently aparts, after a minute studies, it result or including perjudicial even perjudal.",
+      "application": "The professional methods know that often the terapies new apparently aparts, after a minute studies, it result or including perjudicial even perjudal.",
+      "latency_s": 0.11817240000527818,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3956411764705881
+    },
+    {
+      "source": "pero las afirmaciones atrevidas, aun cuando las hagan los presidentes de los bancos centrales, no sirven para substituir las investigaciones y el análisis.",
+      "reference": "but bold assertions, even from central bankers, are no substitute for research and analysis.",
+      "raw": "but attack affectivs, aa when hagan presidents of the central bances are not signed to substitute investigations and analysis.",
+      "application": "But attack affectivs, aa when hagan presidents of the central bances are not signed to substitute investigations and analysis.",
+      "latency_s": 0.09940209999331273,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39071249999999996
+    },
+    {
+      "source": "pero estos mecanismos se están debilitando en todo el mundo y prácticamente son inexistentes en los países europeos.",
+      "reference": "but these mechanisms are weakening everywhere, and are virtually non-existent in european countries.",
+      "raw": "but these mechanison are debiling in all the world and practically are inexistent in european countries.",
+      "application": "But these mechanison are debiling in all the world and practically are inexistent in european countries.",
+      "latency_s": 0.06853410000621807,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3402333333333334
+    },
+    {
+      "source": "el resultado final del brexit no está nada claro.",
+      "reference": "the brexit endgame itself is far from clear.",
+      "raw": "the final result of the bridge is nothing clear.",
+      "application": "The final result of the bridge is nothing clear.",
+      "latency_s": 0.02415139999357052,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42595714285714276
+    },
+    {
+      "source": "pero los jueces también han atemperado sus decisiones en casos con implicancias económicas de gran envergadura.",
+      "reference": "but the justices have also tempered their decisions in cases with sweeping economic implications.",
+      "raw": "but the youth have also attacked their decisions in cases with economic implicancies of great green engadura.",
+      "application": "But the youth have also attacked their decisions in cases with economic implicancies of great green engadura.",
+      "latency_s": 0.07245120000152383,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3991432432432433
+    },
+    {
+      "source": "sus argumentos de que los avances conducirían a la entrada del país a la ue resultaron ser falsos, y se destruyeron incentivos importantes para las autoridades.",
+      "reference": "their claims that progress would lead to accession were shown to be false, and an important incentive for officials was eliminated.",
+      "raw": "his arguments of that the birds drivering the country to the ue result to be fasts, and they destroyed inces for authorities.",
+      "application": "His arguments of that the birds drivering the country to the ue result to be fasts, and they destroyed inces for authorities.",
+      "latency_s": 0.07943509999313392,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3973292682926829
+    },
+    {
+      "source": "la historia de la reconciliación franco-alemana es impresionante, en efecto.",
+      "reference": "the history of franco-german reconciliation is impressive indeed.",
+      "raw": "the history of the franco-almanda is impressionant, in effect.",
+      "application": "The history of the franco-almanda is impressionant, in effect.",
+      "latency_s": 0.04591819999041036,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37661249999999996
+    },
+    {
+      "source": "además, los ingresos de capitales muchas veces vienen a financiar el consumo o el crecimiento de burbujas inmobiliarias.",
+      "reference": "moreover, capital inflows frequently finance consumption or unsustainable real-estate booms.",
+      "raw": "in addition, capital income many times in financing the consum or the burabujan inmobiliaries.",
+      "application": "In addition, capital income many times in financing the consum or the burabujan inmobiliaries.",
+      "latency_s": 0.06727569999929983,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39227647058823534
+    },
+    {
+      "source": "una participación decidida por parte de los japoneses mitigaría la polarización entre asia y el pacífico y ayudaría a dar más impulso a la integración regional.",
+      "reference": "robust japanese participation would mitigate asia-pacific polarization and contribute to building momentum for regional integration.",
+      "raw": "a participation decided by the japanese military would miticize the polarization between asia and the peaceful and would help more impular to the regional integration integr",
+      "application": "A participation decided by the japanese military would miticize the polarization between asia and the peaceful and would help more impular to the regional integration integr.",
+      "latency_s": 0.1201769999897806,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3845709090909091
+    },
+    {
+      "source": "primero, el caso que presentaron la policía y el procurador del estado contenía documentos que habían sido falsificados tan obviamente que la policía acusó a dos oficiales.",
+      "reference": "first, the case built by the police and state prosecutor contained documents that were so blatantly falsified that the police indicted two officers.",
+      "raw": "first, the case they presented the police and the state of the contement of condeclared that they had been shown so obviously that the police accused two official officials.",
+      "application": "First, the case they presented the police and the state of the contement of condeclared that they had been shown so obviously that the police accused two official officials.",
+      "latency_s": 0.10470849998819176,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3925139999999999
+    },
+    {
+      "source": "pero, sin importar quiénes emergieron como ganadores en el desastroso incidente de los felpudos – quizás lo fueron los indignados usuarios de twitter – la diplomacia ha sido la perdedora.",
+      "reference": "but whoever has emerged as the winner of the doormat debacle – outraged twitter users, perhaps – diplomacy has been the loser.",
+      "raw": "pero, however, no matter how winners in the incident of the felputs were the users of twitter user and diplomacia has been the perdevelopment.",
+      "application": "Pero, however, no matter how winners in the incident of the felputs were the users of twitter user and diplomacia has been the perdevelopment.",
+      "latency_s": 0.12384639999072533,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4296461538461539
+    },
+    {
+      "source": "otros, en cambio, ven una estrategia china confusa, contradictoria y paralizada por intereses burocráticos enfrentados.",
+      "reference": "others, however, see a chinese strategy that is confused, contradictory, and paralyzed by competing bureaucratic interests.",
+      "raw": "others, in change, come a confusatory confuss, contribute and paralizated by interests enfratic face.",
+      "application": "Others, in change, come a confusatory confuss, contribute and paralizated by interests enfratic face.",
+      "latency_s": 0.07719989999895915,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3984722222222222
+    },
+    {
+      "source": "para lograr esa meta, es necesario reanimar la economía agrícola para crear empleos y suministrar alimentos a la población.",
+      "reference": "to achieve this goal, the agricultural economy must be revived in order to revive this industry, providing jobs and food for people.",
+      "raw": "to achieve that meta, it is necessary to encourage the economy to create employment and suministers to the population.",
+      "application": "To achieve that meta, it is necessary to encourage the economy to create employment and suministers to the population.",
+      "latency_s": 0.08570049999980256,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37090975609756094
+    },
+    {
+      "source": "pero, sin reglas, un referendo es poco más que una invitación a un bramido de furia colectivo.",
+      "reference": "but without rules, a referendum is little more than an invitation to a collective roar of anger.",
+      "raw": "pero, however, a refering is little more than an invitation to a collective furia global",
+      "application": "Pero, however, a refering is little more than an invitation to a collective furia global.",
+      "latency_s": 0.05960370000684634,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3972060606060606
+    },
+    {
+      "source": "viena – el presidente norteamericano, barack obama, le inyectó un nuevo dinamismo a los esfuerzos -paralizados durante una década- por llevar a cabo el desarme nuclear.",
+      "reference": "vienna – us president barack obama has injected fresh momentum into efforts – stalled for a decade – to bring about nuclear disarmament.",
+      "raw": "come to the north president barack obbam, she injected a new moneysm to the efforts - parliated during a decadate - for a decits to take a nuclear disappearer.",
+      "application": "Come to the north president barack obbam, she injected a new moneysm to the efforts - parliated during a decadate - for a decits to take a nuclear disappearer.",
+      "latency_s": 0.14113849999557715,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39702033898305084
+    },
+    {
+      "source": "al mismo tiempo, la falta de reformas estructurales en los mercados emergentes, junto con sus pasos hacia un mayor nivel de capitalismo de estado, está obstaculizando el crecimiento y reducirá su capacidad de recuperación.",
+      "reference": "at the same time, the lack of structural reforms in emerging markets, together with their move towards greater state capitalism, is hampering growth and will reduce their resiliency.",
+      "raw": "at the same time, the lack of statual reforms in the embergents, together with their passes towards a larger nival of state, is obsting the growing and reducing their ability.",
+      "application": "At the same time, the lack of statual reforms in the embergents, together with their passes towards a larger nival of state, is obsting the growing and reducing their ability.",
+      "latency_s": 0.16109729999152478,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3793237288135593
+    },
+    {
+      "source": "este \"escenario afgano\" implica un estado débil con un poder nominal sobre feudos que en la práctica con autónomos y que son líderados por caudillos con representación en el gobierno central.",
+      "reference": "this \"afghan scenario\" implies a weak state with nominal power over effectively autonomous fiefdoms that are headed by strongmen who are represented in the central government.",
+      "raw": "this \"aafghano\" implicated a weak with a development power on the protesting with authors and which are leadered by caudilation with the government.",
+      "application": "This \"aafghano\" implicated a weak with a development power on the protesting with authors and which are leadered by caudilation with the government.",
+      "latency_s": 0.13444409999647178,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38711111111111096
+    },
+    {
+      "source": "cómo mantener el crecimiento en una asia que envejece rápido",
+      "reference": "maintaining growth in a fast-aging asia",
+      "raw": "how to keep the growth in a asian asia who is fast to see",
+      "application": "How to keep the growth in a asian asia who is fast to see.",
+      "latency_s": 0.03406469999754336,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44502499999999995
+    },
+    {
+      "source": "el gobierno turco intentó inclusive formular una iniciativa regional para lograr una solución pacífica a la crisis, cosa que ningún miembro actual de la ue podría haber considerado.",
+      "reference": "the turkish government even attempted a regional initiative for a peaceful solution to the crisis, an effort no current eu member could have contemplated.",
+      "raw": "the turkish government attempted including a regional initiative to achieve a peaceful solution to the crisis, which no current members of the ue could be considered to be consider",
+      "application": "The turkish government attempted including a regional initiative to achieve a peaceful solution to the crisis, which no current members of the ue could be considered to be consider.",
+      "latency_s": 0.14463930000783876,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37062131147540983
+    },
+    {
+      "source": "este mes, mientras el presidente xi jinping y sus asesores principales se retiraban al resort marítimo de beidaihe, circularon rumores de que en las filas del pcc aumentan las críticas al culto de personalidad que se ha montado en torno de xi.",
+      "reference": "this month, as president xi jinping and his senior advisers retreated to the seaside resort of beidaihe, rumors were circulating about growing criticism of xi’s personality cult among the cpc rank and file.",
+      "raw": "this mes, while the president xi jinping and his murderers removed to the resort maryaih, circulated rumors that in the pc of the central criticism of the criminal cultuality which has not in the propersonality.",
+      "application": "This mes, while the president xi jinping and his murderers removed to the resort maryaih, circulated rumors that in the pc of the central criticism of the criminal cultuality which has not in the propersonality.",
+      "latency_s": 0.24340490000031423,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4109443037974683
+    },
+    {
+      "source": "· la competencia global y la integración de los mercados laborales a través del comercio y la subcontratación, que han eliminado puestos de trabajo y reducido los salarios.",
+      "reference": "· global competition and the integration of labor markets through trade and outsourcing, which have eliminated jobs and depressed wages.",
+      "raw": "global competition and the integration of laboral markets through the commercial and the contribution, who have reduced posts and reducing the salaries.",
+      "application": "Global competition and the integration of laboral markets through the commercial and the contribution, who have reduced posts and reducing the salaries.",
+      "latency_s": 0.12452709999342915,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3839807692307693
+    },
+    {
+      "source": "desde entonces, sin embargo, la tasa de crecimiento de la ptf se ha reducido casi a la mitad.",
+      "reference": "since then, however, the tfp growth rate has fallen by almost half.",
+      "raw": "since then however, the growing of the ptf has been reduced almost half of the mit.",
+      "application": "Since then however, the growing of the ptf has been reduced almost half of the mit.",
+      "latency_s": 0.056452000004355796,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3934250000000001
+    },
+    {
+      "source": "sin embargo, no se puede luchar con éxito contra el nuevo antisemitismo mediante la instrucción y la argumentación sólo en el resto del mundo.",
+      "reference": "the new anti-semitism, however, cannot be fought successfully by education and argument in the rest of the world alone.",
+      "raw": "however, it cannot be fighting with success against the new antism media and the argumentation in the world.",
+      "application": "However, it cannot be fighting with success against the new antism media and the argumentation in the world.",
+      "latency_s": 0.07798180000099819,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4100875
+    },
+    {
+      "source": "la fundación gates y la alianza gavi han gastado más de 2.500 millones de dólares y han prometido otros 10.000 millones de dólares para vacunas.",
+      "reference": "the gates foundation and the gavi alliance have spent more than $2.5 billion and promised another $10 billion for vaccines.",
+      "raw": "the gaths and the alianza gavi have gasted more than 2.500 millions of dollars and have promised other 10,000 million dollars for empty.",
+      "application": "The gaths and the alianza gavi have gasted more than 2.500 millions of dollars and have promised other 10,000 million dollars for empty.",
+      "latency_s": 0.10545769998861942,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35109782608695655
+    },
+    {
+      "source": "de manera análoga, muchos directivos de las compañías saben que fingir que los problemas ambientales no existen es malo para los accionistas, porque la realidad se manifestará algún día.",
+      "reference": "similarly, many company bosses know that pretending that climate problems do not exist is bad for shareholders, because reality will one day strike.",
+      "raw": "of manera anallog, many directors of the companies know that the ambical problems is not existing for actions, because the reality will be protested.",
+      "application": "Of manera anallog, many directors of the companies know that the ambical problems is not existing for actions, because the reality will be protested.",
+      "latency_s": 0.12196420000691433,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3699220000000001
+    },
+    {
+      "source": "esta es una idea notablemente mala.",
+      "reference": "this is a strikingly bad idea.",
+      "raw": "this is a notal idea of a malabile.",
+      "application": "This is a notal idea of a malabile.",
+      "latency_s": 0.02286389999790117,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5078499999999999
+    },
+    {
+      "source": "esto debería incentivar a que se realicen acciones para implementar políticas.",
+      "reference": "indeed, while inequality’s harmful effects are wide-reaching, and impose huge costs on our economies and societies, they are largely avoidable.",
+      "raw": "this should incense to be relicated in actions to implent political politics.",
+      "application": "This should incense to be relicated in actions to implent political politics.",
+      "latency_s": 0.043156700005056337,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39816250000000003
+    },
+    {
+      "source": "pero antes de que integrara el gabinete de la presidenta cristina fernández de kirchner, kicillof era conocido en los círculos intelectuales de argentina como el autor del libro volver a keynes.",
+      "reference": "but, before joining president cristina fernández de kirchner’s cabinet, kicillof was known in argentine intellectual circles as the author of the book volver a keynes (return to keynes).",
+      "raw": "but before he integrade the gabinet president cristina fernandez of kirchner, kicif was known in the circultual cirgentine as the author of the book again.",
+      "application": "But before he integrade the gabinet president cristina fernandez of kirchner, kicif was known in the circultual cirgentine as the author of the book again.",
+      "latency_s": 0.17429070000071079,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3954983606557377
+    },
+    {
+      "source": "el aumento del mercado de valores ha hecho que la medida más amplia del patrimonio neto aumente aún más rápido.",
+      "reference": "the rising stock market has caused the broader measure of net worth to increase even faster.",
+      "raw": "the aument's market of values has made that the most amplia of patrionio net patriumer even more quickly.",
+      "application": "The aument's market of values has made that the most amplia of patrionio net patriumer even more quickly.",
+      "latency_s": 0.07706190001044888,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43949210526315785
+    },
+    {
+      "source": "las dos guerras más recientes de israel –contra hezbollah en el líbano en 2006, y contra hamas en gaza en 2009- se libraron contra grupos patrocinados, abastecidos y entrenados por irán.",
+      "reference": "israel’s two most recent wars – against hezbollah in lebanon in 2006, and against hamas in gaza in 2009 – were fought against groups sponsored, supplied, and trained by iran.",
+      "raw": "the two wards of israel against hezbollah in 2006, and hunges in gaza in 2009- were booked against patrioccations, lawing and entered by iran.",
+      "application": "The two wards of israel against hezbollah in 2006, and hunges in gaza in 2009- were booked against patrioccations, lawing and entered by iran.",
+      "latency_s": 0.15603869999176823,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40160701754385963
+    },
+    {
+      "source": "en berlín, como en otras grandes ciudades de alemania, los taxis llevan las banderas de los países natales de sus conductores –desde angola hasta arabia saudita-.",
+      "reference": "in berlin, as in other large german cities, taxis sport the flags of their drivers’ home countries – from angola to saudi arabia.",
+      "raw": "in freedom as in other grants of germania, tax taxis carried the banders of the natal countries from angoa to saudia-.",
+      "application": "In freedom as in other grants of germania, tax taxis carried the banders of the natal countries from angoa to saudia-.",
+      "latency_s": 0.10050010000122711,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3813765957446808
+    },
+    {
+      "source": "pero los delegados a la convención no se deben detener allí.",
+      "reference": "but delegates to the convention should not stop there.",
+      "raw": "but the delected to the convention should not be there.",
+      "application": "But the delected to the convention should not be there.",
+      "latency_s": 0.025308700001914985,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4333357142857142
+    },
+    {
+      "source": "nueva delhi – en los últimos años, el ejército popular de liberación de china ha estado aprovechándose de su influencia política en ascenso para provocar escaramuzas y tensiones militares localizadas con la india al violar la larga y disputada frontera himalayense.",
+      "reference": "new delhi – in recent years, the people’s liberation army has been taking advantage of its rising political clout to provoke localized skirmishes and standoffs with india by breaching the two countries’ long and disputed himalayan frontier.",
+      "raw": "new delhi in the last years, the political army of china's freedom has been approximately of his politics in ascense to provoice and military intensions to development with the violent deolation and deo to the high.",
+      "application": "New delhi in the last years, the political army of china's freedom has been approximately of his politics in ascense to provoice and military intensions to development with the violent deolation and deo to the high.",
+      "latency_s": 0.28164870000910014,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4273064935064935
+    },
+    {
+      "source": "atenas – un descontento sin fin inunda al reino unido.",
+      "reference": "athens – discontent without end looms over britain.",
+      "raw": "attends a development without the united king's united one.",
+      "application": "Attends a development without the united king's united one.",
+      "latency_s": 0.03106159999151714,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5249888888888888
+    },
+    {
+      "source": "de hecho, ha limitado su presencia en el extranjero al negarse a contribuir a un rescate de la eurozona, intervenir en siria o usar la fuerza para contener el desarrollo nuclear de irán (a pesar del decidido apoyo israelí).",
+      "reference": "indeed, the us has trimmed its presence abroad by refusing to contribute to a eurozone bailout, intervene in syria, or use force to contain iran’s nuclear breakout (despite strong israeli support).",
+      "raw": "in fact, has limited his presence in foreign presence to refuse a rescue of the eurozona, intervening or uria to use the force to convelopment of irano (despite the decision of the decisionira.",
+      "application": "In fact, has limited his presence in foreign presence to refuse a rescue of the eurozona, intervening or uria to use the force to convelopment of irano (despite the decision of the decisionira.",
+      "latency_s": 0.1857317999965744,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41521285714285716
+    },
+    {
+      "source": "tienen suficientes reservas de divisas para evitar el riesgo de la inestabilidad financiera aumentando su gasto interno, siempre que lo hagan con prudencia.",
+      "reference": "they have enough foreign-exchange reserves to avoid the risk of financial instability from increasing their domestic spending, as long as they do it prudently.",
+      "raw": "they have enough reserves of divisas to avoid the risk of the financial instability in the internet, always hagan with pray.",
+      "application": "They have enough reserves of divisas to avoid the risk of the financial instability in the internet, always hagan with pray.",
+      "latency_s": 0.09121750001213513,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4068666666666666
+    },
+    {
+      "source": "pero si bien es cierto que prácticamente todos los países, hasta la fecha, han adoptado tratados de libre comercio preferenciales, también es cierto que estados unidos en los últimos tiempos ha sido el líder de esta proliferación.",
+      "reference": "but, while practically every country today has embraced preferential free trade agreements, the recent leader in this proliferation is the us.",
+      "raw": "but if it is a certain that practically all countries, even the fact, have adopted trying to free preferencial commercies, it is also true.",
+      "application": "But if it is a certain that practically all countries, even the fact, have adopted trying to free preferencial commercies, it is also true.",
+      "latency_s": 0.13631090000853874,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.355225
+    },
+    {
+      "source": "boston – la relativa decadencia de los estados unidos ha sido un tema de discusión frecuente en los últimos años.",
+      "reference": "boston – the relative global decline of the united states has become a frequent topic of debate in recent years.",
+      "raw": "boston the relatives of the united states has been a fear of discussion in the last years.",
+      "application": "Boston the relatives of the united states has been a fear of discussion in the last years.",
+      "latency_s": 0.04715830000350252,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3990777777777778
+    },
+    {
+      "source": "asimismo, están empeorando las presiones ambientales.",
+      "reference": "environmental pressures are also worsening.",
+      "raw": "asim, they are beginning the ambidential pressions.",
+      "application": "Asim, they are beginning the ambidential pressions.",
+      "latency_s": 0.027862900009495206,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42729999999999996
+    },
+    {
+      "source": "si vivimos en una sociedad de abundancia, también debemos exigir que nuestro país haga lo suyo para reducir la pobreza extrema.",
+      "reference": "if we live in an affluent society, we should also demand that our country play its role in reducing extreme poverty.",
+      "raw": "if we live in an abundance, we must also exide that our country do it sufficior to reduce the extremy.",
+      "application": "If we live in an abundance, we must also exide that our country do it sufficior to reduce the extremy.",
+      "latency_s": 0.06562140000460204,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35796
+    },
+    {
+      "source": "desde la formación de su primera cohorte de integrantes en 2015, el nef presentó diversas contribuciones de jóvenes investigadores africanos que trabajan para resolver algunos de los desafíos científicos y tecnológicos más difíciles a los que se enfrenta el mundo.",
+      "reference": "since the first cohort of nef fellows was selected in 2015, the program has highlighted the contributions of young african researchers who are working to tackle some of the world’s toughest scientific and technological challenges.",
+      "raw": "since the form of his first cohorior of integrant in 2015, the nef presented contributions of young african investigators that they work to solve some of scientific development and technological descripment to the world.",
+      "application": "Since the form of his first cohorior of integrant in 2015, the nef presented contributions of young african investigators that they work to solve some of scientific development and technological descripment to the world.",
+      "latency_s": 0.21355069999117404,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38752222222222227
+    },
+    {
+      "source": "debía haber concentrado sus esfuerzos en vigilar y aplicar el compromiso del g-20 de no aumentar las barreras comerciales.",
+      "reference": "it should have focused its efforts on monitoring and implementing the g-20’s commitment not to raise trade barriers.",
+      "raw": "you should have concentrated their efforts in vigilar and apply the g-20 of the g- 20 increasing the commercial bargers.",
+      "application": "You should have concentrated their efforts in vigilar and apply the g-20 of the g- 20 increasing the commercial bargers.",
+      "latency_s": 0.08228250000684056,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3652878048780488
+    },
+    {
+      "source": "los habitantes de shanghai pueden no hablar de los precios de la vivienda de londres, pero sus líderes de opinión saben lo que está sucediendo en esa ciudad, y el boom que ocurre allí hace que parezca plausible que tenga que haber un boom en shanghai también.",
+      "reference": "people in shanghai may not talk about london home prices, but shanghai's opinion leaders know what is happening in london, and the boom there makes it seem plausible that there should be a boom in shanghai, too.",
+      "raw": "shanghai can not speak of the prices of london, but their opinions of opinion what is supposed in that citizen, and the boom who happens that pareza plausible that they have to be able to have a wall in hashi too.",
+      "application": "Shanghai can not speak of the prices of london, but their opinions of opinion what is supposed in that citizen, and the boom who happens that pareza plausible that they have to be able to have a wall in hashi too.",
+      "latency_s": 0.18023660000471864,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4361217391304348
+    },
+    {
+      "source": "el tratado del protocolo de kyoto acaba de entrar en vigencia para las 126 naciones que lo han firmado hasta ahora.",
+      "reference": "the kyoto protocol treaty has now entered into force for the 126 nations who have joined it so far.",
+      "raw": "the treat of kyoto entering in vigence for 126 nations who have been fied until now.",
+      "application": "The treat of kyoto entering in vigence for 126 nations who have been fied until now.",
+      "latency_s": 0.05365739999979269,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3301464285714285
+    },
+    {
+      "source": "draghi procuró reducir el tipo de cambio del euro para mejorar la competitividad.",
+      "reference": "draghi sought to talk down the euro exchange rate to improve competitiveness.",
+      "raw": "draghi processor of the type of the euo to improve the commpetivity.",
+      "application": "Draghi processor of the type of the euo to improve the commpetivity.",
+      "latency_s": 0.04299639999226201,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39017307692307696
+    },
+    {
+      "source": "según la agencia internacional de la energía (aie), la energía solar, eólica, de las olas y la bioenergía producen apenas el 9,8% de la electricidad de la ocde, y esto es posible sólo con enormes subsidios, cuyo total acumulado este año ascendió a más de 160 000 millones de dólares.",
+      "reference": "according to the international energy agency (iea), solar, wind, wave, and bio-energy produce just 9.8% of electricity in the oecd, and this is possible only because of huge subsidies, cumulatively totaling more than $160 billion this year.",
+      "raw": "according to the international agence of the energy (aie), the solar, eolia, economic energency and the oil produces of the 9,8 for the ocent of ocurrent, this is only possible and it is also much more than 1001000100010 months.",
+      "application": "According to the international agence of the energy (aie), the solar, eolia, economic energency and the oil produces of the 9,8 for the ocent of ocurrent, this is only possible and it is also much more than 1001000100010 months.",
+      "latency_s": 0.30650400000740774,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.43876195652173916
+    },
+    {
+      "source": "cuando tony blair arrasó en los comicios que lo llevaron al poder en 1997, recibió una bienvenida generalizada en toda europa como el primer ministro británico más pro-europeo desde edward heath, un cuarto de siglo atrás.",
+      "reference": "when tony blair swept to power in 1997, he was widely welcomed throughout europe as the most pro-european british prime minister since edward heath a quarter of a century earlier.",
+      "raw": "when tony blogger arrested in the beginning that they took the power in 1997, received a generalizated in all europe as the first minister of brazical prime ministerropean pro-etrope, a century.",
+      "application": "When tony blogger arrested in the beginning that they took the power in 1997, received a generalizated in all europe as the first minister of brazical prime ministerropean pro-etrope, a century.",
+      "latency_s": 0.2187870999914594,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3975708333333333
+    },
+    {
+      "source": "por su parte, pandora había sido pensada deliberadamente para castigar a la humanidad por aceptar el don del fuego recibido de prometeo.",
+      "reference": "for her part, pandora was deliberately devised to punish humankind for accepting the gift of fire from prometheus.",
+      "raw": "for his part, pandora had been thinking deliberately to cast humanity by accepting the fire of promet.",
+      "application": "For his part, pandora had been thinking deliberately to cast humanity by accepting the fire of promet.",
+      "latency_s": 0.0733464999939315,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3759705882352941
+    },
+    {
+      "source": "más allá de la otan que pese a atravesar momentos complicados sigue jugando un papel importante, la propuesta asociación transatlántica de comercio e inversión (ttip) ofrece una oportunidad única para dar forma a un orden internacional basado en normas.",
+      "reference": "beyond nato, which remains important even at a low ebb, the proposed transatlantic trade and investment partnership offers a potent opportunity to shape a rule-based international order.",
+      "raw": "more there is the opposition that pthat pavesses complicate moments following a important, the proposation of transatlantic and inversion (ttipofopportunity for a only to provide the international worker.",
+      "application": "More there is the opposition that pthat pavesses complicate moments following a important, the proposation of transatlantic and inversion (ttipofopportunity for a only to provide the international worker.",
+      "latency_s": 0.18137299999943934,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4164055555555556
+    },
+    {
+      "source": "ahora el parlamento europeo tiene ante sí una versión revisada de la directiva que reduce su alcance sectorial y entraña varias avenencias con el principio del país de origen.",
+      "reference": "a revised version of the directive that reduces its sectoral scope and makes a number of compromises with the country-of-origin principle is now before the european parliament.",
+      "raw": "now the european parliament has a revisated version of the direct reduces that reductive sectory and entered the main of origan.",
+      "application": "Now the european parliament has a revisated version of the direct reduces that reductive sectory and entered the main of origan.",
+      "latency_s": 0.10482149999006651,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.385969387755102
+    },
+    {
+      "source": "pero el gobierno de ee.uu. no los abordará.",
+      "reference": "but the us government won’t address them.",
+      "raw": "but the e.u.s. government will not be order.",
+      "application": "But the e.u.s. government will not be order.",
+      "latency_s": 0.026261000006343238,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4899133333333333
+    },
+    {
+      "source": "con un reconocimiento mutuo, la ue y estados unidos aceptarían los estándares o los procedimientos de análisis de conformidad de uno y otro, lo que les permitiría a las empresas adherir a los requerimientos menos rigurosos en cada área.",
+      "reference": "with mutual recognition, the eu and the us would accept each other’s standards or conformity-assessment procedures, allowing firms to adhere to the less stringent requirements in each area.",
+      "raw": "with a mutual recognition and americans accepted the states or the process of analysiis of one and other and other people who allowed the companies to injured the require requests at least riots in the regula.",
+      "application": "With a mutual recognition and americans accepted the states or the process of analysiis of one and other and other people who allowed the companies to injured the require requests at least riots in the regula.",
+      "latency_s": 0.17183179999119602,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41762
+    },
+    {
+      "source": "de hecho, se diagnostica con asma casi a uno de cada cinco niños estadounidenses pobres, esta es una tasa superior en un 60% a la de los niños que no son pobres.",
+      "reference": "learning disabilities occur almost twice as frequently among children in households earning less than $35,000 a year than they do in households earning more than $100,000.",
+      "raw": "in fact, he diagnosa with asma almost one of every five american children are a superior in a 60 personal of children who are not poor.",
+      "application": "In fact, he diagnosa with asma almost one of every five american children are a superior in a 60 personal of children who are not poor.",
+      "latency_s": 0.09728940000059083,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40638372093023256
+    },
+    {
+      "source": "hubo quienes –frédéric bastiat y jean-baptiste say vienen a la mente –creyeron que el gobierno debía poner a trabajar a los desempleados para construir infraestructura cuando los mercados o la producción se veían temporalmente interrumpidos.",
+      "reference": "there were some – frédéric bastiat and jean-baptiste say come to mind – who believed that government should put the unemployed to work building infrastructure when markets or production were temporarily disrupted.",
+      "raw": "there was quiens fréric bastiat and jean-bast-based say come to the ment government should be able to work to built infrastructure when the market production of the interruptionally production.",
+      "application": "There was quiens fréric bastiat and jean-bast-based say come to the ment government should be able to work to built infrastructure when the market production of the interruptionally production.",
+      "latency_s": 0.209401699990849,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40517647058823536
+    },
+    {
+      "source": "quienes trabajamos en el ámbito del desarrollo internacional podemos facilitar la tarea igualando el acceso de todos los jóvenes africanos a oportunidades de liderar la transformación.",
+      "reference": "those of us working in the field of international development can help level the playing field even more, by giving young africans from all backgrounds an opportunity to lead in transformative ways.",
+      "raw": "we are working in the international development of the internet can flaw the task of all the african access to liders.",
+      "application": "We are working in the international development of the internet can flaw the task of all the african access to liders.",
+      "latency_s": 0.10375460000068415,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41623
+    },
+    {
+      "source": "la victoria de los buitres",
+      "reference": "the vultures’ victory",
+      "raw": "the victory of the buithree ars.",
+      "application": "The victory of the buithree ars.",
+      "latency_s": 0.018553200003225356,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5002249999999999
+    },
+    {
+      "source": "china debe estar preparada para hacerse cargo y relevar a ee.uu. los ahorros de china superan con creces los de ee.uu., y china se esfuerzan por convertir a shanghai en un centro financiero mundial.",
+      "reference": "china should stand ready to pick up the slack. its savings now far outstrip those of the us, and it is striving to make shanghai a global financial center.",
+      "raw": "china must be prepared to do and relegate e.u.s. of china supersons of the grow, and china is effort to become shanghai in an financial center in the world..",
+      "application": "China must be prepared to do and relegate e.u.s. of china supersons of the grow, and china is effort to become shanghai in an financial center in the world..",
+      "latency_s": 0.14408499999262858,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4021067796610169
+    },
+    {
+      "source": "las confiscaciones de tierras, la corrupción crónica, la impunidad, la incapacidad de implementar los contratos y la fragmentación e ineficacia de la ayuda disuadió aún más la inversión extranjera y doméstica.",
+      "reference": "land grabs, chronic corruption, impunity, the inability to enforce contracts, and the fragmentation and ineffectiveness of aid deterred foreign and domestic investment further.",
+      "raw": "the constructions of lands, the corruption cronica, impunity, the inability of implenting the control and the inefragation and inefications of the ayudomestic inversion and inversion.",
+      "application": "The constructions of lands, the corruption cronica, impunity, the inability of implenting the control and the inefragation and inefications of the ayudomestic inversion and inversion.",
+      "latency_s": 0.20038969999586698,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40974571428571427
+    },
+    {
+      "source": "de hecho, en 2010 el 38% de las exportaciones chinas tuvieron como destino europa o los estados unidos, que son, lejos, los principales mercados del país en el extranjero.",
+      "reference": "indeed, europe and the us, combined, accounted for fully 38% of total chinese exports in 2010 – easily its two largest foreign markets.",
+      "raw": "in fact, in 2010 the 38 for chinese exportations had as destineurope or the united states, as the main the country markets.",
+      "application": "In fact, in 2010 the 38 for chinese exportations had as destineurope or the united states, as the main the country markets.",
+      "latency_s": 0.09710850000556093,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3877840909090909
+    },
+    {
+      "source": "se debe despojar al terrorismo de cualquier aparente legitimidad que pueda tener.",
+      "reference": "terrorism must be stripped of any legitimacy that it may be viewed as having.",
+      "raw": "it must be deposed to the terrorism of any legitimiity that can be able to be with.",
+      "application": "It must be deposed to the terrorism of any legitimiity that can be able to be with.",
+      "latency_s": 0.04731460000039078,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4305793103448276
+    },
+    {
+      "source": "veamos el ejemplo de las computadoras.",
+      "reference": "take the example of computers.",
+      "raw": "we see the example of computer.",
+      "application": "We see the example of computer.",
+      "latency_s": 0.01831549999769777,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4922888888888889
+    },
+    {
+      "source": "se trata de un dividendo extraordinariamente elevado en el mundo de la industria petrolera.",
+      "reference": "this is an extraordinarily high dividend in the world oil industry.",
+      "raw": "a extraordinary divently elected in the world of the oil industry.",
+      "application": "A extraordinary divently elected in the world of the oil industry.",
+      "latency_s": 0.05062520000501536,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4588375
+    },
+    {
+      "source": "el actual escepticismo puede ser el reflejo de recuerdos difíciles de olvidar de un período más oscuro, y teme que el progreso de áfrica no se encuentre lo suficientemente consolidado.",
+      "reference": "today’s skepticism may reflect lasting memories from a darker period, and fears that africa’s progress has not been sufficiently consolidated.",
+      "raw": "the current skeptism can be the remembers of reminded to forget a difficulty period of a source and issue that the africa progress is not consolidated.",
+      "application": "The current skeptism can be the remembers of reminded to forget a difficulty period of a source and issue that the africa progress is not consolidated.",
+      "latency_s": 0.142673599999398,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3909410714285714
+    },
+    {
+      "source": "las buenas razones tienen que ver con la confianza en sí mismos de los africanos y una creciente conciencia entre los académicos y los estrategas políticos de que el comercio dentro de la región -especialmente entre el áfrica urbana y el áfrica rural- en definitiva redundará en enormes beneficios.",
+      "reference": "the good reasons have to do with african self-reliance and a growing awareness among scholars and policymakers that trade within the region – especially between urban and rural africa – will ultimately deliver enormous benefits.",
+      "raw": "the good reasons have to see with the confidence in si same of african and a growing conscience between the activists and political stateges that the region region.",
+      "application": "The good reasons have to see with the confidence in si same of african and a growing conscience between the activists and political stateges that the region region.",
+      "latency_s": 0.20680880000873003,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3630461538461539
+    },
+    {
+      "source": "como mínimo, podría haber un impacto adverso en los términos según los cuales estados unidos se endeuda en el exterior; eso podría significar tasas de interés más altas -de las cuales ya hay indicios evidentes- y, en definitiva, una presión bajista sobre el dólar.",
+      "reference": "at a minimum, there could be an adverse impact on the terms by which america borrows from abroad; that could mean higher interest rates – hints of which are already evident – and ultimately downward pressure on the dollar.",
+      "raw": "as me, i could have an impact in the terms in the united states are deuded in the exterior; that could significes of the most alets of cuals - there are no indevidentivelopment - in the end of the entainevent, in an entajambassembassist of the doling.",
+      "application": "As me, I could have an impact in the terms in the united states are deuded in the exterior; that could significes of the most alets of cuals - there are no indevidentivelopment - in the end of the entainevent, in an entajambassembassist of the doling.",
+      "latency_s": 0.2648368000081973,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45048709677419346
+    },
+    {
+      "source": "el 11 de marzo, cuando michelle bachelet se cruce en el pecho la banda presidencial, un nuevo chile se pondrá en marcha.",
+      "reference": "in any case, on march 11, when michelle bachelet crosses the presidential sash over her chest, a new chile will set itself in motion.",
+      "raw": "the 11 of marz, when michelle bachellet is crossing in the beat presidential band, a new chile will be put on marcha.",
+      "application": "The 11 of marz, when michelle bachellet is crossing in the beat presidential band, a new chile will be put on marcha.",
+      "latency_s": 0.1028785000089556,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3639159090909091
+    },
+    {
+      "source": "no obstante, en muchos otros países, como el reino unido, sudáfrica y australia, están teniendo lugar discusiones políticas sobre cambios legales similares.",
+      "reference": "but serious political discussions on similar legal changes are taking place in many other countries, including the uk, south africa and australia.",
+      "raw": "not obstance, in many other countries, as the u., sudala and australia, are having a political discussions about sions on symilar changes.",
+      "application": "Not obstance, in many other countries, as the u., sudala and australia, are having a political discussions about sions on symilar changes.",
+      "latency_s": 0.10161760001210496,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3820888888888889
+    },
+    {
+      "source": "si bien las encuestas sugieren que las actitudes se ven más influidas por etnicidad que religión, ambas ayudan a definir las identidades y los modos de pensar.",
+      "reference": "while polling suggests that attitudes are influenced more by ethnicity than religion, both help to define identities and mindsets.",
+      "raw": "if the suggest encourage that activists are more influstrated by etnicidad that religion, both helping the identies and the moves to think.",
+      "application": "If the suggest encourage that activists are more influstrated by etnicidad that religion, both helping the identies and the moves to think.",
+      "latency_s": 0.11505910000414588,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3702795918367347
+    },
+    {
+      "source": "dichos programas han sido emulados más adelante por muchos países de américa latina, asia y áfrica.",
+      "reference": "mexico pioneered the idea of conditional cash transfers (the oportunidades program – originally progresa – which was launched in 1998).",
+      "raw": "the programs have been emated more adleant by many latin america, asia and africa.",
+      "application": "The programs have been emated more adleant by many latin america, asia and africa.",
+      "latency_s": 0.04727700000512414,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3934535714285715
+    },
+    {
+      "source": "durante un reciente viaje con ban a egipto y túnez, lo contemplé, impresionado, respaldar con destreza los cambios democráticos que están en marcha en esos dos países, al tiempo que abordaba muchos otros levantamientos habidos en la región.",
+      "reference": "during a recent trip with ban to egypt and tunisia, i watched in awe as he deftly backed the democratic changes underway in those two countries while simultaneously dealing with many other upheavals in the region.",
+      "raw": "during a recent trip with ban egypt and tunisia, impressioned, regarding the democratic changes that are in march in those countries, the time that he was ordered many other region.",
+      "application": "During a recent trip with ban egypt and tunisia, impressioned, regarding the democratic changes that are in march in those countries, the time that he was ordered many other region.",
+      "latency_s": 0.14101099999970756,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3866157894736842
+    },
+    {
+      "source": "en tanto, un informe reciente del comité asesor del ru para las migraciones conjetura: “puede ser que el ru se encuentre en situación de poner fin al libre movimiento de personas en un momento en que la inquietud pública por los flujos migratorios ha disminuido”.",
+      "reference": "likewise, a recent report by the uk migration advisory committee surmises that “the uk may find itself in the position of ending free movement just as public concern falls about the migration flows that result from it.”",
+      "raw": "in tan, a recent report of the ru for conjations: it can be that the rau will be encounter in the free movement in a moment of people in the public inquired by the group has ated by the migroups.",
+      "application": "In tan, a recent report of the ru for conjations: it can be that the rau will be encounter in the free movement in a moment of people in the public inquired by the group has ated by the migroups.",
+      "latency_s": 0.19156860001385212,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4335411764705882
+    },
+    {
+      "source": "hace poco tuve una reunión con un grupo de inversionistas extranjeros en argentina.",
+      "reference": "in this environment, argentine consumers naturally also went on a spending spree, and corporate profits rose accordingly.",
+      "raw": "i had a meeting with a foreign inversial group of foreign investors in argentine.",
+      "application": "I had a meeting with a foreign inversial group of foreign investors in argentine.",
+      "latency_s": 0.039647599987802096,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45772399999999996
+    },
+    {
+      "source": "por cierto, por más audaz que parezca, trasladar los costos de los intereses a los países receptores podría en efecto impulsar la sustentabilidad de su deuda.",
+      "reference": "in fact, as audacious as it may sound, passing on the interest costs to recipient countries could actually bolster their debt sustainability.",
+      "raw": "by certain, for more audaz that pareza, delayed the costs of the interesting countries could imper the effect of their debility.",
+      "application": "By certain, for more audaz that pareza, delayed the costs of the interesting countries could imper the effect of their debility.",
+      "latency_s": 0.11002989999542478,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3982093023255813
+    },
+    {
+      "source": "sin embargo, el propio estado se encuentra en una situación financiera desesperada; uno de los problemas de las ciudades es el fuerte recorte en fondos estatales asignados a las localidades.",
+      "reference": "the state would be expected to take over essential public services from bankrupt local governments. but the state itself is in dire financial straits; one of the cities’ problems is the sharp curtailment of state funds to localities.",
+      "raw": "however, the own state is financial situa; one of the cities is the strongly record of the state statement of the issues to the local lacities.",
+      "application": "However, the own state is financial situa; one of the cities is the strongly record of the state statement of the issues to the local lacities.",
+      "latency_s": 0.12957200000528246,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4378384615384615
+    },
+    {
+      "source": "el resultado de la financiarización extrema fue una desigualdad enorme y una profunda vulnerabilidad.",
+      "reference": "the result of extreme financialization was enormous inequality and profound vulnerability.",
+      "raw": "the result of the extreme was an enorequality and a vulnerability.",
+      "application": "The result of the extreme was an enorequality and a vulnerability.",
+      "latency_s": 0.05647619999945164,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44612
+    },
+    {
+      "source": "es evidente que este principio será obligatorio para todos los estados miembros y para los candidatos a ingresar.",
+      "reference": "it seems evident that this principle will be effectively binding on all member states, and all candidates for membership.",
+      "raw": "it is evidence that this main will be forced to all the members and for the candidates to income.",
+      "application": "It is evidence that this main will be forced to all the members and for the candidates to income.",
+      "latency_s": 0.0632229000038933,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3749466666666667
+    },
+    {
+      "source": "la primavera árabe y el invierno occidental",
+      "reference": "the arab spring and the western winter",
+      "raw": "arab spring and winter winter.",
+      "application": "Arab spring and winter winter.",
+      "latency_s": 0.016412800003308803,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44277
+    },
+    {
+      "source": "en un futuro próximo, el gobierno de los estados unidos se centrará en su seguridad interior, el iraq, la aguda crisis económica interna y el período previo a la elección presidencial de 2004.",
+      "reference": "in the near future, the us government will be focused on homeland security, iraq, the slumping domestic economy, and the run-up to the 2004 presidential election.",
+      "raw": "in a future, the government of the united states will be centrated in his interior, iraq, the guiteconomic crisis and period previous election presidential election of 204.",
+      "application": "In a future, the government of the united states will be centrated in his interior, iraq, the guiteconomic crisis and period previous election presidential election of 204.",
+      "latency_s": 0.15197969999280758,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.40563870967741933
+    },
+    {
+      "source": "por esta razón, una amplia gama de economistas están a favor de un impuesto global uniforme (“armonizado”) que grave las emisiones de carbono de la misma manera en todo el mundo, sin importar la fuente–carbón, petróleo o nafta-- y si se trata de consumidores o empresas.",
+      "reference": "for this reason, a wide range of economists favor a uniform (“harmonized”) global tax that would tax carbon emissions equally everywhere in the world, and from whatever source – whether coal, oil, or gas, and whether consumers or businesses.",
+      "raw": "for this reason, an amplia gama of economists are in favor of a global uniforum armonized which granted the emilions of the same way in the world, without important, without important mean future, or the african conomit.",
+      "application": "For this reason, an amplia gama of economists are in favor of a global uniforum armonized which granted the emilions of the same way in the world, without important, without important mean future, or the african conomit.",
+      "latency_s": 0.24749069999961648,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40597721518987334
+    },
+    {
+      "source": "los académicos se referirían a esto como “realismo”, que sostiene que los estados están motivados por intereses claramente definidos y articulados que chocan constantemente entre sí a nivel global.",
+      "reference": "academics would refer to this as “realism,” which holds that states are driven by clearly defined and articulated interests that perpetually collide with one another at the global level.",
+      "raw": "the acaddities were referred to this as realism , who claimed that the states are clearly definitely defined and articulated that chlocal constantively between slobal voices to nic",
+      "application": "The acaddities were referred to this as realism, who claimed that the states are clearly definitely defined and articulated that chlocal constantively between slobal voices to nic.",
+      "latency_s": 0.15806119999615476,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3916907692307692
+    },
+    {
+      "source": "el senador carl levin, presidente del subcomité en el que se rindieron los testimonios, y que evidentemente compartía la opinión de kaufman, fue igualmente duro tras una investigación que duró un año de washington mutual, goldman y los lamentables fracasos de las instancias de reglamentación bancaria y las agencias de calificación del crédito.",
+      "reference": "senator carl levin, chairman of the subcommittee that heard their testimony, evidently seeing eye to eye with kaufman, was just as tough after a year-long investigation of washington mutual, goldman, and the abject failures of bank regulators and credit rating agencies.",
+      "raw": "the carl ral levin, president of south subcommittee in the tstimonions, and which evidented the opinion of kufman, was equally doubt after an investigation that had a year of washington multin multual, and the failure.",
+      "application": "The carl ral levin, president of south subcommittee in the tstimonions, and which evidented the opinion of kufman, was equally doubt after an investigation that had a year of washington multin multual, and the failure.",
+      "latency_s": 0.30122100000153296,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3963839506172839
+    },
+    {
+      "source": "figueres sostiene \"que las actuales pérdidas anuales a nivel mundial debido a un clima y a desastres extremos podrían representar un sorprendente 12% del pbi global anual\".",
+      "reference": "figueres claims “that current annual losses worldwide due to extreme weather and disasters could be a staggering 12% of annual global gdp.”",
+      "raw": "figues sustates \"that the current anuals to nivl worldwide due to a climate and development could representate a surprise 12 for pbi global anual annual.\"",
+      "application": "Figues sustates \"that the current anuals to nivl worldwide due to a climate and development could representate a surprise 12 for pbi global anual annual.\".",
+      "latency_s": 0.15257450001081452,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38947692307692305
+    },
+    {
+      "source": "hay también otro motivo para publicitar los términos del acuerdo: el pueblo iraní debe saber que cualquier ataque contra el país será en gran medida producto de sus propias acciones.",
+      "reference": "going public makes sense for another reason: iran’s people ought to know that any attack on the country was one that it had largely brought on itself.",
+      "raw": "there is also another motive to publish the terms of the iranian people: irani can know that any attack against the country will be a great media product of their own actions.",
+      "application": "There is also another motive to publish the terms of the iranian people: irani can know that any attack against the country will be a great media product of their own actions.",
+      "latency_s": 0.1110391999973217,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3865745098039215
+    },
+    {
+      "source": "de modo que las esperanzas se alejan de la realidad y los políticos contribuyen a ello al prometer más de lo que pueden dar... con lo que pierden la confianza de sus votantes.",
+      "reference": "so expectations outpace reality, with politicians contributing to this by promising more than they can deliver--and thus losing the trust of their constituents.",
+      "raw": "hoping that hope of the reality and political politicians controversial politics in the promoting more than they can give them in the confirm of their voteers.",
+      "application": "Hoping that hope of the reality and political politicians controversial politics in the promoting more than they can give them in the confirm of their voteers.",
+      "latency_s": 0.09571439999854192,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4362021739130434
+    },
+    {
+      "source": "por ejemplo, japón y corea del sur ampliaron los servicios públicos a sus áreas urbanas, que crecían rápidamente, sin restringir la movilidad.",
+      "reference": "japan and south korea, for example, extended public services in their fast-growing urban areas without restricting mobility.",
+      "raw": "for example, japan and corea of the south ampliampal services to their urban ars, who created quickly, without resting the movement.",
+      "application": "For example, japan and corea of the south ampliampal services to their urban ars, who created quickly, without resting the movement.",
+      "latency_s": 0.10308539999823552,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37235833333333335
+    },
+    {
+      "source": "históricamente, el desplazamiento laboral se ha producido en olas, primero con el cambio estructural de la agricultura a la industria, y luego con el traspaso de la industria a los servicios.",
+      "reference": "historically, job displacement has occurred in waves, first with the structural shift from agriculture to manufacturing, and then with the move from manufacturing to services.",
+      "raw": "historically the laboral desplaboration has produced in ols, first with the statural changes to the industry, and then despread with the indoubt.",
+      "application": "Historically the laboral desplaboration has produced in ols, first with the statural changes to the industry, and then despread with the indoubt.",
+      "latency_s": 0.12789730000076815,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3886979166666667
+    },
+    {
+      "source": "si bien el informe nuffield no recomienda explícitamente flexibilizar el sistema regulatorio del ru, tampoco analiza adecuadamente las presiones hacia la desregulación, la comercialización y la entrega del poder de decisión a los consumidores.",
+      "reference": "although the nuffield report does not explicitly recommend relaxing the uk regulatory system, it does not adequately address the pressures toward consumer choice, deregulation, and commercialization.",
+      "raw": "if the report nufeld did not recommend explocily flexilizing the regulatorio of the ru, so unanalyzing presions towards the development and the commentation of the power of the region.",
+      "application": "If the report nufeld did not recommend explocily flexilizing the regulatorio of the ru, so unanalyzing presions towards the development and the commentation of the power of the region.",
+      "latency_s": 0.21117330000561196,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42139305555555556
+    },
+    {
+      "source": "pero con recursos limitados, no se puede hacer todo a la vez.",
+      "reference": "but, given limited resources, the international community can only do so much.",
+      "raw": "but with limited resources, you cannot do all time.",
+      "application": "But with limited resources, you cannot do all time.",
+      "latency_s": 0.02230460000282619,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3996733333333334
+    },
+    {
+      "source": "el acuerdo ayudará a india a financiar la mejora de infraestructura críticas.",
+      "reference": "the agreement will help india finance critical infrastructure upgrades.",
+      "raw": "the agreement will help to financing the improve infrastructure global voices",
+      "application": "The agreement will help to financing the improve infrastructure global voices.",
+      "latency_s": 0.05007540000951849,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39421034482758627
+    },
+    {
+      "source": "dos investigadores de la universidad macquarie (andrew barron, especialista en ciencia cognitiva, y colin klein, filósofo) aseguran que la experiencia subjetiva puede estar más difundida en el reino animal (y ser más antigua en términos evolutivos) de lo que creemos.",
+      "reference": "macquarie university’s andrew barron, a cognitive scientist, and colin klein, a philosopher, argue that subjective experience could be more widespread in the animal kingdom – and older, in evolutionary terms – than we realize.",
+      "raw": "two investigators of macquarie university (andrew barron, specialist in calist in china, and colion klein, photoassociety that the experience can be more defounded in the refused in the ricultive.",
+      "application": "Two investigators of macquarie university (andrew barron, specialist in calist in china, and colion klein, photoassociety that the experience can be more defounded in the refused in the ricultive.",
+      "latency_s": 0.29323899999144487,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3979153846153846
+    },
+    {
+      "source": "nueva york – la mayoría de los gobiernos del mundo (necesitados de movilizar más ingresos impositivos para financiar el desarrollo, y combatir extendidos esquemas de evasión como los revelados el año pasado en el escándalo de los acuerdos secretos de luxemburgo) tienen buenos motivos para colaborar en materia tributaria.",
+      "reference": "new york – most of the world’s governments – eager to mobilize more tax revenues to finance development and curb pervasive tax-avoidance schemes, such as those revealed in the so-called luxembourg leaks scandal last year – have an interest in collaborating on taxation matters.",
+      "raw": "new york the majority of the government (need to movement more impositive income to end the development and commbating extended evements as the year in the state of the statement in the scandal of the mage of the rematerial memberies to be maincome.",
+      "application": "New york the majority of the government (need to movement more impositive income to end the development and commbating extended evements as the year in the state of the statement in the scandal of the mage of the rematerial memberies to be maincome.",
+      "latency_s": 0.29269380000187084,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4609488372093022
+    },
+    {
+      "source": "mientras tanto, los europeos tienen serias reservas sobre el historial de derechos humanos de rusia, sobre su sistema legal, su falta de adhesión a los valores europeos, y su posición en las crisis internacionales, especialmente en el medio oriente.",
+      "reference": "meanwhile, europeans have serious reservations about russia’s human-rights record, legal system, failure to adhere to european values, and position on international crises, especially in the middle east.",
+      "raw": "meanwhile, european have serious reserves about the human rights of russia, on his legal, his lack of adeshession to eu values, and their position in the international crisis especially in the middle media.",
+      "application": "Meanwhile, european have serious reserves about the human rights of russia, on his legal, his lack of adeshession to eu values, and their position in the international crisis especially in the middle media.",
+      "latency_s": 0.179735099998652,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38678472222222227
+    },
+    {
+      "source": "nueva york – en 1981 el presidente estadounidense ronald reagan llegó al cargo con una declaración famosa: «el gobierno no es la solución a nuestro problema.",
+      "reference": "new york – in 1981, us president ronald reagan came to office famously declaring that, “government is not the solution to our problem.",
+      "raw": "new york in 1981 american president state regulated the cargo with a famous state: the government is the solution to our problem.",
+      "application": "New york in 1981 american president state regulated the cargo with a famous state: the government is the solution to our problem.",
+      "latency_s": 0.07880090000981,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35669230769230764
+    },
+    {
+      "source": "grandes libros, grandes obras musicales, y grandes pinturas no sólo son una extraordinaria escuela de belleza, verdad y bien, también son una manera de descubrir nuestra propia belleza, verdad y bien – este es el potencial para cambiar, para mejorarnos a nosotros mismos y mejorar, incluso, a algunos de nuestros interlocutores.",
+      "reference": "great books, music, and paintings are not only an extraordinary school of beauty, truth, and good, but also a way of discovering our own beauty, truth, and good – the potential for change, of bettering ourselves and even some of our interlocutors.",
+      "raw": "grants books, grandes musia, and granties are not only a stranger of belz, and welline school and well, they are also an discover our own bleza, truth and this is the potential change for us to improves, and even some internet.",
+      "application": "Grants books, grandes musia, and granties are not only a stranger of belz, and welline school and well, they are also an discover our own bleza, truth and this is the potential change for us to improves, and even some internet.",
+      "latency_s": 0.2135470999928657,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4017666666666666
+    },
+    {
+      "source": "hay también un hecho más preocupante: la aparición de un grupo denominado partidarios del estado islámico en jerusalén, que asumió la responsabilidad por el asesinato (como regalo para el nuevo califa) de los tres adolescentes israelíes secuestrados cuyos cuerpos se hallaron hace pocos días en cisjordania.",
+      "reference": "a more ominous development is the emergence of a group called the supporters of the islamic state in jerusalem, which has claimed responsibility for murdering – as a gift to the new caliph – the three kidnapped israeli teenagers whose bodies were recently found in the west bank.",
+      "raw": "there is also a fact more concern: the appearance of a group of the islamic state state in jerusale, who assumed the responsibility for the murder (as a representation for the new califeof the three israeli sculturaelyan state of the state-days ago.",
+      "application": "There is also a fact more concern: the appearance of a group of the islamic state state in jerusale, who assumed the responsibility for the murder (as a representation for the new califeof the three israeli sculturaelyan state of the state-days ago.",
+      "latency_s": 0.28872269998828415,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43773555555555554
+    },
+    {
+      "source": "sin embargo, según el acuerdo con el banco central, debe comprar sus activos de vuelta.",
+      "reference": "however, under the agreement with the central bank, it must buy its assets back.",
+      "raw": "however, according to the central bank has to buy their actival actives of flight.",
+      "application": "However, according to the central bank has to buy their actival actives of flight.",
+      "latency_s": 0.04878209999878891,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4050448275862069
+    },
+    {
+      "source": "una nueva senda de crecimiento para europa muestra cómo la inversión en eficiencia energética y energías limpias tiene el mismo potencial de revitalizar la europa de hoy.",
+      "reference": "a new growth path for europe shows how investing in energy efficiency and clean energy has the same potential to revitalize europe today.",
+      "raw": "a new sense of growing for europe shows how the inversion in efficienergy and energency has the same potential position of revitalizing today.",
+      "application": "A new sense of growing for europe shows how the inversion in efficienergy and energency has the same potential position of revitalizing today.",
+      "latency_s": 0.124421300002723,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3952600000000001
+    },
+    {
+      "source": "pero esa lógica económica no es aplicable en el caso de los aumentos de los precios del petróleo.",
+      "reference": "but this economic logic does not apply in the case of increases in oil prices.",
+      "raw": "but that logical economic is not apply in the case of the prices of the oil prices.",
+      "application": "But that logical economic is not apply in the case of the prices of the oil prices.",
+      "latency_s": 0.06645449998904951,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41571428571428576
+    },
+    {
+      "source": "los pensadores en bloque de cada lado brindan ayuda y alivio a los pensadores en bloque del otro lado, y con cada intercambio nos acercan a un abismo.",
+      "reference": "block thinkers on each side give aid and comfort to block thinkers on the other side, and with each exchange they pull us closer toward an abyss.",
+      "raw": "the thoughts in block of each side dan ayuda and also saw the think of the other hand, and with each interchange to a abism.",
+      "application": "The thoughts in block of each side dan ayuda and also saw the think of the other hand, and with each interchange to a abism.",
+      "latency_s": 0.08833810000214726,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38811538461538464
+    },
+    {
+      "source": "en el 2015, un año después del lanzamiento del informe de la oms, la publicación public health ethics publicó un número especial dedicado íntegramente a este tema.",
+      "reference": "in 2015, the year after the release of the who’s report, the journal public health ethics published a special issue devoted entirely to this topic.",
+      "raw": "in 2015, a year after the report of the oms, public public posted a special posts public ethhics published a ethic number of the dedicated this topic.",
+      "application": "In 2015, a year after the report of the oms, public public posted a special posts public ethhics published a ethic number of the dedicated this topic.",
+      "latency_s": 0.13336910000361968,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4365641509433963
+    },
+    {
+      "source": "sin embargo, las opciones unilaterales de los estados unidos son limitadas.",
+      "reference": "however, america's unilateral options are limited.",
+      "raw": "however, unilatal options of the united states are limits.",
+      "application": "However, unilatal options of the united states are limits.",
+      "latency_s": 0.03752650000387803,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3972333333333334
+    },
+    {
+      "source": "naturalmente, los inversores reaccionan ante una deuda insostenible vendiendo bonos hasta que los tipos de interés llegan a ser “ridículos”.",
+      "reference": "investors naturally respond to unsustainable debt by selling bonds until interest rates become “ridiculous.”",
+      "raw": "natually, inversers react to an insuspicious deudable saying bones until the interest of interest to be ridiculture.",
+      "application": "Natually, inversers react to an insuspicious deudable saying bones until the interest of interest to be ridiculture.",
+      "latency_s": 0.09249249999993481,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38529756097560974
+    },
+    {
+      "source": "el propio trump mismo ha enviado señales contradictorias al respecto.",
+      "reference": "disagreement over the bat extends to business as well, with firms that export more than they import supporting it, and vice versa.",
+      "raw": "the own tramp has sent signs to the contraditories to respect.",
+      "application": "The own tramp has sent signs to the contraditories to respect.",
+      "latency_s": 0.04452159999345895,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44837391304347823
+    },
+    {
+      "source": "por otra parte, las tasas de interés a largo plazo en los países con posiciones fiscales más sólidas -francia, alemania y finlandia- han experimentado tasas bajas como consecuencia de una \"fuga hacia la calidad\".",
+      "reference": "on the other hand long-term interest rates in countries with stronger fiscal positions – france, germany, and finland – have enjoyed low rates as a consequence of a “flight to quality.”",
+      "raw": "for another part, interest teams of the long plazo in the country's countries with a solutely solia, alandia and finlandia- have experienced such as a \"future of the street.\"",
+      "application": "For another part, interest teams of the long plazo in the country's countries with a solutely solia, alandia and finlandia- have experienced such as a \"future of the street.\".",
+      "latency_s": 0.15420020000601653,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4021203389830509
+    },
+    {
+      "source": "en países deudores situados en el “lado adverso” de la curva, reducir el valor nominal de la deuda no sólo es bueno para el deudor sino también para los acreedores, porque con una menor carga de la deuda tienen más posibilidades de recuperar su dinero.",
+      "reference": "reducing the face value of the debt is good not just for debtor countries on the “wrong side” of the curve; it is also good for creditors, who stand to get more of their money back.",
+      "raw": "in countries are situated on the source of the course, reducing names not only good for the deudor but also for the readers, because with a members of deuses have more possibilities of their money.",
+      "application": "In countries are situated on the source of the course, reducing names not only good for the deudor but also for the readers, because with a members of deuses have more possibilities of their money.",
+      "latency_s": 0.14984449998883065,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39967096774193545
+    },
+    {
+      "source": "cambridge – con frecuencia viajo al exterior e, invariablemente, mis amigos extranjeros preguntan, con diferente grado de desconcierto: ¿qué diablos está pasando en tu país?",
+      "reference": "cambridge – i frequently travel overseas, and invariably my foreign friends ask, with varying degrees of bewilderment: what in the world is going on in your country?",
+      "raw": "campaign to the exterior , invarabilly, my foreign friends questions, with different group: what is happening in your country?",
+      "application": "Campaign to the exterior, invarabilly, my foreign friends questions, with different group: what is happening in your country?",
+      "latency_s": 0.08048440000857227,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3945205128205128
+    },
+    {
+      "source": "es el equivalente de añadir una capacidad productiva del tamaño de una cuarta parte de la economía de la india... y hacerlo todos los años.",
+      "reference": "that's the equivalent of adding productive power equal to a quarter of the economy of india - and adding it every year.",
+      "raw": "it is the equivalent of adding a ability productive producess of the india..",
+      "application": "It is the equivalent of adding a ability productive producess of the india..",
+      "latency_s": 0.08932270000514109,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42714137931034485
+    },
+    {
+      "source": "el mes pasado, sin embargo, el fiscal militar aceptó el argumento del coronel budanov, diciendo que sufrió de locura temporal cuando mató a la joven, y absolvió a budanov del cargo de asesinato.",
+      "reference": "last month, however, the military prosecutor accepted colonel budanov's argument that he was temporarily insane when he killed the girl, and so acquitted budanov on the charge of murder.",
+      "raw": "last month however, the military fiscal milicate accepted the argument of the budanov, diciing that suffered the temporary when he killed the young, and opened budov of the murder.",
+      "application": "Last month however, the military fiscal milicate accepted the argument of the budanov, diciing that suffered the temporary when he killed the young, and opened budov of the murder.",
+      "latency_s": 0.1656382999935886,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4064375
+    },
+    {
+      "source": "asimismo, aunque la asistencia para el desarrollo sí estimule el crecimiento del pib, esto no necesariamente conduce a un mejor nivel de vida para los ciudadanos más pobres, especialmente en el corto plazo.",
+      "reference": "and, even if development aid does spur gdp growth, this does not necessarily lead to better lives for the poorest citizens, especially in the short term.",
+      "raw": "asim, although the asistence for the development of the pib, this is not necessariously driving a better nival for life for the citizens specially in the corply.",
+      "application": "Asim, although the asistence for the development of the pib, this is not necessariously driving a better nival for life for the citizens specially in the corply.",
+      "latency_s": 0.14817980000225361,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37295636363636353
+    },
+    {
+      "source": "después empezó a hacer un seguimiento de los insumos y de las condiciones climáticas, algo que en aquel tiempo pocos hacían.",
+      "reference": "then he tracked inputs and weather conditions, which was rarely done at that time.",
+      "raw": "after he started to make a sezum of the insult and climate conditions in that time they have a few people hacted.",
+      "application": "After he started to make a sezum of the insult and climate conditions in that time they have a few people hacted.",
+      "latency_s": 0.06605459999991581,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.413439393939394
+    },
+    {
+      "source": "la decisión del consejo británico de ignorarlos, así como a los escritores exiliados que tienen el ingreso prohibido a china, como es mi caso, ha convertido lo que debería ser un acontecimiento cultural en una transacción político-comercial sin principios.",
+      "reference": "the british council’s decision to ignore them, as well as exiled writers banned from entering china, such as myself, has turned what should be a cultural event into an unprincipled commercial-political transaction.",
+      "raw": "the decision of the british council of ignorls, so as the exilied writers who have the ingrace of china, as my case, has become a cultural event in a political transportation of the beginning politics.",
+      "application": "The decision of the british council of ignorls, so as the exilied writers who have the ingrace of china, as my case, has become a cultural event in a political transportation of the beginning politics.",
+      "latency_s": 0.205913400001009,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40866956521739123
+    },
+    {
+      "source": "de todas formas, se trata de un lenguaje más ambicioso que el anticipado por la mayoría de los analistas y fue aceptado por los 194 países participantes.",
+      "reference": "but this is more ambitious language than most observers had expected, and it was accepted by all 194 participating countries.",
+      "raw": "of all was, a more ambitious languages that analy's analist analy and was accepted by 194 countries.",
+      "application": "Of all was, a more ambitious languages that analy's analist analy and was accepted by 194 countries.",
+      "latency_s": 0.08324059999722522,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36819999999999997
+    },
+    {
+      "source": "toronto – áfrica es hoy escenario de un intenso movimiento de jóvenes.",
+      "reference": "toronto – across africa, young people are on the move.",
+      "raw": "toronto africa is today scener of a youth intense movement.",
+      "application": "Toronto africa is today scener of a youth intense movement.",
+      "latency_s": 0.04435609999927692,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43350000000000005
+    },
+    {
+      "source": "esa iniciativa cuenta con el firme respaldo político de los dirigentes de los dos países y expresa una clara determinación de unirse contra las amenazas comunes.",
+      "reference": "this initiative has the firm political backing of both countries’ leaders, and expresses a clear determination to unite against common threats.",
+      "raw": "that initiative account with the political figes of the dirigents of the two countries and expressed a clearly determination against communities.",
+      "application": "That initiative account with the political figes of the dirigents of the two countries and expressed a clearly determination against communities.",
+      "latency_s": 0.10425570000370499,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38130681818181816
+    },
+    {
+      "source": "el bombardeo de alepo",
+      "reference": "on the bombing of aleppo",
+      "raw": "the bombardeo of aleps.",
+      "application": "The bombardeo of aleps.",
+      "latency_s": 0.018293000000994653,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5163583333333333
+    },
+    {
+      "source": "en méxico, aproximadamente 48.000 personas han sido asesinadas en episodios de violencia vinculados a las drogas desde que felipe calderón fue elegido presidente en 2006.",
+      "reference": "in mexico, roughly 48,000 people have been killed in drug-related violence since felipe calderón was elected president in 2006.",
+      "raw": "in mexico, about 48.0,000 people have been killed in episodies of violence volence came to the drug from which congratulate streets was elected president in 20006.",
+      "application": "In mexico, about 48.0,000 people have been killed in episodies of violence volence came to the drug from which congratulate streets was elected president in 20006.",
+      "latency_s": 0.12180850000004284,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3531105263157895
+    },
+    {
+      "source": "¿qué divisiones resultan mayores, aquellas entre los estados miembros o las que ocurren dentro de ellos?",
+      "reference": "which gulfs are wider – those between member states or those within them?",
+      "raw": "what is the result of majors, those among the members or that happens in down?",
+      "application": "What is the result of majors, those among the members or that happens in down?",
+      "latency_s": 0.038321100000757724,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45014399999999993
+    },
+    {
+      "source": "en consecuencia, europa se está replegando en una perspectiva regional estrecha -suponiendo que estados unidos soportará la carga de las principales cuestiones globales.",
+      "reference": "as a result, europe is retreating into a narrow regional outlook – and assuming that america will carry the burden of major global issues.",
+      "raw": "in consecution, europe is regional perspectival - suggesting that the united states will be reported by the main global stybals.",
+      "application": "In consecution, europe is regional perspectival - suggesting that the united states will be reported by the main global stybals.",
+      "latency_s": 0.11987629999930505,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40132399999999996
+    },
+    {
+      "source": "se han originado discusiones entre la administración obama, los futuros contendientes presidenciales, senadores y expertos en control de armas y en defensa.",
+      "reference": "spats have broken out between the obama administration, future presidential contenders, senators, and arms control and defense experts.",
+      "raw": "they have originated discussions among obam, the presidential futures, senders and experators in defences and in defelia.",
+      "application": "They have originated discussions among obam, the presidential futures, senders and experators in defences and in defelia.",
+      "latency_s": 0.11494590000074822,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4119510204081633
+    },
+    {
+      "source": "este no es un problema de la inmigración como tal, sino de instituciones sociales y laborales domésticas mal diseñadas.",
+      "reference": "this is not a problem of immigration as such, but of poorly designed domestic social and labor market institutions.",
+      "raw": "this is not a problem of the inmigration as tal, but of social institutions and domestic instics mal designates",
+      "application": "This is not a problem of the inmigration as tal, but of social institutions and domestic instics mal designates.",
+      "latency_s": 0.08169390000693966,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4098589743589744
+    },
+    {
+      "source": "de hecho, la experiencia de italia con berlusconi -o il cavaliere (el caballero), como se lo conoce en su país- da seis claras lecciones sobre lo que los estadounidenses y el mundo pueden esperar de trump.",
+      "reference": "in fact, italy’s experience with berlusconi – or il cavaliere (the knight), as he is known in his country – provides six clear lessons for americans and the world on what to expect from trump.",
+      "raw": "in fact, italia experience with berlusconi - or iil cavalero (the horo), as it is known in his countrys six ctions about what americans and can wait for transportation.",
+      "application": "In fact, italia experience with berlusconi - or iil cavalero (the horo), as it is known in his countrys six ctions about what americans and can wait for transportation.",
+      "latency_s": 0.14538820000598207,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36472
+    },
+    {
+      "source": "dicho crecimiento podría ser sostenible si se hubieran validado las primeras expectativas respecto de las perspectivas de argentina.",
+      "reference": "this might have been sustainable had early expectations of argentina’s prospects been validated.",
+      "raw": "saying believement could be suspected if they would have valued the first exspectives respect of the perspective of argentina.",
+      "application": "Saying believement could be suspected if they would have valued the first exspectives respect of the perspective of argentina.",
+      "latency_s": 0.07785380000132136,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38719000000000003
+    },
+    {
+      "source": "apenas la semana pasada, el primer ministro encargado vojislav kostunica, al que alguna vez se aclamó en europa como un gran demócrata, demostró quién es realmente.",
+      "reference": "just last week, caretaker prime minister vojislav kostunica, once hailed by europe as a great democrat, showed his true colors.",
+      "raw": "just last week, the prime minister encharged vangislav kotunica, who ever been accused in europe as a great democratia, demonstrated who is really.",
+      "application": "Just last week, the prime minister encharged vangislav kotunica, who ever been accused in europe as a great democratia, demonstrated who is really.",
+      "latency_s": 0.13944159999664407,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37252777777777774
+    },
+    {
+      "source": "al mismo tiempo, ha habido pocos avances en relación con el desarme nuclear, a pesar del tratado de no proliferación nuclear.",
+      "reference": "likewise, little progress toward nuclear disarmament has been made, in disregard of the nuclear non-proliferation treaty.",
+      "raw": "at the same time, there has been popular advances in relationship with the nuclear despite of no nuclear trying proliferation of nuclear proli",
+      "application": "At the same time, there has been popular advances in relationship with the nuclear despite of no nuclear trying proliferation of nuclear proli.",
+      "latency_s": 0.07868199999211356,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42782749999999997
+    },
+    {
+      "source": "cuando en 2007 se hizo un registro de todos los refugiados afganos en pakistán, casi la mitad de ellos vivían en campos de refugiados.",
+      "reference": "when a registration of all afghan refugees in pakistan was carried out in 2007, almost half of them were living in camps.",
+      "raw": "when in 2007 became a registration of all the refugees in pakistan.",
+      "application": "When in 2007 became a registration of all the refugees in pakistan.",
+      "latency_s": 0.09075499999744352,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35912400000000005
+    },
+    {
+      "source": "hasta que los norteamericanos lo entiendan y empiecen a resolver los problemas ambientales globales que ellos, más que nadie, causaron, será difícil conseguir el apoyo entusiasta del resto del mundo.",
+      "reference": "until americans suck it up and start fixing global environmental problems that they, more than anyone, have caused, it will be difficult to get the wholehearted support of the rest of the world.",
+      "raw": "until the north americans understand him and beginning to solve the global problems that thems, causaron, it will be difficult to get the support of the world.",
+      "application": "Until the north americans understand him and beginning to solve the global problems that thems, causaron, it will be difficult to get the support of the world.",
+      "latency_s": 0.0993950000120094,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3979666666666667
+    },
+    {
+      "source": "incluso en europa, con su larga historia de cooperación, la vigilancia y la condicionalidad son delegadas al fmi.",
+      "reference": "even in europe, with its long history of cooperation, surveillance and conditionality are outsourced to the imf.",
+      "raw": "even in europa, with his long story of cooperation, vigilance and condionality are delected to the fmi.",
+      "application": "Even in europa, with his long story of cooperation, vigilance and condionality are delected to the fmi.",
+      "latency_s": 0.0714391999936197,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3420783783783784
+    },
+    {
+      "source": "el rendimiento del bono estatal del reino unido a treinta años bajó hasta el 2,04 por ciento el mismo día.",
+      "reference": "the yield on the united kingdom's 30-year government bond fell to 2.04% on the same day.",
+      "raw": "the resignation of the state of the un rejoined in thirty years ambassed until 2,04 for the same day.",
+      "application": "The resignation of the state of the un rejoined in thirty years ambassed until 2,04 for the same day.",
+      "latency_s": 0.0634284999978263,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4294794117647059
+    },
+    {
+      "source": "uu. ha sostenido a las empresas, no puede sustituir al entusiasmo y las expectativas necesarios para impulsar la inversión.",
+      "reference": "even the reduced global forecast of 3.4% gdp growth for this year is likely to prove excessively optimistic.",
+      "raw": "u. has sustated to the companiess, you cannot substitusism and the exspective necessary necessary to impulse the inversion.",
+      "application": "U. has sustated to the companiess, you cannot substitusism and the exspective necessary necessary to impulse the inversion.",
+      "latency_s": 0.07888570000068285,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3617
+    },
+    {
+      "source": "según el pensamiento político islámico, un califato (a diferencia de una nación-estado convencional) es una entidad no limitada por fronteras fijas, centrada en la defensa y la expansión del dominio de la fe musulmana por medio de la yihad, o lucha armada.",
+      "reference": "as conceived in islamic political thought, a caliphate, unlike a conventional nation-state, is not subject to fixed borders. instead, it is focused on defending and expanding the dominion of the muslim faith through jihad, or armed struggle.",
+      "raw": "according to the islamic though, a califo (a different difference of a national stateis not limited by fijs, central defency and explained the domining of the iroduce of the male of the middle of musliademonstration of the media midom.",
+      "application": "According to the islamic though, a califo (a different difference of a national stateis not limited by fijs, central defency and explained the domining of the iroduce of the male of the middle of musliademonstration of the media midom.",
+      "latency_s": 0.2836347999982536,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4481639534883721
+    },
+    {
+      "source": "el comunismo, como el horizonte, siempre estaba fuera de alcance.",
+      "reference": "communism, like the horizon, was always just beyond reach.",
+      "raw": "the communism, as the horizon was always out of reach.",
+      "application": "The communism, as the horizon was always out of reach.",
+      "latency_s": 0.03263860000879504,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38187222222222217
+    },
+    {
+      "source": "las reducciones de impuestos de bush fueron desde el principio una irresponsabilidad, pero ésta se intensificó después del 11 de septiembre de 2001.",
+      "reference": "bush’s tax cutting was irresponsible from the start, but became much more so after september 11, 2001.",
+      "raw": "the reductions of search were since the main responsibility, but this is intensified after 11 of september 201.",
+      "application": "The reductions of search were since the main responsibility, but this is intensified after 11 of september 201.",
+      "latency_s": 0.09116029999859165,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3849780487804878
+    },
+    {
+      "source": "las invasiones de estados unidos a iraq y afganistán, independientemente de sus méritos relativos, sin duda han envenenado la reputación entre los 900 millones de musulmanes asiáticos, desde pakistán a las filipinas, pasando por todos los puntos intermedios.",
+      "reference": "the american invasions of iraq and afghanistan, regardless of their relative merits, have unquestionably poisoned america’s standing among asia’s 900 million muslims, from pakistan to the philippines and all points in between.",
+      "raw": "the united states to iraand afghanistan, independent of their relativs, without doubted the reputation between the 900 millions of muslion pakistan from pakissue to the philippines of the internetworks.",
+      "application": "The united states to iraand afghanistan, independent of their relativs, without doubted the reputation between the 900 millions of muslion pakistan from pakissue to the philippines of the internetworks.",
+      "latency_s": 0.21245380000618752,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4046680555555555
+    },
+    {
+      "source": "yo solía creer que la negación de la complicidad saudita en los ataques reflejaba nuestra angustia acerca de lo sucedido en ese lúgubre día.",
+      "reference": "i used to believe that denial of saudi complicity in the attacks reflected our distress with what happened on that dark day.",
+      "raw": "i used to believe that the negation of the saudi complicate in the attacks reflected our anguia about the south succepted in that launn day.",
+      "application": "I used to believe that the negation of the saudi complicate in the attacks reflected our anguia about the south succepted in that launn day.",
+      "latency_s": 0.10560939999413677,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39946875000000004
+    },
+    {
+      "source": "de hecho, esta desconexión puede explicar por qué las encuestas no dan al presidente bush el crédito por el manejo económico que este sólido historial parece merecer.",
+      "reference": "indeed, this disconnect may explain why polls do not give president bush the credit for economic management that his strong record would seem to merit.",
+      "raw": "in fact, this deconnection can explain why the encus are not dan president seek for the economic manage, which this solid seems to be market.",
+      "application": "In fact, this deconnection can explain why the encus are not dan president seek for the economic manage, which this solid seems to be market.",
+      "latency_s": 0.0910001000011107,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3892355555555556
+    },
+    {
+      "source": "uno sólo tiene que mirar los datos oficiales, incluida la deuda externa de grecia, que asciende a un 170% de la renta nacional, o al enorme déficit presupuestal del gobierno (casi del 13% del pib).",
+      "reference": "one has only to look at official data, including greece’s external debt, which amounts to 170% of national income, or its gaping government budget deficit (almost 13% of gdp).",
+      "raw": "one has only to look the officials, included the external deuda of gree, which associate 170 percent for the national enorge of the government, or the enorda demonstration (almost 13 for the 13 percent.",
+      "application": "One has only to look the officials, included the external deuda of gree, which associate 170 percent for the national enorge of the government, or the enorda demonstration (almost 13 for the 13 percent.",
+      "latency_s": 0.19548009999562055,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40524166666666667
+    },
+    {
+      "source": "eso dio a merkel un inmenso poder político, que podría haber empleado mejor.",
+      "reference": "that gave merkel massive political power, which she could have put to good use.",
+      "raw": "that gave a market power political inmess, who could have employed best.",
+      "application": "That gave a market power political inmess, who could have employed best.",
+      "latency_s": 0.03854790001059882,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4139458333333333
+    },
+    {
+      "source": "china está substituyendo a los consumidores americanos como motor de la economía mundial. como es un motor menor, la economía mundial crecerá más despacio, pero la influencia de china aumentará muy rápidamente.",
+      "reference": "china’s leadership needs to be even more far-sighted than obama is.",
+      "raw": "china is substituting the american consummers like the world economy of the worldwide as is a memoror, the world despace, but the influence of china will be quickly.",
+      "application": "China is substituting the american consummers like the world economy of the worldwide as is a memoror, the world despace, but the influence of china will be quickly.",
+      "latency_s": 0.14414920000126585,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.398025
+    },
+    {
+      "source": "el problema de legitimidad de la ue tiene dos aspectos distintos: la apatía, que ha conducido a una baja participación en las elecciones parlamentarias europeas, y el euroescepticismo abierto.",
+      "reference": "the eu’s legitimacy problem has two different aspects: apathy, leading to a low turnout in the european parliamentary elections, and outright euro-skepticism.",
+      "raw": "the problem of legitimiddle of the ue has two aspects of distints: the apate, which has been drived to an participation in the european elections, and the urope, and the euse of opposities.",
+      "application": "The problem of legitimiddle of the ue has two aspects of distints: the apate, which has been drived to an participation in the european elections, and the urope, and the euse of opposities.",
+      "latency_s": 0.1613740000029793,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3915882352941177
+    },
+    {
+      "source": "el nuevo impulso del gobierno francés para afrontar la difícil situación económica del país es importante no sólo para francia, sino también para europa y el mundo.",
+      "reference": "the french government’s new push to confront the country’s economic plight matters not only to france, but to europe and the world as well.",
+      "raw": "the new french government to face the economic situation is important to france, but also for europe and the world.",
+      "application": "The new french government to face the economic situation is important to france, but also for europe and the world.",
+      "latency_s": 0.07027419999940321,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39129117647058825
+    },
+    {
+      "source": "aunque poco a poco las cooperativas están afianzándose en asia, necesitarán más apoyo.",
+      "reference": "although cooperatives are gradually catching on in asia, they will need more support.",
+      "raw": "although little the cooperatives are assembling in asia, they need more support.",
+      "application": "Although little the cooperatives are assembling in asia, they need more support.",
+      "latency_s": 0.045072099994285963,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3777346153846154
+    },
+    {
+      "source": "san diego – la mayoría de nosotros no nos damos cuenta de las amenazas que causan nuestras acciones cuando dichas amenazas son invisibles.",
+      "reference": "san diego – most of us are oblivious to the threats caused by our actions when those threats are invisible.",
+      "raw": "san diego the majority of us don't realize the threats that caused our actions when they are invibble.",
+      "application": "San diego the majority of us don't realize the threats that caused our actions when they are invibble.",
+      "latency_s": 0.06692230000044219,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35700624999999997
+    },
+    {
+      "source": "mientras esto sea así, el conocimiento y el compromiso humano seguirán siendo integrales a la atención médica.",
+      "reference": "as long as this is true, human know-how and engagement will remain integral to health care.",
+      "raw": "while this is that, the knowledge and human comproviding integration to method attention.",
+      "application": "While this is that, the knowledge and human comproviding integration to method attention.",
+      "latency_s": 0.057040500003495254,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36844615384615387
+    },
+    {
+      "source": "pero la realidad es que, mientras que un mercado integrado de bienes y servicios requiere de un grado de movilidad laboral, no implica que toda la gente deba tener derecho a cruzar fronteras y buscar un empleo en el país que elija.",
+      "reference": "but the fact is that, while an integrated market for goods and services requires a degree of labor mobility, it does not imply that all people must have the right to cross borders and look for a job in the country of their choice.",
+      "raw": "but the reality is that, while a market of well, and services requires of a laboral, not implicated that all people must be rights and seeking to crossing a country in the country.",
+      "application": "But the reality is that, while a market of well, and services requires of a laboral, not implicated that all people must be rights and seeking to crossing a country in the country.",
+      "latency_s": 0.15357379999477416,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.380698275862069
+    },
+    {
+      "source": "de hecho, el aumento de su capacidad energética será decisivo para aprovechar plenamente el potencial económico y humano de ese continente.",
+      "reference": "indeed, boosting its energy capacity will be critical to unleashing the continent's economic and human potential.",
+      "raw": "in fact, the aumentary of his ability will be decisive to approve the potential economic and human of that continue.",
+      "application": "In fact, the aumentary of his ability will be decisive to approve the potential economic and human of that continue.",
+      "latency_s": 0.08593239999026991,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3963
+    },
+    {
+      "source": "la historia de al-‘alqami, que alguna vez fue patrimonio de un puñado de académicos, hoy juega un papel prominente en las disputas entre sunitas y chiitas actuales.",
+      "reference": "indeed, “‘alaqima,” the plural form of the arabic name “‘alqami,” is now applied to the shia as short-hand for treachery.",
+      "raw": "the history of alqami, which has ever been patrionio of an acadvertimes, today in the prominent between sunites and girls.",
+      "application": "The history of alqami, which has ever been patrionio of an acadvertimes, today in the prominent between sunites and girls.",
+      "latency_s": 0.10384670000348706,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38177500000000003
+    },
+    {
+      "source": "a estados unidos, china y la ue (siempre que sobreviva) les iría mucho mejor que a economías más pequeñas, como el reino unido.",
+      "reference": "the us, china, and the eu (provided it survives) would do far better than smaller economies, like the uk.",
+      "raw": "at the united states, china and the ue (always survivesit would be much better than economies as the u.s. as the unity.",
+      "application": "At the united states, china and the ue (always survivesit would be much better than economies as the u.s. as the unity.",
+      "latency_s": 0.0769544000067981,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.410855
+    },
+    {
+      "source": "así, las negociaciones nucleares entre irán y el e3 +3 (francia, alemania, r.unido más china, rusia y eeuu) suponen un importante primer paso.",
+      "reference": "to this end, the nuclear negotiations between iran and the e3+3 (france, germany, and the uk plus china, russia, and the us) are an important first step.",
+      "raw": "so, nuclear negotiations between iran and the e3 (france, almania, r.united more china, russia and eusus subpose an important step.",
+      "application": "So, nuclear negotiations between iran and the e3 (france, almania, r.united more china, russia and eusus subpose an important step.",
+      "latency_s": 0.12735010001051705,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3615
+    },
+    {
+      "source": "pero es probable que el aspecto más innovador del pacto sea el compromiso de combinar las estrategias de inclusión financiera con el suministro moderno de atención médica.",
+      "reference": "but perhaps the pact’s most innovative feature is the vow to merge financial inclusion strategies with modern health-care delivery.",
+      "raw": "but it is likely that the most innovation of the pact is the commpromiddle common the stateges of including the financial suminister modern attention of methodia.",
+      "application": "But it is likely that the most innovation of the pact is the commpromiddle common the stateges of including the financial suminister modern attention of methodia.",
+      "latency_s": 0.1364190000022063,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41244363636363646
+    },
+    {
+      "source": "llegó la hora de que china, las filipinas, vietnam, otros demandantes y estados unidos hagan algo para disminuir estas tensiones.",
+      "reference": "now is the time for china, the philippines, vietnam, other claimants, and the us to take action to begin to diminish these tensions.",
+      "raw": "he arrived the hour of china, vietna, vienem, other demonstrators and the united states do something to distend these tensiones.",
+      "application": "He arrived the hour of china, vietna, vienem, other demonstrators and the united states do something to distend these tensiones.",
+      "latency_s": 0.08012710000912193,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3804658536585365
+    },
+    {
+      "source": "también alimentará niveles sin precedente de violencia y criminalidad (otra dimensión crucial de la inseguridad de hoy en día).",
+      "reference": "it will also sustain unprecedented levels of violence and criminality-another crucial dimension of today's insecurity.",
+      "raw": "it will also also german without violence and criminality (another crucial dimension of the insecurity in day).",
+      "application": "It will also also german without violence and criminality (another crucial dimension of the insecurity in day).",
+      "latency_s": 0.07998080000106711,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.397527027027027
+    },
+    {
+      "source": "y las empresas de ti que evaluaban mudarse al estado de kerala, limpio, verde y favorable a la tecnología, expresaron su preocupación por la política de prohibición.",
+      "reference": "and it companies contemplating moving to clean, green, tech-friendly kerala expressed concern about the prohibition policy.",
+      "raw": "and ti companies of ti who evaluated to the state of keral, clean the technology, expressed their concerns for prohibtion.",
+      "application": "And ti companies of ti who evaluated to the state of keral, clean the technology, expressed their concerns for prohibtion.",
+      "latency_s": 0.11770699999760836,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3629978260869565
+    },
+    {
+      "source": "las tensiones comerciales entre estados unidos y china ponen en riesgo la integridad de las cadenas de valor globales, y la inminente salida del reino unido de la unión europea puede causar todavía más disrupción.",
+      "reference": "trade tensions between the united states and china are threatening the integrity of global value chains, and britain’s looming exit from the european union has the potential to cause even more disruption.",
+      "raw": "commercial tensions between the united states and china put in risgo the integlobal voices of global, and the inminent salt of the uropean union can cauropesian united ruption.",
+      "application": "Commercial tensions between the united states and china put in risgo the integlobal voices of global, and the inminent salt of the uropean union can cauropesian united ruption.",
+      "latency_s": 0.17484310000145342,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41281093750000003
+    },
+    {
+      "source": "“la ciencia nos necesita”, señala armanda kouassi, ingeniera industrial y ex académica de la fundación mastercard.",
+      "reference": "“science needs us” is how armanda kouassi, an industrial engineer and former mastercard foundation scholar, puts it.",
+      "raw": "science needs us need, point kousassi, ingenia industrial and ex access of the massian fundation fundation.",
+      "application": "Science needs us need, point kousassi, ingenia industrial and ex access of the massian fundation fundation.",
+      "latency_s": 0.09363149999990128,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3917357142857143
+    },
+    {
+      "source": "pero sólo era cuestión de tiempo antes de que ese desempeño se hiciera insostenible.",
+      "reference": "but it was only a matter of time before that performance became unsustainable.",
+      "raw": "but it was only the time before that the beginning was inning unsuspicious.",
+      "application": "But it was only the time before that the beginning was inning unsuspicious.",
+      "latency_s": 0.037263100006384775,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43606999999999996
+    },
+    {
+      "source": "sería difícil imaginar a franklin roosevelt o a ronald reagan aceptando una posición relativa similar.",
+      "reference": "it would be hard to imagine franklin roosevelt or ronald reagan accepting a similar relative position.",
+      "raw": "it would be difficult to image franklin roosvelt or raonald regime accepting a similar position relative.",
+      "application": "It would be difficult to image franklin roosvelt or raonald regime accepting a similar position relative.",
+      "latency_s": 0.09129840000241529,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3878025
+    },
+    {
+      "source": "por ahora, la inercia está llevando a áfrica hacia un futuro de oportunidades perdidas y, tal vez, grave inestabilidad.",
+      "reference": "so far, africa seems to be sleepwalking into a future of lost opportunity and, potentially, serious instability.",
+      "raw": "for now, the inercia is leaving africa top of opportunities y, such a wasti, grave instability.",
+      "application": "For now, the inercia is leaving africa top of opportunities y, such a wasti, grave instability.",
+      "latency_s": 0.07922109999344684,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4022230769230769
+    },
+    {
+      "source": "las medidas de salud pública han denotado la importancia de la atención individual.",
+      "reference": "public health measures have trumped the importance of individual care.",
+      "raw": "the public health media have enoted the importance of individual attention of the individual.",
+      "application": "The public health media have enoted the importance of individual attention of the individual.",
+      "latency_s": 0.05160009999235626,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43353928571428574
+    },
+    {
+      "source": "si hay algo que les gustaría a los venezolanos es ser ellos los encargados de decidir su propio destino, pero los medios democráticos para hacerlo no están a su alcance.",
+      "reference": "venezuelans would like nothing better than to be the ones who decide their own destiny, but the democratic means to do so are being denied to them.",
+      "raw": "if there are something that would like to venezolans is to be the encharges of deciding to decide their own democratic media, but the media is not to do their reach.",
+      "application": "If there are something that would like to venezolans is to be the encharges of deciding to decide their own democratic media, but the media is not to do their reach.",
+      "latency_s": 0.1089094000053592,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.376934693877551
+    },
+    {
+      "source": "los escoceses querrían sin lugar a dudas romper con inglaterra y volver a adherirse a la ue como miembro independiente, lo que alentaría aún más (como si fuera necesario) a los separatistas de cataluña y otras regiones frustradas de europa.",
+      "reference": "the scots would almost certainly want to break away from england and rejoin the eu as an independent member, giving further encouragement (as if that were needed) to separatists in catalonia and other frustrated european regions.",
+      "raw": "the scocesis burning without place to break with england and return to independent members as i would be independence as if i were necessary to be necessarioto the separtistream and other regions.",
+      "application": "The scocesis burning without place to break with england and return to independent members as I would be independence as if I were necessary to be necessarioto the separtistream and other regions.",
+      "latency_s": 0.17172529999515973,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41883559322033886
+    },
+    {
+      "source": "en última instancia, en la utopía comunista, los conflictos de intereses desaparecerían.",
+      "reference": "ultimately, in the communist utopia, conflicts of interests would melt away.",
+      "raw": "in last instance, in the communist utop, the conflict of interests development confilicts.",
+      "application": "In last instance, in the communist utop, the conflict of interests development confilicts.",
+      "latency_s": 0.06985629998962395,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4244818181818182
+    },
+    {
+      "source": "en definitiva, la evidencia sugiere que, con el tiempo, las sociedades gastan fracciones cada vez más importantes de sus ingresos en salud, a diferencia de los gastos en alimentos, por ejemplo, que decaen a medida que los países se vuelven más ricos.",
+      "reference": "ultimately, the evidence suggests that societies spend ever-larger fractions of their income on health over time, in contrast to food expenditures, for example, which fall as countries become wealthier.",
+      "raw": "in definity, the suggest evidence that, with the time, society societities every time of their income income in greedom of the gases in the gathers, for example, which decases the countries.",
+      "application": "In definity, the suggest evidence that, with the time, society societities every time of their income income in greedom of the gases in the gathers, for example, which decases the countries.",
+      "latency_s": 0.1912698999949498,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41171428571428575
+    },
+    {
+      "source": "las personas mayores están más expuestas a desarrollar enfermedades crónicas, que hoy provocan el 63% de las muertes en todo el mundo.",
+      "reference": "older people are more likely to develop chronic illnesses, which now account for 63% of all deaths worldwide.",
+      "raw": "the most experts are more exposed to development cronica, which today provoice of the death of death in all the world.",
+      "application": "The most experts are more exposed to development cronica, which today provoice of the death of death in all the world.",
+      "latency_s": 0.07337610000104178,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3748783783783784
+    },
+    {
+      "source": "las iniciativas para economizar en energía, almacenarla y generarla mediante métodos \"limpios\" o de bajo consumo de carbono merece tener la prioridad y el tipo de compromiso de los gobiernos que se dio al proyecto manhattan (que creó la bomba atómica) o la llegada del hombre a la luna con el proyecto apolo.",
+      "reference": "efforts to economize on energy, storing it, and generating it by “clean” or low-carbon methods deserve priority and the sort of commitment from governments that were accorded to the manhattan project (which created the atomic bomb) or the apollo moon landing.",
+      "raw": "the initiatives to economic in energy, alacarel and generarthe medical media and generary method\" or under carbow's consum of the priority and the type of the government project that was demonstrated to the project.",
+      "application": "The initiatives to economic in energy, alacarel and generarthe medical media and generary method\" or under carbow's consum of the priority and the type of the government project that was demonstrated to the project.",
+      "latency_s": 0.31017270000302233,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38694520547945205
+    }
+  ]
+}

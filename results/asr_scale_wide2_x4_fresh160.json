@@ -1,0 +1,2648 @@
+{
+  "checkpoint_sha256": "899a02f9af3a90a5f72ff4fa0a869cc4e1b4fad342ff8ede4578d454bc624e3f",
+  "manifest_sha256": "2217c2dff84076258b2d31b1bb24013a0c6d5b333fed6c3128e343ae6efe3adf",
+  "training_manifest_sha256": "39639a2a51837ebb57bf7490004234303e3a7ec0f9a7bb38405e69f845929ae0",
+  "lm_training_manifest_path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\training\\asr_scale_wide2_x4\\train.tsv",
+  "lm_training_manifest_sha256": "39639a2a51837ebb57bf7490004234303e3a7ec0f9a7bb38405e69f845929ae0",
+  "examples": 160,
+  "split": "dev",
+  "metrics": {
+    "greedy": {
+      "wer": 0.38133163427843264,
+      "cer": 0.12396694214876033,
+      "decode_elapsed_s": 0.2762743000057526,
+      "lm_weight": 0,
+      "token_reward": 0,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1089\\134686\\1089-134686-0014.flac",
+          "reference": "he tried to think how it could be",
+          "hypothesis": "he tried to think how wid could be",
+          "speaker": "librispeech:1089",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1089\\134686\\1089-134686-0012.flac",
+          "reference": "her eyes seemed to regard him with mild pity her holiness a strange light glowing faintly upon her frail flesh did not humiliate the sinner who approached her",
+          "hypothesis": "her eye seemed to regard him with miled pitty her hodiness a strange light glowing fantly upon her frail flesh did not humiliat the siner who approached her",
+          "speaker": "librispeech:1089",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1089\\134691\\1089-134691-0005.flac",
+          "reference": "whose feet are as the feet of harts and underneath the everlasting arms",
+          "hypothesis": "whose feet are as the feet of hearts and under meet the ever lasting arms",
+          "speaker": "librispeech:1089",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1089\\134691\\1089-134691-0002.flac",
+          "reference": "he set off abruptly for the bull walking rapidly lest his father's shrill whistle might call him back and in a few moments he had rounded the curve at the police barrack and was safe",
+          "hypothesis": "he sat off abruptly for the bul walking rapitly lesst his father shreel wis toled might calle him back and in a few moments he had roundd the cur at the poli ebarick and was say",
+          "speaker": "librispeech:1089",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1188\\133604\\1188-133604-0002.flac",
+          "reference": "by being studious of color they are studious of division and while the chiaroscurist devotes himself to the representation of degrees of force in one thing unseparated light the colorists have for their function the attainment of beauty by arrangement of the divisions of light",
+          "hypothesis": "by being studiis of collore they are studious of division and whine the cur u scures devotes himself to the representationo degrees of fource an one thing onseparated light the colorus havp for their fanction dhe attaimmen of beauty by rangement of the divisions of light",
+          "speaker": "librispeech:1188",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1188\\133604\\1188-133604-0016.flac",
+          "reference": "this at once compels you to understand that the work is to be imaginative and decorative that it represents beautiful things in the clearest way but not under existing conditions and that in fact you are producing jeweler's work rather than pictures",
+          "hypothesis": "this it once compouse you t ounderstand that the workes to be imaginative in dacrateve that it repbrusonts beatiful fins in the clerest way but not under existin conditions and that in fact youare producin jewlers wer k rather than pectures",
+          "speaker": "librispeech:1188",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1188\\133604\\1188-133604-0007.flac",
+          "reference": "the brown ground beneath is left for the most part one touch of black is put for the hollow two delicate lines of dark gray define the outer curve and one little quivering touch of white draws the inner edge of the mandible",
+          "hypothesis": "the brown ground the neeh his left for the most par one touch a black as put for the hollow to delckat lines of dark greydfind the outor curve and one little quivering touch of white drowsy inter edgeof the mandable",
+          "speaker": "librispeech:1188",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1188\\133604\\1188-133604-0000.flac",
+          "reference": "you will find me continually speaking of four men titian holbein turner and tintoret in almost the same terms",
+          "hypothesis": "youwill find me continually speaking of formen tition whol bine turner inton cut ut in amust the same tarms",
+          "speaker": "librispeech:1188",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\121\\121726\\121-121726-0004.flac",
+          "reference": "heaven a good place to be raised to",
+          "hypothesis": "haven a grod tlace to be raysed too",
+          "speaker": "librispeech:121",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\121\\121726\\121-121726-0008.flac",
+          "reference": "hose man's excuse for wetting the walk",
+          "hypothesis": "hose mans excuse for weting the walk",
+          "speaker": "librispeech:121",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\121\\127105\\121-127105-0029.flac",
+          "reference": "there were plenty of people to help but of course the young lady who should go down as governess would be in supreme authority",
+          "hypothesis": "they were plenty of people to help but of course the young lady who should go down as governess would be insupreem athorty",
+          "speaker": "librispeech:121",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\121\\127105\\121-127105-0013.flac",
+          "reference": "you'll easily judge why when you hear because the thing had been such a scare he continued to fix me",
+          "hypothesis": "yourleasely judge why wen you here because the thing had been such a scare he continue to fix me",
+          "speaker": "librispeech:121",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1221\\135766\\1221-135766-0013.flac",
+          "reference": "pearl was a born outcast of the infantile world",
+          "hypothesis": "perl was a borng outcast of the inentile world",
+          "speaker": "librispeech:1221",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1221\\135766\\1221-135766-0015.flac",
+          "reference": "if spoken to she would not speak again",
+          "hypothesis": "if spoken to she would not speak again",
+          "speaker": "librispeech:1221",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1221\\135766\\1221-135766-0007.flac",
+          "reference": "hester prynne nevertheless the loving mother of this one child ran little risk of erring on the side of undue severity",
+          "hypothesis": "hester prin never ther less the loving mother of this one chld ran little bisk of airing on the sid of unde savarity",
+          "speaker": "librispeech:1221",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1221\\135767\\1221-135767-0014.flac",
+          "reference": "yea his honourable worship is within but he hath a godly minister or two with him and likewise a leech",
+          "hypothesis": "ye has honorble worse up is within but he hale they godly ministror two with him and likewise a leah",
+          "speaker": "librispeech:1221",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1284\\1180\\1284-1180-0027.flac",
+          "reference": "yet that task was not so easy as you may suppose",
+          "hypothesis": "yet that task was nont s o easy is you may supose",
+          "speaker": "librispeech:1284",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1284\\1181\\1284-1181-0005.flac",
+          "reference": "no i forgot all about the brains exclaimed the woman",
+          "hypothesis": "no i forngot o about ta braimns exclaimed the woman",
+          "speaker": "librispeech:1284",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1284\\134647\\1284-134647-0000.flac",
+          "reference": "the grateful applause of the clergy has consecrated the memory of a prince who indulged their passions and promoted their interest",
+          "hypothesis": "the greatfull applause of the clearigy has cosecrated the memory of a prince who indold their passions and promoted their interest",
+          "speaker": "librispeech:1284",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1284\\1181\\1284-1181-0013.flac",
+          "reference": "ojo became a bit uneasy at this for he had already put quite a lot of the cleverness powder in the dish but he dared not interfere and so he comforted himself with the thought that one cannot have too much cleverness",
+          "hypothesis": "ohdo became a bit uneasy at this for he had allready put quie a lot of the clevernes powder in the dish but he dared nont interfere in so he comforted himself with the thought that one can not have two much cleverness",
+          "speaker": "librispeech:1284",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1320\\122617\\1320-122617-0037.flac",
+          "reference": "the delaware dog he said leaning forward and peering through the dim light to catch the expression of the other's features is he afraid",
+          "hypothesis": "the deloware dog he said leaning forward and pering through the dimlike to catched the expression of the other's feetures is he afraid",
+          "speaker": "librispeech:1320",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1320\\122617\\1320-122617-0011.flac",
+          "reference": "the lodge in which uncas was confined was in the very center of the village and in a situation perhaps more difficult than any other to approach or leave without observation",
+          "hypothesis": "the lodgein which oncus was confind was in the very centr of the village and in a situation perhaps more difficul than any other to approach or leve without observation",
+          "speaker": "librispeech:1320",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1320\\122617\\1320-122617-0019.flac",
+          "reference": "uncas occupied a distant corner in a reclining attitude being rigidly bound both hands and feet by strong and painful withes",
+          "hypothesis": "oncus ocupidto distanet corner and a reclining atitute being rigidly bound both hands and feet by strong and painful wifts",
+          "speaker": "librispeech:1320",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1320\\122617\\1320-122617-0039.flac",
+          "reference": "the mohican started on his feet and shook his shaggy covering as though the animal he counterfeited was about to make some desperate effort",
+          "hypothesis": "hn al he can started on his feet and shook as shagy covering as though the animal y counterfited was about to make some desprateffort",
+          "speaker": "librispeech:1320",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1580\\141083\\1580-141083-0006.flac",
+          "reference": "the only duplicate which existed so far as i knew was that which belonged to my servant bannister a man who has looked after my room for ten years and whose honesty is absolutely above suspicion",
+          "hypothesis": "the only duplicat which existed so far as i knew was that which belong to my servaent banister a man who is looked after my room for ten years and whas honestys abso lutly above suspicion",
+          "speaker": "librispeech:1580",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1580\\141084\\1580-141084-0041.flac",
+          "reference": "no harm would have been done had it not been that as he passed your door he perceived the key which had been left by the carelessness of your servant",
+          "hypothesis": "no harm wohuld have been done had id not been that as he passed your door he perceived the key which had been left by the carelesness of your servant",
+          "speaker": "librispeech:1580",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1580\\141084\\1580-141084-0029.flac",
+          "reference": "his troubled blue eyes glanced at each of us and finally rested with an expression of blank dismay upon bannister in the farther corner",
+          "hypothesis": "his troubled blue eyes glansed ad each of us and finly rested with an expression of blank dismay upon banister in the farther corner",
+          "speaker": "librispeech:1580",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1580\\141084\\1580-141084-0046.flac",
+          "reference": "have i told the truth mister gilchrist",
+          "hypothesis": "hav i told the troth mister gicriest",
+          "speaker": "librispeech:1580",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1995\\1837\\1995-1837-0010.flac",
+          "reference": "perhaps she too might be there waiting weeping",
+          "hypothesis": "perhap she to might be there waiting weeping",
+          "speaker": "librispeech:1995",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1995\\1837\\1995-1837-0027.flac",
+          "reference": "on she hurried until sweeping down to the lagoon and the island lo the cotton lay before her",
+          "hypothesis": "on she hurried until sweeping down to the logoon and the island lo the cotonlay before her",
+          "speaker": "librispeech:1995",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1995\\1826\\1995-1826-0017.flac",
+          "reference": "there might be a bit of poetry here and there but most of this place was such desperate prose",
+          "hypothesis": "theie i be ha bittov por tre here and ther but most of his place was such desperede prose",
+          "speaker": "librispeech:1995",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1995\\1837\\1995-1837-0013.flac",
+          "reference": "then he looked down the lagoon was dry",
+          "hypothesis": "then he lookedown the loogoom was dri",
+          "speaker": "librispeech:1995",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2094\\142345\\2094-142345-0001.flac",
+          "reference": "but the windows are patched with wooden panes and the door i think is like the gate it is never opened",
+          "hypothesis": "te depindows are patched with woolden tains and the door i thingk is like the gate it is never opened",
+          "speaker": "librispeech:2094",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2094\\142345\\2094-142345-0042.flac",
+          "reference": "i hanna common patience with you",
+          "hypothesis": "i ad a cominpatience with you",
+          "speaker": "librispeech:2094",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2094\\142345\\2094-142345-0058.flac",
+          "reference": "by the by i've never seen your dairy i must see your dairy missus poyser",
+          "hypothesis": "by the iy i'm never see your dery im ma seor dary missus poiser",
+          "speaker": "librispeech:2094",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2094\\142345\\2094-142345-0003.flac",
+          "reference": "a large open fireplace with rusty dogs in it and a bare boarded floor at the far end fleeces of wool stacked up in the middle of the floor some empty corn bags",
+          "hypothesis": "a large open fire place with resty dog in it and a bar borted floor at the far and fleaces of wol stacked up in the middle of the floor some empty corn begs",
+          "speaker": "librispeech:2094",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2300\\131720\\2300-131720-0041.flac",
+          "reference": "we had meters in which there were two bottles of liquid",
+          "hypothesis": "we had meders in which theye were two bottleds of lickwint",
+          "speaker": "librispeech:2300",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2300\\131720\\2300-131720-0040.flac",
+          "reference": "we were more interested in the technical condition of the station than in the commercial part",
+          "hypothesis": "wo wre more entersted in the tegnical condition of the station that in the commercial barnt",
+          "speaker": "librispeech:2300",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2300\\131720\\2300-131720-0007.flac",
+          "reference": "broad as the prairies and free in thought as the winds that sweep them he is idiosyncratically opposed to loose and wasteful methods to plans of empire that neglect the poor at the gate",
+          "hypothesis": "brot as the praries and frein thought as the winds that sweppt them he isetioson cradicly apose to lusond wasteful mathos do plans of anbire that negleck the poor at the gate",
+          "speaker": "librispeech:2300",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2300\\131720\\2300-131720-0023.flac",
+          "reference": "i think he was perhaps more appreciative than i was of the discipline of the edison construction department and thought it would be well for us to wait until the morning of the fourth before we started up",
+          "hypothesis": "i think he was prhaps more  precetive that i was of the disiplen of the etisen construchion toparn and thought it would be well froshd to waitentill the morning the forth befolre wi started a",
+          "speaker": "librispeech:2300",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\237\\134500\\237-134500-0033.flac",
+          "reference": "i wish you weren't so restless and didn't get so worked up over things she said sadly",
+          "hypothesis": "i wis you wart so refpes and didn't kit so worked uf overthings she sait satly",
+          "speaker": "librispeech:237",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\237\\134493\\237-134493-0012.flac",
+          "reference": "i get wet to my knees when i go down to pick cherries",
+          "hypothesis": "i get wheat to my mes when i go d own to pick charies",
+          "speaker": "librispeech:237",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\237\\126133\\237-126133-0013.flac",
+          "reference": "i know gasped polly controlling her sobs i won't only i can't thank you",
+          "hypothesis": "i no gasked polly controling her sobs i ot only i can't thank you",
+          "speaker": "librispeech:237",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\237\\126133\\237-126133-0010.flac",
+          "reference": "oh you are the dearest and best mister king i ever saw but how did you make mammy let her come",
+          "hypothesis": "oh yu are that deareston best mister king i hever saw but howdid yo make mami that her come",
+          "speaker": "librispeech:237",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\260\\123286\\260-123286-0013.flac",
+          "reference": "the shadow of the raft was clearly outlined upon the surface of the waves",
+          "hypothesis": "the shato of the rat was clearly out lind upon the surface of the ways",
+          "speaker": "librispeech:260",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\260\\123288\\260-123288-0004.flac",
+          "reference": "the air is heavy the sea is calm",
+          "hypothesis": "the air is heavy the sea is cum",
+          "speaker": "librispeech:260",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\260\\123286\\260-123286-0005.flac",
+          "reference": "i am not complaining that the rate is slow but that the sea is so wide",
+          "hypothesis": "i hame not complaiting that the rada slow but that the seat i so wide",
+          "speaker": "librispeech:260",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\260\\123440\\260-123440-0003.flac",
+          "reference": "oh won't she be savage if i've kept her waiting",
+          "hypothesis": "oh what she be sovage if i'v cept her wating",
+          "speaker": "librispeech:260",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2830\\3980\\2830-3980-0037.flac",
+          "reference": "so much for the title of the epistle now follows the greeting of the apostle verse three",
+          "hypothesis": "so much for the title of the appisn now follows the greading of the appossin virsthre",
+          "speaker": "librispeech:2830",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2830\\3980\\2830-3980-0041.flac",
+          "reference": "grace involves the remission of sins peace and a happy conscience",
+          "hypothesis": "grace anvalls the remision of sins pieece and e happy conscience",
+          "speaker": "librispeech:2830",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2830\\3980\\2830-3980-0003.flac",
+          "reference": "paul came later and is beneath us",
+          "hypothesis": "palkim later in his beneethus",
+          "speaker": "librispeech:2830",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2830\\3980\\2830-3980-0043.flac",
+          "reference": "experience proves this",
+          "hypothesis": "experence prosness",
+          "speaker": "librispeech:2830",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2961\\961\\2961-961-0006.flac",
+          "reference": "and what was the subject of the poem said the person who made the remark",
+          "hypothesis": "and what was te subject of the poe said te person whil ma the remark",
+          "speaker": "librispeech:2961",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2961\\961\\2961-961-0007.flac",
+          "reference": "the subject was a very noble one he described the most famous action in which the athenian people were ever engaged",
+          "hypothesis": "the subject was a vemy noble one it dhe scryoe the most famous action in ich efenion people were ever engaged",
+          "speaker": "librispeech:2961",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2961\\960\\2961-960-0014.flac",
+          "reference": "the ideas also remain but they have become types in nature forms of men animals birds fishes",
+          "hypothesis": "the iity yes also remaind but they have become tipes in nacur formse of men animol sburds fiches",
+          "speaker": "librispeech:2961",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2961\\961\\2961-961-0000.flac",
+          "reference": "socrates begins the timaeus with a summary of the republic",
+          "hypothesis": "sorety s begins theto neus with a sumery of the republick",
+          "speaker": "librispeech:2961",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3570\\5696\\3570-5696-0004.flac",
+          "reference": "the salient features of this development of domestic service have already been indicated",
+          "hypothesis": "the sae and feachures of this development of demestic seavis have ora to ben indicated",
+          "speaker": "librispeech:3570",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3570\\5694\\3570-5694-0006.flac",
+          "reference": "drunkenness and the other pathological consequences of the free use of stimulants therefore tend in their turn to become honorific as being a mark at the second remove of the superior status of those who are able to afford the indulgence",
+          "hypothesis": "drankoness and the othe pethomlogical consequences of the fres of stiminans ef atend in theirt tene to become unerythick as being amak at the secondrymove of the sapperostates of those sorable to affort the indultians",
+          "speaker": "librispeech:3570",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3570\\5695\\3570-5695-0006.flac",
+          "reference": "very much of squalor and discomfort will be endured before the last trinket or the last pretense of pecuniary decency is put away",
+          "hypothesis": "verymuths of squoler an discomfot will be endued before the lost trinket or the lost pretens of pecunary decesses pit away",
+          "speaker": "librispeech:3570",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3570\\5696\\3570-5696-0005.flac",
+          "reference": "throughout the entire evolution of conspicuous expenditure whether of goods or of services or human life runs the obvious implication that in order to effectually mend the consumer's good fame it must be an expenditure of superfluities",
+          "hypothesis": "throughout the intirevilushio of conspicus expendature whether of good sor of services or human life rens the obvesimpication that in orded tor affictualy men the consemas good fan it must been expenature of superfuties",
+          "speaker": "librispeech:3570",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3575\\170457\\3575-170457-0018.flac",
+          "reference": "sir march sixteenth",
+          "hypothesis": "sir marchsuxteent",
+          "speaker": "librispeech:3575",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3575\\170457\\3575-170457-0024.flac",
+          "reference": "i don't always succeed for sometimes when i'm teaching or sewing i would rather be reading or writing but i try to deny myself and my father's approbation amply rewarded me for the privation",
+          "hypothesis": "i don' alway succeed for sometimes when imteching or soing i would rather be reaning a riting but i tried to deni myself and my fathers apperbation amply rewarded me for the prevation",
+          "speaker": "librispeech:3575",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3575\\170457\\3575-170457-0032.flac",
+          "reference": "come come i am getting really tired of your absence",
+          "hypothesis": "come come i'm gitnting really tart o rabsence",
+          "speaker": "librispeech:3575",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3575\\170457\\3575-170457-0022.flac",
+          "reference": "in the evenings i confess i do think but i never trouble any one else with my thoughts",
+          "hypothesis": "in the evenings i confesst i do think but i never trouble anyou at els with my thoughts",
+          "speaker": "librispeech:3575",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3729\\6852\\3729-6852-0015.flac",
+          "reference": "at your service sir",
+          "hypothesis": "atu sevice sir",
+          "speaker": "librispeech:3729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3729\\6852\\3729-6852-0029.flac",
+          "reference": "it is sold everywhere but for the last three weeks nobody will use any snuff but that sold at the civet cat",
+          "hypothesis": "it is sol everywhere but for the last three weks nobody willvs any snufgh but that sould at the sivect cat",
+          "speaker": "librispeech:3729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3729\\6852\\3729-6852-0001.flac",
+          "reference": "without saying it positively she made me understand that being herself an illustrious member of the republic of letters she was well aware that she was speaking to an insect",
+          "hypothesis": "without saying id positivbly she made me understand that being herself and a lestrius member of the republig of letters she was well awharer that she was speaking to an inect",
+          "speaker": "librispeech:3729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3729\\6852\\3729-6852-0014.flac",
+          "reference": "here go and get me change for a louis i have it sir",
+          "hypothesis": "hr goan geg me changderly i hav it sar",
+          "speaker": "librispeech:3729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4077\\13754\\4077-13754-0001.flac",
+          "reference": "but a word further concerning the expedition in general",
+          "hypothesis": "but a ward further colnserning the expadition in general",
+          "speaker": "librispeech:4077",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4077\\13751\\4077-13751-0019.flac",
+          "reference": "who began the quarrel was it the mormons",
+          "hypothesis": "who began the quarel was it the mormens",
+          "speaker": "librispeech:4077",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4077\\13751\\4077-13751-0002.flac",
+          "reference": "instead of but six regularly affiliated members and at most two score of adherents the organization numbers today many hundred thousand souls",
+          "hypothesis": "in shet of but six regularly afilliated members ant at most two squore of at heratce the orgadisation lummers to dayt many hundred thousand souls",
+          "speaker": "librispeech:4077",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4077\\13751\\4077-13751-0016.flac",
+          "reference": "be it said to the honor of some of the officers entrusted with the terrible commission that when they learned its true significance they resigned their authority rather than have anything to do with what they designated a cold blooded butchery",
+          "hypothesis": "be at seid to the honor of some of the officers intrested with a terrible commision that when they leared it's tru significance they resuind theire athority rather then hav panything to do with what they desibated a cold bloded buthery",
+          "speaker": "librispeech:4077",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4446\\2273\\4446-2273-0029.flac",
+          "reference": "it's really too warm in this room to sing don't you feel it",
+          "hypothesis": "it's really to warmin the srimed to sane don' you feel it",
+          "speaker": "librispeech:4446",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4446\\2273\\4446-2273-0018.flac",
+          "reference": "do you remember that first walk we took together in paris",
+          "hypothesis": "do you remember that first walk we took together in paris",
+          "speaker": "librispeech:4446",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4446\\2271\\4446-2271-0015.flac",
+          "reference": "a little attack of nerves possibly",
+          "hypothesis": "a little atack of nurb's possibly",
+          "speaker": "librispeech:4446",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4446\\2275\\4446-2275-0013.flac",
+          "reference": "i'll do anything you wish me to bartley she said tremulously",
+          "hypothesis": "il do anything you wish me to bartly she said trumilusly",
+          "speaker": "librispeech:4446",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4507\\16021\\4507-16021-0025.flac",
+          "reference": "to meet the needs of this conflict wretchedness has invented a language of combat which is slang",
+          "hypothesis": "to meet the neense of this comflict retcedness has invented an thenguige of com that which is slaing",
+          "speaker": "librispeech:4507",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4507\\16021\\4507-16021-0055.flac",
+          "reference": "to teach reading means to light the fire every syllable spelled out sparkles",
+          "hypothesis": "to ta chreeding mans to lite the fire every silbal stoled ont spirkles",
+          "speaker": "librispeech:4507",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4507\\16021\\4507-16021-0008.flac",
+          "reference": "who denies that of course it does",
+          "hypothesis": "who denice that of course it des",
+          "speaker": "librispeech:4507",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4507\\16021\\4507-16021-0051.flac",
+          "reference": "in this world evidently the vestibule of another there are no fortunate",
+          "hypothesis": "in this worlds ofvidentllyof the ves tapul of another there ore no fortuant",
+          "speaker": "librispeech:4507",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4970\\29093\\4970-29093-0018.flac",
+          "reference": "the two young men who were by this time full of the adventure went down to the wall street office of henry's uncle and had a talk with that wily operator",
+          "hypothesis": "the two young men were bi this time full of the adventure went down to the wa storeetpop is e pineriys uncle and had a talp wit that whily oprater",
+          "speaker": "librispeech:4970",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4970\\29095\\4970-29095-0022.flac",
+          "reference": "is thee going to the yearly meeting ruth asked one of the girls",
+          "hypothesis": "is the going to the early meating roth asked one of the girls",
+          "speaker": "librispeech:4970",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4970\\29095\\4970-29095-0015.flac",
+          "reference": "if i can get patients",
+          "hypothesis": "itf i con gep patience",
+          "speaker": "librispeech:4970",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4970\\29093\\4970-29093-0019.flac",
+          "reference": "the night was spent in packing up and writing letters for philip would not take such an important step without informing his friends",
+          "hypothesis": "the night was spent in packing appin wriding letters for filip would not takes such nimportin step without infroming his friends",
+          "speaker": "librispeech:4970",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4992\\41797\\4992-41797-0006.flac",
+          "reference": "he keeps the thou shalt not commandments first rate hen lord does",
+          "hypothesis": "he keeps that thou shout not commanmon's firstray hand lor des",
+          "speaker": "librispeech:4992",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4992\\41806\\4992-41806-0015.flac",
+          "reference": "missus harmon thought he sang too much and told her husband privately that if he was a canary bird she should want to keep a table cover over his head most of the time but he was immensely popular with the rest of his audience",
+          "hypothesis": "missus hearmon thugh he sang to mach un tuld her hasbean privantly that if he was connarry burd she she wanto ceape a table covero resead mst tof the darm but he was inmencely topular with a rest of his onience",
+          "speaker": "librispeech:4992",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4992\\41806\\4992-41806-0007.flac",
+          "reference": "olive had painted the motto on a long narrow panel of canvas and giving it to mister popham stood by the fireside while he deftly fitted it into the place prepared for it",
+          "hypothesis": "al of hadpened the modo on a long narrow panel o panders and giving it to mister papem stood by the fireside whell he deatly fited a into the place prepared for it",
+          "speaker": "librispeech:4992",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4992\\41806\\4992-41806-0016.flac",
+          "reference": "the face of the mahogany shone with delight and why not when it was doing everything almost everything within the scope of a piano and yet the family had enjoyed weeks of good nourishing meals on what had been saved by its exertions",
+          "hypothesis": "nhe face of them maharvany showts delight and my not when it was doing everything almostd every thing with in the scop of aano and yet the fanly had enjoyed weaks of good  nurching meals on what had been saved b its excertions",
+          "speaker": "librispeech:4992",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5105\\28240\\5105-28240-0008.flac",
+          "reference": "a narrow channel formed a passage through the ridge of rocks that protected it from the open sea and which even in the roughest weather would ensure the calmness of its waters",
+          "hypothesis": "a marrow chaniel formed a passage through the ridge of rogks that prtected ite from the open see and which even in the ruffest weather would insure the caomness of its waters",
+          "speaker": "librispeech:5105",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5105\\28241\\5105-28241-0011.flac",
+          "reference": "all the images of his past life floated upon his memory his thoughts sped away to his native france only to return again to wonder whether the depths of ocean would reveal any traces of the algerian metropolis",
+          "hypothesis": "all the images of his pass life floted upon his memory his thoughts spad away to his nate iv france only to return again to wonder wethat the dath savoustiant would reveale any traces of the ajery an metropolis",
+          "speaker": "librispeech:5105",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5105\\28233\\5105-28233-0009.flac",
+          "reference": "the bond of union thus effected could never be severed and although ben zoof's achievements had fairly earned him the right of retirement he firmly declined all honors or any pension that might part him from his superior officer",
+          "hypothesis": "the bond of unian thas effected could never be savered and all though been'siffs achievments had fairely earned him the wright of re tiremit he firmly deklind all honors or any pension that might part him from his supperior officer",
+          "speaker": "librispeech:5105",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5105\\28233\\5105-28233-0006.flac",
+          "reference": "no cathedral not even burgos itself could vie with the church at montmartre",
+          "hypothesis": "nokafetral oddevem burgos itself could vi with the charchit mon martura",
+          "speaker": "librispeech:5105",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5142\\33396\\5142-33396-0048.flac",
+          "reference": "by the hammer of thor shouted grim here is no stingy coward",
+          "hypothesis": "by the hamera thor shouta groom there is no stindgy couer",
+          "speaker": "librispeech:5142",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5142\\36377\\5142-36377-0020.flac",
+          "reference": "a more dreary and more disunited family party i never sat at the table with",
+          "hypothesis": "a more drerian more dis u nite ad family party i never sat of table with",
+          "speaker": "librispeech:5142",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5142\\33396\\5142-33396-0044.flac",
+          "reference": "i am stiff with long sitting he said i itch for a fight i turned to the farmer",
+          "hypothesis": "i'm stiff withlong cityn he said i ach for a fight i turned of the farmer",
+          "speaker": "librispeech:5142",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5142\\33396\\5142-33396-0030.flac",
+          "reference": "the thralls were bringing in a great pot of meat",
+          "hypothesis": "the throaws were ranyin a great pot of me",
+          "speaker": "librispeech:5142",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5639\\40744\\5639-40744-0026.flac",
+          "reference": "luis was out of danger in a fortnight in a month he rose from his bed and during all that time he was visited daily by his mother and grandmother and treated by the master and mistress of the house as if he was their own child",
+          "hypothesis": "loise was out of dangr in fortnight and amonth ye rose from his bed and jowing all that time he was visited daily by his mother and ran mother and treated by the masterine mistres of the house as if he was their own child",
+          "speaker": "librispeech:5639",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5639\\40744\\5639-40744-0015.flac",
+          "reference": "this person was rodolfo who though he had gone to look for his friends had changed his mind in that respect not thinking it advisable to acquaint them with what had passed between him and the girl",
+          "hypothesis": "this person was wredalwo withough yet gone to look for his friends had changed his a mind in that respect not thinking et advicable to acquaint then but what had pass beween him an the girl",
+          "speaker": "librispeech:5639",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5639\\40744\\5639-40744-0016.flac",
+          "reference": "on the contrary he resolved to tell them that repenting of his violence and moved by her tears he had only carried her half way towards his house and then let her go",
+          "hypothesis": "on he contrary er resolved to tell them that repenting of his vilance and moved by heteor sey at only carried her half way to wodsis house and then lettergo",
+          "speaker": "librispeech:5639",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5639\\40744\\5639-40744-0037.flac",
+          "reference": "know then son of my heart that this fainting lady is your real bride i say real because she is the one whom your father and i have chosen for you and the portrait was a pretence",
+          "hypothesis": "no then son on my hort that this fainting lady is you real brit i say real because she is the one whom yo father n i have chosein fu you and a portrat was appreetonce",
+          "speaker": "librispeech:5639",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5683\\32866\\5683-32866-0002.flac",
+          "reference": "but don't these very wise things sometimes turn out very foolishly",
+          "hypothesis": "but tok these very wise things some times turn out very folishly",
+          "speaker": "librispeech:5683",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5683\\32866\\5683-32866-0005.flac",
+          "reference": "and he made a little dip of his cane towards brandon hall over his shoulder",
+          "hypothesis": "and he made a little dip of his kein towards breanden al over he shulder",
+          "speaker": "librispeech:5683",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5683\\32866\\5683-32866-0011.flac",
+          "reference": "their walk continued silent for the greater part neither was quite satisfied with the other but rachel at last said",
+          "hypothesis": "there wallk continued silent for the greater part nither was quite satisfid with the other but rachel at last said",
+          "speaker": "librispeech:5683",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5683\\32865\\5683-32865-0011.flac",
+          "reference": "whereupon lake laughed quietly still looking on the ace of hearts with his sly eyes",
+          "hypothesis": "where upon lake lauged quietly still looking on the ase of hearts with his sly eyes",
+          "speaker": "librispeech:5683",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\61\\70970\\61-70970-0032.flac",
+          "reference": "enquired robin with his suspicions still upon him",
+          "hypothesis": "inquired robben with his espicion still upon him",
+          "speaker": "librispeech:61",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\61\\70970\\61-70970-0006.flac",
+          "reference": "never that sir he had said",
+          "hypothesis": "never thatsir he had said",
+          "speaker": "librispeech:61",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\61\\70968\\61-70968-0019.flac",
+          "reference": "it is enough said george gamewell sharply and he turned upon the crowd",
+          "hypothesis": "it is ennogh said dorge game will sharply as he turned upon the crowd",
+          "speaker": "librispeech:61",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\61\\70970\\61-70970-0029.flac",
+          "reference": "from the blackness behind the light they heard a voice warrenton's",
+          "hypothesis": "from the blackness behin the light the heard a voice worentens",
+          "speaker": "librispeech:61",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\672\\122797\\672-122797-0009.flac",
+          "reference": "have you not met them anywhere",
+          "hypothesis": "have you not met them  any wie",
+          "speaker": "librispeech:672",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\672\\122797\\672-122797-0016.flac",
+          "reference": "yes then something better something still grander will surely follow or wherefore should they thus ornament me",
+          "hypothesis": "yes and something beakter something still prander will surely follow or where forchured they thus ornement me",
+          "speaker": "librispeech:672",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\672\\122797\\672-122797-0010.flac",
+          "reference": "rejoice in thy growth said the sunbeams",
+          "hypothesis": "rejoys intli groth said the sun beans",
+          "speaker": "librispeech:672",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\672\\122797\\672-122797-0014.flac",
+          "reference": "were i but already on the cart",
+          "hypothesis": "were i but od ready on the cards",
+          "speaker": "librispeech:672",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6829\\68769\\6829-68769-0002.flac",
+          "reference": "i can't see it in that light said the old lawyer",
+          "hypothesis": "i gan't see it in that light said the old bler",
+          "speaker": "librispeech:6829",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6829\\68771\\6829-68771-0021.flac",
+          "reference": "but it can't be protested the girl",
+          "hypothesis": "but itcamt b protes ted the girl",
+          "speaker": "librispeech:6829",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6829\\68771\\6829-68771-0005.flac",
+          "reference": "the only thing necessary was to fix seth reynolds and this hopkins arranged personally",
+          "hypothesis": "the only thing necessariit was too fix seth rinlds and this hopkins aranged personaly",
+          "speaker": "librispeech:6829",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6829\\68769\\6829-68769-0035.flac",
+          "reference": "it won't be much but i'm grateful to find a friend",
+          "hypothesis": "it won't be much but am gratful to find to friend",
+          "speaker": "librispeech:6829",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6930\\76324\\6930-76324-0008.flac",
+          "reference": "i thought we were stumped again when i first saw that picture but it's been of some use after all",
+          "hypothesis": "i thought we were stomped again when it fr sawat bexher but it smind of some us after al",
+          "speaker": "librispeech:6930",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6930\\75918\\6930-75918-0007.flac",
+          "reference": "you will be frank with me i always am",
+          "hypothesis": "you will be frank with me i always im",
+          "speaker": "librispeech:6930",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6930\\81414\\6930-81414-0026.flac",
+          "reference": "my overwrought nerves yielded at last",
+          "hypothesis": "my ozer roghtnelve hel ded o last",
+          "speaker": "librispeech:6930",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6930\\81414\\6930-81414-0002.flac",
+          "reference": "onward said a distant voice",
+          "hypothesis": "onwere said a distiant voice",
+          "speaker": "librispeech:6930",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7021\\85628\\7021-85628-0018.flac",
+          "reference": "and it is made of mother's best yarn and she knitted it herself and everybody wants to get it away from me",
+          "hypothesis": "and it is made of mother's best yorn and she miteid herself and every body once to get it away for me",
+          "speaker": "librispeech:7021",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7021\\79740\\7021-79740-0006.flac",
+          "reference": "i expect you have been a very good girl andella since you were here last",
+          "hypothesis": "i expect you have been a very good girl and della since you were her last",
+          "speaker": "librispeech:7021",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7021\\79740\\7021-79740-0013.flac",
+          "reference": "put these playthings all away quick and carefully and we will not let them know any thing about your leaving them out",
+          "hypothesis": "put these playthings all away quick and carefully and we will not let them no amything abouturleaming them ount",
+          "speaker": "librispeech:7021",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7021\\85628\\7021-85628-0013.flac",
+          "reference": "the princess certainly was beautiful and he would have dearly liked to be kissed by her but the cap which his mother had made he would not give up on any condition",
+          "hypothesis": "the princess certainly was beautiful and he would have dealy like to be kised by her but the cap which is mother had made he would not give up on any condition",
+          "speaker": "librispeech:7021",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7127\\75946\\7127-75946-0025.flac",
+          "reference": "the ballet began the effect was more than beautiful",
+          "hypothesis": "the baley began the affect was more than beautiful",
+          "speaker": "librispeech:7127",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7127\\75947\\7127-75947-0020.flac",
+          "reference": "no more than the dancing",
+          "hypothesis": "no more than the dancing",
+          "speaker": "librispeech:7127",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7127\\75947\\7127-75947-0000.flac",
+          "reference": "every one could observe his agitation and prostration a prostration which was indeed the more remarkable since people were not accustomed to see him with his arms hanging listlessly by his side his head bewildered and his eyes with all their bright intelligence bedimmed",
+          "hypothesis": "every one could abterv his agitation and prostration a prostration which was indeed the marery markable since people were not a custome to see ham with his arms hanging list litsly by has side this had be wildered and as eyes with autheir bright inteligence be demed",
+          "speaker": "librispeech:7127",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7127\\75947\\7127-75947-0021.flac",
+          "reference": "la valliere is quite a poetess said tonnay charente",
+          "hypothesis": "the vala as quit eppoitice said tun a shoat",
+          "speaker": "librispeech:7127",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7176\\92135\\7176-92135-0004.flac",
+          "reference": "frankly i cannot always say",
+          "hypothesis": "frankly i can unt alway say",
+          "speaker": "librispeech:7176",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7176\\92135\\7176-92135-0003.flac",
+          "reference": "your play must be not merely a good play but a successful one",
+          "hypothesis": "ad you re play must be not meaely a good play but i succesle lone",
+          "speaker": "librispeech:7176",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7176\\92135\\7176-92135-0035.flac",
+          "reference": "then lord tuppeny well what about auction",
+          "hypothesis": "thena lored tupany while what about actien",
+          "speaker": "librispeech:7176",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7176\\92135\\7176-92135-0043.flac",
+          "reference": "two bites are made and the bread is crumbled with an air of great eagerness indeed one feels that in real life the guest would clutch hold of the footman and say half a mo old chap i haven't nearly finished but the actor is better schooled than this",
+          "hypothesis": "two wite ore mad and he brad his crombot with anare of great eagerness indeed one fuil tit in rellit beguss when e cletch hold of the potmen and say chalf a mod chap i have annearly finished but the agturs beter scolbentess",
+          "speaker": "librispeech:7176",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7729\\102255\\7729-102255-0044.flac",
+          "reference": "here he was placed in the custody of captain martin of the kickapoo rangers who proved a kind jailer and materially assisted in protecting him from the dangerous intentions of the mob which at that time held leavenworth under a reign of terror",
+          "hypothesis": "her was place in acuity of captern martin of the kik a pe rangers who proved a kind jalor a materially assisted and protecting him from the dangous intenstions of the mob which at that time hold leven worth under the rain of teror",
+          "speaker": "librispeech:7729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7729\\102255\\7729-102255-0017.flac",
+          "reference": "sheriff jones had his pockets always full of writs issued in the spirit of persecution but was often baffled by the sharp wits and ready resources of the free state people and sometimes defied outright",
+          "hypothesis": "sherf jones had his pockets always full of rits is should in thespirit out pursecution that was often bafhled by the sharp wits and ready resorces of the free state people and sometimestdefid out rigt",
+          "speaker": "librispeech:7729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7729\\102255\\7729-102255-0007.flac",
+          "reference": "his reception speech at westport in which he maintained the legality of the legislature and his determination to enforce their laws delighted his pro slavery auditors",
+          "hypothesis": "his reception speech it wesport in which he maintain the ligality of the legislature and is tetermination to anforce their laws delighted his prosla reoditers",
+          "speaker": "librispeech:7729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7729\\102255\\7729-102255-0045.flac",
+          "reference": "captain martin said i shall give you a pistol to help protect yourself if worse comes to worst",
+          "hypothesis": "capten martin said i shalld give you a pistalto out prtect yourself if worse comes the worst",
+          "speaker": "librispeech:7729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8224\\274384\\8224-274384-0006.flac",
+          "reference": "the king stood up and called for that psalm which begins with these words",
+          "hypothesis": "the king stood up and cold for that som which begins with these words",
+          "speaker": "librispeech:8224",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8224\\274381\\8224-274381-0007.flac",
+          "reference": "by quick marches through these inaccessible mountains that general freed himself from the superior forces of the covenanters",
+          "hypothesis": "by quick marchuse through these inuccessibale mountans bat general freed himself from thi suparior forces of the covenintos",
+          "speaker": "librispeech:8224",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8224\\274381\\8224-274381-0013.flac",
+          "reference": "from the same men new regiments and new companies were formed different officers appointed and the whole military force put into such hands as the independents could rely on",
+          "hypothesis": "from the same man new regiments and t new compnies were formd different officers appointed and the whole minitary fource put into such hans as the independents could relon",
+          "speaker": "librispeech:8224",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8224\\274384\\8224-274384-0008.flac",
+          "reference": "the good natured audience in pity to fallen majesty showed for once greater deference to the king than to the minister and sung the psalm which the former had called for",
+          "hypothesis": "the good natued ordians in picy to fullin majeshty show fulr one scriter difference to the king then to the minister and sog the some which the former hat coldfur",
+          "speaker": "librispeech:8224",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8230\\279154\\8230-279154-0027.flac",
+          "reference": "a gramophone by the help of suitable records might relate to us the incidents of its past and people are not so different from gramophones as they like to believe",
+          "hypothesis": "a gramafoned by the help ofsitable records might rlaht to us the insenence of its passt and people ar not so different from gralepence as they like to believe",
+          "speaker": "librispeech:8230",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8230\\279154\\8230-279154-0016.flac",
+          "reference": "in actual fact there are doubtless various factors that concur in giving us the feeling of greater or less remoteness in some remembered event",
+          "hypothesis": "in actual fact their art dallas verious factors that can cure ind giving us the filling of greater or less remoteness and some remembered efit",
+          "speaker": "librispeech:8230",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8230\\279154\\8230-279154-0010.flac",
+          "reference": "we sometimes have images that are by no means peculiarly vague which yet we do not trust for example under the influence of fatigue we may see a friend's face vividly and clearly but horribly distorted",
+          "hypothesis": "we sometimes heave images that ar by nomeens pe cciliurely vake which yet we do not trust for example under the enfluitce of fatigue we may see afraencse face vividly and clearly but phoribly distorted",
+          "speaker": "librispeech:8230",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8230\\279154\\8230-279154-0033.flac",
+          "reference": "it is by no means always reliable almost everybody has at some time experienced the well known illusion that all that is happening now happened before at some time",
+          "hypothesis": "it is by no mean's always reliable almost everybody has it sometime experiusd the well nownt ellution that all that his happening now happened before a some tome",
+          "speaker": "librispeech:8230",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8455\\210777\\8455-210777-0058.flac",
+          "reference": "it is founded on the acknowledged weakness of those who survive that period of life at which men cease to work",
+          "hypothesis": "it is found in onthy agknowlege weakness of those who shuviveth ap pered of life at which men ceased to work",
+          "speaker": "librispeech:8455",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8455\\210777\\8455-210777-0009.flac",
+          "reference": "no doubt in process of time the ladies will follow",
+          "hypothesis": "no dow in proscess of time the lades will follow",
+          "speaker": "librispeech:8455",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8455\\210777\\8455-210777-0019.flac",
+          "reference": "then there were three or four leading men of the community with their wives who were for the most part the fathers and mothers of the young ladies",
+          "hypothesis": "then therere three er for leading men of the cmunity with their wives who here for ther most part the fathers and mothers of the young ladies",
+          "speaker": "librispeech:8455",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8455\\210777\\8455-210777-0040.flac",
+          "reference": "then said sir ferdinando there is nothing for it but that he must take you with him",
+          "hypothesis": "then said serfer nando there is nothing for but that we must take you with him",
+          "speaker": "librispeech:8455",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8463\\287645\\8463-287645-0006.flac",
+          "reference": "the doctor who attended the injured creature in this case was simply told that she slipped and fell down stairs as she was coming down",
+          "hypothesis": "the dactor whou atended the endre creature in this gace was simtly told at she sliptd and feled own the stairs as she was gominggain",
+          "speaker": "librispeech:8463",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8463\\294828\\8463-294828-0007.flac",
+          "reference": "classifying was everything to him so he knew nothing else well versed in the theory of classification he was poorly versed in its practical application and i doubt that he could tell a sperm whale from a baleen whale",
+          "hypothesis": "clasifine was everything to him so he do nothing else well verste t a thery of classification he was porly verst in this practgal apploccasion and adow that he koal tel a sprmg waile from a belen well",
+          "speaker": "librispeech:8463",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8463\\294828\\8463-294828-0020.flac",
+          "reference": "yes we are certainly i replied evasively but after we make a detour",
+          "hypothesis": "yes we are sertainly i replye h vacivly but avtely ake a deatoler",
+          "speaker": "librispeech:8463",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8463\\294828\\8463-294828-0031.flac",
+          "reference": "one of the sailors led me to the afterdeck where i stood in the presence of a smart looking officer who extended his hand to me",
+          "hypothesis": "ante of the sailors ledlay to the after deck where iy stood in the presence of a smart looking officer who extended his hand to me",
+          "speaker": "librispeech:8463",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8555\\292519\\8555-292519-0013.flac",
+          "reference": "that was but rustling of dripping plants in the dark",
+          "hypothesis": "that was burt rusling of tripping planse in the dark",
+          "speaker": "librispeech:8555",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8555\\284449\\8555-284449-0008.flac",
+          "reference": "then she gave rosalie back her magic ring thanking the kind witch for all she had done for them",
+          "hypothesis": "then she gave rosely back her mage gring thanking the kind which for all she had dome for them",
+          "speaker": "librispeech:8555",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8555\\284449\\8555-284449-0015.flac",
+          "reference": "i'll not be wicked any more sighed the old boolooroo i'll reform",
+          "hypothesis": "h ho be wickat anymoore sidethe old bulroo or ethorm",
+          "speaker": "librispeech:8555",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8555\\284449\\8555-284449-0007.flac",
+          "reference": "now then let's enter the city an enjoy the grand feast that's being cooked i'm nearly starved myself for this conquerin kingdoms is hard work",
+          "hypothesis": "now then lex enternhe city and endjoy tha grat fest ats being cootd gondeurly starm myself for this com gran king nomsis hard work",
+          "speaker": "librispeech:8555",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\908\\31957\\908-31957-0000.flac",
+          "reference": "all is said without a word",
+          "hypothesis": "alas said without a word",
+          "speaker": "librispeech:908",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\908\\31957\\908-31957-0017.flac",
+          "reference": "mussulmans and giaours throw kerchiefs at a smile and have no ruth for any weeping",
+          "hypothesis": "musstlemens and giars throu corichets atd a smile and have no ruth for any leeping",
+          "speaker": "librispeech:908",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\908\\157963\\908-157963-0006.flac",
+          "reference": "and gentle sleep the sleep of death and gently hear the voice of him that walketh in the garden in the evening time",
+          "hypothesis": "and gentale sleep the sleep of death and jetly hear the voice of him that walk et in the garden in the evening time",
+          "speaker": "librispeech:908",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\908\\31957\\908-31957-0004.flac",
+          "reference": "shall i never miss home talk and blessing and the common kiss that comes to each in turn nor count it strange when i look up to drop on a new range of walls and floors another home than this",
+          "hypothesis": "shall i never miss home talk and blessing and the common kits the coms to eachen turn mor countet strange when i look up te dropp on a new range of walls and flors another home than this",
+          "speaker": "librispeech:908",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        }
+      ],
+      "word_edit_counts": {
+        "substitutions": 1022,
+        "deletions": 114,
+        "insertions": 61,
+        "matches": 2003
+      },
+      "character_edit_counts": {
+        "substitutions": 999,
+        "deletions": 806,
+        "insertions": 280,
+        "matches": 15014
+      },
+      "pipeline_real_time_factor": 0.006422248431610699,
+      "by_corpus": {
+        "LibriSpeech-test-clean-fresh": {
+          "examples": 160,
+          "wer": 0.38133163427843264,
+          "cer": 0.12396694214876033
+        }
+      },
+      "by_dialect": {}
+    },
+    "lm02": {
+      "wer": 0.30296272698311566,
+      "cer": 0.10458410131399012,
+      "decode_elapsed_s": 58.73195059999125,
+      "lm_weight": 0.2,
+      "token_reward": 0.2,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1089\\134686\\1089-134686-0014.flac",
+          "reference": "he tried to think how it could be",
+          "hypothesis": "he tried to think how it could be",
+          "speaker": "librispeech:1089",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1089\\134686\\1089-134686-0012.flac",
+          "reference": "her eyes seemed to regard him with mild pity her holiness a strange light glowing faintly upon her frail flesh did not humiliate the sinner who approached her",
+          "hypothesis": "her eyes seemed to regard him with miled pity her holdiness a strange light glowing faintly upon her frail flesh did not humiliat the sinner who approached her",
+          "speaker": "librispeech:1089",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1089\\134691\\1089-134691-0005.flac",
+          "reference": "whose feet are as the feet of harts and underneath the everlasting arms",
+          "hypothesis": "whose feet are as the feet of hearts and under meet the ever lasting arms",
+          "speaker": "librispeech:1089",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1089\\134691\\1089-134691-0002.flac",
+          "reference": "he set off abruptly for the bull walking rapidly lest his father's shrill whistle might call him back and in a few moments he had rounded the curve at the police barrack and was safe",
+          "hypothesis": "he sat off abruptly for the bul walking rapidly lest his father shreel wis toled might calle him back and in a few moments he had rounded the cur at the policeberick and was say",
+          "speaker": "librispeech:1089",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1188\\133604\\1188-133604-0002.flac",
+          "reference": "by being studious of color they are studious of division and while the chiaroscurist devotes himself to the representation of degrees of force in one thing unseparated light the colorists have for their function the attainment of beauty by arrangement of the divisions of light",
+          "hypothesis": "by being studis of color they are studious of division and while the cur ascures devotes himself to the representation degrees of fource an one thing on separated light the colorous have for their fanction the attainmen of beauty by rangement of the divisions of light",
+          "speaker": "librispeech:1188",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1188\\133604\\1188-133604-0016.flac",
+          "reference": "this at once compels you to understand that the work is to be imaginative and decorative that it represents beautiful things in the clearest way but not under existing conditions and that in fact you are producing jeweler's work rather than pictures",
+          "hypothesis": "this it once compouse you t understand that the workes to be imaginative in decrateve that it represents beautiful fins in the clearest way but not under existing conditions and that in fact you're producing jelers werk rather than tectures",
+          "speaker": "librispeech:1188",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1188\\133604\\1188-133604-0007.flac",
+          "reference": "the brown ground beneath is left for the most part one touch of black is put for the hollow two delicate lines of dark gray define the outer curve and one little quivering touch of white draws the inner edge of the mandible",
+          "hypothesis": "the brown ground the neth his left for the most par one touch a black as put for the hollow to delcant lines of dark greadfind the outer curve and one little quivering touch of white drowsy inter edge of the manable",
+          "speaker": "librispeech:1188",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1188\\133604\\1188-133604-0000.flac",
+          "reference": "you will find me continually speaking of four men titian holbein turner and tintoret in almost the same terms",
+          "hypothesis": "you will find me continually speaking of formen tition whole bined turner inten cut ut in almost the same carms",
+          "speaker": "librispeech:1188",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\121\\121726\\121-121726-0004.flac",
+          "reference": "heaven a good place to be raised to",
+          "hypothesis": "haven a groad place to be raised too",
+          "speaker": "librispeech:121",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\121\\121726\\121-121726-0008.flac",
+          "reference": "hose man's excuse for wetting the walk",
+          "hypothesis": "hose man's excuse for weating the walk",
+          "speaker": "librispeech:121",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\121\\127105\\121-127105-0029.flac",
+          "reference": "there were plenty of people to help but of course the young lady who should go down as governess would be in supreme authority",
+          "hypothesis": "they were plenty of people to help but of course the young lady who should go down as governess would be insuprem a thorty",
+          "speaker": "librispeech:121",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\121\\127105\\121-127105-0013.flac",
+          "reference": "you'll easily judge why when you hear because the thing had been such a scare he continued to fix me",
+          "hypothesis": "yourleasely judge why when you here because the thing had been such a scare he continue to fix me",
+          "speaker": "librispeech:121",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1221\\135766\\1221-135766-0013.flac",
+          "reference": "pearl was a born outcast of the infantile world",
+          "hypothesis": "perl was a boring outcast of the intentile world",
+          "speaker": "librispeech:1221",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1221\\135766\\1221-135766-0015.flac",
+          "reference": "if spoken to she would not speak again",
+          "hypothesis": "if spoken to she would not speak again",
+          "speaker": "librispeech:1221",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1221\\135766\\1221-135766-0007.flac",
+          "reference": "hester prynne nevertheless the loving mother of this one child ran little risk of erring on the side of undue severity",
+          "hypothesis": "hester prind never ther less the loving mother of this one child ran little risk of aring on the side of unde savarity",
+          "speaker": "librispeech:1221",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1221\\135767\\1221-135767-0014.flac",
+          "reference": "yea his honourable worship is within but he hath a godly minister or two with him and likewise a leech",
+          "hypothesis": "ye has honorable worse up is within but he hale they godly ministror two with him and likewise a leah",
+          "speaker": "librispeech:1221",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1284\\1180\\1284-1180-0027.flac",
+          "reference": "yet that task was not so easy as you may suppose",
+          "hypothesis": "yet that task was not so easy is you may suppose",
+          "speaker": "librispeech:1284",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1284\\1181\\1284-1181-0005.flac",
+          "reference": "no i forgot all about the brains exclaimed the woman",
+          "hypothesis": "no i forgot on about to brains exclaimed the woman",
+          "speaker": "librispeech:1284",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1284\\134647\\1284-134647-0000.flac",
+          "reference": "the grateful applause of the clergy has consecrated the memory of a prince who indulged their passions and promoted their interest",
+          "hypothesis": "the greatful applause of the cleargy has consecrated the memory of a prince who induld their passions and promoted their interest",
+          "speaker": "librispeech:1284",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1284\\1181\\1284-1181-0013.flac",
+          "reference": "ojo became a bit uneasy at this for he had already put quite a lot of the cleverness powder in the dish but he dared not interfere and so he comforted himself with the thought that one cannot have too much cleverness",
+          "hypothesis": "oh do became a bit uneasy at this for he had already put quite a lot of the clevernes powder in the dish but he dared not interfere in so he comforted himself with the thought that one can not have two much cleverness",
+          "speaker": "librispeech:1284",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1320\\122617\\1320-122617-0037.flac",
+          "reference": "the delaware dog he said leaning forward and peering through the dim light to catch the expression of the other's features is he afraid",
+          "hypothesis": "the delaware dog he said leaning forward and pering through the dim like to catched the expression of the other's features is he afraid",
+          "speaker": "librispeech:1320",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1320\\122617\\1320-122617-0011.flac",
+          "reference": "the lodge in which uncas was confined was in the very center of the village and in a situation perhaps more difficult than any other to approach or leave without observation",
+          "hypothesis": "the lodgeon which oncus was confind was in the very center of the village and in a situation perhaps more difficult than any other to approach or leave without observation",
+          "speaker": "librispeech:1320",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1320\\122617\\1320-122617-0019.flac",
+          "reference": "uncas occupied a distant corner in a reclining attitude being rigidly bound both hands and feet by strong and painful withes",
+          "hypothesis": "oncus occupied to distant corner and a reclining atitute being rigidly bound both hands and feet by strong and painful withs",
+          "speaker": "librispeech:1320",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1320\\122617\\1320-122617-0039.flac",
+          "reference": "the mohican started on his feet and shook his shaggy covering as though the animal he counterfeited was about to make some desperate effort",
+          "hypothesis": "had a he can started on his feet and shook as shaggy covering as though the animaly counterfited was about to make some desperateffort",
+          "speaker": "librispeech:1320",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1580\\141083\\1580-141083-0006.flac",
+          "reference": "the only duplicate which existed so far as i knew was that which belonged to my servant bannister a man who has looked after my room for ten years and whose honesty is absolutely above suspicion",
+          "hypothesis": "the only duplicat which existed so far as i knew was that which belong to my servant banister a man who is looked after my room for ten years and whis honestys absolutely above suspicion",
+          "speaker": "librispeech:1580",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1580\\141084\\1580-141084-0041.flac",
+          "reference": "no harm would have been done had it not been that as he passed your door he perceived the key which had been left by the carelessness of your servant",
+          "hypothesis": "no harm would have been done had did not been that as he passed your door he perceived the key which had been left by the carelessness of your servant",
+          "speaker": "librispeech:1580",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1580\\141084\\1580-141084-0029.flac",
+          "reference": "his troubled blue eyes glanced at each of us and finally rested with an expression of blank dismay upon bannister in the farther corner",
+          "hypothesis": "his troubled blue eyes glansed at each of us and findly rested with an expression of blank dismay upon banister in the farther corner",
+          "speaker": "librispeech:1580",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1580\\141084\\1580-141084-0046.flac",
+          "reference": "have i told the truth mister gilchrist",
+          "hypothesis": "have i told the truth mister gocrist",
+          "speaker": "librispeech:1580",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1995\\1837\\1995-1837-0010.flac",
+          "reference": "perhaps she too might be there waiting weeping",
+          "hypothesis": "perhap she to might be there waiting weeping",
+          "speaker": "librispeech:1995",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1995\\1837\\1995-1837-0027.flac",
+          "reference": "on she hurried until sweeping down to the lagoon and the island lo the cotton lay before her",
+          "hypothesis": "on she hurried until sweeping down to the lagoon and the island low the coton lay before her",
+          "speaker": "librispeech:1995",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1995\\1826\\1995-1826-0017.flac",
+          "reference": "there might be a bit of poetry here and there but most of this place was such desperate prose",
+          "hypothesis": "there i be a bit ove por tre here and there but most of his place was such desperate prose",
+          "speaker": "librispeech:1995",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\1995\\1837\\1995-1837-0013.flac",
+          "reference": "then he looked down the lagoon was dry",
+          "hypothesis": "then he lookedown the logoom was drie",
+          "speaker": "librispeech:1995",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2094\\142345\\2094-142345-0001.flac",
+          "reference": "but the windows are patched with wooden panes and the door i think is like the gate it is never opened",
+          "hypothesis": "to depindows are patched with woulden tains and the door i thing is like the gate it is never opened",
+          "speaker": "librispeech:2094",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2094\\142345\\2094-142345-0042.flac",
+          "reference": "i hanna common patience with you",
+          "hypothesis": "i had a cominpatience with you",
+          "speaker": "librispeech:2094",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2094\\142345\\2094-142345-0058.flac",
+          "reference": "by the by i've never seen your dairy i must see your dairy missus poyser",
+          "hypothesis": "by the y i'm never see your dery im a ser dary missus poyser",
+          "speaker": "librispeech:2094",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2094\\142345\\2094-142345-0003.flac",
+          "reference": "a large open fireplace with rusty dogs in it and a bare boarded floor at the far end fleeces of wool stacked up in the middle of the floor some empty corn bags",
+          "hypothesis": "a large open fire place with resty dog in it and a barboarted floor at the far and fleces of wal stacked up in the middle of the floor some empty corn begs",
+          "speaker": "librispeech:2094",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2300\\131720\\2300-131720-0041.flac",
+          "reference": "we had meters in which there were two bottles of liquid",
+          "hypothesis": "we had meters in which there were two bottleds of licket",
+          "speaker": "librispeech:2300",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2300\\131720\\2300-131720-0040.flac",
+          "reference": "we were more interested in the technical condition of the station than in the commercial part",
+          "hypothesis": "we were more enterested in the tagnical condition of the station that in the commercial barnt",
+          "speaker": "librispeech:2300",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2300\\131720\\2300-131720-0007.flac",
+          "reference": "broad as the prairies and free in thought as the winds that sweep them he is idiosyncratically opposed to loose and wasteful methods to plans of empire that neglect the poor at the gate",
+          "hypothesis": "brot as the praries and freen thought as the winds that swept them he is etiosin cradicly apose to lousand wasteful mathos to plans of andbire that neglect the poor at the gate",
+          "speaker": "librispeech:2300",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2300\\131720\\2300-131720-0023.flac",
+          "reference": "i think he was perhaps more appreciative than i was of the discipline of the edison construction department and thought it would be well for us to wait until the morning of the fourth before we started up",
+          "hypothesis": "i think he was perhaps more a precietive that i was of the disiplen of the edisen construction to part and thought it would be well frose to wait entil the morning the forth before we started a",
+          "speaker": "librispeech:2300",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\237\\134500\\237-134500-0033.flac",
+          "reference": "i wish you weren't so restless and didn't get so worked up over things she said sadly",
+          "hypothesis": "i wis you wart so respes and didn't kit so worked up over things she said satly",
+          "speaker": "librispeech:237",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\237\\134493\\237-134493-0012.flac",
+          "reference": "i get wet to my knees when i go down to pick cherries",
+          "hypothesis": "i get what to my mes when i go down to pick charies",
+          "speaker": "librispeech:237",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\237\\126133\\237-126133-0013.flac",
+          "reference": "i know gasped polly controlling her sobs i won't only i can't thank you",
+          "hypothesis": "i know gasked polly controling her sobs i o't only i can't thank you",
+          "speaker": "librispeech:237",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\237\\126133\\237-126133-0010.flac",
+          "reference": "oh you are the dearest and best mister king i ever saw but how did you make mammy let her come",
+          "hypothesis": "oh you are that deareston best mister king i ever saw but how did yo make mame that her come",
+          "speaker": "librispeech:237",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\260\\123286\\260-123286-0013.flac",
+          "reference": "the shadow of the raft was clearly outlined upon the surface of the waves",
+          "hypothesis": "the shadow of the rat was clearly outlind upon the surface of the ways",
+          "speaker": "librispeech:260",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\260\\123288\\260-123288-0004.flac",
+          "reference": "the air is heavy the sea is calm",
+          "hypothesis": "the air is heavy the sea is calum",
+          "speaker": "librispeech:260",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\260\\123286\\260-123286-0005.flac",
+          "reference": "i am not complaining that the rate is slow but that the sea is so wide",
+          "hypothesis": "i have not complaiting that the rade slow but that the seat i so wide",
+          "speaker": "librispeech:260",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\260\\123440\\260-123440-0003.flac",
+          "reference": "oh won't she be savage if i've kept her waiting",
+          "hypothesis": "oh what she be savage if i've kept her waiting",
+          "speaker": "librispeech:260",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2830\\3980\\2830-3980-0037.flac",
+          "reference": "so much for the title of the epistle now follows the greeting of the apostle verse three",
+          "hypothesis": "so much for the title of the appisen now follows the greading of the appossing virst three",
+          "speaker": "librispeech:2830",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2830\\3980\\2830-3980-0041.flac",
+          "reference": "grace involves the remission of sins peace and a happy conscience",
+          "hypothesis": "grace in valls the remision of sins peace and he happy conscience",
+          "speaker": "librispeech:2830",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2830\\3980\\2830-3980-0003.flac",
+          "reference": "paul came later and is beneath us",
+          "hypothesis": "palkin later in his beneith us",
+          "speaker": "librispeech:2830",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2830\\3980\\2830-3980-0043.flac",
+          "reference": "experience proves this",
+          "hypothesis": "experience prosess",
+          "speaker": "librispeech:2830",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2961\\961\\2961-961-0006.flac",
+          "reference": "and what was the subject of the poem said the person who made the remark",
+          "hypothesis": "and what was the subject of the poe said the person wil may the remark",
+          "speaker": "librispeech:2961",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2961\\961\\2961-961-0007.flac",
+          "reference": "the subject was a very noble one he described the most famous action in which the athenian people were ever engaged",
+          "hypothesis": "the subject was a very noble one in the scried the most famous action in ch efenion people were ever engaged",
+          "speaker": "librispeech:2961",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2961\\960\\2961-960-0014.flac",
+          "reference": "the ideas also remain but they have become types in nature forms of men animals birds fishes",
+          "hypothesis": "the ity yes also remaind but they have become tipes in nature forms of men animal spirds fiches",
+          "speaker": "librispeech:2961",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\2961\\961\\2961-961-0000.flac",
+          "reference": "socrates begins the timaeus with a summary of the republic",
+          "hypothesis": "sority s begins the to neus with a summery of the republic",
+          "speaker": "librispeech:2961",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3570\\5696\\3570-5696-0004.flac",
+          "reference": "the salient features of this development of domestic service have already been indicated",
+          "hypothesis": "the sae and feachures of this development of demestic satis have ora to ben indicated",
+          "speaker": "librispeech:3570",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3570\\5694\\3570-5694-0006.flac",
+          "reference": "drunkenness and the other pathological consequences of the free use of stimulants therefore tend in their turn to become honorific as being a mark at the second remove of the superior status of those who are able to afford the indulgence",
+          "hypothesis": "drankiness and the othe pethological consequences of the fres of stimilants bef attend in their tened to become unerythick as being amok at the second remove of the sapperostates of those sorable to affort the indultians",
+          "speaker": "librispeech:3570",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3570\\5695\\3570-5695-0006.flac",
+          "reference": "very much of squalor and discomfort will be endured before the last trinket or the last pretense of pecuniary decency is put away",
+          "hypothesis": "very muchs of squoler and discomfoot will be endued before the lost trinket or the lost pretens of pecuniary decesses put away",
+          "speaker": "librispeech:3570",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3570\\5696\\3570-5696-0005.flac",
+          "reference": "throughout the entire evolution of conspicuous expenditure whether of goods or of services or human life runs the obvious implication that in order to effectually mend the consumer's good fame it must be an expenditure of superfluities",
+          "hypothesis": "throughout the intirevilushio of conspicus expendature whether of good sor of services or human life rends the obvies impocation that in orded to affectualy men the consemas good fan it must been expenature of superfuties",
+          "speaker": "librispeech:3570",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3575\\170457\\3575-170457-0018.flac",
+          "reference": "sir march sixteenth",
+          "hypothesis": "sir march sixteent",
+          "speaker": "librispeech:3575",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3575\\170457\\3575-170457-0024.flac",
+          "reference": "i don't always succeed for sometimes when i'm teaching or sewing i would rather be reading or writing but i try to deny myself and my father's approbation amply rewarded me for the privation",
+          "hypothesis": "i don't alway succeed for sometimes when im teaching or soing i would rather be reaning ariting but i tried to deny myself and my father's appervation amply rewarded me for the prevation",
+          "speaker": "librispeech:3575",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3575\\170457\\3575-170457-0032.flac",
+          "reference": "come come i am getting really tired of your absence",
+          "hypothesis": "come come i'm giting really tart o rabsence",
+          "speaker": "librispeech:3575",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3575\\170457\\3575-170457-0022.flac",
+          "reference": "in the evenings i confess i do think but i never trouble any one else with my thoughts",
+          "hypothesis": "in the evenings i confess i do think but i never trouble an you at els with my thoughts",
+          "speaker": "librispeech:3575",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3729\\6852\\3729-6852-0015.flac",
+          "reference": "at your service sir",
+          "hypothesis": "atur service sir",
+          "speaker": "librispeech:3729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3729\\6852\\3729-6852-0029.flac",
+          "reference": "it is sold everywhere but for the last three weeks nobody will use any snuff but that sold at the civet cat",
+          "hypothesis": "it is sol everywhere but for the last three weeks nobody willse any snough but that sould at the sevet cat",
+          "speaker": "librispeech:3729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3729\\6852\\3729-6852-0001.flac",
+          "reference": "without saying it positively she made me understand that being herself an illustrious member of the republic of letters she was well aware that she was speaking to an insect",
+          "hypothesis": "without saying it positively she made me understand that being herself and a lestrius member of the republing of letters she was well awarer that she was speaking to an insect",
+          "speaker": "librispeech:3729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\3729\\6852\\3729-6852-0014.flac",
+          "reference": "here go and get me change for a louis i have it sir",
+          "hypothesis": "here goan get me changerly i have it sar",
+          "speaker": "librispeech:3729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4077\\13754\\4077-13754-0001.flac",
+          "reference": "but a word further concerning the expedition in general",
+          "hypothesis": "but a word further conserting the expedition in general",
+          "speaker": "librispeech:4077",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4077\\13751\\4077-13751-0019.flac",
+          "reference": "who began the quarrel was it the mormons",
+          "hypothesis": "who began the quarel was at the mormans",
+          "speaker": "librispeech:4077",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4077\\13751\\4077-13751-0002.flac",
+          "reference": "instead of but six regularly affiliated members and at most two score of adherents the organization numbers today many hundred thousand souls",
+          "hypothesis": "in set of but six regularly a filliated members and at most two squore of at hearance the organisation lumbers to day many hundred thousand souls",
+          "speaker": "librispeech:4077",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4077\\13751\\4077-13751-0016.flac",
+          "reference": "be it said to the honor of some of the officers entrusted with the terrible commission that when they learned its true significance they resigned their authority rather than have anything to do with what they designated a cold blooded butchery",
+          "hypothesis": "be at said to the honor of some of the officers intrusted with a terrible commission that when they leared it's true significance they resuind their athority rather then have anything to do with what they designated a cold bloded buthere",
+          "speaker": "librispeech:4077",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4446\\2273\\4446-2273-0029.flac",
+          "reference": "it's really too warm in this room to sing don't you feel it",
+          "hypothesis": "it's really to warmin the srumed to sang don't you feel it",
+          "speaker": "librispeech:4446",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4446\\2273\\4446-2273-0018.flac",
+          "reference": "do you remember that first walk we took together in paris",
+          "hypothesis": "do you remember that first walk we took together in paris",
+          "speaker": "librispeech:4446",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4446\\2271\\4446-2271-0015.flac",
+          "reference": "a little attack of nerves possibly",
+          "hypothesis": "a little attack of nurs possibly",
+          "speaker": "librispeech:4446",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4446\\2275\\4446-2275-0013.flac",
+          "reference": "i'll do anything you wish me to bartley she said tremulously",
+          "hypothesis": "ill do anything you wish me to bartly she said trumilously",
+          "speaker": "librispeech:4446",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4507\\16021\\4507-16021-0025.flac",
+          "reference": "to meet the needs of this conflict wretchedness has invented a language of combat which is slang",
+          "hypothesis": "to meet the needs of this conflict retchedness has invented in thanguage of com that which is slaing",
+          "speaker": "librispeech:4507",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4507\\16021\\4507-16021-0055.flac",
+          "reference": "to teach reading means to light the fire every syllable spelled out sparkles",
+          "hypothesis": "to tachereding mans to like the fire every silbal stoled ont spircles",
+          "speaker": "librispeech:4507",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4507\\16021\\4507-16021-0008.flac",
+          "reference": "who denies that of course it does",
+          "hypothesis": "who denie that of course it does",
+          "speaker": "librispeech:4507",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4507\\16021\\4507-16021-0051.flac",
+          "reference": "in this world evidently the vestibule of another there are no fortunate",
+          "hypothesis": "in this worlds of vidently of the ves topul of another there or no fortunant",
+          "speaker": "librispeech:4507",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4970\\29093\\4970-29093-0018.flac",
+          "reference": "the two young men who were by this time full of the adventure went down to the wall street office of henry's uncle and had a talk with that wily operator",
+          "hypothesis": "the two young men were by this time full of the adventure went down to the was treet op is a pineries uncle and had a talk with that whily operater",
+          "speaker": "librispeech:4970",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4970\\29095\\4970-29095-0022.flac",
+          "reference": "is thee going to the yearly meeting ruth asked one of the girls",
+          "hypothesis": "is the going to the early meating roth asked one of the girls",
+          "speaker": "librispeech:4970",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4970\\29095\\4970-29095-0015.flac",
+          "reference": "if i can get patients",
+          "hypothesis": "it i can get patience",
+          "speaker": "librispeech:4970",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4970\\29093\\4970-29093-0019.flac",
+          "reference": "the night was spent in packing up and writing letters for philip would not take such an important step without informing his friends",
+          "hypothesis": "the night was spent in packing appin writing letters for fillip would not takes such an importin step without infroming his friends",
+          "speaker": "librispeech:4970",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4992\\41797\\4992-41797-0006.flac",
+          "reference": "he keeps the thou shalt not commandments first rate hen lord does",
+          "hypothesis": "he keeps that thou shout not commanman's firstray hand lord des",
+          "speaker": "librispeech:4992",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4992\\41806\\4992-41806-0015.flac",
+          "reference": "missus harmon thought he sang too much and told her husband privately that if he was a canary bird she should want to keep a table cover over his head most of the time but he was immensely popular with the rest of his audience",
+          "hypothesis": "missus hearmon though he sang to much an told her husban privantly that if he was connary bird she she want cape a table covero resed must to the dare but he was inmensely topular with a rest of his onience",
+          "speaker": "librispeech:4992",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4992\\41806\\4992-41806-0007.flac",
+          "reference": "olive had painted the motto on a long narrow panel of canvas and giving it to mister popham stood by the fireside while he deftly fitted it into the place prepared for it",
+          "hypothesis": "all of had pened the modo on a long narrow panel of panters and giving it to mister papem stood by the fireside well he deatly fited at into the place prepared for it",
+          "speaker": "librispeech:4992",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\4992\\41806\\4992-41806-0016.flac",
+          "reference": "the face of the mahogany shone with delight and why not when it was doing everything almost everything within the scope of a piano and yet the family had enjoyed weeks of good nourishing meals on what had been saved by its exertions",
+          "hypothesis": "the face of them harvany showns delight and my not when it was doing everything almost everything with in the scope of a ano and yet the fanly had enjoyed weeks of good a nurching meals on what had been save b its exertions",
+          "speaker": "librispeech:4992",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5105\\28240\\5105-28240-0008.flac",
+          "reference": "a narrow channel formed a passage through the ridge of rocks that protected it from the open sea and which even in the roughest weather would ensure the calmness of its waters",
+          "hypothesis": "a merrow channel formed a passage through the ridge of rocks that protected it from the open sea and which even in the ruffest weather would insure the calmness of its waters",
+          "speaker": "librispeech:5105",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5105\\28241\\5105-28241-0011.flac",
+          "reference": "all the images of his past life floated upon his memory his thoughts sped away to his native france only to return again to wonder whether the depths of ocean would reveal any traces of the algerian metropolis",
+          "hypothesis": "all the images of his pass life floated upon his memory his thoughts sped away to his nate i france only to return again to wonder with at the deaths avotiant would reveal any traces of the ajary and metropolis",
+          "speaker": "librispeech:5105",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5105\\28233\\5105-28233-0009.flac",
+          "reference": "the bond of union thus effected could never be severed and although ben zoof's achievements had fairly earned him the right of retirement he firmly declined all honors or any pension that might part him from his superior officer",
+          "hypothesis": "the bond of union thas effected could never be savered and all though been's liffs achievements had fairly earned him the right of retirmit he firmly declind all honors or any pension that might part him from his supperior officer",
+          "speaker": "librispeech:5105",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5105\\28233\\5105-28233-0006.flac",
+          "reference": "no cathedral not even burgos itself could vie with the church at montmartre",
+          "hypothesis": "no cafetural idevem burghos itself could vid with the charch it mon martura",
+          "speaker": "librispeech:5105",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5142\\33396\\5142-33396-0048.flac",
+          "reference": "by the hammer of thor shouted grim here is no stingy coward",
+          "hypothesis": "by the hamer a thor shout a groom there is no sting cour",
+          "speaker": "librispeech:5142",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5142\\36377\\5142-36377-0020.flac",
+          "reference": "a more dreary and more disunited family party i never sat at the table with",
+          "hypothesis": "a more drearian more disunite ad family party i never sat of table with",
+          "speaker": "librispeech:5142",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5142\\33396\\5142-33396-0044.flac",
+          "reference": "i am stiff with long sitting he said i itch for a fight i turned to the farmer",
+          "hypothesis": "i'm stiff with long city he said i ach for a fight i turned of the farmer",
+          "speaker": "librispeech:5142",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5142\\33396\\5142-33396-0030.flac",
+          "reference": "the thralls were bringing in a great pot of meat",
+          "hypothesis": "the throws were rany in a great pot of me",
+          "speaker": "librispeech:5142",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5639\\40744\\5639-40744-0026.flac",
+          "reference": "luis was out of danger in a fortnight in a month he rose from his bed and during all that time he was visited daily by his mother and grandmother and treated by the master and mistress of the house as if he was their own child",
+          "hypothesis": "louise was out of dangrin fortnight and amonth ye rose from his bed and jowing all that time he was visited daily by his mother and ran mother and treated by the masterine mistres of the house as if he was their own child",
+          "speaker": "librispeech:5639",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5639\\40744\\5639-40744-0015.flac",
+          "reference": "this person was rodolfo who though he had gone to look for his friends had changed his mind in that respect not thinking it advisable to acquaint them with what had passed between him and the girl",
+          "hypothesis": "this person was redalwo withough yet gone to look for his friends had changed his a mind in that respect not thinking it advisable to acquaint them but what had pass between him in the girl",
+          "speaker": "librispeech:5639",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5639\\40744\\5639-40744-0016.flac",
+          "reference": "on the contrary he resolved to tell them that repenting of his violence and moved by her tears he had only carried her half way towards his house and then let her go",
+          "hypothesis": "on the contrary her resolved to tell them that repenting of his vilance and moved by he ter sy at only carried her half way to wods his house and then letter go",
+          "speaker": "librispeech:5639",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5639\\40744\\5639-40744-0037.flac",
+          "reference": "know then son of my heart that this fainting lady is your real bride i say real because she is the one whom your father and i have chosen for you and the portrait was a pretence",
+          "hypothesis": "no then son on my hort that this fainting lady is you real brit i say real because she is the one whom you father n i have chosen ful you and a portant was appretence",
+          "speaker": "librispeech:5639",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5683\\32866\\5683-32866-0002.flac",
+          "reference": "but don't these very wise things sometimes turn out very foolishly",
+          "hypothesis": "but tok these very wise things sometimes turn out very folishly",
+          "speaker": "librispeech:5683",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5683\\32866\\5683-32866-0005.flac",
+          "reference": "and he made a little dip of his cane towards brandon hall over his shoulder",
+          "hypothesis": "and he made a little dip of his ken towards brended all over he shulder",
+          "speaker": "librispeech:5683",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5683\\32866\\5683-32866-0011.flac",
+          "reference": "their walk continued silent for the greater part neither was quite satisfied with the other but rachel at last said",
+          "hypothesis": "there walk continued silent for the greater part niter was quite satisfied with the other but rachel at last said",
+          "speaker": "librispeech:5683",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\5683\\32865\\5683-32865-0011.flac",
+          "reference": "whereupon lake laughed quietly still looking on the ace of hearts with his sly eyes",
+          "hypothesis": "where upon lake laughed quietly still looking on the ase of hearts with his sly eyes",
+          "speaker": "librispeech:5683",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\61\\70970\\61-70970-0032.flac",
+          "reference": "enquired robin with his suspicions still upon him",
+          "hypothesis": "inquired robbin with his uspicion still upon him",
+          "speaker": "librispeech:61",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\61\\70970\\61-70970-0006.flac",
+          "reference": "never that sir he had said",
+          "hypothesis": "never thatsir he had said",
+          "speaker": "librispeech:61",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\61\\70968\\61-70968-0019.flac",
+          "reference": "it is enough said george gamewell sharply and he turned upon the crowd",
+          "hypothesis": "it is enough said dorge game will sharply as he turned upon the crowd",
+          "speaker": "librispeech:61",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\61\\70970\\61-70970-0029.flac",
+          "reference": "from the blackness behind the light they heard a voice warrenton's",
+          "hypothesis": "from the blackness behind the light the heard a voice worantens",
+          "speaker": "librispeech:61",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\672\\122797\\672-122797-0009.flac",
+          "reference": "have you not met them anywhere",
+          "hypothesis": "have you not met them any wire",
+          "speaker": "librispeech:672",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\672\\122797\\672-122797-0016.flac",
+          "reference": "yes then something better something still grander will surely follow or wherefore should they thus ornament me",
+          "hypothesis": "yes and something better something still prander will surely follow or where forchued they thus ornament me",
+          "speaker": "librispeech:672",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\672\\122797\\672-122797-0010.flac",
+          "reference": "rejoice in thy growth said the sunbeams",
+          "hypothesis": "rejoys in i groth said the sun beans",
+          "speaker": "librispeech:672",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\672\\122797\\672-122797-0014.flac",
+          "reference": "were i but already on the cart",
+          "hypothesis": "where i but old ready on the cards",
+          "speaker": "librispeech:672",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6829\\68769\\6829-68769-0002.flac",
+          "reference": "i can't see it in that light said the old lawyer",
+          "hypothesis": "i gan't see it in that light said the old bler",
+          "speaker": "librispeech:6829",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6829\\68771\\6829-68771-0021.flac",
+          "reference": "but it can't be protested the girl",
+          "hypothesis": "but it can't be protested the girl",
+          "speaker": "librispeech:6829",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6829\\68771\\6829-68771-0005.flac",
+          "reference": "the only thing necessary was to fix seth reynolds and this hopkins arranged personally",
+          "hypothesis": "the only thing necessarit was to fix seth renald and this hopkins arranged personaly",
+          "speaker": "librispeech:6829",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6829\\68769\\6829-68769-0035.flac",
+          "reference": "it won't be much but i'm grateful to find a friend",
+          "hypothesis": "it won't be much but am greatful to find to friend",
+          "speaker": "librispeech:6829",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6930\\76324\\6930-76324-0008.flac",
+          "reference": "i thought we were stumped again when i first saw that picture but it's been of some use after all",
+          "hypothesis": "i thought we were stumped again when it fr saw at becher but it smind of some us after all",
+          "speaker": "librispeech:6930",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6930\\75918\\6930-75918-0007.flac",
+          "reference": "you will be frank with me i always am",
+          "hypothesis": "you will be frank with me i always im",
+          "speaker": "librispeech:6930",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6930\\81414\\6930-81414-0026.flac",
+          "reference": "my overwrought nerves yielded at last",
+          "hypothesis": "my over roughtnerve helded ou last",
+          "speaker": "librispeech:6930",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\6930\\81414\\6930-81414-0002.flac",
+          "reference": "onward said a distant voice",
+          "hypothesis": "on were said a distant voice",
+          "speaker": "librispeech:6930",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7021\\85628\\7021-85628-0018.flac",
+          "reference": "and it is made of mother's best yarn and she knitted it herself and everybody wants to get it away from me",
+          "hypothesis": "and it is made of mother's best yourn and she mitedid herself and every body once to get it away for me",
+          "speaker": "librispeech:7021",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7021\\79740\\7021-79740-0006.flac",
+          "reference": "i expect you have been a very good girl andella since you were here last",
+          "hypothesis": "i expect you have been a very good girl and della since you were her last",
+          "speaker": "librispeech:7021",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7021\\79740\\7021-79740-0013.flac",
+          "reference": "put these playthings all away quick and carefully and we will not let them know any thing about your leaving them out",
+          "hypothesis": "but these playthings all away quick and carefully and we will not let them no anything abouturleaming them ount",
+          "speaker": "librispeech:7021",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7021\\85628\\7021-85628-0013.flac",
+          "reference": "the princess certainly was beautiful and he would have dearly liked to be kissed by her but the cap which his mother had made he would not give up on any condition",
+          "hypothesis": "the princess certainly was beautiful and he would have dearly like to be kissed by her but the cap which is mother had made he would not give up on any condition",
+          "speaker": "librispeech:7021",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7127\\75946\\7127-75946-0025.flac",
+          "reference": "the ballet began the effect was more than beautiful",
+          "hypothesis": "the balley began the effect was more than beautiful",
+          "speaker": "librispeech:7127",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7127\\75947\\7127-75947-0020.flac",
+          "reference": "no more than the dancing",
+          "hypothesis": "no more than the dancing",
+          "speaker": "librispeech:7127",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7127\\75947\\7127-75947-0000.flac",
+          "reference": "every one could observe his agitation and prostration a prostration which was indeed the more remarkable since people were not accustomed to see him with his arms hanging listlessly by his side his head bewildered and his eyes with all their bright intelligence bedimmed",
+          "hypothesis": "every one could observe his agitation and prostration a prostration which was indeed the marry markable since people were not a customed to see him with his arms hanging list litly by has side this had be wildered and as eyes with autheir bright intelligence be demed",
+          "speaker": "librispeech:7127",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7127\\75947\\7127-75947-0021.flac",
+          "reference": "la valliere is quite a poetess said tonnay charente",
+          "hypothesis": "the vale as quite poetice said ton a shot",
+          "speaker": "librispeech:7127",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7176\\92135\\7176-92135-0004.flac",
+          "reference": "frankly i cannot always say",
+          "hypothesis": "frankly i can unt alway say",
+          "speaker": "librispeech:7176",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7176\\92135\\7176-92135-0003.flac",
+          "reference": "your play must be not merely a good play but a successful one",
+          "hypothesis": "and you re play must be not mealy a good play but i successle one",
+          "speaker": "librispeech:7176",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7176\\92135\\7176-92135-0035.flac",
+          "reference": "then lord tuppeny well what about auction",
+          "hypothesis": "then a lord tupany while what about actien",
+          "speaker": "librispeech:7176",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7176\\92135\\7176-92135-0043.flac",
+          "reference": "two bites are made and the bread is crumbled with an air of great eagerness indeed one feels that in real life the guest would clutch hold of the footman and say half a mo old chap i haven't nearly finished but the actor is better schooled than this",
+          "hypothesis": "two wits are made and he brad his crombot with an are of great eagerness indeed one fuel thit in realit beguns when de clutch hold of the potmen and say chalf a mod chap i have annearly finished but the aggers better scholbentess",
+          "speaker": "librispeech:7176",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7729\\102255\\7729-102255-0044.flac",
+          "reference": "here he was placed in the custody of captain martin of the kickapoo rangers who proved a kind jailer and materially assisted in protecting him from the dangerous intentions of the mob which at that time held leavenworth under a reign of terror",
+          "hypothesis": "her was place in acuity of captern martin of the kick a pe rangers who proved a kind jalor a materially assisted and protecting him from the dangerous intensions of the mob which at that time hold leven worth under the rain of terror",
+          "speaker": "librispeech:7729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7729\\102255\\7729-102255-0017.flac",
+          "reference": "sheriff jones had his pockets always full of writs issued in the spirit of persecution but was often baffled by the sharp wits and ready resources of the free state people and sometimes defied outright",
+          "hypothesis": "sher of jones had his pockets always full of rits is should in the spirit out persecution that was often baphled by the sharp wits and ready resources of the free state people and sometimes defied out right",
+          "speaker": "librispeech:7729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7729\\102255\\7729-102255-0007.flac",
+          "reference": "his reception speech at westport in which he maintained the legality of the legislature and his determination to enforce their laws delighted his pro slavery auditors",
+          "hypothesis": "his reception speech it wesport in which he maintain the legality of the legislature and is determination to inforce their laws delighted his prosla readiters",
+          "speaker": "librispeech:7729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\7729\\102255\\7729-102255-0045.flac",
+          "reference": "captain martin said i shall give you a pistol to help protect yourself if worse comes to worst",
+          "hypothesis": "chapted martin said i shall give you a pist alto out protect yourself if worse comes the worst",
+          "speaker": "librispeech:7729",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8224\\274384\\8224-274384-0006.flac",
+          "reference": "the king stood up and called for that psalm which begins with these words",
+          "hypothesis": "the king stood up and cold for that som which begins with these words",
+          "speaker": "librispeech:8224",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8224\\274381\\8224-274381-0007.flac",
+          "reference": "by quick marches through these inaccessible mountains that general freed himself from the superior forces of the covenanters",
+          "hypothesis": "by quick marchuse through these inaccessible mountans bat general freed himself from this superior forces of the covenantos",
+          "speaker": "librispeech:8224",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8224\\274381\\8224-274381-0013.flac",
+          "reference": "from the same men new regiments and new companies were formed different officers appointed and the whole military force put into such hands as the independents could rely on",
+          "hypothesis": "from the same man new regiments and t new companies were formed different officers appointed and the whole minitary force put into such hands as the independents could relon",
+          "speaker": "librispeech:8224",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8224\\274384\\8224-274384-0008.flac",
+          "reference": "the good natured audience in pity to fallen majesty showed for once greater deference to the king than to the minister and sung the psalm which the former had called for",
+          "hypothesis": "the good natured ordians in pity to fullin majesty show fur one scriter difference to the king then to the minister and song the some which the former hat cold for",
+          "speaker": "librispeech:8224",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8230\\279154\\8230-279154-0027.flac",
+          "reference": "a gramophone by the help of suitable records might relate to us the incidents of its past and people are not so different from gramophones as they like to believe",
+          "hypothesis": "a gram a foned by the help of suitable records might relat to us the insinence of its pass and people or not so different from gralifence as they like to believe",
+          "speaker": "librispeech:8230",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8230\\279154\\8230-279154-0016.flac",
+          "reference": "in actual fact there are doubtless various factors that concur in giving us the feeling of greater or less remoteness in some remembered event",
+          "hypothesis": "in actual fact their art dallas verious factors that can cure and giving us the filling of greater or less remoteness and some remembered if it",
+          "speaker": "librispeech:8230",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8230\\279154\\8230-279154-0010.flac",
+          "reference": "we sometimes have images that are by no means peculiarly vague which yet we do not trust for example under the influence of fatigue we may see a friend's face vividly and clearly but horribly distorted",
+          "hypothesis": "we sometimes have images that ar by noments peculiarly vage which yet we do not trust for example under the influite of fatigue we may see a frience face vividly and clearly but phoribly distorted",
+          "speaker": "librispeech:8230",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8230\\279154\\8230-279154-0033.flac",
+          "reference": "it is by no means always reliable almost everybody has at some time experienced the well known illusion that all that is happening now happened before at some time",
+          "hypothesis": "it is by no means always reliable almost everybody has it sometime experioused the well nown illution that all that his happening now happened before at some tome",
+          "speaker": "librispeech:8230",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8455\\210777\\8455-210777-0058.flac",
+          "reference": "it is founded on the acknowledged weakness of those who survive that period of life at which men cease to work",
+          "hypothesis": "it is found in only acknowledge weakness of those who surviveth appered of life at which men ceased to work",
+          "speaker": "librispeech:8455",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8455\\210777\\8455-210777-0009.flac",
+          "reference": "no doubt in process of time the ladies will follow",
+          "hypothesis": "no dow in process of time the ladies will follow",
+          "speaker": "librispeech:8455",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8455\\210777\\8455-210777-0019.flac",
+          "reference": "then there were three or four leading men of the community with their wives who were for the most part the fathers and mothers of the young ladies",
+          "hypothesis": "then there three or four leading men of the comunity with their wives who here for ther most part the fathers and mothers of the young ladies",
+          "speaker": "librispeech:8455",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8455\\210777\\8455-210777-0040.flac",
+          "reference": "then said sir ferdinando there is nothing for it but that he must take you with him",
+          "hypothesis": "then said serfere nando there is nothing for but that we must take you with him",
+          "speaker": "librispeech:8455",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8463\\287645\\8463-287645-0006.flac",
+          "reference": "the doctor who attended the injured creature in this case was simply told that she slipped and fell down stairs as she was coming down",
+          "hypothesis": "the doctor who attended the endure creature in this gace was simply told at she slipt and felled own the stairs as she was coming gain",
+          "speaker": "librispeech:8463",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8463\\294828\\8463-294828-0007.flac",
+          "reference": "classifying was everything to him so he knew nothing else well versed in the theory of classification he was poorly versed in its practical application and i doubt that he could tell a sperm whale from a baleen whale",
+          "hypothesis": "clasifying was everything to him so he do nothing else well verste a thery of classification he was porly virst in this pract gal appliccasion and adow that he coal tel a sprm wail from a belen well",
+          "speaker": "librispeech:8463",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8463\\294828\\8463-294828-0020.flac",
+          "reference": "yes we are certainly i replied evasively but after we make a detour",
+          "hypothesis": "yes we are certainly i replie he vasively but aftely make a deatoler",
+          "speaker": "librispeech:8463",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8463\\294828\\8463-294828-0031.flac",
+          "reference": "one of the sailors led me to the afterdeck where i stood in the presence of a smart looking officer who extended his hand to me",
+          "hypothesis": "at of the sailors ledly to the after deck where i stood in the presence of a smart looking officer who extended his hand to me",
+          "speaker": "librispeech:8463",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8555\\292519\\8555-292519-0013.flac",
+          "reference": "that was but rustling of dripping plants in the dark",
+          "hypothesis": "that was but rustling of tripping plans in the dark",
+          "speaker": "librispeech:8555",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8555\\284449\\8555-284449-0008.flac",
+          "reference": "then she gave rosalie back her magic ring thanking the kind witch for all she had done for them",
+          "hypothesis": "then she gave rosely back her mage gring thanking the kind which for all she had dome for them",
+          "speaker": "librispeech:8555",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8555\\284449\\8555-284449-0015.flac",
+          "reference": "i'll not be wicked any more sighed the old boolooroo i'll reform",
+          "hypothesis": "ho hot be wicket anymore sidthe old bulo or ethorm",
+          "speaker": "librispeech:8555",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\8555\\284449\\8555-284449-0007.flac",
+          "reference": "now then let's enter the city an enjoy the grand feast that's being cooked i'm nearly starved myself for this conquerin kingdoms is hard work",
+          "hypothesis": "now then legs enter the city and enjoy the great feast ats being cooked onderly starm myself for this com gran king noms is hard work",
+          "speaker": "librispeech:8555",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\908\\31957\\908-31957-0000.flac",
+          "reference": "all is said without a word",
+          "hypothesis": "alas said without a word",
+          "speaker": "librispeech:908",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\908\\31957\\908-31957-0017.flac",
+          "reference": "mussulmans and giaours throw kerchiefs at a smile and have no ruth for any weeping",
+          "hypothesis": "mustlemens and giars throu corichets and a smile and have no ruth for any leeping",
+          "speaker": "librispeech:908",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\908\\157963\\908-157963-0006.flac",
+          "reference": "and gentle sleep the sleep of death and gently hear the voice of him that walketh in the garden in the evening time",
+          "hypothesis": "and gental sleep the sleep of death and jently hear the voice of him that walket in the garden in the evening time",
+          "speaker": "librispeech:908",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\test-clean\\908\\31957\\908-31957-0004.flac",
+          "reference": "shall i never miss home talk and blessing and the common kiss that comes to each in turn nor count it strange when i look up to drop on a new range of walls and floors another home than this",
+          "hypothesis": "shall i never miss home talk and blessing and the common kits the comes to eachen turn mor counted strange when i look up de dropp on a new range of walls and flors another home than this",
+          "speaker": "librispeech:908",
+          "corpus": "LibriSpeech-test-clean-fresh",
+          "dialect": null
+        }
+      ],
+      "word_edit_counts": {
+        "substitutions": 783,
+        "deletions": 90,
+        "insertions": 78,
+        "matches": 2266
+      },
+      "character_edit_counts": {
+        "substitutions": 882,
+        "deletions": 660,
+        "insertions": 217,
+        "matches": 15277
+      },
+      "pipeline_real_time_factor": 0.05672790526759791,
+      "by_corpus": {
+        "LibriSpeech-test-clean-fresh": {
+          "examples": 160,
+          "wer": 0.30296272698311566,
+          "cer": 0.10458410131399012
+        }
+      },
+      "by_dialect": {}
+    }
+  },
+  "lm_order": 5,
+  "lm_build_elapsed_s": 3.9346884000115097,
+  "acoustic_and_feature_elapsed_s": 7.186442600010196,
+  "speaker_disjoint_from_training": true,
+  "evaluation_metadata_sha256": "c34b3a457e59db75cf42214fab98dbedc825869c557cc86a016fc75c4a43c744",
+  "evaluation_metadata_sources": [
+    {
+      "path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\fresh_test\\metadata.jsonl",
+      "sha256": "c34b3a457e59db75cf42214fab98dbedc825869c557cc86a016fc75c4a43c744"
+    }
+  ],
+  "audio_seconds": 1162.01,
+  "device": "cpu",
+  "threads": 4,
+  "parameters": 2967809,
+  "synthetic_noise": null,
+  "limits": "CTC probabilities + optional training-only character backoff scores. No dictionary correction or pretrained weights. Decoding time excludes cached acoustic inference. Select settings on development only; limited English read-speech."
+}

@@ -1,0 +1,17 @@
+{
+  "corpus_sha256": "c80584f2bc2b31d5bada78a1136f9feec7ac49e5e18898db02dea434b5b8f0aa",
+  "language": "en",
+  "metrics": {
+    "texts": 200,
+    "cards": 2006,
+    "retained_occurrences": 2037,
+    "legacy_retained_occurrences": 2003,
+    "distinct_analyses_lost_by_legacy_dedup": 3,
+    "source_slice_checks": 2037,
+    "source_slice_failures": 0,
+    "cloze_span_failures": 0,
+    "cards_with_rule_findings": 27
+  },
+  "seconds": 0.5323774999997113,
+  "limits": "First N original text records. Measures evidence retention and offsets, not correctness of POS, lemmas, grammar findings, meanings, or student learning. Legacy counts emulate first-form-only deduplication on identical analyses."
+}

@@ -9,7 +9,7 @@ Data flow per example:
     (audio_path, transcript_str)
         → audio.preprocess()              →  (N,) float32 waveform at 16 kHz
         → features.log_mel_spectrogram()  →  (80, T) float32 spectrogram
-        → features.pad_or_truncate()      →  (80, MAX_FRAMES) — fixed width
+        → duration validation             →  (80, actual frames)
         → tokenizer.encode()              →  [int, ...] token IDs
 
 Data flow per batch (collate_fn):
@@ -32,6 +32,9 @@ Format loaders supported:
 from __future__ import annotations
 
 import csv
+import functools
+import hashlib
+import math
 from pathlib import Path
 from typing import Optional
 
@@ -39,15 +42,14 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader, Dataset
 
-from speech_engine.audio import preprocess
+from speech_engine.audio import normalize_amplitude, preprocess, resample
 from speech_engine.features import (
     HOP_LENGTH,
     MAX_FRAMES,
     SAMPLE_RATE,
     log_mel_spectrogram,
-    pad_or_truncate,
 )
-from speech_engine.tokenizer import PAD_ID, CharTokenizer
+from speech_engine.tokenizer import PAD_ID, CharTokenizer, normalize_text
 
 
 # ── Core dataset ──────────────────────────────────────────────────────────────
@@ -58,14 +60,13 @@ class ASRDataset(Dataset):
     Args:
         examples:    list of (audio_path, transcript) pairs
         tokenizer:   CharTokenizer for encoding transcripts
-        max_frames:  spectrograms are truncated/padded to this many frames
-                     (3000 = 30s at 10ms/frame, matching Whisper's context window)
+        max_frames:  reject longer clips; segment audio and transcript together
         sample_rate: resample all audio to this rate
         cache_dir:   if given, processed spectrograms are cached as .npy files.
                      Speeds up subsequent epochs ~10× by skipping the STFT.
 
     __getitem__ returns:
-        mel:    (n_mels, max_frames) float32 tensor
+        mel:    (n_mels, actual_frames) float32 tensor
         tokens: (L,) int64 tensor   — encoded transcript, no BOS/EOS (CTC convention)
     """
 
@@ -76,9 +77,15 @@ class ASRDataset(Dataset):
         max_frames: int = MAX_FRAMES,
         sample_rate: int = SAMPLE_RATE,
         cache_dir: Optional[Path] = None,
+        speed_factors: tuple[float, ...] = (1.0,),
     ) -> None:
         if not examples:
             raise ValueError("examples list is empty — nothing to load")
+        if not speed_factors or any(not 0.5 <= f <= 2.0 for f in speed_factors) or len(set(speed_factors)) != len(speed_factors):
+            raise ValueError("Speed factors must be distinct values within [0.5, 2.0]")
+        # Index space is (speed slot, recording): index = slot * len(examples) + recording.
+        # Deterministic per index, so samplers, workers and caches agree on what was drawn.
+        self.speed_factors = tuple(float(f) for f in speed_factors)
         self.examples = examples
         self.tokenizer = tokenizer
         self.max_frames = max_frames
@@ -88,47 +95,69 @@ class ASRDataset(Dataset):
             self.cache_dir.mkdir(parents=True, exist_ok=True)
 
     def __len__(self) -> int:
-        return len(self.examples)
+        return len(self.examples) * len(self.speed_factors)
 
     def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
-        audio_path, transcript = self.examples[idx]
+        slot, recording = divmod(idx, len(self.examples))
+        audio_path, transcript = self.examples[recording]
 
         # ── Spectrogram ───────────────────────────────────────────────────────
-        spec = self._load_or_compute_spec(audio_path)
-        spec = pad_or_truncate(spec, self.max_frames)
-        mel = torch.from_numpy(spec)  # (n_mels, max_frames), float32
+        speed = self.speed_factors[slot]
+        # Keep the one-argument call for speed 1.0 (existing overrides/tests rely on it).
+        spec = self._load_or_compute_spec(audio_path) if speed == 1.0 else self._load_or_compute_spec(audio_path, speed)
+        # Preserve actual lengths; collate_fn pads only to this batch's longest clip.
+        # Padding here made every recording appear to be max_frames long to CTC.
+        if spec.shape[1] > self.max_frames:
+            raise ValueError('Audio exceeds max_frames; filter or segment audio and transcript together')
+        mel = torch.from_numpy(spec)  # (n_mels, actual_frames), float32
 
         # ── Transcript ────────────────────────────────────────────────────────
         # encode() applies normalize_text() internally.
         # We do NOT add BOS/EOS for CTC training — CTC doesn't use them.
         # They'll be added in Phase 4 for the seq2seq decoder.
         token_ids = self.tokenizer.encode(transcript)
+        if self.tokenizer.decode(token_ids) != normalize_text(transcript,self.tokenizer.normalization):
+            raise ValueError('Transcript contains characters absent from the trained tokenizer; do not silently alter supervision or evaluation references')
+        from speech_engine.corpus import lexical_normalization_loss
+        if lexical_normalization_loss(transcript,self.tokenizer):
+            raise ValueError('Transcript normalization drops letters or numbers; supply evidenced spoken-form supervision or an appropriate tokenizer')
         if not token_ids:
-            # Empty transcript after normalization — pad with a single pad token
-            # so the batch has something. The length will be 1 and CTCLoss will
-            # handle it (it requires target_length >= 1).
-            token_ids = [PAD_ID]
+            # A padding token is not a valid supervised transcript.
+            raise ValueError('Transcript is empty after configured normalization')
         tokens = torch.tensor(token_ids, dtype=torch.long)  # (L,)
 
         return mel, tokens
 
-    def _load_or_compute_spec(self, audio_path: str) -> np.ndarray:
-        """Load a cached spectrogram or compute and cache it on first access."""
+    def _load_or_compute_spec(self, audio_path: str, speed: float = 1.0) -> np.ndarray:
+        """Load a cached spectrogram or compute and cache it on first access.
+
+        Speed 1.0 keeps the original cache key and float32 format. Perturbed
+        copies use a separate key and are stored as float16 to halve disk use.
+        """
         if self.cache_dir is not None:
             # Use the audio file's stem as the cache key.
             # For datasets where filenames collide across splits (rare), add
             # a hash of the full path to the key.
-            cache_key = Path(audio_path).stem
+            source = Path(audio_path).resolve()
+            stat = source.stat()
+            identity = f'{source}|{stat.st_size}|{stat.st_mtime_ns}|{self.sample_rate}|logmel-v1'
+            if speed != 1.0:
+                identity += f'|speed{speed:g}|float16'
+            cache_key = hashlib.sha256(identity.encode('utf-8')).hexdigest()
             cache_path = self.cache_dir / f"{cache_key}.npy"
             if cache_path.exists():
-                return np.load(str(cache_path))
-            spec = self._compute_spec(audio_path)
-            np.save(str(cache_path), spec)
+                return np.load(str(cache_path)).astype(np.float32, copy=False)
+            spec = self._compute_spec(audio_path) if speed == 1.0 else self._compute_spec(audio_path, speed)
+            np.save(str(cache_path), spec if speed == 1.0 else spec.astype(np.float16))
             return spec
-        return self._compute_spec(audio_path)
+        return self._compute_spec(audio_path) if speed == 1.0 else self._compute_spec(audio_path, speed)
 
-    def _compute_spec(self, audio_path: str) -> np.ndarray:
+    def _compute_spec(self, audio_path: str, speed: float = 1.0) -> np.ndarray:
         waveform, _ = preprocess(audio_path, target_sr=self.sample_rate)
+        if speed != 1.0:
+            # Speed perturbation (tempo and pitch together): treat the signal as if
+            # recorded at speed * rate, then resample back to the model rate.
+            waveform = normalize_amplitude(resample(waveform, round(self.sample_rate * speed), self.sample_rate))
         return log_mel_spectrogram(waveform, sample_rate=self.sample_rate)
 
     def __repr__(self) -> str:
@@ -193,6 +222,50 @@ def collate_fn(
     }
 
 
+# ── Length-bucketed sampling ──────────────────────────────────────────────────
+
+class BucketBatchSampler(torch.utils.data.Sampler):
+    """Draw a fixed sampling budget with replacement, then batch similar lengths.
+
+    Each epoch draws ``samples_per_epoch`` indices (uniform or weighted), sorts
+    each window of ``batch_size * window_batches`` draws by length, cuts it into
+    batches and shuffles batch order. Exposure per recording matches the plain
+    replacement sampler; only which draws share a batch changes, which reduces
+    padding. The generator state is saved for exact resume.
+    """
+
+    def __init__(self, lengths, batch_size, samples_per_epoch, weights=None, seed=839, window_batches=50):
+        if batch_size < 1 or samples_per_epoch < 1 or window_batches < 1:
+            raise ValueError('Batch size, sample budget and window must be positive')
+        self.lengths = torch.as_tensor(lengths, dtype=torch.float64)
+        if self.lengths.ndim != 1 or len(self.lengths) == 0:
+            raise ValueError('Lengths must be a non-empty vector')
+        self.weights = None if weights is None else torch.as_tensor(weights, dtype=torch.float64)
+        if self.weights is not None and (len(self.weights) != len(self.lengths) or not torch.all(self.weights > 0)):
+            raise ValueError('Positive sampling weights must match lengths')
+        self.batch_size = batch_size
+        self.samples_per_epoch = samples_per_epoch
+        self.window = batch_size * window_batches
+        self.generator = torch.Generator().manual_seed(seed)
+
+    def __len__(self) -> int:
+        full, rest = divmod(self.samples_per_epoch, self.window)
+        return full * math.ceil(self.window / self.batch_size) + math.ceil(rest / self.batch_size)
+
+    def __iter__(self):
+        if self.weights is None:
+            draws = torch.randint(len(self.lengths), (self.samples_per_epoch,), generator=self.generator)
+        else:
+            draws = torch.multinomial(self.weights, self.samples_per_epoch, replacement=True, generator=self.generator)
+        batches = []
+        for start in range(0, len(draws), self.window):
+            window = draws[start:start + self.window]
+            window = window[torch.argsort(self.lengths[window], stable=True)]
+            batches.extend(window[i:i + self.batch_size].tolist() for i in range(0, len(window), self.batch_size))
+        for position in torch.randperm(len(batches), generator=self.generator).tolist():
+            yield batches[position]
+
+
 # ── DataLoader factory ────────────────────────────────────────────────────────
 
 def build_dataloader(
@@ -203,6 +276,11 @@ def build_dataloader(
     num_workers: int = 0,
     max_frames: int = MAX_FRAMES,
     cache_dir: Optional[Path] = None,
+    samples_per_epoch: int | None = None,
+    sampling_weights: list[float] | None = None,
+    seed: int = 839,
+    lengths: list[float] | None = None,
+    speed_factors: tuple[float, ...] = (1.0,),
 ) -> DataLoader:
     """Build a DataLoader ready for the training loop.
 
@@ -217,22 +295,54 @@ def build_dataloader(
         max_frames:  spectrogram frame cap
         cache_dir:   directory for cached spectrograms (strongly recommended
                      when training for more than 1 epoch)
+        seed:        sampler generator seed (839 reproduces earlier runs)
+        lengths:     per-recording lengths (e.g. seconds); with a sample budget,
+                     enables length-bucketed batches
+        speed_factors: training-only speed perturbation; each draw picks one
+                     factor uniformly (requires a sample budget)
 
     Returns:
         torch.utils.data.DataLoader ready for iteration
     """
+    if tuple(speed_factors) != (1.0,) and samples_per_epoch is None:
+        raise ValueError('Speed perturbation requires an explicit sample budget')
     dataset = ASRDataset(
         examples=examples,
         tokenizer=tokenizer,
         max_frames=max_frames,
         cache_dir=cache_dir,
+        speed_factors=tuple(speed_factors),
     )
+    copies = len(dataset.speed_factors)
+    if sampling_weights is not None:
+        sampling_weights = list(sampling_weights) * copies
+    collate = functools.partial(collate_fn, pad_token_id=tokenizer.pad_id)  # picklable for worker processes
+    if lengths is not None:
+        if samples_per_epoch is None:
+            raise ValueError('Length bucketing requires an explicit sample budget')
+        if len(lengths) != len(examples):
+            raise ValueError('Lengths must match examples')
+        expanded = [length / factor for factor in dataset.speed_factors for length in lengths]
+        batch_sampler = BucketBatchSampler(expanded, batch_size, samples_per_epoch, sampling_weights, seed=seed)
+        return DataLoader(dataset, batch_sampler=batch_sampler, num_workers=num_workers,
+                          collate_fn=collate, pin_memory=False)
+    sampler = None
+    if samples_per_epoch is not None:
+        if samples_per_epoch < 1:raise ValueError('samples_per_epoch must be positive')
+        generator=torch.Generator().manual_seed(seed)
+        if sampling_weights is not None:
+            if len(sampling_weights)!=len(dataset) or any(not np.isfinite(w) or w<=0 for w in sampling_weights):
+                raise ValueError('Positive finite sampling weights must match the dataset')
+            sampler=torch.utils.data.WeightedRandomSampler(sampling_weights,samples_per_epoch,replacement=True,generator=generator)
+        else:sampler=torch.utils.data.RandomSampler(dataset,replacement=True,num_samples=samples_per_epoch,generator=generator)
+    elif sampling_weights is not None:raise ValueError('Weighted sampling requires an explicit sample budget')
     return DataLoader(
         dataset,
         batch_size=batch_size,
-        shuffle=shuffle,
+        shuffle=shuffle if sampler is None else False,
+        sampler=sampler,
         num_workers=num_workers,
-        collate_fn=lambda b: collate_fn(b, pad_token_id=tokenizer.pad_id),
+        collate_fn=collate,
         pin_memory=False,  # set True when training on CUDA
         drop_last=False,
     )

@@ -1,0 +1,53 @@
+{
+  "results": [
+    {
+      "text": "small",
+      "manifest_sha256": "8013c2474a04fa426f060a941d49e67a47a3959a57bf03762b759c429aaa76fd",
+      "sentences": 2195,
+      "order": 3,
+      "build_elapsed_s": 0.09791630000108853,
+      "ngram_edges_by_order": {
+        "2": 603,
+        "3": 4987
+      }
+    },
+    {
+      "text": "small",
+      "manifest_sha256": "8013c2474a04fa426f060a941d49e67a47a3959a57bf03762b759c429aaa76fd",
+      "sentences": 2195,
+      "order": 5,
+      "build_elapsed_s": 0.25028810001094826,
+      "ngram_edges_by_order": {
+        "2": 603,
+        "3": 4987,
+        "4": 20543,
+        "5": 52421
+      }
+    },
+    {
+      "text": "expanded",
+      "manifest_sha256": "39639a2a51837ebb57bf7490004234303e3a7ec0f9a7bb38405e69f845929ae0",
+      "sentences": 29211,
+      "order": 3,
+      "build_elapsed_s": 1.7478766999847721,
+      "ngram_edges_by_order": {
+        "2": 700,
+        "3": 7470
+      }
+    },
+    {
+      "text": "expanded",
+      "manifest_sha256": "39639a2a51837ebb57bf7490004234303e3a7ec0f9a7bb38405e69f845929ae0",
+      "sentences": 29211,
+      "order": 5,
+      "build_elapsed_s": 4.653880700003356,
+      "ngram_edges_by_order": {
+        "2": 700,
+        "3": 7470,
+        "4": 41097,
+        "5": 143652
+      }
+    }
+  ],
+  "limits": "One CPU build per configuration during other work; excludes input parsing/tokenization. Edge counts are storage proxies, not measured resident memory."
+}

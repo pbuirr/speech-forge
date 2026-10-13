@@ -1,0 +1,8 @@
+{
+  "seed": 127,
+  "clips": 120,
+  "excluded_previously_evaluated_paths": 100,
+  "audio_seconds": 763.4201875,
+  "manifest_sha256": "a9d7aacaa6c0bdb86116901e8a1bbf676de89fb727ed8253aead9c1c7368ec80",
+  "policy": "Fresh utterances from existing withheld speaker pool. Not an independent corpus. Fixed before candidate test inference."
+}

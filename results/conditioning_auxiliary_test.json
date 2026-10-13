@@ -1,0 +1,143 @@
+{
+  "checkpoint_sha256": "69ddb8e2fefd0a1a676780e1728b3f2fecb18eb0e05256b8cb12a3776831f0e5",
+  "cases_sha256": "75ed7b77cd4e1a03f0c748ad42a95f6dcc31f9858a4f5feb92524aceed1c0b87",
+  "split": "test",
+  "limits": "Hand-authored linguistic contrasts, not a representative natural corpus or a validated semantic benchmark. Identical target across source contrasts controls target-length bias. Scoring is not generation accuracy. Examples never used for training. ES–EN examples only; evaluator uses the shared model interfaces.",
+  "source_preference_count": 12,
+  "examples": 12,
+  "mean_source_margin": 1.2411132976412773,
+  "rows": [
+    {
+      "phenomenon": "polarity",
+      "source": "La médica no encontró el documento.",
+      "contrast_source": "La médica encontró el documento.",
+      "reference": "The doctor did not find the document.",
+      "paired_nll": 0.444023460149765,
+      "contrast_nll": 1.5562303066253662,
+      "source_margin": 1.1122068464756012,
+      "source_translation": "The doctor did not find the document.",
+      "contrast_translation": "The doctor found the document."
+    },
+    {
+      "phenomenon": "roles",
+      "source": "Irene llamó a David.",
+      "contrast_source": "David llamó a Irene.",
+      "reference": "Irene called David.",
+      "paired_nll": 0.9581208229064941,
+      "contrast_nll": 3.9500114917755127,
+      "source_margin": 2.9918906688690186,
+      "source_translation": "Irene called davi.",
+      "contrast_translation": "David called him to go."
+    },
+    {
+      "phenomenon": "polarity",
+      "source": "Los niños no abrieron la ventana.",
+      "contrast_source": "Los niños abrieron la ventana.",
+      "reference": "The children did not open the window.",
+      "paired_nll": 0.47957903146743774,
+      "contrast_nll": 1.4355158805847168,
+      "source_margin": 0.955936849117279,
+      "source_translation": "The children didn't open the window.",
+      "contrast_translation": "The children opened the window."
+    },
+    {
+      "phenomenon": "names",
+      "source": "Elena viajó a Berlín.",
+      "contrast_source": "Elena viajó a París.",
+      "reference": "Elena traveled to Berlin.",
+      "paired_nll": 1.0777324438095093,
+      "contrast_nll": 3.3708853721618652,
+      "source_margin": 2.293152928352356,
+      "source_translation": "Elena tripted freedom.",
+      "contrast_translation": "He traveled to paris."
+    },
+    {
+      "phenomenon": "quantity",
+      "source": "El contrato termina en 2031.",
+      "contrast_source": "El contrato termina en 2032.",
+      "reference": "The contract ends in 2031.",
+      "paired_nll": 0.4130834937095642,
+      "contrast_nll": 0.9240126013755798,
+      "source_margin": 0.5109291076660156,
+      "source_translation": "The contract entered in 2031.",
+      "contrast_translation": "The contract entered in 2032."
+    },
+    {
+      "phenomenon": "roles",
+      "source": "La estudiante felicitó a la profesora.",
+      "contrast_source": "La profesora felicitó a la estudiante.",
+      "reference": "The student congratulated the teacher.",
+      "paired_nll": 0.6312186121940613,
+      "contrast_nll": 1.7203214168548584,
+      "source_margin": 1.0891028046607971,
+      "source_translation": "The student congratulated the teacher.",
+      "contrast_translation": "The teacher congratulated the student."
+    },
+    {
+      "phenomenon": "temporal",
+      "source": "Comimos después del concierto.",
+      "contrast_source": "Comimos antes del concierto.",
+      "reference": "We ate after the concert.",
+      "paired_nll": 0.40856748819351196,
+      "contrast_nll": 1.2047356367111206,
+      "source_margin": 0.7961681485176086,
+      "source_translation": "We eat after the concert.",
+      "contrast_translation": "We committed before the concert."
+    },
+    {
+      "phenomenon": "polarity",
+      "source": "El periodista nunca publicó la noticia.",
+      "contrast_source": "El periodista siempre publicó la noticia.",
+      "reference": "The journalist never published the news.",
+      "paired_nll": 0.3461819887161255,
+      "contrast_nll": 0.7898778319358826,
+      "source_margin": 0.4436958432197571,
+      "source_translation": "Journalist never published the news.",
+      "contrast_translation": "Journalist always published the news."
+    },
+    {
+      "phenomenon": "roles",
+      "source": "El policía siguió al conductor.",
+      "contrast_source": "El conductor siguió al policía.",
+      "reference": "The police officer followed the driver.",
+      "paired_nll": 2.6812474727630615,
+      "contrast_nll": 3.4193670749664307,
+      "source_margin": 0.7381196022033691,
+      "source_translation": "The police followed the behavior.",
+      "contrast_translation": "The driver followed the police."
+    },
+    {
+      "phenomenon": "quantity",
+      "source": "Vendieron 43 entradas.",
+      "contrast_source": "Vendieron 34 entradas.",
+      "reference": "They sold 43 tickets.",
+      "paired_nll": 1.1826488971710205,
+      "contrast_nll": 2.4678313732147217,
+      "source_margin": 1.2851824760437012,
+      "source_translation": "They vented 43 enters.",
+      "contrast_translation": "They vented 34 enters."
+    },
+    {
+      "phenomenon": "names",
+      "source": "Andrés trabaja en Lisboa.",
+      "contrast_source": "Andrés trabaja en Atenas.",
+      "reference": "Andres works in Lisbon.",
+      "paired_nll": 1.708620309829712,
+      "contrast_nll": 3.6407623291015625,
+      "source_margin": 1.9321420192718506,
+      "source_translation": "Andry works in lisboy.",
+      "contrast_translation": "Andry works in attenes."
+    },
+    {
+      "phenomenon": "polarity",
+      "source": "Todavía no han firmado el acuerdo.",
+      "contrast_source": "Ya han firmado el acuerdo.",
+      "reference": "They have not signed the agreement yet.",
+      "paired_nll": 1.0731728076934814,
+      "contrast_nll": 1.818005084991455,
+      "source_margin": 0.7448322772979736,
+      "source_translation": "They have not signed the agreement.",
+      "contrast_translation": "They have already filled the agreement."
+    }
+  ]
+}

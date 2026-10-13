@@ -1,0 +1,39 @@
+{
+  "device": "cpu",
+  "threads": 4,
+  "batch_files": [
+    "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\train-clean-100\\3436\\172162\\3436-172162-0011.flac",
+    "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\train-clean-100\\3112\\9554\\3112-9554-0016.flac",
+    "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\train-clean-100\\1088\\134315\\1088-134315-0052.flac",
+    "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\train-clean-100\\7264\\92310\\7264-92310-0020.flac",
+    "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\train-clean-100\\4297\\13009\\4297-13009-0034.flac",
+    "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\train-clean-100\\374\\180298\\374-180298-0004.flac",
+    "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\train-clean-100\\7517\\100442\\7517-100442-0001.flac",
+    "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\LibriSpeech\\train-clean-100\\7278\\91083\\7278-91083-0026.flac"
+  ],
+  "batch_frames": [
+    659,
+    1364,
+    1518,
+    1417,
+    1290,
+    1408,
+    1216,
+    1519
+  ],
+  "measurements": [
+    {
+      "architecture": "compact2",
+      "parameters": 807553,
+      "warm_update_median_s": 5.850571199989645,
+      "last_loss": 3.304654598236084
+    },
+    {
+      "architecture": "wide2",
+      "parameters": 2967809,
+      "warm_update_median_s": 13.744522799999686,
+      "last_loss": 4.110999584197998
+    }
+  ],
+  "limits": "Five untrained training updates on one fixed batch, features precomputed; concurrent GPU training. Cost feasibility only, not recognition quality or isolated device comparison."
+}

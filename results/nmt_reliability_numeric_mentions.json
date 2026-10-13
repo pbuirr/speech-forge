@@ -1,0 +1,51 @@
+{
+  "news": [
+    {
+      "report": "nmt_reliability_news_previous",
+      "anchor_occurrences": 129,
+      "preserved_occurrences": 87,
+      "sentences_with_common_anchors": 80,
+      "strict_mention_recall": 0.6744186046511628
+    },
+    {
+      "report": "nmt_reliability_news",
+      "anchor_occurrences": 129,
+      "preserved_occurrences": 98,
+      "sentences_with_common_anchors": 80,
+      "strict_mention_recall": 0.7596899224806202
+    }
+  ],
+  "publisher": [
+    {
+      "report": "nmt_reliability_publisher_previous",
+      "anchor_occurrences": 93,
+      "preserved_occurrences": 58,
+      "sentences_with_common_anchors": 57,
+      "strict_mention_recall": 0.6236559139784946
+    },
+    {
+      "report": "nmt_reliability_publisher_new",
+      "anchor_occurrences": 93,
+      "preserved_occurrences": 75,
+      "sentences_with_common_anchors": 57,
+      "strict_mention_recall": 0.8064516129032258
+    }
+  ],
+  "short": [
+    {
+      "report": "nmt_tatoeba_adapted",
+      "anchor_occurrences": 16,
+      "preserved_occurrences": 14,
+      "sentences_with_common_anchors": 16,
+      "strict_mention_recall": 0.875
+    },
+    {
+      "report": "nmt_reliability_short",
+      "anchor_occurrences": 16,
+      "preserved_occurrences": 13,
+      "sentences_with_common_anchors": 16,
+      "strict_mention_recall": 0.8125
+    }
+  ],
+  "limits": "Intersection of literal source/reference digit groups, occurrence-sensitive. Not numerical equivalence, hallucination precision, named entity accuracy, role/scope or factual correctness. Formatting/paraphrase can change counts."
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "configuration": "current",
+    "parameters": 807553,
+    "weight_bytes_float32": 3230212,
+    "limits": "Untrained parameter/resource inspection only; no accuracy or speed claim"
+  },
+  {
+    "configuration": "original_default",
+    "parameters": 4779233,
+    "weight_bytes_float32": 19116932,
+    "limits": "Untrained parameter/resource inspection only; no accuracy or speed claim"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "sentences": 7803,
+  "projective_training_sentences": 7442,
+  "epochs": 3,
+  "steps": 554766,
+  "training_evidence": "gold",
+  "seconds": 65.66958869999871
+}

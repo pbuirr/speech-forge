@@ -1,0 +1,257 @@
+{
+  "limits": "Manual qualitative review table; not a scored semantic accuracy benchmark. Correct reference preference does not certify generated output. No cases used for training.",
+  "rows": [
+    {
+      "source": "La médica no encontró el documento.",
+      "contrast_source": "La médica encontró el documento.",
+      "reference": "The doctor did not find the document.",
+      "phenomenon": "polarity",
+      "current": {
+        "source_translation": "The doctor did not find the document.",
+        "contrast_translation": "The doctor found the document.",
+        "reference_source_margin": 1.132327139377594
+      },
+      "control": {
+        "source_translation": "The doctor did not find the document.",
+        "contrast_translation": "The doctor found the document.",
+        "reference_source_margin": 1.1487056910991669
+      },
+      "auxiliary": {
+        "source_translation": "The doctor did not find the document.",
+        "contrast_translation": "The doctor found the document.",
+        "reference_source_margin": 1.1122068464756012
+      }
+    },
+    {
+      "source": "Irene llamó a David.",
+      "contrast_source": "David llamó a Irene.",
+      "reference": "Irene called David.",
+      "phenomenon": "roles",
+      "current": {
+        "source_translation": "Irene called davi.",
+        "contrast_translation": "David called irene.",
+        "reference_source_margin": 2.6875689029693604
+      },
+      "control": {
+        "source_translation": "Irene called davi.",
+        "contrast_translation": "David called him to go.",
+        "reference_source_margin": 2.755849599838257
+      },
+      "auxiliary": {
+        "source_translation": "Irene called davi.",
+        "contrast_translation": "David called him to go.",
+        "reference_source_margin": 2.9918906688690186
+      }
+    },
+    {
+      "source": "Los niños no abrieron la ventana.",
+      "contrast_source": "Los niños abrieron la ventana.",
+      "reference": "The children did not open the window.",
+      "phenomenon": "polarity",
+      "current": {
+        "source_translation": "The children didn't open the window.",
+        "contrast_translation": "The children opened the window.",
+        "reference_source_margin": 0.9705434143543243
+      },
+      "control": {
+        "source_translation": "The children didn't open the window.",
+        "contrast_translation": "The children opened the window.",
+        "reference_source_margin": 0.9349426031112671
+      },
+      "auxiliary": {
+        "source_translation": "The children didn't open the window.",
+        "contrast_translation": "The children opened the window.",
+        "reference_source_margin": 0.955936849117279
+      }
+    },
+    {
+      "source": "Elena viajó a Berlín.",
+      "contrast_source": "Elena viajó a París.",
+      "reference": "Elena traveled to Berlin.",
+      "phenomenon": "names",
+      "current": {
+        "source_translation": "Elena traveled to freedom.",
+        "contrast_translation": "He traveled to paris.",
+        "reference_source_margin": 2.2180880308151245
+      },
+      "control": {
+        "source_translation": "Elena tripted freedom.",
+        "contrast_translation": "He traveled to paris.",
+        "reference_source_margin": 2.169825792312622
+      },
+      "auxiliary": {
+        "source_translation": "Elena tripted freedom.",
+        "contrast_translation": "He traveled to paris.",
+        "reference_source_margin": 2.293152928352356
+      }
+    },
+    {
+      "source": "El contrato termina en 2031.",
+      "contrast_source": "El contrato termina en 2032.",
+      "reference": "The contract ends in 2031.",
+      "phenomenon": "quantity",
+      "current": {
+        "source_translation": "The contract entered in 2031.",
+        "contrast_translation": "The contract entered in 2032.",
+        "reference_source_margin": 0.5214437544345856
+      },
+      "control": {
+        "source_translation": "The contract entered in 2031.",
+        "contrast_translation": "The contract entered in 2032.",
+        "reference_source_margin": 0.5630233585834503
+      },
+      "auxiliary": {
+        "source_translation": "The contract entered in 2031.",
+        "contrast_translation": "The contract entered in 2032.",
+        "reference_source_margin": 0.5109291076660156
+      }
+    },
+    {
+      "source": "La estudiante felicitó a la profesora.",
+      "contrast_source": "La profesora felicitó a la estudiante.",
+      "reference": "The student congratulated the teacher.",
+      "phenomenon": "roles",
+      "current": {
+        "source_translation": "The student happy to the teacher.",
+        "contrast_translation": "The professor happy to the student.",
+        "reference_source_margin": 1.1465057134628296
+      },
+      "control": {
+        "source_translation": "The student happy to the teacher.",
+        "contrast_translation": "The professor happy to the student.",
+        "reference_source_margin": 1.1550669074058533
+      },
+      "auxiliary": {
+        "source_translation": "The student congratulated the teacher.",
+        "contrast_translation": "The teacher congratulated the student.",
+        "reference_source_margin": 1.0891028046607971
+      }
+    },
+    {
+      "source": "Comimos después del concierto.",
+      "contrast_source": "Comimos antes del concierto.",
+      "reference": "We ate after the concert.",
+      "phenomenon": "temporal",
+      "current": {
+        "source_translation": "We eat after the concert.",
+        "contrast_translation": "We committed before the concert.",
+        "reference_source_margin": 0.7031082510948181
+      },
+      "control": {
+        "source_translation": "We eat after the concert.",
+        "contrast_translation": "We committed before the concert.",
+        "reference_source_margin": 0.8155786693096161
+      },
+      "auxiliary": {
+        "source_translation": "We eat after the concert.",
+        "contrast_translation": "We committed before the concert.",
+        "reference_source_margin": 0.7961681485176086
+      }
+    },
+    {
+      "source": "El periodista nunca publicó la noticia.",
+      "contrast_source": "El periodista siempre publicó la noticia.",
+      "reference": "The journalist never published the news.",
+      "phenomenon": "polarity",
+      "current": {
+        "source_translation": "Journalist never published the news.",
+        "contrast_translation": "Journalist always published the news.",
+        "reference_source_margin": 0.44008544087409973
+      },
+      "control": {
+        "source_translation": "Journalist never published the news.",
+        "contrast_translation": "Journalist always published the news.",
+        "reference_source_margin": 0.4434843063354492
+      },
+      "auxiliary": {
+        "source_translation": "Journalist never published the news.",
+        "contrast_translation": "Journalist always published the news.",
+        "reference_source_margin": 0.4436958432197571
+      }
+    },
+    {
+      "source": "El policía siguió al conductor.",
+      "contrast_source": "El conductor siguió al policía.",
+      "reference": "The police officer followed the driver.",
+      "phenomenon": "roles",
+      "current": {
+        "source_translation": "The police followed the behavior.",
+        "contrast_translation": "The driver followed the policeman.",
+        "reference_source_margin": 0.6616451740264893
+      },
+      "control": {
+        "source_translation": "The police followed the behavior.",
+        "contrast_translation": "The driver followed the policeman.",
+        "reference_source_margin": 0.6593537330627441
+      },
+      "auxiliary": {
+        "source_translation": "The police followed the behavior.",
+        "contrast_translation": "The driver followed the police.",
+        "reference_source_margin": 0.7381196022033691
+      }
+    },
+    {
+      "source": "Vendieron 43 entradas.",
+      "contrast_source": "Vendieron 34 entradas.",
+      "reference": "They sold 43 tickets.",
+      "phenomenon": "quantity",
+      "current": {
+        "source_translation": "They vented 43 enters.",
+        "contrast_translation": "They vented 34 enters.",
+        "reference_source_margin": 1.2427198886871338
+      },
+      "control": {
+        "source_translation": "They vented 43 enters.",
+        "contrast_translation": "They vented 34 enters.",
+        "reference_source_margin": 1.226290225982666
+      },
+      "auxiliary": {
+        "source_translation": "They vented 43 enters.",
+        "contrast_translation": "They vented 34 enters.",
+        "reference_source_margin": 1.2851824760437012
+      }
+    },
+    {
+      "source": "Andrés trabaja en Lisboa.",
+      "contrast_source": "Andrés trabaja en Atenas.",
+      "reference": "Andres works in Lisbon.",
+      "phenomenon": "names",
+      "current": {
+        "source_translation": "Andry works in lisboy.",
+        "contrast_translation": "Andry works in attention.",
+        "reference_source_margin": 2.0255820751190186
+      },
+      "control": {
+        "source_translation": "Andre's works in lisboy.",
+        "contrast_translation": "Andran works in attenes.",
+        "reference_source_margin": 1.8999778032302856
+      },
+      "auxiliary": {
+        "source_translation": "Andry works in lisboy.",
+        "contrast_translation": "Andry works in attenes.",
+        "reference_source_margin": 1.9321420192718506
+      }
+    },
+    {
+      "source": "Todavía no han firmado el acuerdo.",
+      "contrast_source": "Ya han firmado el acuerdo.",
+      "reference": "They have not signed the agreement yet.",
+      "phenomenon": "polarity",
+      "current": {
+        "source_translation": "They have not remained the heart.",
+        "contrast_translation": "They have already filled the agreement.",
+        "reference_source_margin": 0.7320617437362671
+      },
+      "control": {
+        "source_translation": "They have not signed the agreement.",
+        "contrast_translation": "They have already filled the body.",
+        "reference_source_margin": 0.7655885219573975
+      },
+      "auxiliary": {
+        "source_translation": "They have not signed the agreement.",
+        "contrast_translation": "They have already filled the agreement.",
+        "reference_source_margin": 0.7448322772979736
+      }
+    }
+  ]
+}

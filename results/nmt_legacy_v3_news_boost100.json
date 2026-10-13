@@ -1,0 +1,975 @@
+{
+  "checkpoint": "C:\\Users\\user\\speech-forge\\data\\models\\nmt_es_en_v3.pt",
+  "checkpoint_sha256": "1b787276b95752db154ff95e9472ba7b9ffe32644e57c505ff5f5150ba512801",
+  "data_sha256": "4a2ccc17309fdc2f166e9537effb689ab9bee28e0f259c00e12920879a5111a7",
+  "metadata": {
+    "direction": "es→en",
+    "pairs": 965298,
+    "n_train": 965298
+  },
+  "device": "cpu",
+  "decoder": "beam_4",
+  "decoding_options": {
+    "eos_boost": true,
+    "repeat_guard": true,
+    "no_repeat_ngram": 3,
+    "allow_repeated_fragments": false,
+    "allow_repeated_digits": false
+  },
+  "sample_seed": 983,
+  "prior_evaluation_excluded": 0,
+  "examples": 100,
+  "excluded_overlap": 0,
+  "metrics": {
+    "raw": {
+      "bleu": 28.5017,
+      "bp": 1.0,
+      "precisions": [
+        57.864,
+        34.3996,
+        22.4138,
+        14.7914
+      ],
+      "hyp_len": 1882,
+      "ref_len": 1813,
+      "n_sentences": 100,
+      "character_f2_6_no_space": 60.837765476021936,
+      "exact_match_lowercase": 0.0
+    },
+    "application": {
+      "bleu": 28.4046,
+      "bp": 1.0,
+      "precisions": [
+        57.5532,
+        34.2697,
+        22.381,
+        14.7468
+      ],
+      "hyp_len": 1880,
+      "ref_len": 1813,
+      "n_sentences": 100,
+      "character_f2_6_no_space": 60.820192636742696,
+      "exact_match_lowercase": 0.0
+    }
+  },
+  "copy_source_baseline": {
+    "bleu": 1.1572,
+    "bp": 1.0,
+    "precisions": [
+      8.2009,
+      2.107,
+      0.5711,
+      0.1817
+    ],
+    "hyp_len": 1951,
+    "ref_len": 1813,
+    "n_sentences": 100
+  },
+  "review_flag_rate": 0.27,
+  "latency_median_s": 0.13501465000445023,
+  "latency_p95_s": 0.5184724300139351,
+  "elapsed_s": 18.47539959999267,
+  "limits": "single-reference lowercase whitespace BLEU; custom character F2; no semantic correctness or calibrated confidence claim; lexical fallback not included",
+  "rows": [
+    {
+      "source": "así que algunos de los manifestantes lo jalaron y otros empezaron a pegarle.",
+      "reference": "so some of the protesters pulled him down and others started beating him.",
+      "raw": "so some of the demonstrators raised it and others began to beat him.",
+      "application": "So some of the demonstrators raised it and others began to beat him.",
+      "latency_s": 0.1382290999754332,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5169124999999999
+    },
+    {
+      "source": "oscar: pero incluso en esta etapa inicial (a la que se refería el rata), el potencial de la blogósfera como medio de información está ahí.",
+      "reference": "oscar: but even at this early stage (that el rata was referring to), the potential of the blogosphere as an information medium is there.",
+      "raw": "oscar: but even at this initial stage (which the mouth referred to), the potential of blogosphere as a means of information is there.",
+      "application": "Oscar: but even at this initial stage (which the mouth referred to), the potential of blogosphere as a means of information is there.",
+      "latency_s": 0.1660076999978628,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45681176470588236
+    },
+    {
+      "source": "informando desde un colegio de secundaria en el centro de santiago, el liceo amunátegui, cristóbal describe la noche del 29 de junio, un día antes que más de 400,000 personas marcharan por todo chile por una reforma educativa:",
+      "reference": "reporting from a high school in downtown santiago, liceo amunátegui, cristóbal describes the night of june 29, the day before over 400,000 people throughout chile marched for educational reform:",
+      "raw": "i am informing from a high school in the center of santago, the amunátegui, christopher describes the night of 29 june, one day before more than 400,000 people are leaving for an educational reform:",
+      "application": "I am informing from a high school in the center of santago, the amunátegui, christopher describes the night of 29 june, one day before more than 400,000 people are leaving for an educational reform:.",
+      "latency_s": 0.45109960000263527,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40416428571428575
+    },
+    {
+      "source": "¿dejaría usted jugar a su hijo con un paciente de sida?",
+      "reference": "would you let your child play with an aids patient?",
+      "raw": "would you let your son play with a aids patient?",
+      "application": "Would you let your son play with a aids patient?",
+      "latency_s": 0.04164690000470728,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4922846153846153
+    },
+    {
+      "source": "ibesh dice: “las brigadas islamistas llevan la carga pesada en la lucha”.",
+      "reference": "“the islamist brigades are carrying the heavy load in the fight,” he said.",
+      "raw": "ibesh says: isolmist brigades lead to the heavy burden in the fight .",
+      "application": "Ibesh says: isolmist brigades lead to the heavy burden in the fight.",
+      "latency_s": 0.11262259999057278,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.395764
+    },
+    {
+      "source": "la escandalosa falta ética que involucró a timothy tong , el exjefe de la comisión independiente contra la corrupción (icac) , ha desatado la preocupación en hong kong y en china continental de que la ubicua corrupción se haya extendido también a hong kong.",
+      "reference": "a misconduct scandal implicating timothy tong, the former chief of the independent commission against corruption (icac), has hong kong and mainland chinese people worried that ubiquitous corruption in china has spread to hong kong.",
+      "raw": "the scandalous ethical lack involved timothy tong, the head of the independent commission against corruption (icac) has distinguished concern in hong kong and in continental china that hong corruption has also extended to hong kong.",
+      "application": "The scandalous ethical lack involved timothy tong, the head of the independent commission against corruption (icac) has distinguished concern in hong kong and in continental china that hong corruption has also extended to hong kong.",
+      "latency_s": 0.5677597999747377,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36794477611940296
+    },
+    {
+      "source": "el bloguero destacó la importancia de no poner información a disposición del gobierno.",
+      "reference": "the blogger stressed the importance of not volunteering information to the government.",
+      "raw": "the block highlighted the importance of not making information available to the government's government.",
+      "application": "The block highlighted the importance of not making information available to the government's government.",
+      "latency_s": 0.08234630001243204,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47228999999999993
+    },
+    {
+      "source": "algunos nombres ni siquiera representan los nombres de sus marcas”.",
+      "reference": "some names do not even represent their trade marks.”",
+      "raw": "some names do not even represent the names of their marks...",
+      "application": "Some names do not even represent the names of their marks...",
+      "latency_s": 0.055821599991759285,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42312222222222223
+    },
+    {
+      "source": "b. ravichandran, del equipo de dalit camera, un canal de youtube, comenta :",
+      "reference": "b. ravichandran of the dalit camera, an youtube channel, writes:",
+      "raw": "b. ravchandran, from dalit's team, a youtube's channel, comes.",
+      "application": "B. ravchandran, from dalit's team, a youtube's channel, comes.",
+      "latency_s": 0.13575200000195764,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38248800000000005
+    },
+    {
+      "source": "credito: mohammed sergie",
+      "reference": "credit: mohammed sergie",
+      "raw": "credit: mohammed sergie sergi",
+      "application": "Credit: mohammed sergie sergi.",
+      "latency_s": 0.07862690000911243,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4418357142857143
+    },
+    {
+      "source": "si no tienen un video, hagan algo.",
+      "reference": "if you don't have video, make some.",
+      "raw": "if you don't have a video, do something, do anything.",
+      "application": "If you don't have a video, do something, do anything.",
+      "latency_s": 0.03741200000513345,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.6097
+    },
+    {
+      "source": "se están aprobando todo tipo de medidas, desde las más serias hasta las más ridículas.",
+      "reference": "everything from the most serious to the most ridiculous measures are being passed.",
+      "raw": "all kinds of measures are being adopted, from the most serious to the most ridiculous to the more fools.",
+      "application": "All kinds of measures are being adopted, from the most serious to the most ridiculous to the more fools.",
+      "latency_s": 0.10750589999952354,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5098153846153847
+    },
+    {
+      "source": "vi también a los líderes tribales, a los cuales respeto mucho pero cuyo sitio no está en el parlamento.",
+      "reference": "i also saw tribal leaders whom i respect a lot but whose place isn't in parliament.",
+      "raw": "i also saw tribal leaders, which i respect a great deal but whose place is not in parliament in parliament.",
+      "application": "I also saw tribal leaders, which I respect a great deal but whose place is not in parliament in parliament.",
+      "latency_s": 0.07647199998609722,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5008086956521739
+    },
+    {
+      "source": "pero no todos podrán adquirir un dominio nuevo.",
+      "reference": "but not everyone will be able to afford a new domain.",
+      "raw": "but not everyone will be able to acquire a new domain with new domain",
+      "application": "But not everyone will be able to acquire a new domain with new domain.",
+      "latency_s": 0.05470690000220202,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5470588235294118
+    },
+    {
+      "source": "@nadooi_wish fui a #luluroundabout (rotonda de lulu). el tráfico circulaba sin problemas.",
+      "reference": "@nadooi_wish went to #luluroundabout .. traffic went smooth.",
+      "raw": "swimmoioi went to luroundabout (lout round). traffic was without problems.",
+      "application": "Swimmoioi went to luroundabout (lout round). traffic was without problems.",
+      "latency_s": 0.2229628000059165,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.4620241379310345
+    },
+    {
+      "source": "guy scott es zambiano y califica para ser presidente republicano.",
+      "reference": "guy scott is a zambian and he qualifies to be republican president.",
+      "raw": "guy scott is zambiano and califies for being republican president.",
+      "application": "Guy scott is zambiano and califies for being republican president.",
+      "latency_s": 0.12723330000881106,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3928173913043477
+    },
+    {
+      "source": "entre sus demandas están un límite a los elevados costos de vida y una solución al problema del desempleo.",
+      "reference": "among their demands are a cap on rising costs of living and a solution to the problem of unemployment.",
+      "raw": "among their demands are a limit to the high cost of life and a solution to the problem of unemployment.",
+      "application": "Among their demands are a limit to the high cost of life and a solution to the problem of unemployment.",
+      "latency_s": 0.10675450001144782,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5095045454545455
+    },
+    {
+      "source": "ha pasado un mes desde el incidente y los ciudadanos siguen compartiendo consejos de limpieza y actualizaciones en internet sobre nuevas zonas de contaminación por plástico:",
+      "reference": "a month has passed since the incident and citizens continue to share clean-up tips and update on new plastic pollution areas online:",
+      "raw": "it has been a month since the incident and the citizens are still shared by cleaning and updating councils on the internet on new plastic pollution areas:",
+      "application": "It has been a month since the incident and the citizens are still shared by cleaning and updating councils on the internet on new plastic pollution areas:.",
+      "latency_s": 0.20106040002428927,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39894285714285715
+    },
+    {
+      "source": "algunos internautas se preguntan si esta es una señal de reforma política siguiendo el nuevo liderazgo del 18 congreso del partido comunista chino.",
+      "reference": "some netizens wonder if this is a sign of political reform following the 18th ccp congress new leadership.",
+      "raw": "some internauts are wondering whether this is a political reform signal following the new leadership of the 18 congress of the chinese communist party.",
+      "application": "Some internauts are wondering whether this is a political reform signal following the new leadership of the 18 congress of the chinese communist party.",
+      "latency_s": 0.22407290001865476,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38761621621621617
+    },
+    {
+      "source": "el bipartidismo institucionalizado y la interminable reelección legislativa imposibilitan debates verdaderos sobre asuntos cruciales, como la desigualdad, el racismo y la corrupción.",
+      "reference": "the institutionalised two-party system and the interminable legislative re-election make real debates about crucial matters impossible, like inequality, racism and corruption.",
+      "raw": "the institutionalised biarm and the endless legislative resection imposes genuine debates on crucial issues, such as inequality, racism and corruption.",
+      "application": "The institutionalised biarm and the endless legislative resection imposes genuine debates on crucial issues, such as inequality, racism and corruption.",
+      "latency_s": 0.16802939999615774,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.34591578947368423
+    },
+    {
+      "source": "una mirada al gran potencial de internet",
+      "reference": "a look back at the great potential of the internet · global voices",
+      "raw": "look at the great potential of the internet internets",
+      "application": "Look at the great potential of the internet internets.",
+      "latency_s": 0.03884279998601414,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5096153846153846
+    },
+    {
+      "source": "si eres de un país que no usa letras latinas, tal vez nunca puedas entender qué dice internet… piénsalo de otra manera, ¿si internet se hubiera creado en china en vez de eeuu y todos tuviéramos que escribir las direcciones web en chino?",
+      "reference": "if you are from a country that does not use latin letter, you might never be able to understand what the internet says... think about it in a different way, what if the internet was created in china, instead of in the u.s., and we all had to write the web addresses in chinese?",
+      "raw": "if you are from a country that does not use latin letters, maybe you can never understand what the internet says about it differently, would you have created in china instead of the usa and we all had to write the website directions in china?",
+      "application": "If you are from a country that does not use latin letters, maybe you can never understand what the internet says about it differently, would you have created in china instead of the usa and we all had to write the website directions in china?",
+      "latency_s": 0.48027250001905486,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4311854838709678
+    },
+    {
+      "source": "finalmente, german petersen c. (@germanpetersenc) recordó que el proceso electoral de la unión americana influye también en la forma en que se desarrollan elecciones en méxico:",
+      "reference": "finally, german petersen c. (@germanpetersenc) pointed out that the electoral process of the united states also influences the way in which elections develop in mexico:",
+      "raw": "finally, german petersen c. (germanpetersens) reminded that the american electoral process also affects the way elections are developed in mexico:",
+      "application": "Finally, german petersen c. (germanpetersens) reminded that the american electoral process also affects the way elections are developed in mexico:.",
+      "latency_s": 0.21157760001369752,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36791428571428575
+    },
+    {
+      "source": "foto un/basil zoma en flickr (cc-nc-nd)",
+      "reference": "un photo/basil zoma on flickr (cc-nc-nd)",
+      "raw": "photo a basil zoma in flickr (c-ncnd)",
+      "application": "Photo a basil zoma in flickr (c-ncnd).",
+      "latency_s": 0.17490889999317005,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.47984782608695653
+    },
+    {
+      "source": "básicamente establecieron que ese artículo no se aplicaría para los zambianos cuyos padres hubieran nacido antes de 1964, es decir, antes de que existiera la república de zambia.",
+      "reference": "in essence they ruled that, this article couldn’t apply to zambians whose parents were born before 1964—before there was a republic of zambia.",
+      "raw": "basically established that this article would not apply to the zambians whose parents had been born before 1964, that is, before the republic of zambia existed.",
+      "application": "Basically established that this article would not apply to the zambians whose parents had been born before 1964, that is, before the republic of zambia existed.",
+      "latency_s": 0.16522870000335388,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42554736842105273
+    },
+    {
+      "source": "la afirmación tiene dos versiones: una publicada en hong kong y una en taiwán.",
+      "reference": "the statement has two versions one published in hong kong and one in taiwan.",
+      "raw": "the assertion has two versions: an published in hong kong and one in taiwan.",
+      "application": "The assertion has two versions: an published in hong kong and one in taiwan.",
+      "latency_s": 0.14347690000431612,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4281680000000001
+    },
+    {
+      "source": "la mayoría de las páginas kazajas han perdido a sus visitantes... y el dinero que habían invertido en la optimización del buscador .",
+      "reference": "majority of kazakhstani websites have lost their visitors ... and money they had invested in search engine optimization .",
+      "raw": "most kazakhas pages have lost their visitors... and the money they had spent in the optimisation of the searcher.",
+      "application": "Most kazakhas pages have lost their visitors... and the money they had spent in the optimisation of the searcher.",
+      "latency_s": 0.24160560002201237,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40356249999999994
+    },
+    {
+      "source": "@mauritaniedem1: los manifestantes ahora son más de 5000 y están aumentando. :) #mauritania",
+      "reference": "@mauritaniedem1: the protesters now are more then 5000 and they r increasing. :)#mauritania",
+      "raw": "mauritaniedem1: the demonstrators are now more than 5,000 and are increasing, a.mauritania",
+      "application": "Mauritaniedem1: the demonstrators are now more than 5,000 and are increasing, a.mauritania.",
+      "latency_s": 0.16467430000193417,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4264533333333333
+    },
+    {
+      "source": "por supuesto, también ayuda que publiquemos nuestra crítica potencialmente ofensiva en un un periódico tan \"confiable\" como el ñame, donde muy pocas ideas pueden ser muy ofensivas.",
+      "reference": "of course, it also helps that we publish our potentially offensive critique in such a \"reputable\" newspaper such as el ñame, where very few ideas can ever be too offensive.",
+      "raw": "of course, it also helps us to publish our potentially offensive criticism in a \"trust\" newspaper such as name, where very few ideas can be very offensive.",
+      "application": "Of course, it also helps us to publish our potentially offensive criticism in a \"trust\" newspaper such as name, where very few ideas can be very offensive.",
+      "latency_s": 0.26981460000388324,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3853625
+    },
+    {
+      "source": "además de las implicaciones políticas y étnicas de los disturbios, una importante pregunta es: ¿cómo se moviliza un grupo tan grande de manifestantes?",
+      "reference": "besides the many political and ethnic implications of the riots, an important question is: how did such a large group of protesters mobilize?",
+      "raw": "in addition to the political and ethnic implications of disturbs, an important question is this: how is such a large group of demonstrators mobilished?",
+      "application": "In addition to the political and ethnic implications of disturbs, an important question is this: how is such a large group of demonstrators mobilished?",
+      "latency_s": 0.1784973000176251,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41726486486486486
+    },
+    {
+      "source": "el blog dice que la democratización empujada desde fuera ha exacerbado la polarización y el conflicto en la política local.",
+      "reference": "the blog says that democratization pushed from outside has exacerbated polarization and conflict in local politics.",
+      "raw": "the blog says that democratisation set out from outside has led to polarisation and conflict in local policy.",
+      "application": "The blog says that democratisation set out from outside has led to polarisation and conflict in local policy.",
+      "latency_s": 0.13269530000980012,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4748695652173913
+    },
+    {
+      "source": "ayuden a las víctimas de las inundaciones! amur13.ru",
+      "reference": "help the flood victims! amur13.ru",
+      "raw": "they help the victims of floodations! mur13.ru ru",
+      "application": "They help the victims of floodations! mur13.ru ru.",
+      "latency_s": 0.06284420000156388,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.45644210526315787
+    },
+    {
+      "source": "una de las pancartas que se vieron en el cierre de la campaña del partido verde en bogotá.",
+      "reference": "sign calling to vote blank to destroy \"the matrix\" at closing of the green party campaign in bogotá.",
+      "raw": "one of the panletters that were at the closure of the green party campaign in bogotta.",
+      "application": "One of the panletters that were at the closure of the green party campaign in bogotta.",
+      "latency_s": 0.12415339998551644,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4358520000000001
+    },
+    {
+      "source": "bahréin: cortejo fúnebre en el tercer día de las protestas",
+      "reference": "bahrain: funeral procession marks third day of protests · global voices",
+      "raw": "bahrin: foot cut on the third day of protests",
+      "application": "Bahrin: foot cut on the third day of protests.",
+      "latency_s": 0.04787539999233559,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.51444
+    },
+    {
+      "source": "a la fecha, los grupos ambientalistas siguen coordinando las acciones de limpieza a través de facebook.",
+      "reference": "currently, environmental groups are still coordinating the clean-up action via facebook.",
+      "raw": "at the date, the environmental groups continue to coordinate action by means of facebook.",
+      "application": "At the date, the environmental groups continue to coordinate action by means of facebook.",
+      "latency_s": 0.11090830000466667,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.46234210526315794
+    },
+    {
+      "source": "foto de sergio alvarez, copyright demotix.",
+      "reference": "photo by sergio alvarez, copyright demotix.",
+      "raw": "photo of sergio alvarez, copyright demotix.",
+      "application": "Photo of sergio alvarez, copyright demotix.",
+      "latency_s": 0.10414660000242293,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.4262190476190476
+    },
+    {
+      "source": "tras 18 años de reformas democráticas, las necesidades económicas inmediatas de la sociedad dan preferencia a los candidatos con dinero e influencia familiar y aplasta el cambio de candidatos políticos, excepto los islamistas, que cuentan con el apoyo de los sentimientos religiosos.",
+      "reference": "after 18 years of democratic reform, the immediate economic needs of society gives preference to candidates with money and family influence and squashes changes of political candidates, except the islamists, who are supported by religious sentiments.",
+      "raw": "after 18 years of democratic reforms, the immediate economic needs of society give preference to candidates with money and family influence and crushes the change of political candidates, except islamislands, who have the support of religious sentiments.",
+      "application": "After 18 years of democratic reforms, the immediate economic needs of society give preference to candidates with money and family influence and crushes the change of political candidates, except islamislands, who have the support of religious sentiments.",
+      "latency_s": 0.37459140000282787,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3425589285714286
+    },
+    {
+      "source": "el blog prooposición también ha publicado algunos artículos actualizados respecto de la situación.",
+      "reference": "the pro-opposition blog also posts some updates on the situation.",
+      "raw": "the opposition blocg has also published some updated articles in relation to the situation.",
+      "application": "The opposition blocg has also published some updated articles in relation to the situation.",
+      "latency_s": 0.08914669998921454,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40914347826086955
+    },
+    {
+      "source": "también dice que bush será visto de forma más favorable en menos de 50 años”, escribe el blogger irakí abbas hawazin, quien luego explica su posición ante una posible guerra civil en su país.",
+      "reference": "he also says bush will be looked upon more favorably in less than 50 years,\" writes iraqi blogger abbas hawazin, who further explains his position from a possible civil war in his country.",
+      "raw": "it also says that bush will be seen more favourably in less than 50 years, write the blgger iraq abbas hawain, who then explain his position to a possible civil war in his country.",
+      "application": "It also says that bush will be seen more favourably in less than 50 years, write the blgger iraq abbas hawain, who then explain his position to a possible civil war in his country.",
+      "latency_s": 0.2837205000105314,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4234422222222223
+    },
+    {
+      "source": "mesa redonda sobre vacaciones de voluntarios en benín. de youphil, con autorización.",
+      "reference": "round table on volunteer holidays in benin by youphil with permission",
+      "raw": "round table on voluntary holidays in benin from yophil with authorisation.",
+      "application": "Round table on voluntary holidays in benin from yophil with authorisation.",
+      "latency_s": 0.0861670000012964,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4647476190476191
+    },
+    {
+      "source": "en ese momento, todos podrán comprar un nombre de dominio al precio fijado por diferentes vendedores de dominios comerciales.",
+      "reference": "at that point, everyone will be able to purchase a domain name at the price set by different commercial domain sellers.",
+      "raw": "at the moment, everyone will be able to buy a domain name at the price set by different salesmen of commercial domines.",
+      "application": "At the moment, everyone will be able to buy a domain name at the price set by different salesmen of commercial domines.",
+      "latency_s": 0.13428910000948235,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4460793103448276
+    },
+    {
+      "source": "los estudiantes están protestando en contra del sistema de libre mercado de educación creado por pinochet, que ha sido responsable por el alza de costos, desigualdad y deficiente calidad de la educación gubernamental.",
+      "reference": "the students are protesting against the free market system of education created by pinochet, which has been responsible for rising costs, inequity, and poor quality of government education.",
+      "raw": "students are protesting against the free education market system created by pinochet, which has been responsible for the highness of costs, inequality and deficient quality of government education.",
+      "application": "Students are protesting against the free education market system created by pinochet, which has been responsible for the highness of costs, inequality and deficient quality of government education.",
+      "latency_s": 0.35539300000527874,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39008780487804884
+    },
+    {
+      "source": "la noticia se difundió mayormente entre los angloparlantes y se informó brevemente en el south china morning post el 31 de julio.",
+      "reference": "the news was mainly spread amongst english speakers and was briefly reported in the south china morning post on july 31.",
+      "raw": "the news greatly disseminated between the angloparts and was briefly informed in the south china morning post on 31 july on 31.",
+      "application": "The news greatly disseminated between the angloparts and was briefly informed in the south china morning post on 31 july on 31.",
+      "latency_s": 0.2862414999981411,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3795818181818181
+    },
+    {
+      "source": "sin embargo, como el problema del desempleo de los profesionales universitarios se mantiene en crecimiento desde que el tsunami financiero golpeara al continente a principios de año, hay más expectativas que las universidades faciliten entrenamiento práctico y vocacional en lugar de investigar habilidades y explorar el conocimiento.",
+      "reference": "however, as the problem of university graduate unemployment keeps elevating since the financial tsunami hit the continent early this year, there are more expectations for the universities to provide practical and vocational training rather than research skill and exploration of knowledge.",
+      "raw": "however, as the problem of unemployment of university professionals is maintained in growth since the financial tunami hit the continent at the beginning of year, there is more expectations than universities facilitate practical and vocational training instead of investigating skills and exploring knowledge.",
+      "application": "However, as the problem of unemployment of university professionals is maintained in growth since the financial tunami hit the continent at the beginning of year, there is more expectations than universities facilitate practical and vocational training instead of investigating skills and exploring knowledge.",
+      "latency_s": 0.5225009999994654,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3545294117647058
+    },
+    {
+      "source": "y luego distribuya estas piezas en su propio sitio web, en dogoodertv y en las redes sociales en las que es mas probable que haya personas que lo apoyen.",
+      "reference": "and then distribute those pieces on your own website, on dogoodertv and on the social networks that are likely to have people who will support you.",
+      "raw": "and then distribute these pieces in its own website, in doodertv and the social networks in which it is more likely that there are people who support it.",
+      "application": "And then distribute these pieces in its own website, in doodertv and the social networks in which it is more likely that there are people who support it.",
+      "latency_s": 0.2507546000124421,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4514153846153847
+    },
+    {
+      "source": "30 años mas? sí, facil!",
+      "reference": "30 more years? yes, easily!",
+      "raw": "thirty years old, yes, ease it!",
+      "application": "Thirty years old, yes, ease it!",
+      "latency_s": 0.02801249999902211,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5125818181818181
+    },
+    {
+      "source": "a través de este, las organizaciones sin fines de lucro pueden promover sus causas para una audiencia específica: aquella que está siempre interesada en oir lo que ellos tienen para decir, y están viendo de que manera pueden ayudar.",
+      "reference": "through it, non-profit organizations can promote their cause for a specific audience: one that is already interested in hearing what they have to say, and figuring ways in which they can help out.",
+      "raw": "via this means of lucro organisations can promote their causes for a specific hearing: those who are always interested in hearing what they have to say, and are seeing that they can help.",
+      "application": "Via this means of lucro organisations can promote their causes for a specific hearing: those who are always interested in hearing what they have to say, and are seeing that they can help.",
+      "latency_s": 0.21483909999369644,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41912926829268293
+    },
+    {
+      "source": "es una oportunidad en la que tendremos que invertir.",
+      "reference": "it is an opportunity we will have to invest in.",
+      "raw": "this is an opportunity where we will have to invest to investment.",
+      "application": "This is an opportunity where we will have to invest to investment.",
+      "latency_s": 0.04147709999233484,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5473642857142856
+    },
+    {
+      "source": "como quizá sabe el lector, el sistema electoral en estados unidos es absurdo.",
+      "reference": "as the reader may know, the electoral system in the united states is absurd.",
+      "raw": "as the reader may know, the electoral system in the united states is absurd in absurd.",
+      "application": "As the reader may know, the electoral system in the united states is absurd in absurd.",
+      "latency_s": 0.15827779998653568,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4865782608695653
+    },
+    {
+      "source": "el registro se abrirá al público en general en abril de 2010.",
+      "reference": "the registration will be opened to the general public in april 2010.",
+      "raw": "the registration will open to the public in general in april 2010.",
+      "application": "The registration will open to the public in general in april 2010.",
+      "latency_s": 0.05725810001604259,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5023631578947368
+    },
+    {
+      "source": "algunos funcionarios de gobierno de hong kong que quieren ganar ciertas posiciones políticas después de su retiro pueden renunciar a sus principios o recurrir a medios ilegítimos.",
+      "reference": "some hong kong government officials who want to gain certain political positions after their retirement may give up their principles or even resort to illegitimate means.",
+      "raw": "some hong kong government officials who want to win certain political positions after their withdrawal can renounce their principles or resort to illegitimate resources.",
+      "application": "Some hong kong government officials who want to win certain political positions after their withdrawal can renounce their principles or resort to illegitimate resources.",
+      "latency_s": 0.2418382999894675,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.385292105263158
+    },
+    {
+      "source": "tampoco existen organismos autónomos o tribunales electorales que organicen y califiquen las elecciones.",
+      "reference": "neither do autonomous organisations or electoral tribunals that organise and evaluate the elections exist.",
+      "raw": "nor do there are autonomous bodies or electoral courts to organise and calify the elections.",
+      "application": "Nor do there are autonomous bodies or electoral courts to organise and calify the elections.",
+      "latency_s": 0.15663680000579916,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40388076923076927
+    },
+    {
+      "source": "el primer paso para el registro empieza el 25 de noviembre de 2009, y continuará hasta el 25 de marzo de 2010.",
+      "reference": "the first stage of registration starts on november 25, 2009 and will continue until march 25, 2010.",
+      "raw": "the first step for register begins on 25 november 2009 and will continue until 25 march 2010.",
+      "application": "The first step for register begins on 25 november 2009 and will continue until 25 march 2010.",
+      "latency_s": 0.11348030000226572,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45484074074074077
+    },
+    {
+      "source": "pienso, aquí estoy, en un autobús a toda velocidad sin ningún cinturón de seguridad, mi vida en las manos de un loco que no le interesa si nos estrellamos o no.\"",
+      "reference": "i am thinking, here i am, in a sprinting bus wearing no seat belt my life in the hands of a lunatic who doesn’t care whether we will crash or not.\"",
+      "raw": "i think, here i am, on a bus at all speed without any insurance belt, my life in the hands of a crazy who does not care whether we star or not.\"",
+      "application": "I think, here I am, on a bus at all speed without any insurance belt, my life in the hands of a crazy who does not care whether we star or not.\".",
+      "latency_s": 0.22914760001003742,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4384636363636364
+    },
+    {
+      "source": "foto subida a twitter por reema al joresh mientras escribía: hemos sido arrestados inmediatamente, tuiteros sauditas comenzaron una etiqueta para expresar su frustración respecto a la noticia.",
+      "reference": "photo posted by reema al joresh on twitter as she tweeted: we have been arrested a hashtag was immediately started by saudi twitter users, who expressed their frustration.",
+      "raw": "photo subsidised twitter for reem to joresh while wry: we have been arrested immediately, saudi tuiters began a label to express his frustration about news.",
+      "application": "Photo subsidised twitter for reem to joresh while wry: we have been arrested immediately, saudi tuiters began a label to express his frustration about news.",
+      "latency_s": 0.3179832999885548,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3469584905660377
+    },
+    {
+      "source": "uno de los coordinadores del proyecto, orlando rizo (@orlandorizo), habló recientemente sobre los planes que tienen para la plataforma:",
+      "reference": "one of the organizers of the project, orlando rizo (@orlandorizo) , recently spoke about the plans for the platform:",
+      "raw": "one of the coordinators of the project, orlandorizo), recently talked about the plans they have for platform:",
+      "application": "One of the coordinators of the project, orlandorizo), recently talked about the plans they have for platform:.",
+      "latency_s": 0.1288203000149224,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41617419354838714
+    },
+    {
+      "source": "con el pseudónimo \"overseas neet\" (neet en el extranjero), el blogger criticaba con frecuencia la ética laboral japonesa y la noción común de que se debe dar prioridad al trabajo por sobre cualquier otro aspecto de la vida.",
+      "reference": "under the pseudonym \"overseas neet\", the blogger regularly criticized japanese working ethics and the common notion that one must prioritize work over any other aspect of life.",
+      "raw": "with the pseudonymous \"neet\" (net abroad), the bloger often criticised japanese labour ethics and the common notion that work should be given priority on any other aspect of life.",
+      "application": "With the pseudonymous \"neet\" (net abroad), the bloger often criticised japanese labour ethics and the common notion that work should be given priority on any other aspect of life.",
+      "latency_s": 0.4566709999926388,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39283888888888896
+    },
+    {
+      "source": "en el internet podemos encontrar opiniones a favor y en contra de la medida adoptada por el gobierno.",
+      "reference": "there are also online opinions for and against the government measure.",
+      "raw": "on the internet, we can find opinions in favour of and against the measure adopted by the government.",
+      "application": "On the internet, we can find opinions in favour of and against the measure adopted by the government.",
+      "latency_s": 0.1357401999994181,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5277318181818181
+    },
+    {
+      "source": "ese día, aproximadamente 3.300.000 nicaragüenses irán a las urnas para elegir los alcaldes, vice alcaldes y miembros del consejo de las 153 municipalidades del país.",
+      "reference": "on that date, approximately 3.3 million nicaraguans will head to the polls to elect mayors, vice-mayors, and council members in the 153 municipalities across the country.",
+      "raw": "that day, approximately 3,00,000 nicaraguans will go to the urns to choose the mayors, vice mayor and members of the council of 153 municipalities in the country.",
+      "application": "That day, approximately 3,00,000 nicaraguans will go to the urns to choose the mayors, vice mayor and members of the council of 153 municipalities in the country.",
+      "latency_s": 0.3183773999917321,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3874509803921569
+    },
+    {
+      "source": "esta no es la primera vez que residentes de este centro de rehabilitación han sido blanco de ataques (a menudo, se dice que los centros de rehabilitación son también centros de operaciones de las pandillas) \"",
+      "reference": "this is not the first time rehab center residents have been targeted (often, rehab centers are said to double as gangs' centers of operation) \"",
+      "raw": "this is not the first time that residents from this rehabilitation centre have often been targeted by attacks (the fact that rehabitation centres are also centres of pandillas)",
+      "application": "This is not the first time that residents from this rehabilitation centre have often been targeted by attacks (the fact that rehabitation centres are also centres of pandillas).",
+      "latency_s": 0.30815159998019226,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40053913043478256
+    },
+    {
+      "source": "y si tiene un video, mi consejo es no lo deje dentro de una caja.",
+      "reference": "and if you have video, my advice is not to let it sit on a shelf.",
+      "raw": "and if you have a video, my advice is not to leave it within a box.",
+      "application": "And if you have a video, my advice is not to leave it within a box.",
+      "latency_s": 0.09892329998547211,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5047952380952381
+    },
+    {
+      "source": "tiene que trabajar las comunidades.",
+      "reference": "you have to work the communities.",
+      "raw": "the communities must work together must be done.",
+      "application": "The communities must work together must be done.",
+      "latency_s": 0.024315500020748004,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.62739
+    },
+    {
+      "source": "el blogger jordano batir wardam plantea en esta entrada su escepticismo acerca del progreso democrático de jordania.",
+      "reference": "jordanian blogger batir wardam discusses his skepticism with jordan's democratic political progress in this post (ar).",
+      "raw": "the bloger jordan batir wardam is at this moment posing its scepticism on the democratic progress of jordania.",
+      "application": "The bloger jordan batir wardam is at this moment posing its scepticism on the democratic progress of jordania.",
+      "latency_s": 0.14773679999052547,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41518571428571427
+    },
+    {
+      "source": "los resultados de las elecciones presidenciales en colombia del 30 de mayo sorprendieron a muchos quienes, con base en las encuestas y en la campaña por internet, esperaban una contienda más reñida entre los más opcionados, el derechista juan manuel santos (partido de la u) y el centrista antanas mockus (partido verde).",
+      "reference": "the results of the colombian presidential elections held on may 30 surprised a lot of people which, based on opinion polls and the internet campaign, expected a more disputed contest between the frontrunners, right-wing candidate juan manuel santos (party of the u) and centrist candidate antanas mockus (green party).",
+      "raw": "the results of the presidential elections in colombia of 30 may surprised many who, on the basis of surveys and on the internet campaign, expected a more recorded concert between the most optioned, the right player john manuel santos (the eu) and the centrist antanas mokus game (ver).",
+      "application": "The results of the presidential elections in colombia of 30 may surprised many who, on the basis of surveys and on the internet campaign, expected a more recorded concert between the most optioned, the right player john manuel santos (the eu) and the centrist antanas mokus game (ver).",
+      "latency_s": 0.7914957000175491,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36281162790697674
+    },
+    {
+      "source": "rusia se convirtió en el primer país que permite dominios de nivel superior en caracteres no latinos.",
+      "reference": "russia became the first country that allows top-level domains in non-latin characters.",
+      "raw": "russia became the first country that allows higher level domines in non-latin characters.",
+      "application": "Russia became the first country that allows higher level domines in non-latin characters.",
+      "latency_s": 0.11965149999014102,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4302666666666667
+    },
+    {
+      "source": "había una verdadera sensación de emoción y objetivo en el aire — como dijo un estudiante: “es bueno sentir a todos tan unidos”.",
+      "reference": "there was a real sense of excitement and purpose in the air — as one student said, “it’s good to feel everyone so united”.",
+      "raw": "there was a real feeling of emotion and objective in the air as a student: it is good to feel to everyone so united .",
+      "application": "There was a real feeling of emotion and objective in the air as a student: it is good to feel to everyone so united.",
+      "latency_s": 0.12660950000281446,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4986333333333334
+    },
+    {
+      "source": "¿el catalizador de estos actos?",
+      "reference": "the catalyst for these actions?",
+      "raw": "is the catalyst of these acts to catalyse these actes?",
+      "application": "Is the catalyst of these acts to catalyse these actes?",
+      "latency_s": 0.043853199982549995,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5606187499999999
+    },
+    {
+      "source": "kejriwal pasó su ayuno en el empobrecido barrio de sundar nagari de delhi, donde muchos de los residentes habían recibido facturas de electricidad desproporcionadas a su uso real.",
+      "reference": "kejriwal spent his fast in delhi’s impoverished neighborhood sundar nagari, where many of the residents had received electricity bills disproportionate to their actual use.",
+      "raw": "kaxriwal passed his breakfast in the poor neighborhood of sundar nagari de delhi, where many of the residents had received disproportionate electricity bills to their real use.",
+      "application": "Kaxriwal passed his breakfast in the poor neighborhood of sundar nagari de delhi, where many of the residents had received disproportionate electricity bills to their real use.",
+      "latency_s": 0.43321640000795014,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3558836363636364
+    },
+    {
+      "source": "la segunda semana de junio, los usuarios kazajos de la red empezaron a observar un fenómeno raro.",
+      "reference": "earlier this week kazakhstani internet users began to observe a curious phenomenon.",
+      "raw": "the second week of june, the kazajan users of the network began to observe a weird phenomenon.",
+      "application": "The second week of june, the kazajan users of the network began to observe a weird phenomenon.",
+      "latency_s": 0.2296543999982532,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35165
+    },
+    {
+      "source": "moraima guanipa (@haticos) dice:",
+      "reference": "moraima guanipa (@haticos) says:",
+      "raw": "moraima guanipa haticos) says:",
+      "application": "Moraima guanipa haticos) says:.",
+      "latency_s": 0.05606850000913255,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.46249411764705883
+    },
+    {
+      "source": "mauritania: el terror atrapa a la ciudad",
+      "reference": "mauritania: terror grips town · global voices",
+      "raw": "mauritania: terror catches the city",
+      "application": "Mauritania: terror catches the city.",
+      "latency_s": 0.05613359998096712,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35140714285714286
+    },
+    {
+      "source": "hemos invertido mucho tiempo discutiendo la ley electoral y la injusticia de tener un sistema con una voz y el desmantelamiento del proceso político.",
+      "reference": "we have spent a long time discussing the electoral law and the injustice of having a system with one voice and the dismantling of the political process.",
+      "raw": "we have spent a long time discussing electoral law and injustice of having a system with a voice and dismantling the political process.",
+      "application": "We have spent a long time discussing electoral law and injustice of having a system with a voice and dismantling the political process.",
+      "latency_s": 0.15925910000805743,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4497933333333333
+    },
+    {
+      "source": "“¿estas seguro de tus amigos?” pregunta bakkouz, desde jordania.",
+      "reference": "\"do you take your friends for granted?\" asks bakkouz, from jordan.",
+      "raw": "are you sure of your friends? question bakouz, from jordania, jordania.",
+      "application": "Are you sure of your friends? question bakouz, from jordania, jordania.",
+      "latency_s": 0.11468560001230799,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45398333333333324
+    },
+    {
+      "source": "al-hamid (el segundo desde la izquierda) hablando después de la sesión.",
+      "reference": "al-hamid (second from left) speaking after the session. via @alajmi01",
+      "raw": "al-hamid (the second from the left) speaking after the session.",
+      "application": "Al-hamid (the second from the left) speaking after the session.",
+      "latency_s": 0.06057959998724982,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5252833333333333
+    },
+    {
+      "source": "esta es la temporada del intercambio de intereses, ya que los votos serán a cambio de intereses monetarios y todos esos candidatos cuyas fotografías vemos hoy y que están calentando motores no serán vistos después de las elecciones cuando solo oigamos de ellos a través de la prensa.",
+      "reference": "this is the season of exchange of interests as votes will be in exchange for money interests and all those candidates whose pictures we see today and who are warming up to us will not be seen after the elections when we will only hear about them through the media.",
+      "raw": "this is the season of exchange of interests, because votes will be in exchange for monetary interests and all those candidates whose photographs we see today and that engines will not be seen after the elections when we only hear from them through the press.",
+      "application": "This is the season of exchange of interests, because votes will be in exchange for monetary interests and all those candidates whose photographs we see today and that engines will not be seen after the elections when we only hear from them through the press.",
+      "latency_s": 0.5182604000146966,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41769999999999996
+    },
+    {
+      "source": "¡¡¡buen dios!!! allá también va #mauritania.",
+      "reference": "holy god!!! there goes #mauritania too.",
+      "raw": "good god! there is also mauritania.",
+      "application": "Good god! there is also mauritania.",
+      "latency_s": 0.05372299998998642,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.48137692307692304
+    },
+    {
+      "source": "estampillas de laos",
+      "reference": "stamps from laos · global voices",
+      "raw": "stamps of laos stamped",
+      "application": "Stamps of laos stamped.",
+      "latency_s": 0.044641700020292774,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.46076999999999996
+    },
+    {
+      "source": "la noticia ha sacudido a la sociedad de hong kong.",
+      "reference": "the news has shaken hong kong society.",
+      "raw": "the news has shocked the hong kong society society.",
+      "application": "The news has shocked the hong kong society society.",
+      "latency_s": 0.04368479998083785,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43069999999999997
+    },
+    {
+      "source": "chile: moderno día de los derechos humanos para los mapuches",
+      "reference": "chile: modern day human rights for the mapuche · global voices",
+      "raw": "chile: modern human rights day for mapuches maphes",
+      "application": "Chile: modern human rights day for mapuches maphes.",
+      "latency_s": 0.07805189999635331,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4502388888888889
+    },
+    {
+      "source": "en los países donde funciona peace and sport, la organización apoya al talento local y ayuda a diseñar e implementar programas para la juventud vulnerable, mientras fortalece la infrastructura deportiva existente deteriorada durante los conflictos armados.",
+      "reference": "in countries where peace and sport operates, the organization supports local actors and heps them design and implement programs for vulnerable youth, while strengthening existing sports facilities damaged during armed conflicts.",
+      "raw": "in the countries where peace and sport, the organisation supports the local talent and helps to design and implement programmes for vulnerable youth whilst strengthening the existing deteriorated sporting infringement during armed conflicts.",
+      "application": "In the countries where peace and sport, the organisation supports the local talent and helps to design and implement programmes for vulnerable youth whilst strengthening the existing deteriorated sporting infringement during armed conflicts.",
+      "latency_s": 0.41955500000040047,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3745321428571428
+    },
+    {
+      "source": "el sistema judicial saudita no reconoce los derechos del pueblo, y, especialmente, sus derechos políticos.",
+      "reference": "saudi judiciary does not grant people's rights, and especially their political rights.",
+      "raw": "the saudi judicial system does not recognise the rights of the people, and especially its political rights in particular its political rights.",
+      "application": "The saudi judicial system does not recognise the rights of the people, and especially its political rights in particular its political rights.",
+      "latency_s": 0.12526870000874624,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.536192
+    },
+    {
+      "source": "para dicho organismo, teleamazonas al difundir esa noticia violó el artículo 18, numeral 1 de la constitución vigente que establece el derecho de todas las personas a \"buscar, recibir, intercambiar, producir y difundir información veraz, verificada, oportuna, plural, sin censura previa acerca de los hechos, acontecimientos y procesos de interés general y con responsabilidad ulterior\".",
+      "reference": "according to the superintendent, upon spreading the news, teleamazonas violated article 18, number 1 of the current constitution that establishes the right of all persons to \"look for, receive, exchange, produce and spread true, verified, timely, diverse, uncensored facts, events, and general interest processes is and with ulterior responsibility.\"",
+      "raw": "for this organism, teleamazon when disseminating that news violated article 18, numerous of 1 of the existing constitution establishing the right of all people to 'seek, to receive, to promote and dispread veraze, verified information, plural, without any prior censory about events, events and ulterioral interest'.",
+      "application": "For this organism, teleamazon when disseminating that news violated article 18, numerous of 1 of the existing constitution establishing the right of all people to 'seek, to receive, to promote and dispread veraze, verified information, plural, without any prior censory about events, events and ulterioral interest'.",
+      "latency_s": 0.7269444999983534,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36987195121951216
+    },
+    {
+      "source": "un informe a página completa apareció en apple daily el 4 de agosto.",
+      "reference": "a full page report appeared in apple daily on august 4.",
+      "raw": "a full page report appeared in apple daily on 4 august.",
+      "application": "A full page report appeared in apple daily on 4 august.",
+      "latency_s": 0.08809219999238849,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47364117647058823
+    },
+    {
+      "source": "mientras tanto mariazul (@mariazul84) escribe:",
+      "reference": "meanwhile mariazul (@mariazul84) writes:",
+      "raw": "meanwhile, mariazul84) writing:",
+      "application": "Meanwhile, mariazul84) writing:.",
+      "latency_s": 0.058013000001665205,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.4008428571428571
+    },
+    {
+      "source": "es el dinero lo que da méritos a los candidatos y convence al electorado para votar por quien sea que tenga más dinero y sea capaz de otorgarles más regalos.",
+      "reference": "it is money which gives candidates merits and convinces the electorate to vote for whoever has the more money and is able to bestow them with his gifts.",
+      "raw": "it is the money that gives merits to the candidates and convince the electorate to vote for whoever has more money and can give them more gifts.",
+      "application": "It is the money that gives merits to the candidates and convince the electorate to vote for whoever has more money and can give them more gifts.",
+      "latency_s": 0.23953829999663867,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43253055555555553
+    },
+    {
+      "source": "global voices habló con joël bouzou acerca de su trabajo.",
+      "reference": "global voices spoke to joël bouzou about his work.",
+      "raw": "the overall voices spoke to jol bouzou about his work on his work.",
+      "application": "The overall voices spoke to jol bouzou about his work on his work.",
+      "latency_s": 0.06016520000412129,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5202857142857142
+    },
+    {
+      "source": "ucrania: esperando las elecciones",
+      "reference": "ukraine: waiting for the election · global voices",
+      "raw": "ukrainia: waiting the elections",
+      "application": "Ukrainia: waiting the elections.",
+      "latency_s": 0.025445600011153147,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43202999999999997
+    },
+    {
+      "source": "se ha vuelto una verdadera batalla, y no solamente una fachada, agregó.",
+      "reference": "it has to become a real battle, and not just a façade, he added.",
+      "raw": "a real battle, and not just a face, has turned out to be reduced, it",
+      "application": "A real battle, and not just a face, has turned out to be reduced, it.",
+      "latency_s": 0.06920619998709299,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5405954545454545
+    },
+    {
+      "source": "la conjunción \"nouchi\" significa \"bigote\", en referencia a los matones con bigote a quien todos temían.",
+      "reference": "the conjunction \"nouchi\" means \"moustache\", in reference to moustachioed thugs whom everyone was afraid of.",
+      "raw": "the 'nouchi' joint means \"bigote\", in reference to buttons with mustacks to whom everyone feared of.",
+      "application": "The 'nouchi' joint means \"bigote\", in reference to buttons with mustacks to whom everyone feared of.",
+      "latency_s": 0.17571509999106638,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3965727272727273
+    },
+    {
+      "source": "además, se realizó un mapa con google map para coordinar la limpieza:",
+      "reference": "in addition, a google map has been put up for coordinating the clean-up:",
+      "raw": "a map was also carried out with gogle map to coordinate cleaning:",
+      "application": "A map was also carried out with gogle map to coordinate cleaning:.",
+      "latency_s": 0.06674909999128431,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42966
+    },
+    {
+      "source": "procedo de una generación cuya concientización política empezó en la universidad, durante el periodo de apertura política de finales de los 90s.",
+      "reference": "i come from a generation whose political awareness began at university, during the period of political openness in the late 90s.",
+      "raw": "i come from a generation whose political consciousness started at university, during the period of political opening up for the end of 90s.",
+      "application": "I come from a generation whose political consciousness started at university, during the period of political opening up for the end of 90s.",
+      "latency_s": 0.1402003999974113,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4663515151515152
+    },
+    {
+      "source": "la organización apoya a las ongs locales y llega a casi 600 a través de programas sociales, educativos y de inclusión (alfabetización, salud, educación cívica).",
+      "reference": "the organization supports local ngos and reaches nearly 600 children through social, education and social inclusiveness programs (literacy, health, civic education).",
+      "raw": "the organisation supports local ngos and arrives almost 600 through social programmes, educational and inclusion (alphabettization, health, civic education).",
+      "application": "The organisation supports local ngos and arrives almost 600 through social programmes, educational and inclusion (alphabettization, health, civic education).",
+      "latency_s": 0.17276879999553785,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3562153846153846
+    },
+    {
+      "source": "los testigos aseguran que los hombres se acercaron a sviridov y a sus amigos, y después de una breve discusión comenzaron a disparar un arma automática, los asaltaron y huyeron.",
+      "reference": "the witnesses assert that the men approached sviridov and his friends, and after a short quarrel began shooting an automatic weapon, robbed them, and fled.",
+      "raw": "the witnesses assure that men came closer to sviriov and their friends, and after a short discussion began to shoot an automatic weapon, assaulted and fleet.",
+      "application": "The witnesses assure that men came closer to sviriov and their friends, and after a short discussion began to shoot an automatic weapon, assaulted and fleet.",
+      "latency_s": 0.27214300000923686,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3362553191489362
+    },
+    {
+      "source": "simpatizantes de hugo chávez durante evento de campaña del 11 de junio, 2012, en caracas.",
+      "reference": "hugo chávez supporters during campaign rally on june 11, 2012, in caracas.",
+      "raw": "sympathies of smoking champions for the event of campaign of 11 june, 2012, in cockroaches.",
+      "application": "Sympathies of smoking champions for the event of campaign of 11 june, 2012, in cockroaches.",
+      "latency_s": 0.10535060000256635,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38790322580645165
+    },
+    {
+      "source": "zambia: cibernauta lanza videoblog antes de las elecciones",
+      "reference": "zambia: netizen launches vlog ahead of elections · global voices",
+      "raw": "zambia: cibernauta launch videoblog before the elections",
+      "application": "Zambia: cibernauta launch videoblog before the elections.",
+      "latency_s": 0.07142900000326335,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40016956521739133
+    },
+    {
+      "source": "y lo dijeron de forma clara, obvia y franca.",
+      "reference": "and it openly, frankly and unequivocally said so.",
+      "raw": "and they made it clearly, obvious and french said so in a clear manner.",
+      "application": "And they made it clearly, obvious and french said so in a clear manner.",
+      "latency_s": 0.060192600009031594,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5848833333333334
+    },
+    {
+      "source": "tras cinco días de ayuno en protesta por la subida de los precios de servicios públicos, el activista anticorrupción indio arvind kejriwal fue nominado como aspirante en la encuesta de time 100 del 2013 , una lista anual de las 100 personas más influyentes del mundo.",
+      "reference": "five days into his fast in protest of hiked utility prices, indian anti-corruption activist arvind kejriwal was announced as a contender for the 2013 time 100 poll, an annual list of the 100 most influential people in the world.",
+      "raw": "after five days of ayone in protest because of the increase in public services prices, indian anticorruption attitude arvind kaxriwal was noomed as an aspirant in the time 100 2013 survey, an annual list of the 100 most influence people in the world.",
+      "application": "After five days of ayone in protest because of the increase in public services prices, indian anticorruption attitude arvind kaxriwal was noomed as an aspirant in the time 100 2013 survey, an annual list of the 100 most influence people in the world.",
+      "latency_s": 0.6606889999820851,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37719436619718316
+    },
+    {
+      "source": "el programa está organizado por el sitio de periodismo ciudadano huella libre, en colaboración con la brújula, que ayudó a darle difusión.",
+      "reference": "the project is organized by the citizen journalism site huella libre , in conjunction with la brújula , which helped with spreading the word.",
+      "raw": "the programme is organised by the place of free citizenship, in collaboration with the brujula, which helped him disseminate.",
+      "application": "The programme is organised by the place of free citizenship, in collaboration with the brujula, which helped him disseminate.",
+      "latency_s": 0.1595802000083495,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37925161290322584
+    },
+    {
+      "source": "(correcciones: una versión anterior de este artículo informaba incorrectamente que la cadena de ciudades en siria estaba controlada por los ee.uu. y el pkk, y señalaba además que ocalan era sirio.",
+      "reference": "(corrections: an earlier version of this article incorrectly reported that the string of towns in syria are controlled by the u.s. and the pkk., and also stated that ocalan was syrian.",
+      "raw": "(correctly: a previous version of this article was incorrectly informed that the chain of towns in syria was controlled by the usa and the pk, and also pointed out that ocalan was syrium.",
+      "application": "(correctly: a previous version of this article was incorrectly informed that the chain of towns in syria was controlled by the usa and the pk, and also pointed out that ocalan was syrium.",
+      "latency_s": 0.2984633999876678,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3775428571428572
+    },
+    {
+      "source": "ecuador: gobierno suspende al canal de tv teleamazonas",
+      "reference": "ecuador: government suspends television channel teleamazonas · global voices",
+      "raw": "equator: government suspends the tv teleamazons channel of tv canal",
+      "application": "Equator: government suspends the tv teleamazons channel of tv canal.",
+      "latency_s": 0.07211829998414032,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.455909090909091
+    }
+  ]
+}

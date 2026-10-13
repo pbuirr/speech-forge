@@ -1,0 +1,627 @@
+{
+  "language": "en",
+  "training_source": {
+    "name": "en_ewt-ud-train.conllu",
+    "url": "https://github.com/UniversalDependencies/UD_English-EWT/tree/4a4d77f599ea53cc405f85d0cec4b2f14f81d42b",
+    "declared_license": "CC-BY-SA-4.0",
+    "sha256": "d68e06122a702464c613076523d56740f047e5bbe89dd90ec32737e04d952143"
+  },
+  "model_sha256": "db858b843119719b3cbf96783e799ed3b10bf8571a7b22a9cc309aa2bea28f5e",
+  "development": {
+    "sha256": "39239e0a60db3ae68f4b7036189f11b6692741d10ff8240dd91f74f2760d90f8",
+    "sentences": 2001,
+    "excluded_overlap_sentences": 68,
+    "unscored_tokens": 102,
+    "foreign_tokens": 0
+  },
+  "test": {
+    "sha256": "fa024f43dc5da3c5ac02563bc9bd0e974f46cbb1560823976a8f342a37dc494a",
+    "sentences": 2077,
+    "excluded_overlap_sentences": 115,
+    "unscored_tokens": 169,
+    "foreign_tokens": 0
+  },
+  "development_tokens": 24909,
+  "test_tokens": 24690,
+  "test_raw": {
+    "tokens": 24690,
+    "accuracy": 0.9011340623734305,
+    "mean_score": 0.9215581710680935,
+    "binary_brier": 0.05781482026572371,
+    "ece_10_bins": 0.02158979827250748,
+    "bins": [
+      {
+        "bin": 0,
+        "tokens": 3,
+        "mean_score": 0.08428751881634261,
+        "accuracy": 0.0
+      },
+      {
+        "bin": 1,
+        "tokens": 76,
+        "mean_score": 0.15869335259180914,
+        "accuracy": 0.06578947368421052
+      },
+      {
+        "bin": 2,
+        "tokens": 269,
+        "mean_score": 0.2550930585309325,
+        "accuracy": 0.2936802973977695
+      },
+      {
+        "bin": 3,
+        "tokens": 435,
+        "mean_score": 0.3460862870966091,
+        "accuracy": 0.21839080459770116
+      },
+      {
+        "bin": 4,
+        "tokens": 432,
+        "mean_score": 0.4559942810571483,
+        "accuracy": 0.4652777777777778
+      },
+      {
+        "bin": 5,
+        "tokens": 736,
+        "mean_score": 0.550154980459384,
+        "accuracy": 0.4673913043478261
+      },
+      {
+        "bin": 6,
+        "tokens": 803,
+        "mean_score": 0.652357611539963,
+        "accuracy": 0.6425902864259029
+      },
+      {
+        "bin": 7,
+        "tokens": 850,
+        "mean_score": 0.7511702921109478,
+        "accuracy": 0.72
+      },
+      {
+        "bin": 8,
+        "tokens": 1191,
+        "mean_score": 0.8545170518237283,
+        "accuracy": 0.81696053736356
+      },
+      {
+        "bin": 9,
+        "tokens": 19895,
+        "mean_score": 0.9921999901768386,
+        "accuracy": 0.9763257099773812
+      }
+    ],
+    "selective_accuracy": [
+      {
+        "threshold": 0.0,
+        "tokens": 24690,
+        "coverage": 1.0,
+        "accuracy": 0.9011340623734305
+      },
+      {
+        "threshold": 0.5,
+        "tokens": 23475,
+        "coverage": 0.9507897934386391,
+        "accuracy": 0.9315867944621938
+      },
+      {
+        "threshold": 0.8,
+        "tokens": 21086,
+        "coverage": 0.8540299716484406,
+        "accuracy": 0.9673242909987669
+      },
+      {
+        "threshold": 0.9,
+        "tokens": 19895,
+        "coverage": 0.8057918185500202,
+        "accuracy": 0.9763257099773812
+      },
+      {
+        "threshold": 0.95,
+        "tokens": 18790,
+        "coverage": 0.7610368570271365,
+        "accuracy": 0.9814262905800958
+      },
+      {
+        "threshold": 0.98,
+        "tokens": 17399,
+        "coverage": 0.7046982584042122,
+        "accuracy": 0.9835622736938905
+      }
+    ]
+  },
+  "test_calibrated": {
+    "tokens": 24690,
+    "accuracy": 0.9011340623734305,
+    "mean_score": 0.8942546684837369,
+    "binary_brier": 0.057586673044005034,
+    "ece_10_bins": 0.011283788177790641,
+    "bins": [
+      {
+        "bin": 0,
+        "tokens": 81,
+        "mean_score": 0.08935920047031157,
+        "accuracy": 0.06172839506172839
+      },
+      {
+        "bin": 1,
+        "tokens": 117,
+        "mean_score": 0.1346153846153846,
+        "accuracy": 0.27350427350427353
+      },
+      {
+        "bin": 2,
+        "tokens": 585,
+        "mean_score": 0.29549282158696777,
+        "accuracy": 0.24273504273504273
+      },
+      {
+        "bin": 4,
+        "tokens": 802,
+        "mean_score": 0.4339761495513437,
+        "accuracy": 0.4713216957605985
+      },
+      {
+        "bin": 5,
+        "tokens": 723,
+        "mean_score": 0.5619237228493581,
+        "accuracy": 0.5325034578146611
+      },
+      {
+        "bin": 6,
+        "tokens": 943,
+        "mean_score": 0.6484821532185838,
+        "accuracy": 0.6850477200424178
+      },
+      {
+        "bin": 7,
+        "tokens": 930,
+        "mean_score": 0.7258857188651154,
+        "accuracy": 0.7741935483870968
+      },
+      {
+        "bin": 8,
+        "tokens": 1818,
+        "mean_score": 0.8578639400365766,
+        "accuracy": 0.8729372937293729
+      },
+      {
+        "bin": 9,
+        "tokens": 18691,
+        "mean_score": 0.9781599493564042,
+        "accuracy": 0.9819699320528597
+      }
+    ],
+    "selective_accuracy": [
+      {
+        "threshold": 0.0,
+        "tokens": 24690,
+        "coverage": 1.0,
+        "accuracy": 0.9011340623734305
+      },
+      {
+        "threshold": 0.5,
+        "tokens": 23105,
+        "coverage": 0.935803969218307,
+        "accuracy": 0.9388444059727332
+      },
+      {
+        "threshold": 0.8,
+        "tokens": 20509,
+        "coverage": 0.8306601863102471,
+        "accuracy": 0.9723048417767809
+      },
+      {
+        "threshold": 0.9,
+        "tokens": 18691,
+        "coverage": 0.7570271364925071,
+        "accuracy": 0.9819699320528597
+      },
+      {
+        "threshold": 0.95,
+        "tokens": 18691,
+        "coverage": 0.7570271364925071,
+        "accuracy": 0.9819699320528597
+      },
+      {
+        "threshold": 0.98,
+        "tokens": 0,
+        "coverage": 0.0,
+        "accuracy": null
+      }
+    ]
+  },
+  "by_form": {
+    "known": {
+      "raw": {
+        "tokens": 22576,
+        "accuracy": 0.940822111977321,
+        "mean_score": 0.9576230310806838,
+        "binary_brier": 0.04380342095010745,
+        "ece_10_bins": 0.016969719714860755,
+        "bins": [
+          {
+            "bin": 2,
+            "tokens": 8,
+            "mean_score": 0.26704793015732314,
+            "accuracy": 0.375
+          },
+          {
+            "bin": 3,
+            "tokens": 30,
+            "mean_score": 0.3640584309273865,
+            "accuracy": 0.26666666666666666
+          },
+          {
+            "bin": 4,
+            "tokens": 140,
+            "mean_score": 0.4587717678239975,
+            "accuracy": 0.39285714285714285
+          },
+          {
+            "bin": 5,
+            "tokens": 457,
+            "mean_score": 0.5542810473909513,
+            "accuracy": 0.48577680525164113
+          },
+          {
+            "bin": 6,
+            "tokens": 550,
+            "mean_score": 0.6490149004657313,
+            "accuracy": 0.6509090909090909
+          },
+          {
+            "bin": 7,
+            "tokens": 670,
+            "mean_score": 0.7512516099740685,
+            "accuracy": 0.7402985074626866
+          },
+          {
+            "bin": 8,
+            "tokens": 1014,
+            "mean_score": 0.8572898817787218,
+            "accuracy": 0.8264299802761341
+          },
+          {
+            "bin": 9,
+            "tokens": 19707,
+            "mean_score": 0.992495875226722,
+            "accuracy": 0.9773177043690059
+          }
+        ],
+        "selective_accuracy": [
+          {
+            "threshold": 0.0,
+            "tokens": 22576,
+            "coverage": 1.0,
+            "accuracy": 0.940822111977321
+          },
+          {
+            "threshold": 0.5,
+            "tokens": 22398,
+            "coverage": 0.992115520907158,
+            "accuracy": 0.9453522635949638
+          },
+          {
+            "threshold": 0.8,
+            "tokens": 20721,
+            "coverage": 0.9178330970942594,
+            "accuracy": 0.9699338834998311
+          },
+          {
+            "threshold": 0.9,
+            "tokens": 19707,
+            "coverage": 0.8729181431608788,
+            "accuracy": 0.9773177043690059
+          },
+          {
+            "threshold": 0.95,
+            "tokens": 18691,
+            "coverage": 0.8279145995747696,
+            "accuracy": 0.9819699320528597
+          },
+          {
+            "threshold": 0.98,
+            "tokens": 17331,
+            "coverage": 0.767673635719348,
+            "accuracy": 0.9837862789221626
+          }
+        ]
+      },
+      "calibrated": {
+        "tokens": 22576,
+        "accuracy": 0.940822111977321,
+        "mean_score": 0.9351837820013197,
+        "binary_brier": 0.043833163756119,
+        "ece_10_bins": 0.008766603143125572,
+        "bins": [
+          {
+            "bin": 0,
+            "tokens": 2,
+            "mean_score": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "bin": 2,
+            "tokens": 36,
+            "mean_score": 0.2978723404255319,
+            "accuracy": 0.3055555555555556
+          },
+          {
+            "bin": 4,
+            "tokens": 140,
+            "mean_score": 0.4931506849315068,
+            "accuracy": 0.39285714285714285
+          },
+          {
+            "bin": 5,
+            "tokens": 723,
+            "mean_score": 0.5619237228493581,
+            "accuracy": 0.5325034578146611
+          },
+          {
+            "bin": 6,
+            "tokens": 601,
+            "mean_score": 0.6624972917137886,
+            "accuracy": 0.7104825291181365
+          },
+          {
+            "bin": 7,
+            "tokens": 753,
+            "mean_score": 0.7209612817089452,
+            "accuracy": 0.7768924302788844
+          },
+          {
+            "bin": 8,
+            "tokens": 1630,
+            "mean_score": 0.8606388833304305,
+            "accuracy": 0.8730061349693251
+          },
+          {
+            "bin": 9,
+            "tokens": 18691,
+            "mean_score": 0.9781599493564042,
+            "accuracy": 0.9819699320528597
+          }
+        ],
+        "selective_accuracy": [
+          {
+            "threshold": 0.0,
+            "tokens": 22576,
+            "coverage": 1.0,
+            "accuracy": 0.940822111977321
+          },
+          {
+            "threshold": 0.5,
+            "tokens": 22398,
+            "coverage": 0.992115520907158,
+            "accuracy": 0.9453522635949638
+          },
+          {
+            "threshold": 0.8,
+            "tokens": 20321,
+            "coverage": 0.9001151665485472,
+            "accuracy": 0.9732296638944934
+          },
+          {
+            "threshold": 0.9,
+            "tokens": 18691,
+            "coverage": 0.8279145995747696,
+            "accuracy": 0.9819699320528597
+          },
+          {
+            "threshold": 0.95,
+            "tokens": 18691,
+            "coverage": 0.8279145995747696,
+            "accuracy": 0.9819699320528597
+          },
+          {
+            "threshold": 0.98,
+            "tokens": 0,
+            "coverage": 0.0,
+            "accuracy": null
+          }
+        ]
+      }
+    },
+    "unknown": {
+      "raw": {
+        "tokens": 2114,
+        "accuracy": 0.47729422894985807,
+        "mean_score": 0.5364113973480182,
+        "binary_brier": 0.2074464905350486,
+        "ece_10_bins": 0.08064495342664585,
+        "bins": [
+          {
+            "bin": 0,
+            "tokens": 3,
+            "mean_score": 0.08428751881634261,
+            "accuracy": 0.0
+          },
+          {
+            "bin": 1,
+            "tokens": 76,
+            "mean_score": 0.15869335259180914,
+            "accuracy": 0.06578947368421052
+          },
+          {
+            "bin": 2,
+            "tokens": 261,
+            "mean_score": 0.2547266256841466,
+            "accuracy": 0.29118773946360155
+          },
+          {
+            "bin": 3,
+            "tokens": 405,
+            "mean_score": 0.34475501718321816,
+            "accuracy": 0.21481481481481482
+          },
+          {
+            "bin": 4,
+            "tokens": 292,
+            "mean_score": 0.4546626093196179,
+            "accuracy": 0.5
+          },
+          {
+            "bin": 5,
+            "tokens": 279,
+            "mean_score": 0.5433965124030178,
+            "accuracy": 0.43727598566308246
+          },
+          {
+            "bin": 6,
+            "tokens": 253,
+            "mean_score": 0.6596243747448143,
+            "accuracy": 0.6245059288537549
+          },
+          {
+            "bin": 7,
+            "tokens": 180,
+            "mean_score": 0.7508676089537765,
+            "accuracy": 0.6444444444444445
+          },
+          {
+            "bin": 8,
+            "tokens": 177,
+            "mean_score": 0.8386320259798667,
+            "accuracy": 0.7627118644067796
+          },
+          {
+            "bin": 9,
+            "tokens": 188,
+            "mean_score": 0.9611839972084787,
+            "accuracy": 0.8723404255319149
+          }
+        ],
+        "selective_accuracy": [
+          {
+            "threshold": 0.0,
+            "tokens": 2114,
+            "coverage": 1.0,
+            "accuracy": 0.47729422894985807
+          },
+          {
+            "threshold": 0.5,
+            "tokens": 1077,
+            "coverage": 0.5094607379375591,
+            "accuracy": 0.6453110492107706
+          },
+          {
+            "threshold": 0.8,
+            "tokens": 365,
+            "coverage": 0.17265846736045412,
+            "accuracy": 0.8191780821917808
+          },
+          {
+            "threshold": 0.9,
+            "tokens": 188,
+            "coverage": 0.08893093661305582,
+            "accuracy": 0.8723404255319149
+          },
+          {
+            "threshold": 0.95,
+            "tokens": 99,
+            "coverage": 0.04683065279091769,
+            "accuracy": 0.8787878787878788
+          },
+          {
+            "threshold": 0.98,
+            "tokens": 68,
+            "coverage": 0.03216650898770104,
+            "accuracy": 0.9264705882352942
+          }
+        ]
+      },
+      "calibrated": {
+        "tokens": 2114,
+        "accuracy": 0.47729422894985807,
+        "mean_score": 0.45716116480684615,
+        "binary_brier": 0.2044642632442487,
+        "ece_10_bins": 0.05171110729452772,
+        "bins": [
+          {
+            "bin": 0,
+            "tokens": 79,
+            "mean_score": 0.0916214587100663,
+            "accuracy": 0.06329113924050633
+          },
+          {
+            "bin": 1,
+            "tokens": 117,
+            "mean_score": 0.1346153846153846,
+            "accuracy": 0.27350427350427353
+          },
+          {
+            "bin": 2,
+            "tokens": 549,
+            "mean_score": 0.29533678756476683,
+            "accuracy": 0.23861566484517305
+          },
+          {
+            "bin": 4,
+            "tokens": 662,
+            "mean_score": 0.4214618973561431,
+            "accuracy": 0.4879154078549849
+          },
+          {
+            "bin": 6,
+            "tokens": 342,
+            "mean_score": 0.6238532110091743,
+            "accuracy": 0.6403508771929824
+          },
+          {
+            "bin": 7,
+            "tokens": 177,
+            "mean_score": 0.7468354430379747,
+            "accuracy": 0.7627118644067796
+          },
+          {
+            "bin": 8,
+            "tokens": 188,
+            "mean_score": 0.8338045912653976,
+            "accuracy": 0.8723404255319149
+          }
+        ],
+        "selective_accuracy": [
+          {
+            "threshold": 0.0,
+            "tokens": 2114,
+            "coverage": 1.0,
+            "accuracy": 0.47729422894985807
+          },
+          {
+            "threshold": 0.5,
+            "tokens": 707,
+            "coverage": 0.3344370860927152,
+            "accuracy": 0.7326732673267327
+          },
+          {
+            "threshold": 0.8,
+            "tokens": 188,
+            "coverage": 0.08893093661305582,
+            "accuracy": 0.8723404255319149
+          },
+          {
+            "threshold": 0.9,
+            "tokens": 0,
+            "coverage": 0.0,
+            "accuracy": null
+          },
+          {
+            "threshold": 0.95,
+            "tokens": 0,
+            "coverage": 0.0,
+            "accuracy": null
+          },
+          {
+            "threshold": 0.98,
+            "tokens": 0,
+            "coverage": 0.0,
+            "accuracy": null
+          }
+        ]
+      }
+    }
+  },
+  "limits": "Gold sentence/word boundaries. POS only, including missing-lemma words; foreign-tagged and returned-POS mismatches are excluded explicitly. Development excludes exact training word sequences; test excludes exact training/development word sequences. Near-duplicate overlap is not detected. Scores are model-conditionals; empirical accuracy estimates may fail under domain shift or tokenization errors. No lemma, feature, semantic, speech or translation confidence is calibrated."
+}

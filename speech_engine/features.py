@@ -18,8 +18,8 @@ time-domain signal into a 2D time-frequency representation where:
 
 The Mel scale is a non-linear frequency scale that matches human perception:
 we hear differences between 100 Hz and 200 Hz much more clearly than between
-3000 Hz and 3100 Hz, even though both are 100 Hz apart. Mel bins are
-logarithmically spaced, so the model sees the world the same way we hear it.
+3000 Hz and 3100 Hz, even though both are 100 Hz apart. Mel bands provide a
+perceptually motivated frequency spacing, not a complete model of human hearing.
 
 Log compression (log10) reduces the dynamic range from ~60 dB to ~6 units,
 making gradient-based training much more stable.
@@ -31,9 +31,9 @@ Default parameters (Whisper-compatible):
   n_mels=80     → 80 perceptual frequency bands
   fmax=8000     → upper frequency limit (Nyquist for 16 kHz)
 
-These are the exact same parameters used by OpenAI's Whisper. Matching them
-means our future Transformer model will be directly comparable to Whisper and
-we can eventually fine-tune from a Whisper checkpoint.
+These settings are inspired by common log-Mel speech frontends. Sharing settings
+does not establish comparable recognition quality. All LinguaForge weights are
+trained locally; no third-party pretrained checkpoint is used.
 
 Pipeline (implemented explicitly below):
 -----------------------------------------
@@ -79,7 +79,7 @@ def _mel_filterbank(
     power spectrum over a small frequency range and produces one Mel bin.
 
     norm="slaney" area-normalizes each filter so that wider filters (at high
-    frequencies) don't dominate just because they cover more frequency bins.
+  frequencies) don't dominate just because they cover more frequency bins.
     """
     # torchaudio returns (n_freqs, n_mels) — transpose to (n_mels, n_freqs)
     fbanks = torchaudio.functional.melscale_fbanks(
@@ -104,9 +104,9 @@ def log_mel_spectrogram(
 ) -> np.ndarray:
     """Convert a mono float32 waveform to a log-Mel spectrogram.
 
-    This follows the exact pipeline used in the Whisper paper (Radford et al.
-    2022). The only difference is we expose the steps explicitly so you can
-    understand what each stage does.
+    This uses a conventional 80-bin log-Mel frontend with dynamic-range
+    compression. It is shared by training and local inference; matching another
+    system's frontend settings does not imply matching its model or accuracy.
 
     Args:
         waveform:    (N,) float32 array, sample rate must match `sample_rate`
@@ -118,7 +118,7 @@ def log_mel_spectrogram(
 
     Returns:
         (n_mels, T) float32 array where T ≈ len(waveform) / hop_length
-        Values are normalized to approximately [-1, 1].
+        Values use affine scaling and are not bounded to [-1, 1].
 
     Raises:
         ValueError: if waveform is not 1-dimensional
@@ -179,7 +179,7 @@ def log_mel_spectrogram(
     # This prevents very quiet background noise from dominating gradient updates.
     log_spec = torch.maximum(log_spec, log_spec.max() - 8.0)
 
-    # ── Step 6: Normalize to [-1, 1] ────────────────────────────────────────
+    # ── Step 6: Affine scaling (not bounded to [-1, 1]) ───────────────────────
     # After step 5, values are in [max-8, max].
     # For normalized audio, max ≈ 0 dB → range is approximately [-8, 0].
     # (x + 4) / 4 maps [-8, 0] → [-1, 1].
@@ -274,8 +274,8 @@ def pad_or_truncate(spec: np.ndarray, max_frames: int = MAX_FRAMES) -> np.ndarra
     During training, all examples in a batch must have the same shape.
     Whisper uses max_frames=3000 (30 seconds at 10 ms/frame).
 
-    Padding with zeros is equivalent to appending silence — the model learns
-    to ignore padded frames through the attention mask (added in Phase 5).
+    Zeros are padding placeholders, not acoustically equivalent to silence.
+    Callers must retain real lengths and mask padding in their model/loss.
 
     Args:
         spec:       (n_mels, T) spectrogram array

@@ -1,0 +1,26 @@
+{
+  "training_audio": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\train-clean-5\\6848\\252323\\6848-252323-0002.flac",
+  "duration_s": 11.09,
+  "measurements": [
+    {
+      "architecture": "compact2",
+      "parameters": 807553,
+      "acoustic_median_s": 0.018575499998405576,
+      "time_reduction": 2
+    },
+    {
+      "architecture": "wide2",
+      "parameters": 2967809,
+      "acoustic_median_s": 0.033616599976085126,
+      "time_reduction": 2
+    },
+    {
+      "architecture": "full2",
+      "parameters": 4779233,
+      "acoustic_median_s": 0.057852900004945695,
+      "time_reduction": 2
+    }
+  ],
+  "scope": "Untrained inference resource probe, five warm CPU runs, four threads, features precomputed; concurrent work, no recognition quality claim.",
+  "limits": "Untrained models, one training recording, precomputed features, five warm runs after two warmups, four CPU threads, concurrent work. Acoustic-forward cost only; not recognition quality, decoder time or cold latency."
+}

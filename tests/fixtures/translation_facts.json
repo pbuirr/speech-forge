@@ -1,0 +1,177 @@
+{
+  "provenance": "Manually constructed ES–EN challenge cases, not a natural independent corpus; not used for training or candidate selection. Lexical checks cannot certify roles, scope, factual correctness or acceptable paraphrases.",
+  "cases": [
+    {
+      "source": "Ana compró 12 libros en Madrid.",
+      "reference": "Ana bought 12 books in Madrid.",
+      "required_lexical_anchors": [
+        "ana",
+        "12",
+        "madrid"
+      ]
+    },
+    {
+      "source": "Ana no compró 12 libros en Madrid.",
+      "reference": "Ana did not buy 12 books in Madrid.",
+      "required_lexical_anchors": [
+        "ana",
+        "12",
+        "madrid",
+        "not"
+      ]
+    },
+    {
+      "source": "Carlos pagó 250 euros por el billete.",
+      "reference": "Carlos paid 250 euros for the ticket.",
+      "required_lexical_anchors": [
+        "carlos",
+        "250"
+      ]
+    },
+    {
+      "source": "Carlos no pagó 250 euros por el billete.",
+      "reference": "Carlos did not pay 250 euros for the ticket.",
+      "required_lexical_anchors": [
+        "carlos",
+        "250",
+        "not"
+      ]
+    },
+    {
+      "source": "La conferencia empezó en 2026 y terminó en 2027.",
+      "reference": "The conference began in 2026 and ended in 2027.",
+      "required_lexical_anchors": [
+        "2026",
+        "2027"
+      ]
+    },
+    {
+      "source": "La conferencia no empezó en 2026.",
+      "reference": "The conference did not begin in 2026.",
+      "required_lexical_anchors": [
+        "2026",
+        "not"
+      ]
+    },
+    {
+      "source": "El tren sale a las 18:45 desde Barcelona.",
+      "reference": "The train leaves Barcelona at 18:45.",
+      "required_lexical_anchors": [
+        "18",
+        "45",
+        "barcelona"
+      ]
+    },
+    {
+      "source": "El tren no sale a las 18:45 desde Barcelona.",
+      "reference": "The train does not leave Barcelona at 18:45.",
+      "required_lexical_anchors": [
+        "18",
+        "45",
+        "barcelona",
+        "not"
+      ]
+    },
+    {
+      "source": "El gobierno anunció nuevas medidas para proteger la salud pública.",
+      "reference": "The government announced new measures to protect public health.",
+      "required_lexical_anchors": [
+        "measures",
+        "health"
+      ]
+    },
+    {
+      "source": "El gobierno no anunció nuevas medidas para proteger la salud pública.",
+      "reference": "The government did not announce new measures to protect public health.",
+      "required_lexical_anchors": [
+        "not",
+        "measures",
+        "health"
+      ]
+    },
+    {
+      "source": "El hospital recibió 37 pacientes el lunes.",
+      "reference": "The hospital received 37 patients on Monday.",
+      "required_lexical_anchors": [
+        "37",
+        "patients"
+      ]
+    },
+    {
+      "source": "El hospital no recibió 37 pacientes el lunes.",
+      "reference": "The hospital did not receive 37 patients on Monday.",
+      "required_lexical_anchors": [
+        "37",
+        "patients",
+        "not"
+      ]
+    },
+    {
+      "source": "Laura envió el informe a Pedro.",
+      "reference": "Laura sent the report to Pedro.",
+      "required_lexical_anchors": [
+        "laura",
+        "pedro",
+        "report"
+      ]
+    },
+    {
+      "source": "Pedro envió el informe a Laura.",
+      "reference": "Pedro sent the report to Laura.",
+      "required_lexical_anchors": [
+        "laura",
+        "pedro",
+        "report"
+      ]
+    },
+    {
+      "source": "La empresa perdió 8 millones de euros en 2024.",
+      "reference": "The company lost 8 million euros in 2024.",
+      "required_lexical_anchors": [
+        "8",
+        "2024",
+        "lost"
+      ]
+    },
+    {
+      "source": "La empresa ganó 8 millones de euros en 2024.",
+      "reference": "The company earned 8 million euros in 2024.",
+      "required_lexical_anchors": [
+        "8",
+        "2024"
+      ]
+    },
+    {
+      "source": "¿Dónde está la estación de tren?",
+      "reference": "Where is the train station?",
+      "required_lexical_anchors": [
+        "train",
+        "station"
+      ]
+    },
+    {
+      "source": "El comité aprobó la propuesta por 15 votos contra 4.",
+      "reference": "The committee approved the proposal by 15 votes to 4.",
+      "required_lexical_anchors": [
+        "15",
+        "4"
+      ]
+    },
+    {
+      "source": "El comité no aprobó la propuesta.",
+      "reference": "The committee did not approve the proposal.",
+      "required_lexical_anchors": [
+        "not"
+      ]
+    },
+    {
+      "source": "Sofía visitó Lima antes de viajar a Quito.",
+      "reference": "Sofia visited Lima before traveling to Quito.",
+      "required_lexical_anchors": [
+        "lima",
+        "quito",
+        "before"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "corpus_sha256": "fa024f43dc5da3c5ac02563bc9bd0e974f46cbb1560823976a8f342a37dc494a",
+  "language": "en",
+  "counts": {
+    "sentences": 1962,
+    "excluded_overlap_sentences": 115,
+    "links": 1403,
+    "correct_link_labels": 1325,
+    "contrasts": 98,
+    "correct_contrast_labels": 87,
+    "reference_link_opportunities": 1691
+  },
+  "link_label_precision": 0.9444048467569494,
+  "contrast_label_precision": 0.8877551020408163,
+  "seconds": 1.0199854000020423,
+  "limits": "Gold words/sentences, exact train/dev sentence overlap excluded. Reference opportunities count repeated lemma/POS, not dependency edges or semantic identity. Label precision checks both endpoint annotations. Not a linguistic explanation comprehension or student learning study. Corpus annotation conventions and automatic lemma/feature annotation can affect results."
+}

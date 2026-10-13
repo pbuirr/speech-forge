@@ -1,0 +1,847 @@
+{
+  "checkpoint_sha256": "85c89af52c92039122a8266e72562ff677fc08bc70e9f00da969175b9698c852",
+  "manifest_sha256": "d1a92ad78eec30b0ea406616b79038004ffd0d5610c927334247d0ffad83d0e0",
+  "training_manifest_sha256": "78596529869191dc86d97a98ba669e0dbc8feb6424e1a6219c59605c0e664145",
+  "examples": 80,
+  "split": "test",
+  "metrics": {
+    "greedy": {
+      "wer": 0.8440999138673557,
+      "cer": 0.37347992670331503,
+      "decode_elapsed_s": 0.06573450000723824,
+      "lm_weight": 0,
+      "token_reward": 0,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0004.flac",
+          "reference": "i hope miss milner you pass this evening at home",
+          "hypothesis": "i ho mis nmoli you pospas y min ha hon"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0027.flac",
+          "reference": "yes how many",
+          "hypothesis": "eas homan"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0045.flac",
+          "reference": "then don't you interfere with me sir",
+          "hypothesis": "ten do  inef tr witd mea ser"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0063.flac",
+          "reference": "it relieved him for a while",
+          "hypothesis": "it elaved in for l"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0003.flac",
+          "reference": "geographers have divided it into four parts and we had to cross the southwest quarter which in the vernacular is called sudvestr fjordungr",
+          "hypothesis": "eaunerferst of tovy edi an the for parts and we adt a crosthe self was corder wich ind h thenacler as cood sid est fur tinggr"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0013.flac",
+          "reference": "we looked all around and thought that the coast was clear",
+          "hypothesis": "wint at dol er rond in thout ar the cost was clar"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0015.flac",
+          "reference": "well now said meekin with asperity i don't agree with you",
+          "hypothesis": "wellmal sid metin with the spirty i do a gre ith you"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0009.flac",
+          "reference": "sometimes schools do let kids take a lot of soft courses and then they're out on a limb later huh",
+          "hypothesis": "samthamswlve de lecide tak allalt of sofd corses and an ther ot atal lem liater ho"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0010.flac",
+          "reference": "the kingdom of northumbria as the name implies embraced nearly all the country from the humber to the pictish border",
+          "hypothesis": "be tin iok nakfombry at as the nanm am plise anmd brsnerly all the centre fom the homber to he pectish porter"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0036.flac",
+          "reference": "you ask me to stay away from you because you want me",
+          "hypothesis": "uust wid is tawafrom you be cusye wot me"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0018.flac",
+          "reference": "well i don't think you should turn a guy's t v program off in the middle without even finding out about it",
+          "hypothesis": "wal and l thinkuse o tonegige keae fro rommop in the mitle withatig and finin oun abt"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0002.flac",
+          "reference": "in the valley of the shadow of death he is with us",
+          "hypothesis": "and the vally u the shoud od da he as with os"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0026.flac",
+          "reference": "we were so deep in the grass that we could see nothing but the blue sky over us and the gold tree in front of us",
+          "hypothesis": "whe we sol dy ban the gras the wy cold sy nohing bue the bloti averes and ha glne trea an frontof us"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0008.flac",
+          "reference": "it seemed to me that he despised him for being so simple and docile",
+          "hypothesis": "it samt me vhanty dispiet im pfor beingco sempon d ausol"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\286674\\7850-286674-0001.flac",
+          "reference": "it is disgraceful",
+          "hypothesis": "i is dis cras fuwl"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0000.flac",
+          "reference": "throughout this century the power of the church was constantly on the increase and is visible in many important changes",
+          "hypothesis": "the rot o entury the poerf fichurch was constnly un in creec and is visibl an meny impoarting changins"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0006.flac",
+          "reference": "have you many visitors captain burgess very few",
+          "hypothesis": "had emany visitersgapkin birges bry f"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\154320\\2803-154320-0009.flac",
+          "reference": "yes my lord we should try in vain",
+          "hypothesis": "ye f mor wi ho priy im bva"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0027.flac",
+          "reference": "there be the door in front of you you go up three steps if you can find em",
+          "hypothesis": "ther be the drn frone of yo ya ge ot thery stips ifo tan find im"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0007.flac",
+          "reference": "my grandmother always spoke in a very loud tone to foreigners as if they were deaf",
+          "hypothesis": "my grend bother alwy sbok and very loud townedaforiners af thef teer b"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0006.flac",
+          "reference": "look a little closer while our guide lets the light of his lamp fall upon the black wall at your side",
+          "hypothesis": "wookal i o qlo er alar gp lut the li of her friap fal aponed the black wal at or ed"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0004.flac",
+          "reference": "supposing the report had been true",
+          "hypothesis": "supposin vhe reporthabhen cro"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\154320\\2803-154320-0011.flac",
+          "reference": "think of lady glenarvan think of mary grant",
+          "hypothesis": "theng tho lavyl a mrben pheng god mary graarp"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0013.flac",
+          "reference": "thou like arcturus steadfast in the skies with tardy sense guidest thy kingdom fair bearing alone the load of liberty",
+          "hypothesis": "tal li a ter s staudfast on he sis whith terty sensgitestmitking omir br in alon tobot of liberty"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0003.flac",
+          "reference": "we lay still and did not talk",
+          "hypothesis": "e lae tel ingd a not tok"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0034.flac",
+          "reference": "presently feet were heard advancing along the passage several pairs it seemed and a light gleamed through the window over the door",
+          "hypothesis": "presaly fe whe herded vancing l long the pecege seveo pars at semd and oinht glaein tori the win kno ove he dor"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0028.flac",
+          "reference": "there's a knocker if none of em haven't twisted it off",
+          "hypothesis": "this a nother if non ofvom heavent wi itdatd ooff"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\286674\\7850-286674-0005.flac",
+          "reference": "they did not breathe it into their mouths or through gills but took it in through some openings in the back part of their bodies",
+          "hypothesis": "tedid nontberit it into ther monos weorth wo gills but tokot intherso opannens in the back purk of ther bys"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0003.flac",
+          "reference": "outside of these occasional reminders we could see no evidence of the desolation of the track of an invading army",
+          "hypothesis": "a soned of thes acadno rhe minders with an s no iad encs of the eslitinlo the track of vhen in adingrmy"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0018.flac",
+          "reference": "i noticed how white and well shaped his own hands were",
+          "hypothesis": "i not i tol wiete an on shae tothon hans wher"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0022.flac",
+          "reference": "dorriforth read on and seemed afraid of looking up lest he should see what he could not have pardoned",
+          "hypothesis": "doraforith rotd on asenedefratof loking  lesthe should sewats he old not ha parins"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0007.flac",
+          "reference": "i have never known a madge and yet from my boyhood upward i have desired to meet one",
+          "hypothesis": "ae demven noown a mage and yet from mid boy wod upword i ham desird to meatene"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0023.flac",
+          "reference": "antonia pointed up to the sky and questioned me with her glance",
+          "hypothesis": "andtonne aplitedu to the sti and quasstondobey with ha lath"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\281318\\7850-281318-0009.flac",
+          "reference": "so in a great company they came fluttering hopping twittering up to the elm tree where mother magpie nestled comfortably in her new house",
+          "hypothesis": "so ta grea company tekhaim flgering hopin twtri hupk to the on tr gwlear mother ma pi neld coftrly in her neu hos"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\286674\\7850-286674-0009.flac",
+          "reference": "they knew that whenever they stuck out their lower lips at the small fishes and bugs they swam away as fast as they could",
+          "hypothesis": "i in theat when evert ysthacu therv owerd bhet sat a sml fihios an boute teypwambwas fasas thy id"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0009.flac",
+          "reference": "miss milner you shall not leave the house this evening sir",
+          "hypothesis": "mis no the you son noctlye bhos bas enin san"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0005.flac",
+          "reference": "they very rarely succeed in a good show of yellow",
+          "hypothesis": "they very rarily s axcead a goud shl yello"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0002.flac",
+          "reference": "we have both seen the same newspaper of course and you have been the first to clear the thing up that's it isn't it",
+          "hypothesis": "we av bos simng the same news panper of orscs an youov phen the frs to clearfe the sing op that sit asindit"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0009.flac",
+          "reference": "i should have a violent attack of the cramp if i were not to have some sort of exercise",
+          "hypothesis": "i shit af a vyled a tat of the cramp ifhou wren out the havd some sord abece sis"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0020.flac",
+          "reference": "but after awhile jim says gentlemen ay ganny the law",
+          "hypothesis": "bat ter wi jumn sas jel a ant bi ganyin bel"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0030.flac",
+          "reference": "keep your appointment and be assured that i shall issue my commands with more circumspection for the future as i find how strictly they are complied with",
+          "hypothesis": "co purarins mes ands be sor rd thet iso ao my ha mancs with mor secandspetion frot fhrtar as at thined hastertwo thar comlod wret"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147960\\2035-147960-0015.flac",
+          "reference": "otto winked at me",
+          "hypothesis": "al bing tame"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0002.flac",
+          "reference": "the reply was written in a sprawling feminine hand it was a little vague",
+          "hypothesis": "ther apli was ritnini sprolling fiman in hend io was ali vag"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\281318\\7850-281318-0001.flac",
+          "reference": "indeed it is not a nest at all only the beginning of one",
+          "hypothesis": "en ded it is not a nastit  ontly the begining o oon"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0014.flac",
+          "reference": "if you think so madam i see nothing that should prevent me now",
+          "hypothesis": "it hou thincs omotha muce notheng ase prvensbig now"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61943\\6241-61943-0022.flac",
+          "reference": "they were now however absent on duty",
+          "hypothesis": "they wore now he ever asin ondityg"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0033.flac",
+          "reference": "they were run out of their village",
+          "hypothesis": "the were on oun of thervllech"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0006.flac",
+          "reference": "lastly the royal brothers fell themselves victims to the epidemic which so sadly signalizes their reign",
+          "hypothesis": "lastly the rl bothersstel themsel hs bit emsi te aptthe gonic whuch so sadly sing nalicsis therraing"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0016.flac",
+          "reference": "it is some satisfaction for me to be able to reflect that i made it warm for the officials however cold i might have been myself",
+          "hypothesis": "it i somcstetd isfpeciin for m to beabith o reflct ant i madt it wr fr ty ficls o over coldye mithe af been my se"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0017.flac",
+          "reference": "i hear the t v going for a few minutes then pop turns it off and goes in the kitchen to talk to mom",
+          "hypothesis": "i her the ceave going for f hemenets tan po carn tht ou pangosinte citin opok the mon"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0055.flac",
+          "reference": "this is murderous",
+          "hypothesis": "this is murderos"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0013.flac",
+          "reference": "little did i expect however the spectacle which awaited us when we reached the peninsula of sneffels where agglomerations of nature's ruins form a kind of terrible chaos",
+          "hypothesis": "vittle bet ixpect eiver thas pbectacl wich a wate d us el y riched the onnisla snefles war u glararations  nath as rse forl ocond f tar ible caas"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0014.flac",
+          "reference": "it consists simply of a few houses not what in england or germany we should call a hamlet",
+          "hypothesis": "be kcnsist simply av af you halsis not wht in in wlendoergjer iny wichod calr hamlwt"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0012.flac",
+          "reference": "hilda watched him from her corner trembling and scarcely breathing dark shadows growing about her eyes",
+          "hypothesis": "o ha wast om rom her qoner tumbiling in scesbreeing ta saas going habot hrus"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0006.flac",
+          "reference": "he had promised to do his best toward persuading catherine to grant sydney an interview",
+          "hypothesis": "he had prommes to d his bast t wre pro suating tane her ind togrands sin n intoyou"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0015.flac",
+          "reference": "you're getting altogether too upset about these programs stop it and behave yourself",
+          "hypothesis": "yuganin althe got e toups that bout this pobaumt stopp  and bhe hieisal"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0038.flac",
+          "reference": "hilda sat on the arm of it and put her hands lightly on his shoulders",
+          "hypothesis": "hel a sas on the ommovet and piter hands lit the onnhe shoders"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170145\\1462-170145-0022.flac",
+          "reference": "i don't know what i ought to say but i don't believe you'd be happy truly i don't aren't you trying to frighten me",
+          "hypothesis": "and o no whan io to say but ideblly ud be happy tuly adnd in ge tined to frimy"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170145\\1462-170145-0014.flac",
+          "reference": "but when i came i thought i had been mistaken",
+          "hypothesis": "the when a tame i fhut i ha bat the sakin"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0005.flac",
+          "reference": "very glad very glad she ejaculated",
+          "hypothesis": "bryn glad bran glad she agatelaed"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0012.flac",
+          "reference": "he added sydney's address in a postscript and dispatched his letter that evening",
+          "hypothesis": "he aded sud nesetrasson apos sqrakt and the spacht es leter thaty eething"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0015.flac",
+          "reference": "we walked over this floating bridge and soon found ourselves on the tennessee side of tennessee river",
+          "hypothesis": "wi lakd over thes floding brage andsin fown ar ses on the tene sy sied oft tene sy reur"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0014.flac",
+          "reference": "a great rascal put in north",
+          "hypothesis": "agrade rascle tat an morth"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\286674\\7850-286674-0012.flac",
+          "reference": "scared dah who's afraid answered he",
+          "hypothesis": "se herd do ho the fred enserd he"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0008.flac",
+          "reference": "be the results however what they might randal could see but one plain course before him now",
+          "hypothesis": "bethe sele selwe fer but tha mit rantle cold se bu on plame corse peffor him nw"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0002.flac",
+          "reference": "she blushed and smiled and fumbled his card in her confusion before she ran upstairs",
+          "hypothesis": "she blust and sml and fomble his cardin her confion bhe for she ranatstars"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0006.flac",
+          "reference": "a yankee always says nager",
+          "hypothesis": "i a y al was hse nater"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170145\\1462-170145-0005.flac",
+          "reference": "let me take off your coat and your boots they're oozing water",
+          "hypothesis": "en me teko her cod and o bet stheirtos in or"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0043.flac",
+          "reference": "i'll teach my prisoners to attempt suicide",
+          "hypothesis": "lltach my prasineas to a teme so as id"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0028.flac",
+          "reference": "twenty thirty enough",
+          "hypothesis": "tinty terdy n"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61943\\6241-61943-0021.flac",
+          "reference": "i shall be glad to consult them",
+          "hypothesis": "i sovbe gladtod consep"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61943\\6241-61943-0008.flac",
+          "reference": "on the eleventh day we sighted cape portland over which towered mount myrdals yokul which the weather being clear we made out very readily",
+          "hypothesis": "o the lait thy wy sidt e cae port lan tet oor wich toard mnot matils yol which the wa ther ben cear we mad ao vher retly"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0009.flac",
+          "reference": "the family had been living on corncakes and sorghum molasses for three days",
+          "hypothesis": "the themly had ben meving on qrncake and sor gem malashis fr thre dayve"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0066.flac",
+          "reference": "twice he paused on the way to the sitting room and twice was he driven on by a power stronger than his will",
+          "hypothesis": "ti she ps d on the way to the sisin and tlie was he deov an on by ha oors stromger than as wil"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0005.flac",
+          "reference": "they made me think of defeated armies retreating or of ghosts who were trying desperately to get in for shelter and then went moaning on",
+          "hypothesis": "the mea mething of tfeted armlis srtriing ar ff goseswo e tine destaly to geut in for shelteran and bhant awen mooningong"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0004.flac",
+          "reference": "the little house on the hillside was so much the color of the night that we could not see it as we came up the draw",
+          "hypothesis": "the l houls on the hel sid waso much the calerf the nit the eced nots te at as be tam up the drom"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0034.flac",
+          "reference": "i shall find my portmanteau in my room you said yes yes",
+          "hypothesis": "i hufine my port mon ti in my rom e sed yesiees"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0021.flac",
+          "reference": "she looked at me her eyes fairly blazing with things she could not say",
+          "hypothesis": "she lu bemy hr vesd froly blase in with  ting she couldnot say"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0004.flac",
+          "reference": "right away when i bring home my new program he says how come you're taking one less course this half",
+          "hypothesis": "rid way wan abring mominyouprobam he theis hakomyurtikyng wane los qore the haf"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\281318\\7850-281318-0020.flac",
+          "reference": "much luck may you have",
+          "hypothesis": "mthshlck ma youo hav"
+        }
+      ],
+      "word_edit_counts": {
+        "substitutions": 824,
+        "deletions": 112,
+        "insertions": 44,
+        "matches": 225
+      },
+      "pipeline_real_time_factor": 0.005866141037238013
+    },
+    "lm02": {
+      "wer": 0.8130921619293713,
+      "cer": 0.3494919207063135,
+      "decode_elapsed_s": 11.286033299998962,
+      "lm_weight": 0.2,
+      "token_reward": 0.2,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0004.flac",
+          "reference": "i hope miss milner you pass this evening at home",
+          "hypothesis": "i he mis noli you postas y min a hon"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0027.flac",
+          "reference": "yes how many",
+          "hypothesis": "as homan"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0045.flac",
+          "reference": "then don't you interfere with me sir",
+          "hypothesis": "then do  ine tr wit measer"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0063.flac",
+          "reference": "it relieved him for a while",
+          "hypothesis": "it elaved in for l"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0003.flac",
+          "reference": "geographers have divided it into four parts and we had to cross the southwest quarter which in the vernacular is called sudvestr fjordungr",
+          "hypothesis": "he oune fers of tovy ed an the for part and we ad a crosthe self was corter wich ind th thenacler as cold sidest furtinggr"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0013.flac",
+          "reference": "we looked all around and thought that the coast was clear",
+          "hypothesis": "wit at doler ron in thout ar the cost was clar"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0015.flac",
+          "reference": "well now said meekin with asperity i don't agree with you",
+          "hypothesis": "wel mal sid metin with the spirty i do a gre ith you"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0009.flac",
+          "reference": "sometimes schools do let kids take a lot of soft courses and then they're out on a limb later huh",
+          "hypothesis": "samthanswlve de lecide tak allalt of sof corses and an ther ot at al lem liter hop"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0010.flac",
+          "reference": "the kingdom of northumbria as the name implies embraced nearly all the country from the humber to the pictish border",
+          "hypothesis": "be kin ook nakfombry at as the nam am plis and bresnerly all the centre fom the homber to he pectish porter"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0036.flac",
+          "reference": "you ask me to stay away from you because you want me",
+          "hypothesis": "uust wis is tawafrom you be cuse wot me"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0018.flac",
+          "reference": "well i don't think you should turn a guy's t v program off in the middle without even finding out about it",
+          "hypothesis": "wal and l thinkuso tonegie kee fro rommop in the mitle withatig and finin ou abt"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0002.flac",
+          "reference": "in the valley of the shadow of death he is with us",
+          "hypothesis": "and the vally the shad od de he as withos"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0026.flac",
+          "reference": "we were so deep in the grass that we could see nothing but the blue sky over us and the gold tree in front of us",
+          "hypothesis": "whe we soldy ban the gras the we cold se nohing be the blothi alveres and he glne tre and front of us"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0008.flac",
+          "reference": "it seemed to me that he despised him for being so simple and docile",
+          "hypothesis": "it samet me thany dispiet im for beingso sempon d asol"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\286674\\7850-286674-0001.flac",
+          "reference": "it is disgraceful",
+          "hypothesis": "i is dis ras ful"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0000.flac",
+          "reference": "throughout this century the power of the church was constantly on the increase and is visible in many important changes",
+          "hypothesis": "the rot a sentry the poerf fichurch was constnly un in crees and is visible an many importing changins"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0006.flac",
+          "reference": "have you many visitors captain burgess very few",
+          "hypothesis": "hat emany visiterscapkin birges bery f"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\154320\\2803-154320-0009.flac",
+          "reference": "yes my lord we should try in vain",
+          "hypothesis": "ye f mord wi ho priy im ba"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0027.flac",
+          "reference": "there be the door in front of you you go up three steps if you can find em",
+          "hypothesis": "ther be the door frone of yo yage ot thery stis ofo tan find im"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0007.flac",
+          "reference": "my grandmother always spoke in a very loud tone to foreigners as if they were deaf",
+          "hypothesis": "my grand bother alwy sbok and avery lowd townd aforiners af thef teer b"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0006.flac",
+          "reference": "look a little closer while our guide lets the light of his lamp fall upon the black wall at your side",
+          "hypothesis": "wo al it a lo or alar gp lut the lie of her foriap fal apond the black wall at or red"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0004.flac",
+          "reference": "supposing the report had been true",
+          "hypothesis": "supposin vereport habhen cro"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\154320\\2803-154320-0011.flac",
+          "reference": "think of lady glenarvan think of mary grant",
+          "hypothesis": "theng tho lavy l a marben then god mary graa"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0013.flac",
+          "reference": "thou like arcturus steadfast in the skies with tardy sense guidest thy kingdom fair bearing alone the load of liberty",
+          "hypothesis": "thow li aters sted fast on he sis whith terty sens gidestmit ing om ire ber in alon to bot of liberty"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0003.flac",
+          "reference": "we lay still and did not talk",
+          "hypothesis": "e late tel ing a not tok"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0034.flac",
+          "reference": "presently feet were heard advancing along the passage several pairs it seemed and a light gleamed through the window over the door",
+          "hypothesis": "presily fe whe herded vancing l long the pecege seveopars at semed and oint glaen tore the win kno ove the door"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0028.flac",
+          "reference": "there's a knocker if none of em haven't twisted it off",
+          "hypothesis": "this a nother if non of ome havent wi sid at ooff"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\286674\\7850-286674-0005.flac",
+          "reference": "they did not breathe it into their mouths or through gills but took it in through some openings in the back part of their bodies",
+          "hypothesis": "tedid nont berit it into ther monlls worth wo gills but to ot in therso opanes in the back pur of ther bs"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0003.flac",
+          "reference": "outside of these occasional reminders we could see no evidence of the desolation of the track of an invading army",
+          "hypothesis": "a soned of thes a cad al whe minders withand s no iadens of the deslition of the track of then in ading army"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0018.flac",
+          "reference": "i noticed how white and well shaped his own hands were",
+          "hypothesis": "i not i thol wit an wo shate to thon hans wher"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0022.flac",
+          "reference": "dorriforth read on and seemed afraid of looking up lest he should see what he could not have pardoned",
+          "hypothesis": "tor forith rot on asenederat of loking a lest he should se was he cold not hat parins"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0007.flac",
+          "reference": "i have never known a madge and yet from my boyhood upward i have desired to meet one",
+          "hypothesis": "a deven nown a mage and yet from mid boy wod upord i ham desired to metene"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0023.flac",
+          "reference": "antonia pointed up to the sky and questioned me with her glance",
+          "hypothesis": "and tonny applitetu to the sti and questend by with a lath"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\281318\\7850-281318-0009.flac",
+          "reference": "so in a great company they came fluttering hopping twittering up to the elm tree where mother magpie nestled comfortably in her new house",
+          "hypothesis": "so a gre company thek him flering hopin twetri hup to the on tre gwer mother ma pi neld coftrly in her nu hos"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\286674\\7850-286674-0009.flac",
+          "reference": "they knew that whenever they stuck out their lower lips at the small fishes and bugs they swam away as fast as they could",
+          "hypothesis": "i in that when ever ysthacu ther owerd bet sat a sml fithes an bout tey wamwas fas as thy it"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0009.flac",
+          "reference": "miss milner you shall not leave the house this evening sir",
+          "hypothesis": "mis no the you son noctly behos bas enin san"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0005.flac",
+          "reference": "they very rarely succeed in a good show of yellow",
+          "hypothesis": "the very rarly s excead a goud sho yello"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0002.flac",
+          "reference": "we have both seen the same newspaper of course and you have been the first to clear the thing up that's it isn't it",
+          "hypothesis": "we a bo sing the same news paper of cors and you pen the frs to cleare the sing op that sit asin it"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0009.flac",
+          "reference": "i should have a violent attack of the cramp if i were not to have some sort of exercise",
+          "hypothesis": "i shout af a vyled a tat of the cramp ifhou wre out the have some sord a bece sis"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0020.flac",
+          "reference": "but after awhile jim says gentlemen ay ganny the law",
+          "hypothesis": "bat ter wil jom sas je a ant bi daning bel"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0030.flac",
+          "reference": "keep your appointment and be assured that i shall issue my commands with more circumspection for the future as i find how strictly they are complied with",
+          "hypothesis": "so urains mes ands be sord that iso ao my ho mans with mor secandspection frot frtar as at thined hastertwo thar comlod wret"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147960\\2035-147960-0015.flac",
+          "reference": "otto winked at me",
+          "hypothesis": "alling tame"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0002.flac",
+          "reference": "the reply was written in a sprawling feminine hand it was a little vague",
+          "hypothesis": "thereply was ritnin i spolling foman in hend i was a l vag"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\281318\\7850-281318-0001.flac",
+          "reference": "indeed it is not a nest at all only the beginning of one",
+          "hypothesis": "in ded it is not a nostit l only the begining of on"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0014.flac",
+          "reference": "if you think so madam i see nothing that should prevent me now",
+          "hypothesis": "it hout thin somot a muce nothing ase prvensig now"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61943\\6241-61943-0022.flac",
+          "reference": "they were now however absent on duty",
+          "hypothesis": "they were now he ever asin ondity"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0033.flac",
+          "reference": "they were run out of their village",
+          "hypothesis": "the wer on oun of thervellech"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0006.flac",
+          "reference": "lastly the royal brothers fell themselves victims to the epidemic which so sadly signalizes their reign",
+          "hypothesis": "lastly the rl botherstel themsel hes bit emsite at the donit which so sadly sing nalis is ther raing"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0016.flac",
+          "reference": "it is some satisfaction for me to be able to reflect that i made it warm for the officials however cold i might have been myself",
+          "hypothesis": "it i somstat isfection for me to be abitho reflect an i mat it wor fr the ficols o over coold ie mithe af been my se"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0017.flac",
+          "reference": "i hear the t v going for a few minutes then pop turns it off and goes in the kitchen to talk to mom",
+          "hypothesis": "i her the ceave going for f hemenits tan po carnd the ou angosinte citin opok the mon"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0055.flac",
+          "reference": "this is murderous",
+          "hypothesis": "this is marderos"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0013.flac",
+          "reference": "little did i expect however the spectacle which awaited us when we reached the peninsula of sneffels where agglomerations of nature's ruins form a kind of terrible chaos",
+          "hypothesis": "vittle bet ixpect eiver thes bectacl wich a wated us ely riched the onisla snefles war a glararations a nath as re for acond of tarible caas"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61946\\6241-61946-0014.flac",
+          "reference": "it consists simply of a few houses not what in england or germany we should call a hamlet",
+          "hypothesis": "be cnsist simply af af you halsis not wht in in lender jer any wichad cal halt"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0012.flac",
+          "reference": "hilda watched him from her corner trembling and scarcely breathing dark shadows growing about her eyes",
+          "hypothesis": "o he wastom ron her coner tumbiling in scesbreing ta saas going abot hrus"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0006.flac",
+          "reference": "he had promised to do his best toward persuading catherine to grant sydney an interview",
+          "hypothesis": "he had prommes to to his bast t wore pre suating tane her in to grand sin n intoyou"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0015.flac",
+          "reference": "you're getting altogether too upset about these programs stop it and behave yourself",
+          "hypothesis": "youganin althe got a toups that but this probount stop and be hieirsal"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0038.flac",
+          "reference": "hilda sat on the arm of it and put her hands lightly on his shoulders",
+          "hypothesis": "hel a sas on the om ovet and piter hands lit the on he sholders"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170145\\1462-170145-0022.flac",
+          "reference": "i don't know what i ought to say but i don't believe you'd be happy truly i don't aren't you trying to frighten me",
+          "hypothesis": "and or no what io to say but idebly yed be happy tuly agond in ge tine to frime"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170145\\1462-170145-0014.flac",
+          "reference": "but when i came i thought i had been mistaken",
+          "hypothesis": "the when a came i thut i had bat the sakin"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0005.flac",
+          "reference": "very glad very glad she ejaculated",
+          "hypothesis": "bry glad bran glad she agatelated"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0012.flac",
+          "reference": "he added sydney's address in a postscript and dispatched his letter that evening",
+          "hypothesis": "he haded sud nesetressin aposqrak and the spacht es leter that eething"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0015.flac",
+          "reference": "we walked over this floating bridge and soon found ourselves on the tennessee side of tennessee river",
+          "hypothesis": "wit laked over thes floding brage and sin frown ar ses on the tene se sid oft tene y rer"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0014.flac",
+          "reference": "a great rascal put in north",
+          "hypothesis": "agrade rascle tat and morth"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\286674\\7850-286674-0012.flac",
+          "reference": "scared dah who's afraid answered he",
+          "hypothesis": "se hered do ho the fred anserd he"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0008.flac",
+          "reference": "be the results however what they might randal could see but one plain course before him now",
+          "hypothesis": "bethe sele sele ver but the mit rantle cold se but one plame corse pefor him now"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0002.flac",
+          "reference": "she blushed and smiled and fumbled his card in her confusion before she ran upstairs",
+          "hypothesis": "she blust and smold and fomble his cardin her confion be for she ranat stars"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0006.flac",
+          "reference": "a yankee always says nager",
+          "hypothesis": "i a y al was se nater"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170145\\1462-170145-0005.flac",
+          "reference": "let me take off your coat and your boots they're oozing water",
+          "hypothesis": "then metek of her cod and a bet stheres in or"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0043.flac",
+          "reference": "i'll teach my prisoners to attempt suicide",
+          "hypothesis": "all teach my prasines to a teme so as id"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0028.flac",
+          "reference": "twenty thirty enough",
+          "hypothesis": "tinty therdy no"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61943\\6241-61943-0021.flac",
+          "reference": "i shall be glad to consult them",
+          "hypothesis": "i sobe gladto consep"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6241\\61943\\6241-61943-0008.flac",
+          "reference": "on the eleventh day we sighted cape portland over which towered mount myrdals yokul which the weather being clear we made out very readily",
+          "hypothesis": "o the lan they wy side cate port lan tet or wich toard mot matils yol which the wa ther ben cear we mad a ver rettly"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0009.flac",
+          "reference": "the family had been living on corncakes and sorghum molasses for three days",
+          "hypothesis": "the themly had ben meving on cornecake and sor gem malathis fr thre dayve"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0066.flac",
+          "reference": "twice he paused on the way to the sitting room and twice was he driven on by a power stronger than his will",
+          "hypothesis": "ti she ps d on the way to the sisin and tlie was he drov an on by a oor stromger than as wil"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0005.flac",
+          "reference": "they made me think of defeated armies retreating or of ghosts who were trying desperately to get in for shelter and then went moaning on",
+          "hypothesis": "the mea mething of tofeted armlis sortring ar f goso re tine destely to get in for shelteran and than a wen moningong"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0004.flac",
+          "reference": "the little house on the hillside was so much the color of the night that we could not see it as we came up the draw",
+          "hypothesis": "the l hous on the hel sid waso much the calerf the nit the eced nots te at as be tam up the drom"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0034.flac",
+          "reference": "i shall find my portmanteau in my room you said yes yes",
+          "hypothesis": "i hufine my port mon til in my rom e sed yesiees"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\147956\\1988-147956-0021.flac",
+          "reference": "she looked at me her eyes fairly blazing with things she could not say",
+          "hypothesis": "she lu be my her ies frly blase in with  ting she couldnot say"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1988\\24833\\1988-24833-0004.flac",
+          "reference": "right away when i bring home my new program he says how come you're taking one less course this half",
+          "hypothesis": "rid way wan abring momanyou pro am he thes hacom youtikyng wane las core the haf"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\7850\\281318\\7850-281318-0020.flac",
+          "reference": "much luck may you have",
+          "hypothesis": "miths lck ma you have"
+        }
+      ],
+      "word_edit_counts": {
+        "substitutions": 797,
+        "deletions": 91,
+        "insertions": 56,
+        "matches": 273
+      },
+      "pipeline_real_time_factor": 0.033301646820038035
+    }
+  },
+  "acoustic_and_feature_elapsed_s": 2.3333411999919917,
+  "audio_seconds": 408.96999999999997,
+  "device": "cpu",
+  "threads": 4,
+  "parameters": 807553,
+  "limits": "CTC probabilities + optional training-only character backoff scores. No dictionary correction or pretrained weights. Decoding time excludes cached acoustic inference. Select settings on development only; limited English read-speech."
+}

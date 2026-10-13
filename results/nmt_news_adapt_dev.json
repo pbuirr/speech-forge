@@ -1,0 +1,1889 @@
+{
+  "checkpoint": "data\\training\\es_en_news_adapt\\best.pt",
+  "checkpoint_sha256": "174f436cf5f7b0d8e9da2bf6e951e7bd73ca30ae259b293072fd4e9366fe9533",
+  "data_sha256": "a7dd6f47cafd1f4c98a5a16de4ec263cf7bd195e3b71a0edbef3749a8e129c21",
+  "metadata": {
+    "direction": "es→en",
+    "seed": 731,
+    "corpus_sha256": "5b38c17c64681c33ac14c28c6db36f39636a727fc4ec931cb513c331b60ef99f",
+    "counts": {
+      "train": 59975,
+      "dev": 1005,
+      "test": 1040
+    },
+    "split_policy": "source/target normalized connected groups; 90/5/5",
+    "dataset": "OPUS GlobalVoices2018Q4 + Tatoeba replay; article-disjoint; original vocab",
+    "quality_status": "experimental; development-loss selection; single-reference evaluation pending",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3050",
+    "split_sha256": {
+      "train": "e5554d047f40c361081d919572ca7d4643dabc5f0d647cc93b15998582ef0419",
+      "dev": "201e53888eb85a77c6cc27977e2c04baddbba6894938531a265083e8eaa1acc9",
+      "test": "87dc02499505800087a23b4894c672150b7cfa75e99eb2cc8dbd2b96a2a8a3a0"
+    },
+    "warm_start": "data\\models\\nmt_es_en.pt",
+    "training_corpus": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\training\\es_en_news_adapt\\train.tsv",
+    "parameters": 1204736,
+    "epoch": 8,
+    "dev_token_nll": 2.2837772526919893
+  },
+  "device": "cpu",
+  "decoder": "beam_4",
+  "sample_seed": 983,
+  "examples": 200,
+  "excluded_overlap": 0,
+  "metrics": {
+    "raw": {
+      "bleu": 15.3533,
+      "bp": 0.9433,
+      "precisions": [
+        48.5481,
+        22.0795,
+        11.217,
+        5.8364
+      ],
+      "hyp_len": 3547,
+      "ref_len": 3754,
+      "n_sentences": 200,
+      "character_f2_6_no_space": 47.1494395060948,
+      "exact_match_lowercase": 0.005
+    },
+    "application": {
+      "bleu": 15.2945,
+      "bp": 0.9411,
+      "precisions": [
+        48.2057,
+        21.8029,
+        11.2775,
+        5.8864
+      ],
+      "hyp_len": 3539,
+      "ref_len": 3754,
+      "n_sentences": 200,
+      "character_f2_6_no_space": 47.143772193756426,
+      "exact_match_lowercase": 0.005
+    }
+  },
+  "copy_source_baseline": {
+    "bleu": 2.8344,
+    "bp": 1.0,
+    "precisions": [
+      9.5801,
+      3.5478,
+      1.7333,
+      1.0956
+    ],
+    "hyp_len": 3977,
+    "ref_len": 3754,
+    "n_sentences": 200
+  },
+  "review_flag_rate": 0.13,
+  "latency_median_s": 0.04810400000133086,
+  "latency_p95_s": 0.14931916000205084,
+  "elapsed_s": 12.001209800000652,
+  "limits": "single-reference lowercase whitespace BLEU; custom character F2; no semantic correctness or calibrated confidence claim; lexical fallback not included",
+  "rows": [
+    {
+      "source": "el artífice de palabras, hideaki matsunaga dice :",
+      "reference": "wordsmith hideaki matsunaga says :",
+      "raw": "the artifice of words, hidekai masunaki kileas:",
+      "application": "The artifice of words, hidekai masunaki kileas:.",
+      "latency_s": 0.029783600009977818,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42642272727272723
+    },
+    {
+      "source": "hasta el presidente danilo medina disfrutó lleno de gozo la conquista dominicana.",
+      "reference": "even president danilo medina enjoyed the dominican achievement.",
+      "raw": "until danian president daniel medina enjoyed the government of the dominican conquist",
+      "application": "Until danian president daniel medina enjoyed the government of the dominican conquist.",
+      "latency_s": 0.03813539999828208,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4039433333333334
+    },
+    {
+      "source": "una guía ilustrada a la política china: izquierda v.",
+      "reference": "a pictorial guide to china's politics: left v. right · global voices",
+      "raw": "a guy illustrated to china: iziwanda v.",
+      "application": "A guy illustrated to china: iziwanda v.",
+      "latency_s": 0.023651399998925626,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43569473684210525
+    },
+    {
+      "source": "brasil: intentan censurar un documental sobre censura",
+      "reference": "brazil: attempts to censor a documentary about censorship · global voices",
+      "raw": "brazil: trying to censorship a documentary on censorship.",
+      "application": "Brazil: trying to censorship a documentary on censorship.",
+      "latency_s": 0.023542299997643568,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44162857142857137
+    },
+    {
+      "source": "pero incluso si soy una persona cínica, esto no significa que no tengo esperanzas.",
+      "reference": "but even though i’m a cynical person, that doesn’t mean i’m still not hopeful.",
+      "raw": "but even if i am a person, this does not mean that i have no hops.",
+      "application": "But even if I am a person, this does not mean that I have no hops.",
+      "latency_s": 0.029414799995720387,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39395714285714284
+    },
+    {
+      "source": "estos son los hechos: brasil tiene cerca del 80% de bosque permanente en la amazonía con cerca del 30% con cierto nivel de fragmentación y 50% como relativamente inmaculado.",
+      "reference": "here are the facts: brazil has about 80% standing forest in the amazon with about 30% with some level of fragmentation and 50% as relatively pristine.",
+      "raw": "these are the facts: brazil has nearly 80 permanent for the amazony in the 30 personally with close of the 30th of fragmentation and 50 percent as relatively inmaculation.",
+      "application": "These are the facts: brazil has nearly 80 permanent for the amazony in the 30 personally with close of the 30th of fragmentation and 50 percent as relatively inmaculation.",
+      "latency_s": 0.10594580000906717,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37894603174603175
+    },
+    {
+      "source": "el grupo de noticias sabay, uno de los patrocinadores del evento, estimuló la participación de los jóvenes de la provincia para que interactuaran con destacados aficionados a las tecnologías de la información de la capital y de países vecinos.",
+      "reference": "news group sabay, one of the sponsors of the event, encouraged the participation of young people in the province to interact with prominent it enthusiasts from the capital and neighboring countries.",
+      "raw": "the news group of news say, one of the events, stimulated the participation of the youth of the province to interact with destroyed the technologes of the capetal and countries.",
+      "application": "The news group of news say, one of the events, stimulated the participation of the youth of the province to interact with destroyed the technologes of the capetal and countries.",
+      "latency_s": 0.10999189999711234,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.394653125
+    },
+    {
+      "source": "el presidente de el salvador mauricio funes goza actualmente de un 86% de aprobación, pero tim muth escribe que esta “luna de miel será desafiada por la economía.”",
+      "reference": "the president of el salvador mauricio funes currently enjoys an 86% approval rate, but tim muth writes that his \"honeymoon will be challenged by the economy.\"",
+      "raw": "the president of the mauritor maurricio officially from a 86 by approation, but tim muth writes that this law will be defied by the economy.",
+      "application": "The president of the mauritor maurricio officially from a 86 by approation, but tim muth writes that this law will be defied by the economy.",
+      "latency_s": 0.07846119999885559,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3783549019607843
+    },
+    {
+      "source": "un reporte de la unesco cita los medios masivos \"fuertemente regulados\" en singapur mientras reconoce a los blogs y otros sitios de nuevos medios como una oferta de \"discurso alternativo sobre importantes temas socio-poíticos como política nacional, derechos de los homosexuales y de los ancianos\".",
+      "reference": "a unesco report cites the \"heavily regulated\" mainstream media in singapore while recognizing blogs and other new media sites as offering \"alternative discourse on important socio-political issues like domestic politics, rights of gays and senior citizens.\"",
+      "raw": "a report of the massive media social media \"regulates\" in singapore while recognize the blogs and other media as a opportunity of \"discourse on social socioties as political rights as the rights.\"",
+      "application": "A report of the massive media social media \"regulates\" in singapore while recognize the blogs and other media as a opportunity of \"discourse on social socioties as political rights as the rights.\".",
+      "latency_s": 0.15440849999140482,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42969866666666673
+    },
+    {
+      "source": "no, la poligamia no debería ser permitida para hombres y mujeres.",
+      "reference": "no, polygamy should not be allowed for both men and women.",
+      "raw": "not, the poliama should not be allowed for men and women.",
+      "application": "Not, the poliama should not be allowed for men and women.",
+      "latency_s": 0.021998700001859106,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3410526315789474
+    },
+    {
+      "source": "vietnam: el crecimiento de saigón",
+      "reference": "vietnam: growth of saigon · global voices",
+      "raw": "vietnam: saigon global voices",
+      "application": "Vietnam: saigon global voices.",
+      "latency_s": 0.0183413000049768,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37274705882352943
+    },
+    {
+      "source": "la noche del 17 de marzo, la novena dominicana alcanzó la victoria definitiva al coronarse como los ganadores del iii clásico mundial de béisbol 2013, al vencer a la hermana isla de puerto rico por tres carreras a cero.",
+      "reference": "on tuesday, march 19, 2013, the dominican team obtained the definite victory of the iii baseball world classic 2013, after defeating the puerto rican national team 3-0.",
+      "raw": "the night of march 17 marz, the novena dominican reached the victory of the definitive to court as the ii classical winners of the world-2013, the sister of puerto rico for three cars to current in ca.",
+      "application": "The night of march 17 marz, the novena dominican reached the victory of the definitive to court as the ii classical winners of the world-2013, the sister of puerto rico for three cars to current in ca.",
+      "latency_s": 0.14234900000155903,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4025860759493671
+    },
+    {
+      "source": "en los 80, fue con un 99.9%; en los 90 bajó a un 98%, ¡pero en la última década fue un 82%!",
+      "reference": "in the 80s, it was 99.9%, it went down in the 90s to 98%, but in the last decade, it was 82%!",
+      "raw": "in the 80, it was with a 9,9 for cient; in the 90 ambassed a 98 for scient, but in the last decast was a 82 for scien!",
+      "application": "In the 80, it was with a 9,9 for cient; in the 90 ambassed a 98 for scient, but in the last decast was a 82 for scien!",
+      "latency_s": 0.06435380000039004,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.33557173913043475
+    },
+    {
+      "source": "chantra confía en que los asistentes lleguen a 500, de los cuales alrededor de 80 personas de phnom penh han confirmado su asistencia.",
+      "reference": "chantra expects the attendance to reach 500 and out of this figure about 80 individuals from phnom penh have confirmed their attendance.",
+      "raw": "chantra confy in that the asistents arriving 50, of the cuals around 80 people of phnom penh have confirmed his assistance.",
+      "application": "Chantra confy in that the asistents arriving 50, of the cuals around 80 people of phnom penh have confirmed his assistance.",
+      "latency_s": 0.0608417999901576,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.31804883720930227
+    },
+    {
+      "source": "nuestra invitada hoy es una blogger venezolana, quien también es escritora, activista en derechos humanos, y abogada.",
+      "reference": "our guest today is a venezuelan blogger, who is also a writer, human rights activist, and an advocate.",
+      "raw": "our invited today is a venezuelan blogger who is also writers, activist in human rights and abloged.",
+      "application": "Our invited today is a venezuelan blogger who is also writers, activist in human rights and abloged.",
+      "latency_s": 0.05154739999852609,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36093846153846154
+    },
+    {
+      "source": "ya no, al menos en lo que se refiere a sus preocupaciones.",
+      "reference": "you really don’t, at least when it comes to their concerns.",
+      "raw": "not, at least in what he refers their concerns.",
+      "application": "Not, at least in what he refers their concerns.",
+      "latency_s": 0.017585200010216795,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4830499999999999
+    },
+    {
+      "source": "disponible en flickr con licencia attribution-noncommercial-sharealike 2.0 generic creative commons.",
+      "reference": "available on flickr with a attribution-noncommercial-sharealike 2.0 generic creative commons.",
+      "raw": "available in flickr with attribution-noncommercial-sharelike 2.0 generic creative commons.",
+      "application": "Available in flickr with attribution-noncommercial-sharelike 2.0 generic creative commons.",
+      "latency_s": 0.05796679999912158,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3350769230769231
+    },
+    {
+      "source": "natalia springer (@nataliaspringer) espera resultados concretos:",
+      "reference": "natalia springer (@nataliaspringer) is looking for concrete results:",
+      "raw": "natalia springer nataliaspringexpected results:",
+      "application": "Natalia springer nataliaspringexpected results:.",
+      "latency_s": 0.03131619999476243,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36644782608695653
+    },
+    {
+      "source": "miles de estudiantes y activistas tomaron las calles para exigir una reducción en las cuotas de las matrículas.",
+      "reference": "thousand of students and activists took to streets to demand lower tuition fee.",
+      "raw": "thousands of students and activists tomaron the streets to exiend a reduction in the matriculas.",
+      "application": "Thousands of students and activists tomaron the streets to exiend a reduction in the matriculas.",
+      "latency_s": 0.04621299999416806,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.34784516129032256
+    },
+    {
+      "source": "nebojša krivokuća en su blog se pregunta por qué casi nadie en los medios menciona nada de la biografía de aliyev - y concluye:",
+      "reference": "nebojša krivokuća on his blog wonders why almost nobody in the media mentions anything from aliyev's biography - and concludes:",
+      "raw": "neboja krivokua in his blog wonders why almost no one in the middle media of alyev - and conclud:",
+      "application": "Neboja krivokua in his blog wonders why almost no one in the middle media of alyev - and conclud:.",
+      "latency_s": 0.08615009998902678,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3435547619047619
+    },
+    {
+      "source": "durante su pronunciamiento, vociferó el ya famoso “sí se puede” .",
+      "reference": "during his speech, he called upon his famous “yes we can” slogan to rally support.",
+      "raw": "during his pronounced, he voted the already famous si can be i.",
+      "application": "During his pronounced, he voted the already famous si can be I.",
+      "latency_s": 0.03371070000866894,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39147777777777776
+    },
+    {
+      "source": "eve ha rodado un emotivo corto sobre esta campaña y aquí pueden ver el trailer.",
+      "reference": "eve has made a moving short film on it and here is a trailer.",
+      "raw": "eve has roduced a court on this campaign and here can see the trailer.",
+      "application": "Eve has roduced a court on this campaign and here can see the trailer.",
+      "latency_s": 0.03683100000489503,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3272076923076923
+    },
+    {
+      "source": "además de abogar por temas como la legalidad del matrimonio entre parejas del mismo sexo y por revertir los efectos del cambio climático, también hizo énfasis en una reforma inmigratoria y un apoyo incondicional a jóvenes inmigrantes, temas muy cercanos a los latinos.",
+      "reference": "besides advocating on issues like legal gay marriage and reverting the effects of climate change, he also emphasized the need for an immigration reform and an unconditional support to young immigrants, topics that are close to the hearts of the latino community.",
+      "raw": "addition to abogate for issues as the matrionian legality between the same sexo and to reverse the effects of climatico, also made an inmigrate reform and an incondemigrant support of jority of the youths, innotors.",
+      "application": "Addition to abogate for issues as the matrionian legality between the same sexo and to reverse the effects of climatico, also made an inmigrate reform and an incondemigrant support of jority of the youths, innotors.",
+      "latency_s": 0.15975530000287108,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40941012658227843
+    },
+    {
+      "source": "pakistán: ame u odie el día de san valentín",
+      "reference": "pakistan: love or hate valentine's day · global voices",
+      "raw": "pakistan: me u odie on san valentglobal voic",
+      "application": "Pakistan: me u odie on san valentglobal voic.",
+      "latency_s": 0.023492199994507246,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3302608695652174
+    },
+    {
+      "source": "hanía villanueva, una profesora involucrada con el proyecto piloto en el que fueron distribuidas las computadoras del programa \"one laptop per child\" en villa cardal, uruguay escribe sobre \"la fiesta de la leche\".",
+      "reference": "hanía villanueva, a teacher involved with the pilot project where one laptop per child computers were distributed in villa cardal, uruguay writes about about the milk festival .",
+      "raw": "hana villanuev, a professor involuted with the pilot project in which were distributed the computies of the programa \"one lper per child\" in vila cardal, ugudal and writes about the che.\"",
+      "application": "Hana villanuev, a professor involuted with the pilot project in which were distributed the computies of the programa \"one lper per child\" in vila cardal, ugudal and writes about the che.\".",
+      "latency_s": 0.1395464999950491,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.372151282051282
+    },
+    {
+      "source": "la crisis política de zimbabue continúa ya hace años, y los esfuerzos de mediación de la comunidad para el desarrollo del áfrica meridional (sadc, por sus siglas en inglés) no han tenido resultado, ya que los miembros de la coalición del país siguen discutiendo.",
+      "reference": "zimbabwe’s political crisis has dragged on for years now and mediation efforts by the southern african development community (sadc) have proven frustrating as the country’s coalition partners continue bickering.",
+      "raw": "the political crisis of zimbabue continues ago, and the community efforts for the development of the maeridional africa (sadc, by their century centuryhave had no longer had to have been tered to the members of the country.",
+      "application": "The political crisis of zimbabue continues ago, and the community efforts for the development of the maeridional africa (sadc, by their century centuryhave had no longer had to have been tered to the members of the country.",
+      "latency_s": 0.15703199998824857,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40912784810126585
+    },
+    {
+      "source": "mzala tom comentó :",
+      "reference": "mzala tom commented wrote:",
+      "raw": "mazala tom commented :",
+      "application": "Mazala tom commented:.",
+      "latency_s": 0.012945199996465817,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.39245
+    },
+    {
+      "source": "la medida, sin embargo, carece de detalles específicos sobre cómo se reforzaría la seguridad fronteriza y cómo funcionaría el camino hacia la ciudadanía para los inmigrantes que ya están en estados unidos.",
+      "reference": "novel as it may be, the proposal still lacks specific - and necessary- details about the reforms it promises. how will border security be strengthened? what is the journey to citizenship for an undocumented worker that is already in the united states?",
+      "raw": "the measure, however, cars of details about how it would reforced the security and how the road would official the way to citizens for the united states.",
+      "application": "The measure, however, cars of details about how it would reforced the security and how the road would official the way to citizens for the united states.",
+      "latency_s": 0.09471759998996276,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4114431372549019
+    },
+    {
+      "source": "eso es tener una cabeza calva inútil.",
+      "reference": "talk about a useless bald head.",
+      "raw": "that is having a street cake.",
+      "application": "That is having a street cake.",
+      "latency_s": 0.012912699996377341,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44267500000000004
+    },
+    {
+      "source": "si echamos un vistazo a la sociedad egipcia podemos ver que existen dos corrientes principales que representan un lado del debate cada una.",
+      "reference": "by having a look on the egyptian society you can see two main broad streams each of them resents one side of the referendum debates.",
+      "raw": "if we look at egyptian society we can see that existen two main two principal correpresent a side of the debate each other.",
+      "application": "If we look at egyptian society we can see that existen two main two principal correpresent a side of the debate each other.",
+      "latency_s": 0.0575408000004245,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37611750000000005
+    },
+    {
+      "source": "ese día asistirán a programas para erradicar la violencia de género.",
+      "reference": "on that day, they will attend programs to end violence.",
+      "raw": "that day will be programs to errdicate the violence of gender violence.",
+      "application": "That day will be programs to errdicate the violence of gender violence.",
+      "latency_s": 0.02672169999277685,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3968913043478261
+    },
+    {
+      "source": "mientras ionsudan crece y se desarrolla, esperamos que se cree una relación sólida entre los reporteros, los defensores y la red social de ionsudan, con el fin de asegurar mayor fiabilidad.",
+      "reference": "as ionsudan grows and develops, we hope that strong relationships are created between reporters, advocates, and the ionsudan network as a whole, so that accuracy and reliability can be better ensured.",
+      "raw": "while ionsudan believes and development, we hope that it is created a solid relationship between reporters, defensers and social social networks with the end of assembly fability.",
+      "application": "While ionsudan believes and development, we hope that it is created a solid relationship between reporters, defensers and social social networks with the end of assembly fability.",
+      "latency_s": 0.09502930000599008,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3869881355932203
+    },
+    {
+      "source": "aparamentemente, una barba larga, admite la columnista kuwaití khulood al-khamis, quien conmocionó a los lectores cuando le escribió una carta de amor al cerebro terrorista, quien fuera asesinado por los estados unidos en abbottabad, pakistán, la semana pasada.",
+      "reference": "apparently, a long beard, admits kuwaiti female columnist khulood al-khamis, who stunned readers with a love letter she wrote for the terror mastermind, who was killed by the us, in abbottabad, pakistan, this week.",
+      "raw": "apparament, a long barba larg, admit the columnist kuwaiti khuod al-kamis, who conmotioned the readers when he wrote a letter from amor terroristan nearly killed by the united states.",
+      "application": "Apparament, a long barba larg, admit the columnist kuwaiti khuod al-kamis, who conmotioned the readers when he wrote a letter from amor terroristan nearly killed by the united states.",
+      "latency_s": 0.19003660000453237,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36180571428571434
+    },
+    {
+      "source": "aunque ciertos bandos republicanos muestran su escepticismo, este acuerdo para reescribir las leyes migratorias es una iniciativa sin precedentes, dado el ambiente combativo entre ambas ideologías que ha llevado, incluso, al estancamiento del sistema migratorio en los últimos años.",
+      "reference": "while sectors of the republican party maintain their skepticism, the proposal to re-write immigration law is unprecedented in light of the in-fighting between parties that has stagnated reform in recent years.",
+      "raw": "although some bantwo republic republicers show their skeptism, this according to rewrite the migrataories is an initiatival without precedents, dated the commbating among ambian idea, which has carried out of the statement of the last years.",
+      "application": "Although some bantwo republic republicers show their skeptism, this according to rewrite the migrataories is an initiatival without precedents, dated the commbating among ambian idea, which has carried out of the statement of the last years.",
+      "latency_s": 0.15747609999380074,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.389675641025641
+    },
+    {
+      "source": "cuando haydar aliyev fue elegido presidente, puso a los miembros de su propia familia en posiciones gubernamentales.",
+      "reference": "when haydar aliyev was elected president, he put his own family members into governmental positions.",
+      "raw": "when you have aliyev was elected president, put the members of his own family in governmentary positions.",
+      "application": "When you have aliyev was elected president, put the members of his own family in governmentary positions.",
+      "latency_s": 0.055847800002084114,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3846060606060606
+    },
+    {
+      "source": "este pasado mayo, fue fuertemente presentado en el documental de current tv “amordazado en brasil,” que desde entonces ha sido visto en youtube 50,000 veces.",
+      "reference": "this past may, it was heavily featured on the current tv documentary “gagged in brazil,” which has since been viewed on youtube 50,000 times.",
+      "raw": "this last may 20, it was strongly presented in the documentary of tv amordazated in brazil, which since then has been seen in youtube 50,000 times.",
+      "application": "This last may 20, it was strongly presented in the documentary of tv amordazated in brazil, which since then has been seen in youtube 50,000 times.",
+      "latency_s": 0.10174700000789016,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.37529814814814816
+    },
+    {
+      "source": "imagen que se ha compartido ampliamente en redes sociales.",
+      "reference": "image widely shared through social networks.- ok!",
+      "raw": "image that has shared thousands in social networks global",
+      "application": "Image that has shared thousands in social networks global.",
+      "latency_s": 0.0266505000035977,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4019590909090909
+    },
+    {
+      "source": "un anuncio impreso (ar) que fue publicado en los periódicos comunicaba a la gente que, de acuerdo con el islam, están obligados a votar sí.",
+      "reference": "a printed advertisement was published in the newspapers telling people that according to islam they are obliged to vote with yes.",
+      "raw": "a improve announcement (arthat was published in the newspapers communicated to people that, according to the islam, are forced to vote",
+      "application": "A improve announcement (arthat was published in the newspapers communicated to people that, according to the islam, are forced to vote.",
+      "latency_s": 0.06248809999669902,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3529558139534884
+    },
+    {
+      "source": "entonces, déjame preguntarte acerca de tus sueños.",
+      "reference": "so let me ask you about your own dreams.",
+      "raw": "so let me ask you about your dreams.",
+      "application": "So let me ask you about your dreams.",
+      "latency_s": 0.01389670000935439,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39077777777777783
+    },
+    {
+      "source": "sin embargo, como lo relató el periódico zero hora , la revisión elaborada por el tce produjo confusión:",
+      "reference": "however, the review, prepared by tec was confused, as reported in local newspaper zero hora:",
+      "raw": "however, as he related the zero newspaper , the election reviewed by the confusion:",
+      "application": "However, as he related the zero newspaper, the election reviewed by the confusion:.",
+      "latency_s": 0.03742999999667518,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4034344827586207
+    },
+    {
+      "source": "parece que el desempeño del consejo militar al mando de egipto genera frustraciones que van en ascenso y algunos dicen que una confrontación se empieza a formar en el horizonte.",
+      "reference": "it seems that frustration with the performance of egypt's ruling military council in leading the transitional period is mounting and some say that a confrontation is looming on the horizon.",
+      "raw": "it seems that the despire of the military council of egypto gender frastructions that they are going and some say that a confrontation is beginning in the horizon.",
+      "application": "It seems that the despire of the military council of egypto gender frastructions that they are going and some say that a confrontation is beginning in the horizon.",
+      "latency_s": 0.07853720001003239,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39688269230769235
+    },
+    {
+      "source": "hay gente de europa residente en tailandia que vino aquí para sobrevivir y que no cuenta con ningún ingreso.",
+      "reference": "there are people staying in thailand from europe that fled here to survive and which don't have any incomes.",
+      "raw": "there are people of europe resident in thailandia who came here to survive and that he realize any ingrace.",
+      "application": "There are people of europe resident in thailandia who came here to survive and that he realize any ingrace.",
+      "latency_s": 0.042650800009141676,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3738705882352941
+    },
+    {
+      "source": "lo que se sigue cuestionando es la influencia externa para la aprobación de esta prestación, como comenta edmundo vera r. ‏(@edverar):",
+      "reference": "the external influence for granting the loan is still in doubt, as edmundo vera r. (@edverar) points out:",
+      "raw": "what is still questioning is the external influence for the approvation of this pass, as comments in the world vier):",
+      "application": "What is still questioning is the external influence for the approvation of this pass, as comments in the world vier):.",
+      "latency_s": 0.0552771000075154,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4013648648648649
+    },
+    {
+      "source": "tampoco deberían subestimar y mofarse de su deseo de estabilidad.",
+      "reference": "also you should not underestimate their wish for stability and mock it.",
+      "raw": "they should not subb and mofed of his wishes of stability.",
+      "application": "They should not subb and mofed of his wishes of stability.",
+      "latency_s": 0.02295400000002701,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41362
+    },
+    {
+      "source": "serbia: bloggers discuten planes de erigir un monumento a ex presidente azerbaiyano",
+      "reference": "serbia: bloggers discuss plans to erect monument to late azeri president · global voices",
+      "raw": "serbia: blogers discussing a monum monument to ex president azerbaijan presidentian",
+      "application": "Serbia: blogers discussing a monum monument to ex president azerbaijan presidentian.",
+      "latency_s": 0.04844220000086352,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3962166666666666
+    },
+    {
+      "source": "uruguay: aplicación para laptop xo",
+      "reference": "uruguay: application for xo laptop · global voices",
+      "raw": "uruguay: application for laptop xo glo",
+      "application": "Uruguay: application for laptop xo glo.",
+      "latency_s": 0.02238239999860525,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.4020526315789474
+    },
+    {
+      "source": "adly informó en su cuenta que había visto el cuerpo de essam atta: أنا شفت جثمان عصام الله يرحمه مفيهوش إصابات بس هدومه متقطعه وبيجيب مياه من فتحات جسمه @malekadly: vi el cuerpo de essan atta.",
+      "reference": "adly reported on his account that he saw the body of essam atta and that it was: @malekadly: i saw essam atta's body.",
+      "raw": "adly reported in his account that there was seen the ssam atta: \"\",\" '\"\" \".\" \"'\" \"\" \"..\",\" \"'.\"",
+      "application": "Adly reported in his account that there was seen the ssam atta: \"\",\" '\"\" \".\" \"'\" \"\" \"..\",\" \"'.\".",
+      "latency_s": 0.10424350001267157,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5352490909090909
+    },
+    {
+      "source": "karen border news fue uno de los becados de rising voices el 2012.",
+      "reference": "the karen border news is one of the 2012 rising voices grantees.",
+      "raw": "karin border news was one of rising voices the 2012.",
+      "application": "Karin border news was one of rising voices the 2012.",
+      "latency_s": 0.027596699990681373,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3046608695652174
+    },
+    {
+      "source": "el día 13 comienza @onebillionrising en bangladesh......",
+      "reference": "launching of @onebillionrising bangladesh......on the 13th.",
+      "raw": "on 13, 2013 starts on bangladesh..",
+      "application": "On 13, 2013 starts on bangladesh..",
+      "latency_s": 0.02674450000631623,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.45019999999999993
+    },
+    {
+      "source": "la noticia de la espeluznante muerte de atta causó conmoción en las redes sociales, en especial twitter, donde los usuarios inmediatamente comenzaron a seguir las actualizaciones del abogado malek adly , responsable de brindarle apoyo legal a la familia de la víctima.",
+      "reference": "the news of atta's shocking death caused an uproar on social media websites, particularly twitter, where users anxiously followed the updates of lawyer malek adly as he went down to provide legal support for the family of the victim.",
+      "raw": "the news of the fruznant death of attacked conmotion in social networks in especial twitter, where the users started to securrent malack adle, and responsibile to support the family of the victim.",
+      "application": "The news of the fruznant death of attacked conmotion in social networks in especial twitter, where the users started to securrent malack adle, and responsibile to support the family of the victim.",
+      "latency_s": 0.15801210000063293,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4276214285714286
+    },
+    {
+      "source": "numerosas personalidades, como el baradei, amr moussa, wael ghonim (en) (administrador de la página de facebook we are all khaled said o todos somos khaled said), junto con muchos otros escritores y artistas, declararon que iban a votar en contra.",
+      "reference": "many prominent figures such as el baradei, amr moussa, wael ghonim (the administrator of we are all khaled said facebook page), and many other writers and artists declared that they were going to refuse the amendments.",
+      "raw": "numerous people, as the barade, amr moussa, wael ghonm (en(administrator of facebook page we all khamed said or all sokhalled with many writes and other writers and declared to votests.",
+      "application": "Numerous people, as the barade, amr moussa, wael ghonm (en(administrator of facebook page we all khamed said or all sokhalled with many writes and other writers and declared to votests.",
+      "latency_s": 0.14905130000261124,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.39005875
+    },
+    {
+      "source": "el control de la información y la vigilancia en internet están entre los problemas de los que se acusa al primer ministro yingluck shinawatra.",
+      "reference": "information control and internet surveillance are among the issues raised against prime minister yingluck shinawatra.",
+      "raw": "the control of information and the internet vigilation are among the problems of the prime minister yingluck shinawa.",
+      "application": "The control of information and the internet vigilation are among the problems of the prime minister yingluck shinawa.",
+      "latency_s": 0.05355149999377318,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38239743589743586
+    },
+    {
+      "source": "la campaña para el referéndum constitucional ha terminado en bolivia y se espera ansiosamente el voto de este domingo.",
+      "reference": "the campaign for the constitutional referendum has ended across bolivia and sunday's vote is eagerly awaited.",
+      "raw": "the campaign for the constitutional referendum has ended in bolivia and is expectedly the vote of this sunday",
+      "application": "The campaign for the constitutional referendum has ended in bolivia and is expectedly the vote of this sunday.",
+      "latency_s": 0.05503199998929631,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3483317073170732
+    },
+    {
+      "source": "restos de tronco y tan sólo un pozo donde la gente tira la basura.",
+      "reference": "remnants of the trunk and just a hole where people throw their trash.",
+      "raw": "rock of tronco and so only a poet where people tror the bassaua.",
+      "application": "Rock of tronco and so only a poet where people tror the bassaua.",
+      "latency_s": 0.031957300001522526,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37354166666666666
+    },
+    {
+      "source": "jimmy de tea leaf nation explica la posición política de los izquierdistas y derechistas en china, traduciendo la discusión en micro-blogs y una guía ilustrada de cnpolitics.org.",
+      "reference": "jimmy from tea leaf nation explains the political position of the leftist and the rightist in china by translating discussion in micro-blogs and a pictorial guide from cnpolitics.org.",
+      "raw": "jimmy of tea laf native explains the political opposition of the leftists and rights in china, translating the discussion in miicro-blogs and a guy of cnpolis.or.",
+      "application": "Jimmy of tea laf native explains the political opposition of the leftists and rights in china, translating the discussion in miicro-blogs and a guy of cnpolis.or.",
+      "latency_s": 0.11470540000300389,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37281311475409845
+    },
+    {
+      "source": "los logos de \"un billón de pie\" en diferentes lenguas, entre ellos el bengalí.",
+      "reference": "one billion rising logos in different languages including bangla",
+      "raw": "the loges of \"a billion of pie\" in different languages, among them the bengal.",
+      "application": "The loges of \"a billion of pie\" in different languages, among them the bengal.",
+      "latency_s": 0.03566920000594109,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3721448275862069
+    },
+    {
+      "source": "el resultado sería alcanzar la estabilidad política y económica cuanto antes.",
+      "reference": "the result would be to reach a political and economical stability state as soon as possible.",
+      "raw": "the result would be to reach political stability and economic statement as before.",
+      "application": "The result would be to reach political stability and economic statement as before.",
+      "latency_s": 0.028359400006593205,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40718799999999994
+    },
+    {
+      "source": "edward lucas postea su artículo de la serie \"daily mail\" sobre el campo de verano del movimiento juvenil pro-putin nashi - y recibe 62 comentarios.",
+      "reference": "edward lucas posts his daily mail piece on the summer camp of the pro-putin youth movement nashi - and receives 62 comments.",
+      "raw": "eduard lucks posts his article of the series \"daily mail\" on veran's camp of juvenil pro-putin nashi - and recently commentaries.",
+      "application": "Eduard lucks posts his article of the series \"daily mail\" on veran's camp of juvenil pro-putin nashi - and recently commentaries.",
+      "latency_s": 0.08776269998634234,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3540056603773585
+    },
+    {
+      "source": "esta vez el director yôjiro takita, quien, en comedias sin mucha importancia como byôin he ikô , maravillosamente plasmó las paradojas de la sociedad, ha hecho aqui un acercamiento al trabajo de agente funerario quien esta presente para supervisar el funeral de una persona.",
+      "reference": "nonetheless it is worthy of note that, in japan, it made some people reflect on the meaning of life as in the case of suiren, who describes her feelings about the movie immediately after watching it.",
+      "raw": "this time yjio takita, who in committees without a lot of importance as byin the ik, maravillly placed the paraddresses of society, has made that an appropriate campaign of the work of the founder who to supersonal personally for a person.",
+      "application": "This time yjio takita, who in committees without a lot of importance as byin the ik, maravillly placed the paraddresses of society, has made that an appropriate campaign of the work of the founder who to supersonal personally for a person.",
+      "latency_s": 0.1753667999873869,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3953976744186046
+    },
+    {
+      "source": "el federalista lo sintetiza abruptamente:",
+      "reference": "the winer: correa, the losers: everyone",
+      "raw": "the federalist sinteza abruptent:",
+      "application": "The federalist sinteza abruptent:.",
+      "latency_s": 0.02059130000998266,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4577533333333334
+    },
+    {
+      "source": "este año habrá un censo en méxico, y el blogger de maldito thinner ha compilado una lista de las mejores 100 preguntas en broma publicadas bajo el hashtag #preguntasdelcenso.",
+      "reference": "this year mexico will hold a census, and the blogger from maldito thinner has compiled a list of the best 100 burlesque questions published under the hashtag #preguntasdelcenso (census questions).",
+      "raw": "this year there will be a censorship in mexico, and the blogger thinner has commpied a list of the best 100 questions in broma published under the hashtag ashashthashtaslicense.",
+      "application": "This year there will be a censorship in mexico, and the blogger thinner has commpied a list of the best 100 questions in broma published under the hashtag ashashthashtaslicense.",
+      "latency_s": 0.10319729999173433,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37146190476190477
+    },
+    {
+      "source": "él bloguea: quizás esta palmera era la más alta y la más vieja en la zona de heliopolis, y quizás es tan vieja como el mismísimo suburbio.",
+      "reference": "he blogs: perhaps this palm tree was the longest and oldest in heliopolis area, and perhaps as old as the suburb itself.",
+      "raw": "he bloggea: quos this palm was the most old and the older of haliopolis, and who is so old as the issue of sue member.",
+      "application": "He bloggea: quos this palm was the most old and the older of haliopolis, and who is so old as the issue of sue member.",
+      "latency_s": 0.07231529999990016,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4079466666666666
+    },
+    {
+      "source": "para satisfacer las grandes expectativas de los padres, los colegios han aumentado la cantidad de matrículas.",
+      "reference": "in order to meet the high expectations of parents, schools have expanded the enrollment.",
+      "raw": "to satisfacer the grants of the father, schools have been increased the number of matriculs.",
+      "application": "To satisfacer the grants of the father, schools have been increased the number of matriculs.",
+      "latency_s": 0.03906149999238551,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3823225806451612
+    },
+    {
+      "source": "en su carta y en su columna publicada en el diario kuwaití en árabe al-qabas, al-khamis describió a bin laden como el hombre de sus sueños. describió como le hubiese encantado ir a su cueva con él, lavarle la barba y convertirse en una de sus esposas.",
+      "reference": "in her letter, in her column in the kuwaiti arabic daily al-qabas, al-khamis described bin laden as the man of her dreams, describing how she would have loved going with him to his cave, washing his beard and becoming one of his wives.",
+      "raw": "in his letter and in his columna published in the kuwaiti in arabe al-qab, al-khamis described bin as the man of his dreams.",
+      "application": "In his letter and in his columna published in the kuwaiti in arabe al-qab, al-khamis described bin as the man of his dreams.",
+      "latency_s": 0.1368839999922784,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.29683191489361704
+    },
+    {
+      "source": "michael hanna, un bloguero y farmacéutico egipcio, continuó su serie de lamentos no sólo por el asesinato de árboles sino también por la demolición de villas antiguas en el suburbio de heliopolis de el cairo, y escribió una oda a una palmera .",
+      "reference": "michael hanna, an egyptian blogger and pharmacist, continued his series of mourning the murder of trees, as well as demolishing antique villas in heliopolis suburb in cairo, and wrote an ode to a palm tree .",
+      "raw": "michael hann, a blogger and farmed egyptian egypt continued his series not only for the murder of trees but also for vilable demobile in the hilibyan rebye of the higholipola and wrote a bypt was a ally.",
+      "application": "Michael hann, a blogger and farmed egyptian egypt continued his series not only for the murder of trees but also for vilable demobile in the hilibyan rebye of the higholipola and wrote a bypt was a ally.",
+      "latency_s": 0.16195180000795517,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4113811764705883
+    },
+    {
+      "source": "eso quiere decir que hay 65 millones que no se unieron a las protestas desde el principio y que, probablemente, echan de menos la estabilidad y la seguridad del antiguo régimen.",
+      "reference": "that means there are 65 million who never joined the protests from the beginning, and who probably miss the stability and security of the old regime.",
+      "raw": "that wants to say there is 65 million that they did not join the main protests from the principio and que, probably approved at least the estability and the antigue security of the former.",
+      "application": "That wants to say there is 65 million that they did not join the main protests from the principio and que, probably approved at least the estability and the antigue security of the former.",
+      "latency_s": 0.10248719999799505,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37439666666666666
+    },
+    {
+      "source": "la muerte de su nieto, y el paso de tiempo han afectado su salud.",
+      "reference": "his grandson's death, and the passage of time, have had a toll on his health.",
+      "raw": "the death of his niet, and time have affected his health.",
+      "application": "The death of his niet, and time have affected his health.",
+      "latency_s": 0.019103200000245124,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3263125
+    },
+    {
+      "source": "vosotros os preocupáis por la revolución, el arresto de personalidades del pnd y de devolver al país a su ritmo habitual.",
+      "reference": "you care about the revolution, & the arrest of ndp figures & getting the country on the right track.",
+      "raw": "you are concerns for revolution, the arrest of pnd personalities and to return the country to his ability.",
+      "application": "You are concerns for revolution, the arrest of pnd personalities and to return the country to his ability.",
+      "latency_s": 0.04805800000031013,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3912823529411765
+    },
+    {
+      "source": "finalmente, ¿hay algo más que quieras añadir?",
+      "reference": "finally, is there anything else you'd like to add?",
+      "raw": "finally, is there something more than you want to ad?",
+      "application": "Finally, is there something more than you want to ad?",
+      "latency_s": 0.014920999994501472,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43813571428571424
+    },
+    {
+      "source": "la alegría ha conquistado los corazones de los dominicanos gracias a una racha perfecta en el iii clásico mundial de beisbol.",
+      "reference": "the hearts of the dominicans are rejoicing thanks to their incredible performance during the iii baseball world classic.",
+      "raw": "the joy has conquired the court of dominicans thanks to a perffect in the ii classian world of beislay.",
+      "application": "The joy has conquired the court of dominicans thanks to a perffect in the ii classian world of beislay.",
+      "latency_s": 0.05554269999265671,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3756871794871795
+    },
+    {
+      "source": "el cairo no es egipto.",
+      "reference": "cairo is not egypt.",
+      "raw": "cairo is not egypt.",
+      "application": "Cairo is not egypt.",
+      "latency_s": 0.011017899989383295,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4474333333333333
+    },
+    {
+      "source": "además de los talleres, distribuimos equipamiento de medios a los estudiantes, incluyendo notebooks, guías de medios y grabadoras de audio.",
+      "reference": "in addition to the workshops, we are also distributing some media equipment to students, including notebooks, media guidebooks, and audio recorders.",
+      "raw": "in addition of the talers, we distributed media teams, including noteboko, guies of media and audio.",
+      "application": "In addition of the talers, we distributed media teams, including noteboko, guies of media and audio.",
+      "latency_s": 0.05728810001164675,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3787526315789474
+    },
+    {
+      "source": "algunos pensaban que algunos de los artículos enmendados eran confusos (ar), mientras que otros los rechazaban (en).",
+      "reference": "some people found some of the amended articles confusing , while others refused them.",
+      "raw": "some pensable that some of the articles were confused (ar), while others rejected (en).",
+      "application": "Some pensable that some of the articles were confused (ar), while others rejected (en).",
+      "latency_s": 0.03601570001046639,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3357928571428571
+    },
+    {
+      "source": "algunos decidieron votar por las enmiendas porque tenían un miedo fundado a que mayores retrasos resultasen en una intervención militar que tomase el poder para siempre (en).",
+      "reference": "some decided to vote with the amendments because they had reasonable fears that any delays might result in the army jumping on the wagon and stay in charge forever.",
+      "raw": "some decided to vote for the enmiencourage because they had a founded that major remove results in a military intervention to take the power for always (en).",
+      "application": "Some decided to vote for the enmiencourage because they had a founded that major remove results in a military intervention to take the power for always (en).",
+      "latency_s": 0.08000840000750031,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3546673469387755
+    },
+    {
+      "source": "uruguay: niños del olpc muestran lo que han aprendido",
+      "reference": "uruguay: children involved with olpc laptops show what they have learned · global voices",
+      "raw": "uruguay: olpc children show what have learned global voices",
+      "application": "Uruguay: olpc children show what have learned global voices.",
+      "latency_s": 0.03254470000683796,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.32898260869565216
+    },
+    {
+      "source": "y zeinobia añadió (en) que, incluso después de este referéndum, la revolución aún no ha terminado: la revolución no ha terminado con la salida de mubarak y la caída parcial de su régimen.",
+      "reference": "and zeinobia added that even after this referendum, the revolution is still not over yet: the revolution is not over with the outset of mubarak and the semi fall of his regime.",
+      "raw": "and zeinobia added (enthat, even after this referendum, the revolution has not ended with mubarak and the capital caire of his revoloution and the caigime.",
+      "application": "And zeinobia added (enthat, even after this referendum, the revolution has not ended with mubarak and the capital caire of his revoloution and the caigime.",
+      "latency_s": 0.10757600000943057,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37373389830508486
+    },
+    {
+      "source": "@titoherrera: ahorro de energía según el gobierno: \"cerrando las escuelas también cerramos los cerebros, esto representa un ahorro en dar explicaciones\"",
+      "reference": "@titoherrera : energy saving according to the government: \"by closing schools we will also close brains, that means saving explanations\".",
+      "raw": "titoherera: savo of energy according to the government: \"closing schools also closing the cerebrates, this represents a save to explains\"",
+      "application": "Titoherera: savo of energy according to the government: \"closing schools also closing the cerebrates, this represents a save to explains\".",
+      "latency_s": 0.07564629999978933,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38230196078431383
+    },
+    {
+      "source": "pero el blogger paquistaní adil najam pregunta : \"¿desde cuándo mohabbat (el amor) no es parte de nuestra saqafat (cultura)?\"",
+      "reference": "but pakistani blogger adil najam asks: \"since when is mohabbat (love) not part of our saqafat (culture)?\"",
+      "raw": "but pakistani blogger adil najam asks : \"how many mohabt (the amoris not part of our saqaffect (cultural saqaf",
+      "application": "But pakistani blogger adil najam asks: \"how many mohabt (the amoris not part of our saqaffect (cultural saqaf.",
+      "latency_s": 0.07820770000398625,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3746377358490565
+    },
+    {
+      "source": "ecuador: abrazos gratis en quito",
+      "reference": "ecuador: free hugs in quito · global voices",
+      "raw": "ecuador: graties global voices",
+      "application": "Ecuador: graties global voices.",
+      "latency_s": 0.018856299997423775,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40688124999999997
+    },
+    {
+      "source": "a fines de marzo el ejecutivo ratificó un aumento de 7%, llegando a 3,05 reales (1,43 us).",
+      "reference": "in late march the executive approved an increase of 7% to 3.05 reais.",
+      "raw": "finally march the executive ratified a appoint of 7 for socient, arriving 3,05 reals (1.43 us).",
+      "application": "Finally march the executive ratified a appoint of 7 for socient, arriving 3,05 reals (1.43 us).",
+      "latency_s": 0.054509900000994094,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.37463658536585365
+    },
+    {
+      "source": "latinos fueron figuras centrales en la inauguración de obama",
+      "reference": "latinos were key figures at obama's inauguration · global voices",
+      "raw": "latin were figures in the auguration of obama global",
+      "application": "Latin were figures in the auguration of obama global.",
+      "latency_s": 0.028061899996828288,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39874583333333335
+    },
+    {
+      "source": "kazajistán: pagar para que le den atención a tu trabajo",
+      "reference": "kazakhstan: pay to get your artwork noticed · global voices",
+      "raw": "kazakhstan: pay attention to your work global voices",
+      "application": "Kazakhstan: pay attention to your work global voices.",
+      "latency_s": 0.024355200002901256,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35208636363636364
+    },
+    {
+      "source": "cronica cero, se burla de los dos partidos más antiguos en ecuador por no reconocer su derrota:",
+      "reference": "cronica cero , mocks of two of the most senior parties in ecuador for not acknowledging their defeat:",
+      "raw": "cronic cere, the two old parties in ecuador for not recognized his right:",
+      "application": "Cronic cere, the two old parties in ecuador for not recognized his right:.",
+      "latency_s": 0.03670270000293385,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36775517241379313
+    },
+    {
+      "source": "marruecos: \"por qué bella es voluntaria de los cuerpos de paz\"",
+      "reference": "morocco: \"why belle is a peace corps volunteer\" · global voices",
+      "raw": "morocco: \"why bshe is volunteer of paz\" global voices",
+      "application": "Morocco: \"why bshe is volunteer of paz\" global voices.",
+      "latency_s": 0.029673600001842715,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3281999999999999
+    },
+    {
+      "source": "4) vi alguien practicando política en la universidad, su nombre es obama.",
+      "reference": "4) i saw someone practicing politics in the university sir, his name is obama!",
+      "raw": "4i saw someone practicing politics in universition, his name is obama.",
+      "application": "4I saw someone practicing politics in universition, his name is obama.",
+      "latency_s": 0.029655299993464723,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.34570799999999996
+    },
+    {
+      "source": "él hace una referencia a su niñez hablando sobre las brujas, el viejito del saco y el cuco quienes desaparecerían a los niños pequeños si no llegaban a hacer a lo que les había ordenado.",
+      "reference": "he makes a reference to childhood saying about witches, old men in coats and a cuckoo that would take small children away if they did not do what they were supposed to.",
+      "raw": "he makes a reference to his children's children, the old of the safe and the cuco who would disappeared the small children if they did not come to do what they have ordered.",
+      "application": "He makes a reference to his children's children, the old of the safe and the cuco who would disappeared the small children if they did not come to do what they have ordered.",
+      "latency_s": 0.07469800001126714,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3870395833333333
+    },
+    {
+      "source": "foto de giuseppe bizzarri (demotix)",
+      "reference": "photo by giuseppe bizzarri (demotix)",
+      "raw": "photo by giusepe bizarrei (demotix",
+      "application": "Photo by giusepe bizarrei (demotix.",
+      "latency_s": 0.025506899997708388,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.32930500000000007
+    },
+    {
+      "source": "tengo un libro de cuentos por ser escrito, y otro en espera por ser publicado.",
+      "reference": "i have a storybook on hold to write, and another on hold to be published.",
+      "raw": "i have a book of being writes, and another waiting for being published by being publicated.",
+      "application": "I have a book of being writes, and another waiting for being published by being publicated.",
+      "latency_s": 0.022286500010523014,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38709999999999994
+    },
+    {
+      "source": "koh hai loke sa-ngob suk escribe en el foro kapook:",
+      "reference": "koh hai loke sa-ngob suk writes on kapook web board:",
+      "raw": "koh hai loke sa-ngob suk writes in kapook:",
+      "application": "Koh hai loke sa-ngob suk writes in kapook:.",
+      "latency_s": 0.02582280000206083,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.30656363636363637
+    },
+    {
+      "source": "la cholita de sembrando palabras escribe sobre la opinión de algunas personas que piensan que no importa cual sea la constitución que gobierne bolivia, que su gente encontrará el modo de prolongar sus problemas.",
+      "reference": "la cholita of sembrando palabras writes about some people's sentiments that it doesn't matter which constitution governs bolivia, that is people will find a way to continue its problems.",
+      "raw": "the cholita of sembling words writes about some people who think that they dont matter that it is the constitution that government bolivia, who will find the mod of their problems.",
+      "application": "The cholita of sembling words writes about some people who think that they dont matter that it is the constitution that government bolivia, who will find the mod of their problems.",
+      "latency_s": 0.0783713999990141,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3797019230769231
+    },
+    {
+      "source": "quirk global strategies, el blog del ex jefe del instituto nacional democrático (ndi, por sus siglas en inglés) en azerbaiyán, se disculpa con sus lectores por no publicar más acerca de las elecciones.",
+      "reference": "quirk global strategies, the blog of a former head of the national democratic institute (ndi) in azerbaijan, apologizes to its readers for not posting more about the election.",
+      "raw": "quirk global strategies, the blog of the former jeffe of the national institute (ndi, for their century in azerbaijanin aherbayan.",
+      "application": "Quirk global strategies, the blog of the former jeffe of the national institute (ndi, for their century in azerbaijanin aherbayan.",
+      "latency_s": 0.130877599993255,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36082881355932206
+    },
+    {
+      "source": "para ellos, ambos presidentes están buscando la paz.",
+      "reference": "for them, both of the two presidents were calling for peace.",
+      "raw": "for thems, presidents are looking for peace.",
+      "application": "For thems, presidents are looking for peace.",
+      "latency_s": 0.018081100002746098,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40688461538461534
+    },
+    {
+      "source": "bosnia y herzegovina: ramazan y bajram en sarajevo",
+      "reference": "bosnia & herzegovina: ramazan and bajram in sarajevo · global voices",
+      "raw": "bosnia and herzegvina: ramazan and ambram in sarajevo",
+      "application": "Bosnia and herzegvina: ramazan and ambram in sarajevo.",
+      "latency_s": 0.035671999998157844,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3439333333333333
+    },
+    {
+      "source": "el equipo de esta campaña y sus socios están trabajando en bangladesh por un mismo objetivo.",
+      "reference": "the campaign team and the partners are working in bangladesh towards the same goal.",
+      "raw": "the team of this campaign and their socies are working in bangladesh for a same objective objective.",
+      "application": "The team of this campaign and their socies are working in bangladesh for a same objective objective.",
+      "latency_s": 0.03815449999819975,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36192187499999995
+    },
+    {
+      "source": "el título del artículo: \"sexo para la madre patria: jóvenes rusos son animados a procrear en el campo.\"",
+      "reference": "the title of the piece: \"sex for the motherland: russian youths encouraged to procreate at camp.\"",
+      "raw": "the article of article: \"sexo for the mother patria: young russians are animated to procreate in the campo.\"",
+      "application": "The article of article: \"sexo for the mother patria: young russians are animated to procreate in the campo.\".",
+      "latency_s": 0.05031359998974949,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3472638888888889
+    },
+    {
+      "source": "el bloguero don xavier escribe sobre las diversas amenazas y advertencias dadas a los votantes si correa conseguía incrementar su poder para manejar los asuntos del país.",
+      "reference": "the blogger don xavier writes about the different threats and warnings given to voters if correa was given increased power in the country's affairs.",
+      "raw": "the blogger don xavier writes about the diversations and advertives to voters if correa to increase their power to keep the country.",
+      "application": "The blogger don xavier writes about the diversations and advertives to voters if correa to increase their power to keep the country.",
+      "latency_s": 0.0766390000062529,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36430697674418616
+    },
+    {
+      "source": "con la madurez del blogueo en armenia después de sus elecciones presidenciales y en georgia tras su guerra con rusia, lo mismo puede también ser verdad para azerbaiyán.",
+      "reference": "with blogging coming of age in armenia after its presidential election and in georgia after its war with russia, the same might also be true for azerbaijan.",
+      "raw": "with the madurez of blogger in armenia after their presidential elections and in georgia after his war with russia, the same can also be true for azerbaijan.",
+      "application": "With the madurez of blogger in armenia after their presidential elections and in georgia after his war with russia, the same can also be true for azerbaijan.",
+      "latency_s": 0.08604980001109652,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3292280701754386
+    },
+    {
+      "source": "estas imágenes fueron cedidas por cortesía de la página de facebook de un billón de pie de bangladesh .",
+      "reference": "here are a few pictures of this activities, image courtesy facebook page of one billion rising bangladesh.",
+      "raw": "these images were criticized by courtesy of facebook page of a bangladesh",
+      "application": "These images were criticized by courtesy of facebook page of a bangladesh.",
+      "latency_s": 0.045782100001815706,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3891464285714285
+    },
+    {
+      "source": "el mismo juez, hilbert maximiliano akihito obara, admitió que el clamor popular aceleró la decisión de mantener el precio en el valor anterior .",
+      "reference": "the judge, hilbert maximiliano akihito obara, admitted that the public outcry had sped up the decision to revert to the previous bus fare rate.",
+      "raw": "the same juez, hilbert maximilian akiiti admitted that the popular claimed the decision to keep the price in the price.",
+      "application": "The same juez, hilbert maximilian akiiti admitted that the popular claimed the decision to keep the price in the price.",
+      "latency_s": 0.07977039999968838,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38971860465116276
+    },
+    {
+      "source": "sí, hay delincuencia, pero también hay historias de éxito, de amor, de vida y de muerte, y cada una de las pequeñas cosas de la vida puede ser contada y escrita, y cada una de ellas puede contener una maravillosa historia.",
+      "reference": "yes, there is delinquency, but there are also stories of success, of love, of betrayal, of life and death and every single little thing in life can be told and written, and every one of them may contain a wonderful story.",
+      "raw": "yes, there is a delincuence, but there are also stories of amor, and of death and each of the small things of life can be conted, and writing and each one of the elections can be a maravil story.",
+      "application": "Yes, there is a delincuence, but there are also stories of amor, and of death and each of the small things of life can be conted, and writing and each one of the elections can be a maravil story.",
+      "latency_s": 0.09519330000330228,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40329661016949153
+    },
+    {
+      "source": "v-day se celebrará el 14 de febrero de 2013 para detener la violencia contra mil millones de mujeres y niñas.",
+      "reference": "v-day will be observed on 14 february, 2013, to end violence against one billion women and girls.",
+      "raw": "v-day will celebrate on february 14, 2013 to stop the violence against million women and children.",
+      "application": "V-day will celebrate on february 14, 2013 to stop the violence against million women and children.",
+      "latency_s": 0.05183920000854414,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3580171428571428
+    },
+    {
+      "source": "los cohetes cruzan los cielos mientras la moralidad llega a nuevos mínimos. la nación se alza; el pueblo se arrodilla, sumiso.",
+      "reference": "rockets fly into the heavens while morals reach new lows, the nation rises while the people kneel in submission.",
+      "raw": "cohets cruzan society while the morality arrives new minalities. the nation is alza; the people are arrodill, sumission.",
+      "application": "Cohets cruzan society while the morality arrives new minalities. the nation is alza; the people are arrodill, sumission.",
+      "latency_s": 0.060440000001108274,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3639904761904762
+    },
+    {
+      "source": "mientras tanto, será interesante ver cómo la blogósfera azerbaiyaní responde a las elecciones.",
+      "reference": "in the meantime, it will be interesting to see how the azerbaijani blogosphere responds to the election.",
+      "raw": "meanwhile, it will be interesting to see how the azerbaijan blogosphere responds to the elections.",
+      "application": "Meanwhile, it will be interesting to see how the azerbaijan blogosphere responds to the elections.",
+      "latency_s": 0.042508600003202446,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36778181818181815
+    },
+    {
+      "source": "el #casocofiec, como ha sido denominado por los tuiteros ecuatorianos, se desató a causa de una irregularidad en un préstamo bancario de cofiec -una entidad estatal- por us$800.000 al inversionista argentino gastón duzac.",
+      "reference": "the #cofieccase , as ecuadorian twitter users have named it, was uncovered after irregularities were found in a cofiec banking loan for us$800,000 granted to the argentinian investor gastón duzac .",
+      "raw": "the casefiect, as has been dominated by ecuatorian tweets were detained because of a regularity in a bank bank of cofiec - a statement - an entertal u80.0,000 dollars in the argentary version.",
+      "application": "The casefiect, as has been dominated by ecuatorian tweets were detained because of a regularity in a bank bank of cofiec - a statement - an entertal u80.0,000 dollars in the argentary version.",
+      "latency_s": 0.1401047999970615,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.4082346666666667
+    },
+    {
+      "source": "nazim farhan chowdhury tuitea:",
+      "reference": "nazim farhan chowdhury tweets:",
+      "raw": "nazim farhave chowdhury tweet:",
+      "application": "Nazim farhave chowdhury tweet:.",
+      "latency_s": 0.02111010000226088,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.38735
+    },
+    {
+      "source": "su lucha logró una importante victoria al concederles el programa de acción diferida.",
+      "reference": "this fight won an important victory with the deferred action plan.",
+      "raw": "his fight achieved a important victory to the concedential concelebrate program of different action.",
+      "application": "His fight achieved a important victory to the concedential concelebrate program of different action.",
+      "latency_s": 0.0375997999944957,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41485625000000004
+    },
+    {
+      "source": "creo que china necesita más colegios vocacionales, un aumento en la financiación de profesores universitarios, así como cerrar las universidades no calificadas.",
+      "reference": "i think china needs more vocational schools, an increase in college teachers' funding, as well as to close unqualified universities.",
+      "raw": "i think china needs more vocational schools, an aumate in university professors of colleges, so like to close the universites dont",
+      "application": "I think china needs more vocational schools, an aumate in university professors of colleges, so like to close the universites dont.",
+      "latency_s": 0.06178360000194516,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38354
+    },
+    {
+      "source": "vosotros ya no representáis al pueblo.",
+      "reference": "you no longer represent the people.",
+      "raw": "you have no representation to the village.",
+      "application": "You have no representation to the village.",
+      "latency_s": 0.012989299997570924,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4990583333333333
+    },
+    {
+      "source": "el tonto ambicioso se olvidó de que, tal como había decidido la corte, zuma iba a conocer a su pariente welshman ncube, ¡precisamente el hombre que mutambara no quería que hablara con el presidente zuma!",
+      "reference": "the ambitious fool forgot that zuma would, as the courts decided already, meet his in-law, welshman ncube, the same man mutambara would have liked president zuma not to talk to!",
+      "raw": "the tonto ambitious is forced that such as a court, zuma was decided to know his washmn ncuba, pricly the man who mutbara did not want to talk with the president zu!",
+      "application": "The tonto ambitious is forced that such as a court, zuma was decided to know his washmn ncuba, pricly the man who mutbara did not want to talk with the president zu!",
+      "latency_s": 0.10058809998736251,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3829189655172414
+    },
+    {
+      "source": "sin embargo, el caso de censura de medios en minas gerais está lejos de ser un tema enterrado.",
+      "reference": "however, the case of media censorship in minas gerais is far from a buried issue.",
+      "raw": "however, the case of censorship of gerais far from being a issue.",
+      "application": "However, the case of censorship of gerais far from being a issue.",
+      "latency_s": 0.030791999990469776,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43186363636363634
+    },
+    {
+      "source": "en realidad, la situación comparable en brasil está en la selva atlántica (cerca de los centros de población económicamente desarrollados), que también está reducido a cerca del 10%.",
+      "reference": "actually, the comparable situation in brazil is in the atlantic rainforest (near the economically developed population centers) which is also reduced to near 10%.",
+      "raw": "in reality, the comparable situation in brazil is in the attlava (near the economic polocation central voices development), which is also reduced near 10 percent.",
+      "application": "In reality, the comparable situation in brazil is in the attlava (near the economic polocation central voices development), which is also reduced near 10 percent.",
+      "latency_s": 0.10138559999177232,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40113898305084755
+    },
+    {
+      "source": "durante la primera ronda de entrenamiento, nos concentramos en cuatro temas: la escritura de noticias, la grabación y edición de audio y la emisión.",
+      "reference": "during this first round of training, we focused on four topics: news writing, audio recording & editing, and broadcast.",
+      "raw": "during the first ronda of central enter, we concentrate in four topics: the writing of news, the group and edition of audition and the emi",
+      "application": "During the first ronda of central enter, we concentrate in four topics: the writing of news, the group and edition of audition and the emi.",
+      "latency_s": 0.06705729999521282,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3896127659574468
+    },
+    {
+      "source": "الخط الأول: يجمع شتات الإسلاميين وأبرزهم السلفيون والإخوان المسلمون والذين يدعون إلى الموافقة على التعديلات الدستورية.",
+      "reference": "الخط الأول: يجمع شتات الإسلاميين وأبرزهم السلفيون والإخوان المسلمون والذين يدعون إلى الموافقة على التعديلات الدستورية.",
+      "raw": "\".\"\" : \"\" \".,\" \" \"\",..\"'\"\" .\" — \".,\",\" \"'\"you\" \"..\"",
+      "application": "\".\"\": \"\" \".,\" \" \"\",..\"'\"\".\" — \".,\",\" \"'\"you\" \"..\".",
+      "latency_s": 0.09184500000264961,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.6432075471698114
+    },
+    {
+      "source": "la ciudad es también la campeona del otorgamiento de pasajes gratis. según la prefectura municipal de cada 100 personas que usan el autobús 33 no pagan .",
+      "reference": "the city is also the champion of discounts: of every 100 people who travel on the buses, 33 do not pay , according to the municipal government.",
+      "raw": "the city is also the campiona of passenges group according to the municipal prefecture of each 100 people who used the bus 33",
+      "application": "The city is also the campiona of passenges group according to the municipal prefecture of each 100 people who used the bus 33.",
+      "latency_s": 0.07509809998737182,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3699386363636364
+    },
+    {
+      "source": "aldo rebelo, diputado federal del partido comunista brasileño y relator del proyecto de la comisión especial de la cámara baja del congreso, ha expreado que la nueva ley regulará áreas que ya han sido devastadas, a la vez que prohibirá la deforestación en los próximos cinco años.",
+      "reference": "the rapporteur of the bill by the special commission in the lower house of congress, the brazilian communist party federal deputy aldo rebelo, has claimed that the new law will regulate areas that have already been devastated at the same time as it will forbid deforestation for five years to come.",
+      "raw": "aldo rebely, deputy federal of the brazilian partor and relator of the especial commission of the congress commission, has expressed that the new law will have already been devastates, which have been devaded to the prohibile five years.",
+      "application": "Aldo rebely, deputy federal of the brazilian partor and relator of the especial commission of the congress commission, has expressed that the new law will have already been devastates, which have been devaded to the prohibile five years.",
+      "latency_s": 0.1460469000012381,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41032564102564095
+    },
+    {
+      "source": "otros usuarios de facebook respondieron a esto.",
+      "reference": "this drew responses from other facebook users.",
+      "raw": "other facebook users responded this.",
+      "application": "Other facebook users responded this.",
+      "latency_s": 0.013224599999375641,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4195545454545455
+    },
+    {
+      "source": "corea: lo que sabes vs cuánto sabes sobre eso",
+      "reference": "korea: what you know vs how much you know about it · global voices",
+      "raw": "corea: what you know how much you know about that globa",
+      "application": "Corea: what you know how much you know about that globa.",
+      "latency_s": 0.018199700003606267,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38590588235294115
+    },
+    {
+      "source": "se esperan requisitos duros.",
+      "reference": "expect tough requirements.",
+      "raw": "they are expected to harsh requid.",
+      "application": "They are expected to harsh requid.",
+      "latency_s": 0.010843099997146055,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5751499999999999
+    },
+    {
+      "source": "foto: david sedlecký; con licencia creative commons attribution-share alike 3.0 unported.",
+      "reference": "photo: david sedlecký; used under the creative commons attribution-share alike 3.0 unported license.",
+      "raw": "photo: david sedleck; with creative commons attribution-share 3.0 sport:",
+      "application": "Photo: david sedleck; with creative commons attribution-share 3.0 sport:.",
+      "latency_s": 0.052345700009027496,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3597705882352941
+    },
+    {
+      "source": "algunos islamistas que estaban a favor del sí trataron de convencer a la gente a través de la religión.",
+      "reference": "some of the islamists who were in favor of a yes vote relied heavily on religion to persuade people.",
+      "raw": "some islamists who were in favor of the si tried to convince people through the religion.",
+      "application": "Some islamists who were in favor of the si tried to convince people through the religion.",
+      "latency_s": 0.03406920000270475,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3741925925925926
+    },
+    {
+      "source": "hasta su muerte en 2003 aliyev gobernó su república rica en petróleo durante más de 30 años, primero como comunista y luego como el primer presidente democrático, pero con poco cambio en su férrea actitud.",
+      "reference": "until his death in 2003 aliyev ruled his oil-rich republic for more then 30 years, first as a communist and then as the first democratic president, but with little change in his strong-arm attitude.",
+      "raw": "until his death in 203, aliyev gobjected his rica rich in petrail during more than 30 years, first as communist and after the first president democratic president, but with little change.",
+      "application": "Until his death in 203, aliyev gobjected his rica rich in petrail during more than 30 years, first as communist and after the first president democratic president, but with little change.",
+      "latency_s": 0.11212639999575913,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3411733333333334
+    },
+    {
+      "source": "como mucha gente, no me encontraba en la cima del mundo cuando obama escogió egipto para hablar.",
+      "reference": "like many people, i wasn’t exactly on top of the world when obama chose egypt to speak from.",
+      "raw": "as a lot of gly, i did not find in the world when obama scopted egypt to speak.",
+      "application": "As a lot of gly, I did not find in the world when obama scopted egypt to speak.",
+      "latency_s": 0.0371449000085704,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38713999999999993
+    },
+    {
+      "source": "este es mi aporte.",
+      "reference": "so that’s my two cents.",
+      "raw": "this is my sport.",
+      "application": "This is my sport.",
+      "latency_s": 0.007159000000683591,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37557999999999997
+    },
+    {
+      "source": "okuribito. por id: prognatis.",
+      "reference": "by id: prognatis.",
+      "raw": "okuribita by id: prognatis.",
+      "application": "Okuribita by id: prognatis.",
+      "latency_s": 0.019072799987043254,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3766
+    },
+    {
+      "source": "chantra reconoce cuáles eran los desafíos para el equipo en lo que respecta a movilizar y hacer campaña para lograr una mejor participación de la población juvenil local.",
+      "reference": "chantra recognizes the challenges for the team in mobilizing and campaigning for better participation of the local youth population.",
+      "raw": "chantra recognized cuals were the challenges for the team in what respect to movlize and to make a better participation of the juvenil population.",
+      "application": "Chantra recognized cuals were the challenges for the team in what respect to movlize and to make a better participation of the juvenil population.",
+      "latency_s": 0.09248349998961203,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.368488
+    },
+    {
+      "source": "para jorge yau (@mopx) la medida de suspender clases es una exageración, y sostiene que se puede estudiar sin tanto implemento electrónico:",
+      "reference": "jorge yau (@mopx) thinks suspending classes is an overkill, and claims that it is possible to study without so many electronics devices:",
+      "raw": "for jorge yau mopxthe media of suspender classes a exageration, and susperace can study without the electronic implement:",
+      "application": "For jorge yau mopxthe media of suspender classes a exageration, and susperace can study without the electronic implement:.",
+      "latency_s": 0.07461650000186637,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.34214423076923084
+    },
+    {
+      "source": "lo que también asombra a los ecuatorianos es la facilidad con que duzac obtuvo el préstamo en la entidad financiera, ya que cientos de pequeños agricultores demoran meses en recibir préstamos.",
+      "reference": "ecuadorians are struck by the fact that duzac was given the loan so easily, while hundreds of farmers have to wait months to be granted credits.",
+      "raw": "what also asombes the ecuatorians is the facility with duzac obtained the financial enterity in the finance of small agricultors demonstrators in receive protests.",
+      "application": "What also asombes the ecuatorians is the facility with duzac obtained the financial enterity in the finance of small agricultors demonstrators in receive protests.",
+      "latency_s": 0.09761470000375994,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38245423728813555
+    },
+    {
+      "source": "el préstamo que se entregó a duzac en diciembre de 2011 venció su fecha de pago en agosto de este año.",
+      "reference": "the loan given to duzac on december 2011 expired on august this year.",
+      "raw": "the practice that became duzac in december 2011 vented his fake in pake in agoto this year.",
+      "application": "The practice that became duzac in december 2011 vented his fake in pake in agoto this year.",
+      "latency_s": 0.04641669998818543,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.375103125
+    },
+    {
+      "source": "sentí en esta película, que la vida de cada uno es tratada tan tiernamente, tan afectuosamente y con respeto.",
+      "reference": "i felt, in this movie, that one's life is treated so tenderly, so warmly, and with respect.",
+      "raw": "i felt in this film that life of each is treated as a netizen, so affected and with respect.",
+      "application": "I felt in this film that life of each is treated as a netizen, so affected and with respect.",
+      "latency_s": 0.03497890000289772,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4015241379310344
+    },
+    {
+      "source": "es un síntoma de que la manifestación rebosa y se invierte.",
+      "reference": "it is a symptom of the demonstration that it overflows and is then reversed.",
+      "raw": "it is a syntoma of that the rebous demonstration and winter.",
+      "application": "It is a syntoma of that the rebous demonstration and winter.",
+      "latency_s": 0.02446889999555424,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41438499999999995
+    },
+    {
+      "source": "pero escribo, y puesto que no puedo siquiera imaginarme la vida sin escribir, soy una escritora.",
+      "reference": "but i write, and since i can not even imagine a life without writing, so i'm a writer.",
+      "raw": "but writer, and i can't even imagine life without writing, i am a writer.",
+      "application": "But writer, and I can't even imagine life without writing, I am a writer.",
+      "latency_s": 0.02450410000164993,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.366
+    },
+    {
+      "source": "¿cuáles son tus sueños?",
+      "reference": "what are your dreams?",
+      "raw": "what are your dream?",
+      "application": "What are your dream?",
+      "latency_s": 0.007225199995446019,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39524
+    },
+    {
+      "source": "joseph mayton de bikya masr escribió una pieza sobre el artículo.",
+      "reference": "joseph mayton at bikya masr wrote a piece on the article.",
+      "raw": "joseph majtoin of bikya masr wrote a piece on the article.",
+      "application": "Joseph majtoin of bikya masr wrote a piece on the article.",
+      "latency_s": 0.028491199991549365,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.334616
+    },
+    {
+      "source": "segundo, las repercusiones internacionales de mi video-documental siguen resonando.",
+      "reference": "second, the international repercussions of my video-documentary are still reverberating.",
+      "raw": "second the international repercuments of my video-documental syments resioning.",
+      "application": "Second the international repercuments of my video-documental syments resioning.",
+      "latency_s": 0.036189100006595254,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4086967741935484
+    },
+    {
+      "source": "se crearon una serie de anuncios de vídeo en los que se describían las enmiendas a la constitución como una suerte de engaño.",
+      "reference": "a series of video advertisements were made that portrayed the amendments to the constitutions as some kind of deception.",
+      "raw": "they created a series of video in the development to the constitution as a lucky lucky.",
+      "application": "They created a series of video in the development to the constitution as a lucky lucky.",
+      "latency_s": 0.04795399999420624,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4094515151515151
+    },
+    {
+      "source": "hoy ha sido la segunda vez que he votado, pero la primera en una atmósfera democrática.",
+      "reference": "today was the second time for me to vote, but the first time in a democratic atmosphere.",
+      "raw": "today has been the second time i voted, but the first in a democratic attack.",
+      "application": "Today has been the second time I voted, but the first in a democratic attack.",
+      "latency_s": 0.0305551000055857,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.366612
+    },
+    {
+      "source": "disculpen, amigos. como un extranjero residente en tailandia desde hace tres años, y visitante y trabajador en el país desde 1973, no tengo ninguna simpatía por aquellos que no pueden sustentarse.",
+      "reference": "sorry folks, as an expat living in thailand for the past three years, and visiting thailand and working here since 1973, i have absolutely no sympathy for those that cannot support themselves.",
+      "raw": "disculation, as a foreigner resident in tailandia since three years ago, and visitor in the country since 1973, i have no simple for those who can not sustate.",
+      "application": "Disculation, as a foreigner resident in tailandia since three years ago, and visitor in the country since 1973, I have no simple for those who can not sustate.",
+      "latency_s": 0.08981360000325367,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.33987843137254903
+    },
+    {
+      "source": "hay fuerzas trabajando en ese país más grandes que cualquiera de nosotros.",
+      "reference": "there are forces at work in that country greater than any of us.",
+      "raw": "there are forces working in that more grants that anyone of us.",
+      "application": "There are forces working in that more grants that anyone of us.",
+      "latency_s": 0.01754060000530444,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4036125
+    },
+    {
+      "source": "china: maravilla abandonada",
+      "reference": "china: abandoned wonderland · global voices",
+      "raw": "china: the abandoned global voices",
+      "application": "China: the abandoned global voices.",
+      "latency_s": 0.016941800000495277,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37814375
+    },
+    {
+      "source": "quinto, somos una sociedad fragmentada que sólo consume bienes.",
+      "reference": "fifth, we are a fragmented society which consumes goods only.",
+      "raw": "that, we are a front society that only consume good.",
+      "application": "That, we are a front society that only consume good.",
+      "latency_s": 0.022583799989661202,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41678333333333334
+    },
+    {
+      "source": "también, casi todos estuvieron de acuerdo en esperar por \"acciones\" que prueben las supuestas \"buenas intenciones\".",
+      "reference": "also, they almost all agreed they are waiting for \"action\" to prove the supposed \"good intentions.\"",
+      "raw": "also nearly everyone were agreed to wait for \"actions\" that protests \"good intention.\"",
+      "application": "Also nearly everyone were agreed to wait for \"actions\" that protests \"good intention.\".",
+      "latency_s": 0.03471590000845026,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35467407407407403
+    },
+    {
+      "source": "pero ha sido un balance necesario.",
+      "reference": "but it was a necessary balance.",
+      "raw": "but it has been a necessary.",
+      "application": "But it has been a necessary.",
+      "latency_s": 0.010204199992585927,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3856714285714285
+    },
+    {
+      "source": "la industria del gas y una de las fuentes de ingresos más importantes en bolivia se halla en punto muerto, y se ha producido una pérdida de confianza sin precedentes en la industria de hidrocarburos del país.",
+      "reference": "the gas industry and one of the major revenue sources of the country is at a standstill, and confidence in the country's hydrocarbons industry is at an all-time low.",
+      "raw": "the industry of the gas and one of the most important income of income in bolivia was held in the point, and has produced a per of confidents without precedents in hyrocars of the country.",
+      "application": "The industry of the gas and one of the most important income of income in bolivia was held in the point, and has produced a per of confidents without precedents in hyrocars of the country.",
+      "latency_s": 0.0927129000046989,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3716118644067797
+    },
+    {
+      "source": "techcrunch lo llama una prueba de que una agencia de fotos de colaboración múltiple puede funcionar .",
+      "reference": "techcrunch calls it proof that a crowd-sourced photo agency can work.",
+      "raw": "tcruncry calls a protest that a multiphotos of collaboration can official .",
+      "application": "Tcruncry calls a protest that a multiphotos of collaboration can official.",
+      "latency_s": 0.0444331000035163,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41489000000000004
+    },
+    {
+      "source": "así inicia prensa latina un informe sobre esta sequía:",
+      "reference": "this is how prensa latina starts a report about this drought:",
+      "raw": "so initia latin a report on this sequia:",
+      "application": "So initia latin a report on this sequia:.",
+      "latency_s": 0.02023199999530334,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3825470588235294
+    },
+    {
+      "source": "roberto laserna, profesor de ciencias sociales escribe en su blog sobre la paradoja del poder que ejerce el presidente evo morales.",
+      "reference": "roberto laserna, a social-sciences professor, writes on his blog about the paradox of president evo morales' hold on power .",
+      "raw": "roberto lasna professor of social sciences writes in his blog about the power that exerce the moral president evo moral",
+      "application": "Roberto lasna professor of social sciences writes in his blog about the power that exerce the moral president evo moral.",
+      "latency_s": 0.06611069999053143,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3655288888888888
+    },
+    {
+      "source": "y es que la sequía ha disminuido las principales hidroeléctricas del país a los niveles mínimos, llevando a las autoridades a tomar decisiones drásticas incluyendo el apagado de anuncios, el tránsito de dos buques al mismo tiempo por el canal, o el cierre de supermercados a las diez de la noche, entre otras medidas.",
+      "reference": "the drought has affected the main hydroelectric centrals of the country, motivating authorities to take drastic measures like turning off bright signs, allowing the crossing of two ships at the same time through the canal, or closing supermarkets at 10:00 pm, among other actions.",
+      "raw": "and it is that the security has availated the mainstream of the country to the nico, leaving the authorities to take decisions and including announcing the tribute of two buch, the same time for the southern supermarket.",
+      "application": "And it is that the security has availated the mainstream of the country to the nico, leaving the authorities to take decisions and including announcing the tribute of two buch, the same time for the southern supermarket.",
+      "latency_s": 0.1584184999956051,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41929054054054055
+    },
+    {
+      "source": "asimismo, dos figuras hispanas, sonia sotomayor y richard blanco , jugaron un importante rol durante la ceremonia.",
+      "reference": "also, two latino figures, sonia sotomayor and richard blanco, played an important role during the ceremony.",
+      "raw": "asim, two hispans, sotomayor and richard white ard , played a important role during the ceremony.",
+      "application": "Asim, two hispans, sotomayor and richard white ard, played a important role during the ceremony.",
+      "latency_s": 0.04815000000235159,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3565028571428571
+    },
+    {
+      "source": "sven holler de ministry of tofu postea imágenes de un parque de diversiones abandonado, wonderland, en las afueras de beijing.",
+      "reference": "sven holler from ministry of tofu posts pictures of an abandoned amusement park, wonderland, at the outskirts of beijing city .",
+      "raw": "sholler of minister of tofu posts from a park of abandoned, wonland, in beijing's forces.",
+      "application": "Sholler of minister of tofu posts from a park of abandoned, wonland, in beijing's forces.",
+      "latency_s": 0.05943949999345932,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3641153846153846
+    },
+    {
+      "source": "josé carbajal es considerado un icono del canto popular uruguayo, como explica martin charquero (@martincharquero) en twitter.",
+      "reference": "josé carbajal is considered an icon of uruguayan \"canto popular\" , as martin charquero (@martincharquero) explains via twitter.",
+      "raw": "joscarambassal is considered a ruguayan canto popular uguay, as explains martin charcher martwitter in twitter.",
+      "application": "Joscarambassal is considered a ruguayan canto popular uguay, as explains martin charcher martwitter in twitter.",
+      "latency_s": 0.06671130000904668,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3906489361702128
+    },
+    {
+      "source": "deberían ser tratados con compasión y recibir ayuda.",
+      "reference": "they should be treated with compassion and offered help.",
+      "raw": "they should be treated with compassion and receive help.",
+      "application": "They should be treated with compassion and receive help.",
+      "latency_s": 0.013980199990328401,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3285846153846154
+    },
+    {
+      "source": "sudan365 entrevistó a alsarah, un cantante, compositor y etnomusicólogo sudanés, que reformuló una canción acerca de las votaciones en sudán.",
+      "reference": "sudan365 interviews alsarah, a sudanese born singer, songwriter and ethnomusicologist. alsarah has reworked a song about voting in sudan.",
+      "raw": "sudan365 interviewed alsarah, a singer, composition and ethnologo southern sudan who reforced a song about the votations in sudan.",
+      "application": "Sudan365 interviewed alsarah, a singer, composition and ethnologo southern sudan who reforced a song about the votations in sudan.",
+      "latency_s": 0.0800982000073418,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.33421999999999996
+    },
+    {
+      "source": "charles schumer, acompañado de john mccain (izq.) y bob menéndez (der.), toma el podium para anunciar el plan que busca poner en marcha un nuevo sistema migratorio.",
+      "reference": "senator charles schumer, joined by john mccain (left) and bob menéndez (right), takes the podium to introduce a framework for overhauling the immigration system.",
+      "raw": "charles schum, acompanied from john mccain (izq.and bob mendez (der.), take the podium to announce the plan to be a new sistemy.",
+      "application": "Charles schum, acompanied from john mccain (izq.and bob mendez (der.), take the podium to announce the plan to be a new sistemy.",
+      "latency_s": 0.10582029999932274,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3244964285714286
+    },
+    {
+      "source": "dicen ser un gobierno democrático pero actúan como una tiranía.",
+      "reference": "they claim to be a democratic government but they act like a tyranny.",
+      "raw": "they say to be a democratic government but act like a tyr.",
+      "application": "They say to be a democratic government but act like a tyr.",
+      "latency_s": 0.02457999999751337,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37370000000000003
+    },
+    {
+      "source": "somos ciudadanos normales, de los 50 estados de américa y dc, que apoyamos a la gente de sudán, a los marginados, los desfavorecidos, los brutalmente oprimidos, en su lucha por reclamar la verdad y la firmeza.",
+      "reference": "we are regular citizens around the 50 united states and dc, standing with the people of sudan—the marginalized, the disenfranchised, and the brutally oppressed—in demanding truth and strength.",
+      "raw": "we are normal citizens of the 50 states and dac, we support the people of sudan, to the marginates, the providans, brutally oprimids, in their fight and the truth of the truth.",
+      "application": "We are normal citizens of the 50 states and dac, we support the people of sudan, to the marginates, the providans, brutally oprimids, in their fight and the truth of the truth.",
+      "latency_s": 0.1262972999975318,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3913164179104478
+    },
+    {
+      "source": "semanas de movilización en la ciudad de puerto alegre en favor del costo de la tarifa de autobús aceleraron la decisión de volver a la tarifa previa.",
+      "reference": "weeks of popular demonstrations in the city of porto alegre in favour of reduced bus fares have precipitated the decision to return to the previous rate.",
+      "raw": "weeks of movlization in the city of puerto joy in favor of the cost's cost of bus accused the decision to return to previa.",
+      "application": "Weeks of movlization in the city of puerto joy in favor of the cost's cost of bus accused the decision to return to previa.",
+      "latency_s": 0.06608369998866692,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3900666666666667
+    },
+    {
+      "source": "estadísticamente, una de cada 1000 mujeres ha sido violada en ese país.",
+      "reference": "statistically, one in every 1,000 women is raped here.",
+      "raw": "statistically one of each 10,000 women has been violent in that country.",
+      "application": "Statistically one of each 10,000 women has been violent in that country.",
+      "latency_s": 0.025951500007067807,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.3508
+    },
+    {
+      "source": "ayer, pasé por el lugar, y me sorprendió que alguien decidiera terminar con la vida de la palmera...dejando sólo esto.",
+      "reference": "yesterday i passed by the place, and was surprised that someone decided to end it's life.. leaving only this.",
+      "raw": "ayer, i spent by the lugar, and i was surprised that someone decided to end the life of the palera.let only this.",
+      "application": "Ayer, I spent by the lugar, and I was surprised that someone decided to end the life of the palera.let only this.",
+      "latency_s": 0.04557170000043698,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3372090909090909
+    },
+    {
+      "source": "por ejemplo: \"17.- ¿cuál es su ingreso aproximado en las granjas de farmville?",
+      "reference": "for example: \"17.- ¿cuál es su ingreso aproximado en las granjas de farmville? ¿cuántos cochinitos tiene? (17.-what is your approximate income in the farms of farmville?",
+      "raw": "for example: \"17.- what is his approximately in farmed grants global voices",
+      "application": "For example: \"17.- what is his approximately in farmed grants global voices.",
+      "latency_s": 0.04366880000452511,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36522571428571426
+    },
+    {
+      "source": "estamos acostumbrados a que gane el ndp por mayoría.",
+      "reference": "we are used to the ndp wining by huge margin.",
+      "raw": "we are used to win the ndp for majory.",
+      "application": "We are used to win the ndp for majory.",
+      "latency_s": 0.015937600008328445,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37460000000000004
+    },
+    {
+      "source": "la novena dominicana había sufrido una sorpresiva derrota en 2009 en la que holanda los sacó de la competencia para luego enfrentarse a cuba.",
+      "reference": "in 2009, the dominican team experienced a surprising defeat when the netherlands got them off the competition, and then played against cuba.",
+      "raw": "the dominican novena had suffered a surprise in 209 in which holanda took the competition to then after the cuba.",
+      "application": "The dominican novena had suffered a surprise in 209 in which holanda took the competition to then after the cuba.",
+      "latency_s": 0.058376100001623854,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.38535128205128205
+    },
+    {
+      "source": "demotix llega al millón de fotos",
+      "reference": "demotix hits one million photos · global voices",
+      "raw": "demotix arrives to the million photos",
+      "application": "Demotix arrives to the million photos.",
+      "latency_s": 0.017873699995107017,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4534066666666667
+    },
+    {
+      "source": "lo que le pasa a bella en este video es mi vida en resumen acá en marruecos.",
+      "reference": "what belle experiences in this clip is my life in a nutshell here in morocco.",
+      "raw": "what happens to bshe in this video is my life in response in morocco.",
+      "application": "What happens to bshe in this video is my life in response in morocco.",
+      "latency_s": 0.034101299999747425,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3923375
+    },
+    {
+      "source": "para acabar con la violencia contra las mujeres y niñas se celebrará una nueva jornada de esta campaña en bangladesh el 14 de febrero de 2013 con el eslogan “manifiéstate, baila y levántate”.",
+      "reference": "to end violence against women and the girl a new day is going to be celebrated in bangladesh on 14 february, 2013, with a slogan “strike, dance and rise”.",
+      "raw": "to end the violence against women and girls will celebrate a new jornothing of this campaign on bangladesh 14, 2013 with the demonstrate, baian manifiel and levan.",
+      "application": "To end the violence against women and girls will celebrate a new jornothing of this campaign on bangladesh 14, 2013 with the demonstrate, baian manifiel and levan.",
+      "latency_s": 0.10464659999706782,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3700016393442623
+    },
+    {
+      "source": "incluso, en la cuenta de twitter de la presidencia se compartió:",
+      "reference": "on the twitter account, the presidency shared:",
+      "raw": "including twitter account of the presidency is share:",
+      "application": "Including twitter account of the presidency is share:.",
+      "latency_s": 0.021626100002322346,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41471578947368415
+    },
+    {
+      "source": "y es que han sido los hispanos quienes se han visto mayormente afectados por medidas anti-inmigratorias, como la s.b. 1070 de arizona y la hb56 de alabama, entre otros estados.",
+      "reference": "the latino community has felt the brunt of the united states' anti-immigration sentiments such as s.b. 1070 in arizona and hb56 in alabama.",
+      "raw": "and it is that have been the hispanos who have seen majorment affected by anti-inmigrateories, as the s.b. 1070 of arizona and the hab56 of alabama, among other states.",
+      "application": "And it is that have been the hispanos who have seen majorment affected by anti-inmigrateories, as the s.b. 1070 of arizona and the hab56 of alabama, among other states.",
+      "latency_s": 0.11094040000170935,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35522058823529407
+    },
+    {
+      "source": "la municipalidad de puerto alegre así como su órgano consultivo consejo municipal de transporte urbano (comtu) informó que no apelará la sentencia, que se reunió el día 9 de abril para tratar de discutir la medida cautelar que suspendió el aumento .",
+      "reference": "porto alegre city hall has said it will not appeal the ruling, as has its advisory body, the municipal council of urban transport (comtu), which met on 9 april to discuss the preliminary injunction suspending the increase.",
+      "raw": "the puerto mage major joy as his consultative council of urban transport (committereported that it will not april 9, which was gathered to discuss the day to discussing the media caumpaign that suspended the august was suspering the audit",
+      "application": "The puerto mage major joy as his consultative council of urban transport (committereported that it will not april 9, which was gathered to discuss the day to discussing the media caumpaign that suspended the august was suspering the audit.",
+      "latency_s": 0.15568750000966247,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4387141176470588
+    },
+    {
+      "source": "imagen pequeña vía shutterstock, copyright boule.",
+      "reference": "thumbnail image via shutterstock, copyright boule.",
+      "raw": "image small shutwittersk, copyright boua.",
+      "application": "Image small shutwittersk, copyright boua.",
+      "latency_s": 0.02421009998943191,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.40656499999999995
+    },
+    {
+      "source": "los extranjeros sin hogar aumentan en tailandia",
+      "reference": "homeless foreigners on the rise in thailand · global voices",
+      "raw": "foreigners without home in tailanda global voices",
+      "application": "Foreigners without home in tailanda global voices.",
+      "latency_s": 0.020510900008957833,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3642222222222222
+    },
+    {
+      "source": "uno de los motivos sería la nacionalización de las empresas durante el gobierno de olívio dutra (1989-1992), lo que causó un gran déficit en ellas.",
+      "reference": "one reason would be the nationalization of companies during the dutra local government time (1989-1992), which caused a large deficit in the number of companies.",
+      "raw": "one of the motives would be the nationalization of the companies during the olyvidutra (1989-1992), what caused a great deficient in them.",
+      "application": "One of the motives would be the nationalization of the companies during the olyvidutra (1989-1992), what caused a great deficient in them.",
+      "latency_s": 0.06994040000427049,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.34548125
+    },
+    {
+      "source": "el referéndum se hace para un grupo de artículos de la constitución en los que se tratan las elecciones a la presidencia y al parlamento, así como los requisitos que deben cumplir los candidatos.",
+      "reference": "the referendum is on a group of articles in the constitution that discuss the presidency and parliamentary elections and the requirements for candidates.",
+      "raw": "the referendum makes a group of the constitution in the elections that are trying to the presidence and parliament, as the requirements that debate candidates.",
+      "application": "The referendum makes a group of the constitution in the elections that are trying to the presidence and parliament, as the requirements that debate candidates.",
+      "latency_s": 0.09989310000673868,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3854910714285714
+    },
+    {
+      "source": "la mayoría del público no estuvo de acuerdo porque se sabía que él estaba metido en las apuestas y la bebida, más que en manejar un país.",
+      "reference": "much of the public was not okay with this because it was known that he was into gambling and drinking, rather than running a country.",
+      "raw": "the majority of the public was not according because he was metied in the supporters and bebida, more than in order to keep a country.",
+      "application": "The majority of the public was not according because he was metied in the supporters and bebida, more than in order to keep a country.",
+      "latency_s": 0.06581509999523405,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35943157894736844
+    },
+    {
+      "source": "essam ali atta, 23, fue sentenciado a dos años frente a un tribunal militar.",
+      "reference": "essam ali atta, 23, was sentenced to two years in front of a military tribunal.",
+      "raw": "essam ali atta, 23, was sentenced to two years in front to a military tribunt.",
+      "application": "Essam ali atta, 23, was sentenced to two years in front to a military tribunt.",
+      "latency_s": 0.040227799996500835,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35473437500000005
+    },
+    {
+      "source": "marwa al-bahraini, en su blog tiene la reacción global de que la gente ha juzgado rápidamente el artículo sin entender completamente su intención",
+      "reference": "marwa al-bahraini, in her blog has the overall reaction that people have been too quick to judge the article without fully understanding its intent.",
+      "raw": "marwaa al-bahraini, in his blog has the global reaction of people has fairly juzed the article without understanding their intention.",
+      "application": "Marwaa al-bahraini, in his blog has the global reaction of people has fairly juzed the article without understanding their intention.",
+      "latency_s": 0.06678049999754876,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3342318181818182
+    },
+    {
+      "source": "entre otras cosas, se presume que nagyova sobornó a parlamentarios disidentes con puestos en el gobierno y ordenó vigilar al esposo de su jefa, del que está separado.",
+      "reference": "among other things, nagyova is alleged to have bought off dissident mps with government jobs and ordered surveillance of her boss’s estranged wife.",
+      "raw": "among other things, nagyova was pressed to soborner parliamentary parlialyment with puts in the government and ordered vigilar to the wife of his board of his ja, which is separ",
+      "application": "Among other things, nagyova was pressed to soborner parliamentary parlialyment with puts in the government and ordered vigilar to the wife of his board of his ja, which is separ.",
+      "latency_s": 0.0986406000010902,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3815903225806452
+    },
+    {
+      "source": "primer festival audiovisual creative commons del festival audiovisual cc en vimeo.",
+      "reference": "primer festival audiovisual creative commons from festival audiovisual cc on vimeo.",
+      "raw": "first festival audiovisual creative commons of the festival of cc in vimeo.",
+      "application": "First festival audiovisual creative commons of the festival of cc in vimeo.",
+      "latency_s": 0.04156509999302216,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45264333333333334
+    },
+    {
+      "source": "la primera opinión optimista vino de ahmed, quien dijo lo feliz que se encontraba del gesto de obama de acercarse al mundo islámico: al final, me siento optimista.",
+      "reference": "the first optimistic opinion came from ahmed, who said how happy he is with obama's gesture of approaching the islamic world: at the end, i am optimistic.",
+      "raw": "the first optimist view came from ahmed, who said what he was found of the government of approving the islamic world: i feel optimist.",
+      "application": "The first optimist view came from ahmed, who said what he was found of the government of approving the islamic world: I feel optimist.",
+      "latency_s": 0.08802850000211038,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3728478260869565
+    },
+    {
+      "source": "ellos conocían las reglas antes de venir y no corresponde al gobierno tailandés ayudarles o sostenerles.",
+      "reference": "they knew the rules before they got here and it is not up to the thai government to support/help them.",
+      "raw": "they know the regions before come and not corresponse to the tailand's government to help them or susterlands.",
+      "application": "They know the regions before come and not corresponse to the tailand's government to help them or susterlands.",
+      "latency_s": 0.04541050000989344,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39247272727272725
+    },
+    {
+      "source": "él dijo las cosas justas.",
+      "reference": "oh, he said all the right things.",
+      "raw": "he said the things justs.",
+      "application": "He said the things justs.",
+      "latency_s": 0.007699299996602349,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4011571428571428
+    },
+    {
+      "source": "en internet los usuarios de la red también están enfadados con el reciente plan de vigilancia del gobierno.",
+      "reference": "online, net users are similarly upset by this recent government surveillance scheme.",
+      "raw": "in internet users are also anged with the recent plan of the government.",
+      "application": "In internet users are also anged with the recent plan of the government.",
+      "latency_s": 0.0322769999911543,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39174090909090914
+    },
+    {
+      "source": "el ejército, como siempre, tan sólo quería acabar con el problema lo antes posible, y si el voto a favor lo detenía sin mayores rompecabezas...",
+      "reference": "the military, as always, just wanted to get out of this mess as quickly as possible, and the yes vote meant just that for them without having to face any real headaches...",
+      "raw": "the arment, as siempre, as i just wanted to end with the problem before possibil, and if the vote of favor of it was detained without majority to roma.",
+      "application": "The arment, as siempre, as I just wanted to end with the problem before possibil, and if the vote of favor of it was detained without majority to roma.",
+      "latency_s": 0.06994619999022689,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40120833333333333
+    },
+    {
+      "source": "v-day es un movimiento global de activistas y cada movimiento de esta campaña está diseñado para terminar de forma gradual con la violencia contra las mujeres y niñas.",
+      "reference": "v-day is a global activist movement and each step of this campaign is designed to gradually end violence against women and girls.",
+      "raw": "v-day is a global movement of activists and each campaign is designed to end the violence against women and children.",
+      "application": "V-day is a global movement of activists and each campaign is designed to end the violence against women and children.",
+      "latency_s": 0.06257100000220817,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3368690476190477
+    },
+    {
+      "source": "las enmiendas propuestas buscaban limitar el derecho a la fianza y reducir la cantidad de legisladores.",
+      "reference": "the proposed amendments limited the right to bail and the amount of legislators.",
+      "raw": "the enmiends proposed to limilitary the right to the fiance and reducing the number of legislades.",
+      "application": "The enmiends proposed to limilitary the right to the fiance and reducing the number of legislades.",
+      "latency_s": 0.049055800001951866,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4026147058823529
+    },
+    {
+      "source": "la oposición a estas enmiendas opinó que era una reconstrucción de la constitución, si bien el término utilizado en árabe fue \"terqee'\", es decir, reconstrucción del himen.",
+      "reference": "the opposition to this amendments called it trail to rebuild the constitution, but the term used in arabic was \"terqee'\" aka rebuilding the hymen.",
+      "raw": "the opposition to these enmiends opinion that was a reconstitution of constition, if the arab utilized in arabe was \"terqe', is say, reconstruction of the himen.",
+      "application": "The opposition to these enmiends opinion that was a reconstitution of constition, if the arab utilized in arabe was \"terqe', is say, reconstruction of the himen.",
+      "latency_s": 0.09067039999354165,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.34906896551724137
+    },
+    {
+      "source": "pero, a la vez, son estos mismos quienes han propugnado por un cambio en las leyes, pues un ejemplo claro ha sido los dreamers , o estudiantes de buen carácter moral que no cuentan con documentos.",
+      "reference": "in spite of this, it must be noted that it is this very community that has been the most vocal in its desire for changes to current law. take for example dreamers, a proposed path for citizenship for students of upstanding moral character that currently lack proper documentation.",
+      "raw": "pero, in the vez, are these same quens have proposed by a change in the laws, posts a clearly has been the damajor students of good carcer moral students who do not find with documents.",
+      "application": "Pero, in the vez, are these same quens have proposed by a change in the laws, posts a clearly has been the damajor students of good carcer moral students who do not find with documents.",
+      "latency_s": 0.0923356999992393,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3745578947368421
+    },
+    {
+      "source": "podemos criticar a las agencias de aplicación de la ley todo lo que queramos y sostener que la policía no está haciendo su trabajo adecuadamente y que los oficiales de policía no son confiables...",
+      "reference": "we can criticize the law-enforcement agencies as much as we want and argue that police is not doing its job properly and that police officers are not to be trusted...",
+      "raw": "we can criticize the agences of the law of the ley all what we want to suspect that the police is not doing their work and that police officials are not confirm..",
+      "application": "We can criticize the agences of the law of the ley all what we want to suspect that the police is not doing their work and that police officials are not confirm..",
+      "latency_s": 0.07714470000064466,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39184800000000003
+    },
+    {
+      "source": "dijo que el islam contribuyó a la civilización occidental, habló orgullosamente de sus propias raíces musulmanas la retórica fue hermosa.",
+      "reference": "he said islam contributed a lot to western civilization. he proudly said he had muslim roots. the rhetoric was beautiful.",
+      "raw": "he said that islam contributed the occivilization of the western currently tally spoke of his own raics muslims was too.",
+      "application": "He said that islam contributed the occivilization of the western currently tally spoke of his own raics muslims was too.",
+      "latency_s": 0.06694400000560563,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37710666666666665
+    },
+    {
+      "source": "el gobierno necesita asegurarse de que no viola la constitución, que dice explícitamente que los organismos del estado deben respetar los derechos individuales y la libertad de expresión.",
+      "reference": "the government needs to make sure it does not violate the constitution, which explicitly says state agencies must respect individual's rights, freedom of speech and expression.",
+      "raw": "the government needs to assure that not vios the constitution, who says explocily that organized the state debating individual rights and freedom of expression.",
+      "application": "The government needs to assure that not vios the constitution, who says explocily that organized the state debating individual rights and freedom of expression.",
+      "latency_s": 0.09003870000015013,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3767214285714286
+    },
+    {
+      "source": "pero déjame, en su lugar, pedirte que nos des una breve reseña sobre cada uno de los proyectos en los que trabajas, y si tienes otros proyectos que añadir a esa impresionante lista.",
+      "reference": "but let me ask you instead to give us a brief on each one of the above projects you work on, and if you have more projects to add to this impressive list.",
+      "raw": "but decam, in his lugar, i ask you to ask us a bridge about each of the projects in the works, and if you have other project to add that impressive list.",
+      "application": "But decam, in his lugar, I ask you to ask us a bridge about each of the projects in the works, and if you have other project to add that impressive list.",
+      "latency_s": 0.07455390000541229,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38418571428571435
+    },
+    {
+      "source": "estaba preocupado por la salud del presidente egipcio mubarak ya que no recibió a obama en el aeropuerto: ¿vieron al señor obama abordando su avión ayer?",
+      "reference": "he was worried about the health condition of egyptian president mubarak, because he didn't receive obama from the airport: did you see mr. obama boarding the plane yesterday?",
+      "raw": "i was concerned by the egyptian president mubarak already received to obbama in the airport: did they see mr obamaa adding his plane awar?",
+      "application": "I was concerned by the egyptian president mubarak already received to obbama in the airport: did they see mr obamaa adding his plane awar?",
+      "latency_s": 0.06879089999711141,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38211914893617016
+    },
+    {
+      "source": "no es el ambiente para que las parejas casadas comiencen sus familias.",
+      "reference": "not the environment to start family as married couple.",
+      "raw": "it is not the ambident for the parts beginning their families in their faults.",
+      "application": "It is not the ambident for the parts beginning their families in their faults.",
+      "latency_s": 0.026623400000971742,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4211125
+    },
+    {
+      "source": "primero, neves es una de las principales esperanzas presidenciales para las elecciones del 2010.",
+      "reference": "first, neves is one of the main presidential hopefuls for the 2010 elections.",
+      "raw": "first, nevis a of presidential hopes for 2010.",
+      "application": "First, nevis a of presidential hopes for 2010.",
+      "latency_s": 0.027526299993041903,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37606190476190476
+    },
+    {
+      "source": "@titamorillo: #buñay asegura que no tuvo presiones para otorgar préstamo a #cofiec",
+      "reference": "@titamorillo: #buñay assures that he wasn't pressured in order to authorize the loan to #cofiec",
+      "raw": "timorirain: buaand asegua that did not have presions to otorture global voices",
+      "application": "Timorirain: buaand asegua that did not have presions to otorture global voices.",
+      "latency_s": 0.044770900000003166,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38000909090909085
+    },
+    {
+      "source": "pero según el tce y el ministerio público de cuentas, la información fue mal interpretada.",
+      "reference": "but according to the tec and the ministry of public accounts, the information was misinterpreted.",
+      "raw": "but according to the tce and the public ministry of accounts, the information was bad interpretated.",
+      "application": "But according to the tce and the public ministry of accounts, the information was bad interpretated.",
+      "latency_s": 0.03529990000242833,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36007666666666654
+    },
+    {
+      "source": "fernando rosero ‏(@fernandoroseror) escribe lo siguiente:",
+      "reference": "fernando rosero ‏(@fernandoroseror) writes the following:",
+      "raw": "fernando rosernandorwrites the following:",
+      "application": "Fernando rosernandorwrites the following:.",
+      "latency_s": 0.0246084999962477,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3864888888888889
+    },
+    {
+      "source": "una de cada tres mujeres en todo el planeta ha sido golpeada o violada alguna vez en su vida.",
+      "reference": "one in three women on the planet is beaten up or raped during her lifetime.",
+      "raw": "one of every three women in all the planet has been beated or violent or violated in his life.",
+      "application": "One of every three women in all the planet has been beated or violent or violated in his life.",
+      "latency_s": 0.030331600006320514,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3495037037037037
+    },
+    {
+      "source": "los cortes programados de energía se aplicarían durante los próximos días si no hay agua de lluvia para los embalses de las hidroeléctricas de fortuna en chiriquí y bayano en panamá.",
+      "reference": "scheduled power cuts will be set during the following days if there is no rain water for fortuna in chiriquí and bayano in panama hydroelectrial central reservoirs.",
+      "raw": "the court of energy was aparted during the next days if there are no water for the embals of the hyroels of a fortunate and byan in panama.",
+      "application": "The court of energy was aparted during the next days if there are no water for the embals of the hyroels of a fortunate and byan in panama.",
+      "latency_s": 0.07095489998755511,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3835102040816326
+    },
+    {
+      "source": "robert lawrence plantea un resumen de las elecciones en su blog:",
+      "reference": "robert lawrence has an election roundup on the blog:",
+      "raw": "robert lawence planea rements of the elections in his blog:",
+      "application": "Robert lawence planea rements of the elections in his blog:.",
+      "latency_s": 0.02871929999673739,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38903999999999994
+    },
+    {
+      "source": "@savileimage: “muy bien que #mawere se una a la carrera por la presidencia de #zimbabwe, pero debe tener cuidado de no ser el próximo mutambara”.",
+      "reference": "@jessiedendere: throwing tantrums is how mutambara will end his political career. @savileimage: surprisingly was pushing president #zuma to address #zanupf concerns. @savileimage: well and good for #mawere to join the #zimbabwe presidential race but he needs to be wary of being the next mutambara.”",
+      "raw": "savileimage: very well that mawere is a carry of zimbabw, but must be careful to be the next mubara .",
+      "application": "Savileimage: very well that mawere is a carry of zimbabw, but must be careful to be the next mubara.",
+      "latency_s": 0.053430500003742054,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3299128205128205
+    },
+    {
+      "source": "reacciones chinas a las olimpiadas de tokio 2020",
+      "reference": "chinese reactions to tokyo olympics 2020 · global voices",
+      "raw": "chinese reactions to tokyo 2020",
+      "application": "Chinese reactions to tokyo 2020.",
+      "latency_s": 0.014464599997154437,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4295583333333333
+    }
+  ],
+  "postprocessing_revision": "preserve lexical content; source anchors remain separate warnings",
+  "rescore_limits": "Inference timings and review flags are historical; no new inference or flag calibration."
+}

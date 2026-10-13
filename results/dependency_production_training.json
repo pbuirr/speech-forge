@@ -1,0 +1,8 @@
+{
+  "sentences": 12544,
+  "projective_training_sentences": 12257,
+  "epochs": 3,
+  "steps": 1176726,
+  "training_evidence": "production_in_sample",
+  "seconds": 126.98290460000135
+}

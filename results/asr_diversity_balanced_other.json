@@ -1,0 +1,2192 @@
+{
+  "checkpoint_sha256": "151817964f66a4dde2ca9a71fe3e63da90dbedfb5c66c49997045343ff9f289a",
+  "manifest_sha256": "020193f1ddd28b73950b622ee180e684fcce64d59a4f6f5effd310a68f81fb51",
+  "training_manifest_sha256": "8013c2474a04fa426f060a941d49e67a47a3959a57bf03762b759c429aaa76fd",
+  "lm_training_manifest_path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\training\\asr_diversity_balanced\\train.tsv",
+  "lm_training_manifest_sha256": "8013c2474a04fa426f060a941d49e67a47a3959a57bf03762b759c429aaa76fd",
+  "examples": 132,
+  "split": "other",
+  "metrics": {
+    "greedy": {
+      "wer": 0.920648838228847,
+      "cer": 0.49809370499025674,
+      "decode_elapsed_s": 0.1926487000018824,
+      "lm_weight": 0,
+      "token_reward": 0,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1688\\142285\\1688-142285-0026.flac",
+          "reference": "personally as you call it and all",
+          "hypothesis": "pasmy as ye cos and do",
+          "speaker": "librispeech:1688",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1688\\142285\\1688-142285-0057.flac",
+          "reference": "margaret bent over and said bessy don't be impatient with your life whatever it is or may have been",
+          "hypothesis": "mo o thenti teoncid tisy tonmphe inpasont wat ha lif wat e erdais u ma hand thin",
+          "speaker": "librispeech:1688",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1688\\142285\\1688-142285-0092.flac",
+          "reference": "i am sure at any rate she would not like strangers to know anything about it",
+          "hypothesis": "om sho atan oura sho wud at likes tinges sniiny iboute",
+          "speaker": "librispeech:1688",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1688\\142285\\1688-142285-0085.flac",
+          "reference": "very good but we must first catch our house mother",
+          "hypothesis": "riy goid put wi mus es cech a haus lothe",
+          "speaker": "librispeech:1688",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1998\\29455\\1998-29455-0019.flac",
+          "reference": "you stick to that said beale radiant with delight you're a fair masterpiece you are you earned it honest if ever a kid done",
+          "hypothesis": "e stic to that thad bea vradion wis te nad teae fe mo the besr yuanded anes the beveciden",
+          "speaker": "librispeech:1998",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1998\\29454\\1998-29454-0014.flac",
+          "reference": "i shall catch it a fair treat as it is",
+          "hypothesis": "as hecasotifetredesitis",
+          "speaker": "librispeech:1998",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1998\\29455\\1998-29455-0014.flac",
+          "reference": "dickie quick to imitate touched his",
+          "hypothesis": "teke citiamis hat testes",
+          "speaker": "librispeech:1998",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1998\\29454\\1998-29454-0031.flac",
+          "reference": "they could put a man away for less than that",
+          "hypothesis": "a ko pwuto manaway fuli sott",
+          "speaker": "librispeech:1998",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2033\\164914\\2033-164914-0013.flac",
+          "reference": "when it was the seventy third night",
+          "hypothesis": "whend las the sevate thir ni",
+          "speaker": "librispeech:2033",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2033\\164915\\2033-164915-0007.flac",
+          "reference": "she said it hath reached me o auspicious king that when the stoker girthed his ass for flight and bespake himself saying oh would i knew what is become of him",
+          "hypothesis": "she sadd e tauth rast me oaspeshus ing the enths doger garthet hesase or mid and bhe spae himsel sin ove tha yu watys be kome of him",
+          "speaker": "librispeech:2033",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2033\\164915\\2033-164915-0011.flac",
+          "reference": "twas as i feared the coming ills discerning but unto allah we are all returning",
+          "hypothesis": "wel isey f ur the comi neals the sarning button da lo whe a a o retrning",
+          "speaker": "librispeech:2033",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2033\\164915\\2033-164915-0006.flac",
+          "reference": "the chamberlain called the castrato and charged him to do accordingly so he replied i hear and i obey and he took his pages with him and went out in search of the stoker till he found him in the rear of the caravan girthing his ass and preparing for flight",
+          "hypothesis": "the chamber le gole doga strat and carged m to the wa coring e so he a id i e er an i b and he pl pespages wih him and went tin surth of the stoker yul the fon m indi we ur of the caaon our ting his as and brebating por igs",
+          "speaker": "librispeech:2033",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2414\\128291\\2414-128291-0026.flac",
+          "reference": "thou evil flatterer",
+          "hypothesis": "dou ee res se trur",
+          "speaker": "librispeech:2414",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2414\\128292\\2414-128292-0031.flac",
+          "reference": "thou poor rover and rambler thou tired butterfly",
+          "hypothesis": "to ooar o t agrouiere to diid poihtho s",
+          "speaker": "librispeech:2414",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2414\\128292\\2414-128292-0028.flac",
+          "reference": "beware lest in the end a narrow faith capture thee a hard rigorous delusion",
+          "hypothesis": "the re hisd eun tit a at narl sat cu sur d  h fared ae rs ntiins",
+          "speaker": "librispeech:2414",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2414\\159411\\2414-159411-0027.flac",
+          "reference": "where was the tiger then",
+          "hypothesis": "the in woste cietit tin",
+          "speaker": "librispeech:2414",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2609\\169640\\2609-169640-0010.flac",
+          "reference": "i soon saw both proas and glad enough was i to perceive that they had not approached materially nearer",
+          "hypothesis": "usn showl bost troucgh  goning noup fwlssage picve on thy hand na a prose oo tjow ley in nhe or",
+          "speaker": "librispeech:2609",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2609\\157645\\2609-157645-0004.flac",
+          "reference": "on one occasion he was at saint mary's church nottingham for a confirmation",
+          "hypothesis": "on he oneantas has ot saymase tirte non orviam for confo matsnn",
+          "speaker": "librispeech:2609",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2609\\157645\\2609-157645-0011.flac",
+          "reference": "six arms the nearest within reach presented with an obedient start as many tobacco pouches to the man of office",
+          "hypothesis": "sic ans the mase was eree frsoned we herame bhe diavm sha hd as dmiy tdaccodpapceso wi the manm avies",
+          "speaker": "librispeech:2609",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2609\\169640\\2609-169640-0015.flac",
+          "reference": "kite went aft and returned with three or four muskets and as many pikes",
+          "hypothesis": "cie moo avd mentrne we tial fom thusate ha as min ty pice",
+          "speaker": "librispeech:2609",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3005\\163399\\3005-163399-0020.flac",
+          "reference": "has he come no says her husband",
+          "hypothesis": "his o com no sis urusben",
+          "speaker": "librispeech:3005",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3005\\163391\\3005-163391-0007.flac",
+          "reference": "the young chap was mighty thankful said it was tough work toting his baggage such weather",
+          "hypothesis": "the yo cui aptp was mi dy pale say wat thoufk woer poingthis ba ocit wer",
+          "speaker": "librispeech:3005",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3005\\163390\\3005-163390-0011.flac",
+          "reference": "greenhorns flatheads",
+          "hypothesis": "reinrnge fli ths",
+          "speaker": "librispeech:3005",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3005\\163399\\3005-163399-0013.flac",
+          "reference": "pretty soon she made the cold chills streak all down my back because she says",
+          "hypothesis": "br te so she may te col tostreko b ma ba the goicshe sys",
+          "speaker": "librispeech:3005",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3080\\5040\\3080-5040-0030.flac",
+          "reference": "you must give me leave to entertain you thus with discourses of the family for i can tell you nothing else from hence",
+          "hypothesis": "e lasgeg mev sin etensas d discousisot firy fritin tel yulithing osom hinte",
+          "speaker": "librispeech:3080",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3080\\5032\\3080-5032-0010.flac",
+          "reference": "i think my youngest brother comes down with him",
+          "hypothesis": "itinglyan tisprthe comsdlnshim",
+          "speaker": "librispeech:3080",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3080\\5040\\3080-5040-0021.flac",
+          "reference": "you are satisfied i hope ere this that i scaped drowning",
+          "hypothesis": "you ysend 'smi ihoe and is theiri s ba drorning",
+          "speaker": "librispeech:3080",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3080\\5040\\3080-5040-0033.flac",
+          "reference": "ever since this adventure i have had so great a belief in all things of this nature that i could not forbear laying a peas cod with nine peas in't under my door yesterday and was informed by it that my husband's name should be thomas how do you like that",
+          "hypothesis": "anwisns dise met ire heanson grat ebeve in alsincsor dis neate te acol no for bar ling o pes cindid noin beasend andimind istidi he wasing frme by at the lahusmins mam sheul be toece hond yu lit lhu",
+          "speaker": "librispeech:3080",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3331\\159605\\3331-159605-0040.flac",
+          "reference": "i don't mean to be prying but i really thought he did",
+          "hypothesis": "at emren to e pinc pet oly ecoute gak",
+          "speaker": "librispeech:3331",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3331\\159609\\3331-159609-0016.flac",
+          "reference": "said fanny turning hopeful all at once",
+          "hypothesis": "econy cenin houp por on at nds",
+          "speaker": "librispeech:3331",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3331\\159605\\3331-159605-0019.flac",
+          "reference": "at a street corner a black eyed school boy was parting from a rosy faced school girl whose music roll he was reluctantly surrendering",
+          "hypothesis": "e di staek cnn ad beelieescolpoi was coating fomoise tacse cco gue whus omeasegyi aswald atoclsoandr",
+          "speaker": "librispeech:3331",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3331\\159609\\3331-159609-0020.flac",
+          "reference": "if fanny wanted to show him what she could do toward making a pleasant home she certainly succeeded better than she suspected for in spite of many failures and discouragements behind the scenes the little house became a most attractive place to mister sydney at least for he was more the house friend than ever and seemed determined to prove that change of fortune made no difference to him",
+          "hypothesis": "kae peny mondo to show hinm mu che cold to tood nut ing a plestn tonmn she sadendy hocete bapances hispecte ponsby t omony canes and discocomens bhon te seens an e hre hous pbecimam mos t e ta teh crise to stiipnecgeese pwho he rswmon the hous honthan abe and imta tomen to po t a chang of forction mapnou t homns thim",
+          "speaker": "librispeech:3331",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3528\\168669\\3528-168669-0072.flac",
+          "reference": "think father fauvent if she were to work miracles here",
+          "hypothesis": "tek fot ivfovent it she werch wek merkas here",
+          "speaker": "librispeech:3528",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3528\\168669\\3528-168669-0026.flac",
+          "reference": "no did you not hear the bell",
+          "hypothesis": "now de ou no hudbol",
+          "speaker": "librispeech:3528",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3528\\168669\\3528-168669-0098.flac",
+          "reference": "the prioress took breath then turned to fauchelevent",
+          "hypothesis": "the frirs sid bretht beturto fusho",
+          "speaker": "librispeech:3528",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3528\\168669\\3528-168669-0107.flac",
+          "reference": "the peal which orders the doctor for the dead to be summoned has already been rung",
+          "hypothesis": "tipa wich orrs duter foruttit to be cevent has ore be rounpt",
+          "speaker": "librispeech:3528",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3538\\163622\\3538-163622-0020.flac",
+          "reference": "when they had travelled a long long way the foal said dost thou see anything",
+          "hypothesis": "r reiathavea lawal wli tuull s hai us kha sian tinn",
+          "speaker": "librispeech:3538",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3538\\163622\\3538-163622-0002.flac",
+          "reference": "hast thou watched faithfully and well the whole day long said the king when the lad came into his presence in the evening",
+          "hypothesis": "has hal waspal thomi a wal the odar lo sin the on o tae lide caint iis pesens a modmn",
+          "speaker": "librispeech:3538",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3538\\163624\\3538-163624-0010.flac",
+          "reference": "so sigurd said that sword would do",
+          "hypothesis": "so siesaind thatsor wha dil",
+          "speaker": "librispeech:3538",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3538\\163624\\3538-163624-0005.flac",
+          "reference": "he is no bigger than other dragons said the tutor and if you were as brave as your father you would not fear him",
+          "hypothesis": "heis nobigitan oertaigen se titther and yfur i fyas er fother yoatd aparhonm",
+          "speaker": "librispeech:3538",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\367\\293981\\367-293981-0001.flac",
+          "reference": "i say so continued don quixote because i hate taking away anyone's good name",
+          "hypothesis": "tisaso teinegdon gehandy the s a hetak uly ani anse bitne",
+          "speaker": "librispeech:367",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\367\\130732\\367-130732-0010.flac",
+          "reference": "king of shell fish",
+          "hypothesis": "cheean ti shocsh",
+          "speaker": "librispeech:367",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\367\\130732\\367-130732-0013.flac",
+          "reference": "gobey's passed with the fire and the little restaurant bearing his name and in charge of his widow in union square avenue has not attained the fame of the old place",
+          "hypothesis": "dl tee pase d the fi  telovest and bein usamen in chiteemis witil inaninsqgavbano hesnt  te efa dlle ples",
+          "speaker": "librispeech:367",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\367\\293981\\367-293981-0020.flac",
+          "reference": "sancho took it and as he was raising it to his mouth he was stopped by the cries of his master exclaiming sancho my son drink not water drink it not my son for it will kill thee see here i have the blessed balsam and he held up the flask of liquor and with drinking two drops of it thou wilt certainly be restored",
+          "hypothesis": "suncthed toa gi in anse was masiy tis not hy u stoppbaty cinee is metextalen suchal my sen jank not wine a jingin out mi stan foritl gilbty  he a had the blusebolsa iny held ap polusto lik an with jiking cogups id thau wll setinly beeveestrn",
+          "speaker": "librispeech:367",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3764\\168670\\3764-168670-0008.flac",
+          "reference": "and she will hold her tongue i answer for that",
+          "hypothesis": "andd she wll hoto aniftfa at",
+          "speaker": "librispeech:3764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3764\\168670\\3764-168670-0019.flac",
+          "reference": "what is that empty coffin",
+          "hypothesis": "mos e sat and tecoon",
+          "speaker": "librispeech:3764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3764\\168671\\3764-168671-0008.flac",
+          "reference": "to be buried in pere lachaise is equivalent to having furniture of mahogany it is recognized as elegant",
+          "hypothesis": " tobeboyg inpete shes se cuue tavaninuch of wenolny is y rokignsed hs ngs",
+          "speaker": "librispeech:3764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3764\\168670\\3764-168670-0001.flac",
+          "reference": "cosette had waked up",
+          "hypothesis": "chasat hn weketol",
+          "speaker": "librispeech:3764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3997\\180294\\3997-180294-0020.flac",
+          "reference": "how why",
+          "hypothesis": "ho wy",
+          "speaker": "librispeech:3997",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3997\\182399\\3997-182399-0004.flac",
+          "reference": "please mister buzzard please tell us the story he begged",
+          "hypothesis": "rsi mistet a tho rhe es are the story he pod",
+          "speaker": "librispeech:3997",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3997\\180294\\3997-180294-0000.flac",
+          "reference": "the duke comes every morning they will tell him when he comes that i am asleep and perhaps he will wait until i wake",
+          "hypothesis": "he hee hams avy rarnn he r saer o e hais o at ama a and cat shea watand torra wa",
+          "speaker": "librispeech:3997",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3997\\180294\\3997-180294-0019.flac",
+          "reference": "the woman becomes the man's mistress and loves him",
+          "hypothesis": "to wore o be cam mis the masnneishis and  loshi",
+          "speaker": "librispeech:3997",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4198\\12259\\4198-12259-0026.flac",
+          "reference": "i was wont heretofore to drink out all but now i leave nothing",
+          "hypothesis": "il as nt ar to foit te draie o  wa nil laneth",
+          "speaker": "librispeech:4198",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4198\\61336\\4198-61336-0009.flac",
+          "reference": "for three years he conducted vigorous campaigns in the western land where he met with vigorous resistance",
+          "hypothesis": "li hil e he codetti te ouise campandint wsten lad lee mand wif vago isresistecee",
+          "speaker": "librispeech:4198",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4198\\12259\\4198-12259-0004.flac",
+          "reference": "by the belly of sanct buff let us talk of our drink i never drink but at my hours like the pope's mule",
+          "hypothesis": "a the beliou s taing bo let is toka lo drmak ind ev edin lat am m ollys i the pos me",
+          "speaker": "librispeech:4198",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4198\\61336\\4198-61336-0023.flac",
+          "reference": "he condemned israel for its idolatries and cried",
+          "hypothesis": "he con dendetil slice a doicrs nnggreg",
+          "speaker": "librispeech:4198",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4294\\35475\\4294-35475-0011.flac",
+          "reference": "he could see the ogre standing powerless to hurt him on the other side of the chasm and gnashing his teeth each one of which was as big as a millston",
+          "hypothesis": "ecl sekl ice thaning pos t hate on the at icsad oft cae and nosins te yuch wene ofpich whas is piks n knolsti",
+          "speaker": "librispeech:4294",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4294\\9934\\4294-9934-0002.flac",
+          "reference": "he affirmed to himself that he would not he declared to himself that he would not doubt and he began to doubt in spite of himself",
+          "hypothesis": "he a fomtos heuvditkhe wit nt he de cledwhens eultehy bot no tt an ne thegando dout inspoidoft an sol",
+          "speaker": "librispeech:4294",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4294\\35475\\4294-35475-0002.flac",
+          "reference": "but the king laughed him to scorn thou a sword he quoth",
+          "hypothesis": "bu hackin lach in to scone hao a sord the co",
+          "speaker": "librispeech:4294",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4294\\9934\\4294-9934-0007.flac",
+          "reference": "he feared after having taken so many steps which had brought him nearer to his father to now take a step which should estrange him from that father",
+          "hypothesis": "he heard att haintakin selmany tappta ee bautin neurid is bather nowt i estapthet shue distantiient h mat pahen",
+          "speaker": "librispeech:4294",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4350\\10919\\4350-10919-0026.flac",
+          "reference": "this is the third time you've asked me the same thing",
+          "hypothesis": "is e te vertoe asthe te san thin",
+          "speaker": "librispeech:4350",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4350\\9170\\4350-9170-0023.flac",
+          "reference": "footnote the fact that in america the abuses of authority exist in spite of the small number of their troops not only fails to disprove this position but positively confirms it",
+          "hypothesis": "fout nuts it faik thit in a mat ty raceifva thortisistin spugd of tae sl lomber o tei thuise moto e vils i t ispat is ssion i asee infems",
+          "speaker": "librispeech:4350",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4350\\9170\\4350-9170-0037.flac",
+          "reference": "but with universal military service it comes to pass that men after making every sacrifice to get rid of the cruelty of strife and the insecurity of existence are called upon to face all the perils they had meant to avoid",
+          "hypothesis": "bhowth envirsolalt ery servis be costpasthat men at emaking evey seiis the gevert of the qlt ut sit an eiscurte aistese at calto onte fite alot irls they id mentwl oin",
+          "speaker": "librispeech:4350",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4350\\9170\\4350-9170-0050.flac",
+          "reference": "without the state men would not have been able to form the social institutions needed for doing any thing",
+          "hypothesis": "wethot sthai minwld noth at e abl defore o soshal isitutio nedefor deliinie",
+          "speaker": "librispeech:4350",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4852\\28311\\4852-28311-0008.flac",
+          "reference": "think he really needs it he pursued",
+          "hypothesis": "e e melinasit in preo",
+          "speaker": "librispeech:4852",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4852\\28311\\4852-28311-0019.flac",
+          "reference": "all at once he wondered how his mother was and everything in him pinched and tightened itself",
+          "hypothesis": "a wonsyo woneder dotwis mother was an ere thing an in anpacd on tier bhu self",
+          "speaker": "librispeech:4852",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4852\\28319\\4852-28319-0007.flac",
+          "reference": "mister wicker waited patiently beside him for a few moments for chris to get up his courage",
+          "hypothesis": "was to eer wono paion in isoinver o euomats for qrestigod of ais tra",
+          "speaker": "librispeech:4852",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4852\\28311\\4852-28311-0001.flac",
+          "reference": "chris looked from a nickel plated flashlight to a car jack and spark plug",
+          "hypothesis": "gruslot frommendicalplantin flifin do carigaa gen spar plog",
+          "speaker": "librispeech:4852",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\533\\131556\\533-131556-0001.flac",
+          "reference": "for none could injure me as he has done oh",
+          "hypothesis": "for nonc in er me as heas that ",
+          "speaker": "librispeech:533",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\533\\131562\\533-131562-0006.flac",
+          "reference": "mister huntingdon then went up stairs",
+          "hypothesis": "mis ther oen the then la thi stis",
+          "speaker": "librispeech:533",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\533\\131564\\533-131564-0024.flac",
+          "reference": "milicent flew to thank me overflowing with gratitude",
+          "hypothesis": "noishisu i famy bof or lenng i' greseted",
+          "speaker": "librispeech:533",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\533\\131564\\533-131564-0017.flac",
+          "reference": "i sought out and put into his hands two of milicent's letters one dated from london and written during one of his wildest seasons of reckless dissipation the other in the country during a lucid interval",
+          "hypothesis": "i su houdand foutid hois hanse tovme fhislates wan ta ted fomlanden and reacand yuring on of is lal the sevrn he reased the sipation the ai the conse dorlostithin toval",
+          "speaker": "librispeech:533",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5442\\41169\\5442-41169-0017.flac",
+          "reference": "but one's work is thrown in for nothing",
+          "hypothesis": "the os mo pisoonin re norin",
+          "speaker": "librispeech:5442",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5442\\41168\\5442-41168-0024.flac",
+          "reference": "and the marshal disappeared through a side door",
+          "hypothesis": "and te osson disa bans o was i dor",
+          "speaker": "librispeech:5442",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5442\\41169\\5442-41169-0003.flac",
+          "reference": "i have told him so but it makes no difference only think of it",
+          "hypothesis": "o ave dotomso boin esnodooes o enout",
+          "speaker": "librispeech:5442",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5442\\41169\\5442-41169-0022.flac",
+          "reference": "to my thinking i'd cut down that lime tree",
+          "hypothesis": "to mo vingin i co dong the midin",
+          "speaker": "librispeech:5442",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5484\\24317\\5484-24317-0026.flac",
+          "reference": "hermon listened to the pair in silence",
+          "hypothesis": "ha mo lesenta a paran sase",
+          "speaker": "librispeech:5484",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5484\\24318\\5484-24318-0027.flac",
+          "reference": "so archias intended to leave the city on one of his own ships that very day",
+          "hypothesis": "sarcisin tadetee to se ut wine i is  h tsapay det",
+          "speaker": "librispeech:5484",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5484\\24317\\5484-24317-0017.flac",
+          "reference": "we women are only as old as we look and the leeches and tiring women of this beauty of forty practise arts which give her the appearance of twenty five yet perhaps the king values her intellect more than her person and the wisdom of a hundred serpents is certainly united in this woman's head",
+          "hypothesis": "w l ous odiste lok an vo l thisinthimod mhen ot this teeur saffoiche traxcet at whechgifat ypance at towhete fo it the hapt te ting baye sthe en to ixi mot an ha pate and yeu plisten ot afinched spentsastea nites in thisswoming sheds",
+          "speaker": "librispeech:5484",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5484\\24317\\5484-24317-0000.flac",
+          "reference": "when he came from the bath proclus visited him again",
+          "hypothesis": "han he tameind bautt poclustisades ind hegan",
+          "speaker": "librispeech:5484",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5764\\299665\\5764-299665-0026.flac",
+          "reference": "man advances and necessarily advances through experience",
+          "hypothesis": "mon avui han miirly a a is tfoitsbeins",
+          "speaker": "librispeech:5764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5764\\299665\\5764-299665-0058.flac",
+          "reference": "has the bible made the people of georgia kind and merciful",
+          "hypothesis": "has the veid tho m the beplo goce u cingt then tuio",
+          "speaker": "librispeech:5764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5764\\299665\\5764-299665-0055.flac",
+          "reference": "let me refer to just one fact showing the influence of a belief in the bible on human beings",
+          "hypothesis": "et be ma fo to js bon fag so lin eoins of o beeving the bibo om ouen veins",
+          "speaker": "librispeech:5764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5764\\299665\\5764-299665-0087.flac",
+          "reference": "failure seems to be the trademark of nature why",
+          "hypothesis": "ay yousense the be edfri mk osmase w",
+          "speaker": "librispeech:5764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6070\\63485\\6070-63485-0004.flac",
+          "reference": "in an instant the schoolmaster with a leap resembling in strength and agility the spring of a tiger seized seyton with one hand by the throat and exclaimed your money or i will fling you into this hole",
+          "hypothesis": "ien aninston thiscomas tr whitha l presndliis tinan jet thispron no the tpiga seased seton bith omn hand by the crod and excr yo m ar ay wllin ein to thes ho",
+          "speaker": "librispeech:6070",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6070\\63485\\6070-63485-0000.flac",
+          "reference": "they're done for said the schoolmaster in a low key to the chouette out with your vitriol and mind your eye",
+          "hypothesis": "tha donn a said thisqcuolmst hin in a lo ke to the swegt apwhit hye o theta and mi your ",
+          "speaker": "librispeech:6070",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6070\\63485\\6070-63485-0002.flac",
+          "reference": "by means of this stratagem they followed so closely that although within a few steps of sarah and tom they did not hear them",
+          "hypothesis": "y mes of thyscoiigan thy foo so cnoeh as odl with ing the fasetgha sif sa an tom thay di no heitan",
+          "speaker": "librispeech:6070",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6070\\63485\\6070-63485-0015.flac",
+          "reference": "in the plain of saint denis",
+          "hypothesis": "in the plein sine te m",
+          "speaker": "librispeech:6070",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6128\\63240\\6128-63240-0004.flac",
+          "reference": "he was tall and lean and dressed throughout in black his shirt collar was low and wide and the triangle of linen a little crumpled exhibited by the opening of his waistcoat was adorned by a pin containing a small red stone",
+          "hypothesis": "he wis too endn anddest o mots in blok he sad o was len wid and the coll a liin in isl homfold insivase bon lodining of es wase oud was at doan's b n pin cona ismou rasto",
+          "speaker": "librispeech:6128",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6128\\63240\\6128-63240-0000.flac",
+          "reference": "the gentleman had not even needed to sit down to become interested apparently he had taken up the volume from a table as soon as he came in and standing there after a single glance round the apartment had lost himself in its pages",
+          "hypothesis": "the jene mhen hean noten ne detisti dn to the onen gistit it oudly he had akan a thevoting re tal a sinisetai andis tenen thow a thesinle lans tan the eoe ned had lost inself in is tiga",
+          "speaker": "librispeech:6128",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6128\\63240\\6128-63240-0002.flac",
+          "reference": "she is willing to risk that",
+          "hypothesis": "s is mant en tos beuts",
+          "speaker": "librispeech:6128",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6128\\63240\\6128-63240-0016.flac",
+          "reference": "she hates it she would like to abolish it",
+          "hypothesis": "se hases solinto boeait",
+          "speaker": "librispeech:6128",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6432\\63722\\6432-63722-0035.flac",
+          "reference": "before the big wind in ireland suggested thong with a nod at his irish compatriot slightly laughed the colonel",
+          "hypothesis": "befaid bin wandaiin shi jest e doitd an nod on es ivrsh ambake ad sid len oave tgi",
+          "speaker": "librispeech:6432",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6432\\63722\\6432-63722-0053.flac",
+          "reference": "in fact i have a feeling that i'll land my fish",
+          "hypothesis": "in fat ive of faing a im li vah",
+          "speaker": "librispeech:6432",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6432\\63723\\6432-63723-0031.flac",
+          "reference": "it wouldn't do you know after that story came out for me and the vice chancellor who sat in the case as well as other judges and members of the bar to be seen there kenneth explained to the colonel",
+          "hypothesis": "ind wunee dian av tothathorinalo pol ind a ligh ha heoshad in th ga is vosd ov a dudason embers of the bor do ba ing in aich ling t o the cairw",
+          "speaker": "librispeech:6432",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6432\\63722\\6432-63722-0016.flac",
+          "reference": "the very pair i was going to buy",
+          "hypothesis": "the ey paa oies goin dbi",
+          "speaker": "librispeech:6432",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6938\\70848\\6938-70848-0025.flac",
+          "reference": "he spoke to the rump convention",
+          "hypothesis": "hesblke donerun cud men cien",
+          "speaker": "librispeech:6938",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6938\\70848\\6938-70848-0028.flac",
+          "reference": "the will of millions of workers is now concentrated in this hall",
+          "hypothesis": "to ven lf metensof flor ges i sel gonsan dageding de hoi",
+          "speaker": "librispeech:6938",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6938\\70848\\6938-70848-0023.flac",
+          "reference": "the dumas and zemstvos were dropped",
+          "hypothesis": "di do messengenstels la dopd",
+          "speaker": "librispeech:6938",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6938\\70848\\6938-70848-0017.flac",
+          "reference": "by declaring the assembly extraordinary conference it had been planned to block the reelection of the executive committee",
+          "hypothesis": "my to cay teas saun te axtoin any confiencs bided ben ban do dod did e nac shon of dae o gide gomede",
+          "speaker": "librispeech:6938",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7018\\75788\\7018-75788-0013.flac",
+          "reference": "next morning as soon as it was light he prayed the dawn prayer and after blessing mohammed the cream of all creatures betook himself to the house of sindbad the seaman and wished him a good day",
+          "hypothesis": "extmoning hit senes it was loit e pridtd the don pray tind ofs teblusing m hommun te cren avl cratiens ce tokmself to the hosom sin thand the cmen ind misht im an goe diy",
+          "speaker": "librispeech:7018",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7018\\75789\\7018-75789-0009.flac",
+          "reference": "i answered for allah's sake o my lord ere i speak give me somewhat to eat for i am starving and after ask me what thou wilt",
+          "hypothesis": "i anseid fo alas sig am ma lound ber o spak cave mes onm mhote toat or im stobing and nog tu as mae wat thawilt",
+          "speaker": "librispeech:7018",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7018\\75789\\7018-75789-0013.flac",
+          "reference": "so i rose without stay or delay and kissed the king's hand and acquainted him with my longing to set out with the merchants for that i pined after my people and mine own land",
+          "hypothesis": "sa wiris with haut stiound i li in cis the kingsand an a quintendim with my loning to said aut wat a mighens fo that urd poyn dof to myt pable and myneno in land",
+          "speaker": "librispeech:7018",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7018\\75789\\7018-75789-0008.flac",
+          "reference": "o my brother answered he we are husbandmen and tillers of the soil who came out to water our fields and plantations and finding thee asleep on this raft laid hold of it and made it fast by us against thou shouldst awake at thy leisure",
+          "hypothesis": "o mu brothe anso  we hhos and men antilas of the soil e cymmout to atereo falsimplintationds and funding taa slypon thes roft ly t oaldoftit and my t etast byas an genset thas shued asto wiy co a bat lasa",
+          "speaker": "librispeech:7018",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7105\\2330\\7105-2330-0035.flac",
+          "reference": "the warders have a private band of their own said the governor but of course i couldn't allow the men themselves",
+          "hypothesis": "the lrd is sade a bivit ba to te in sedthe gavvengi that af cise aidotnta the men ten cols",
+          "speaker": "librispeech:7105",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7105\\2340\\7105-2340-0011.flac",
+          "reference": "the talk flitted nervously and hurriedly from one impersonal topic to another",
+          "hypothesis": "the ta pitind nov vita andid fon in yin bisinl tapi tota nothe",
+          "speaker": "librispeech:7105",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7105\\2330\\7105-2330-0026.flac",
+          "reference": "can't you get a strike permit asked the organiser",
+          "hypothesis": "anta gathes trit pme es bhou ines",
+          "speaker": "librispeech:7105",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7105\\2340\\7105-2340-0016.flac",
+          "reference": "we feel that we must live on cream for the rest of our lives",
+          "hypothesis": "the tr thity ast la lon emforder esthe or lis",
+          "speaker": "librispeech:7105",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7902\\96592\\7902-96592-0034.flac",
+          "reference": "guinea said the boy think i'd do it for a guinea well then two",
+          "hypothesis": "eise of the moi titl din hho gy wolen o",
+          "speaker": "librispeech:7902",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7902\\96591\\7902-96591-0021.flac",
+          "reference": "a narrow table against the wall in two places",
+          "hypothesis": "a nro tailadons tooen toplass",
+          "speaker": "librispeech:7902",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7902\\96595\\7902-96595-0015.flac",
+          "reference": "eh i say where's your master",
+          "hypothesis": "m e y wreds you master",
+          "speaker": "librispeech:7902",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7902\\96592\\7902-96592-0037.flac",
+          "reference": "why your clothes don't fit you and your cap's put on all skew rew",
+          "hypothesis": "li uposdo fe ou anyur eps pat on stro",
+          "speaker": "librispeech:7902",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7975\\280063\\7975-280063-0005.flac",
+          "reference": "i think he'll be rather tough meat for breakfast i replied he might be all right for dinner",
+          "hypothesis": "of hia ul le ruatou mey fr richidi rapou he mo b iverdene",
+          "speaker": "librispeech:7975",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7975\\280076\\7975-280076-0024.flac",
+          "reference": "helvin fickle and wife of greenton valley were attending the springs at that time and either of them will testify to the above for john and i sat in front of mister smith while he was preaching and was in his company for a few moments together with his wife and mister and missus fickle after service",
+          "hypothesis": "hoven vi oene mine wo rian tinboiy wher tii is ins a theat t an ever venotis ofupe to eub wor don nos sid i fro ofmistrcase boy wis priging ind as inis cone forfou moas to gever with me wie en meter misvie af o h sirs",
+          "speaker": "librispeech:7975",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7975\\280076\\7975-280076-0021.flac",
+          "reference": "poor john he has been hunted down and shot like a wild beast and never was a boy more innocent",
+          "hypothesis": "wrdon heisd ben hounde band shom li e wl bsed then never wosh ab  mor nins",
+          "speaker": "librispeech:7975",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7975\\280085\\7975-280085-0008.flac",
+          "reference": "but they soon after got close enough so that one of them broke my walking stick with a shot",
+          "hypothesis": "wit they so afer gerclosomo softho mo vembromou woincsfat witha se",
+          "speaker": "librispeech:7975",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8131\\117016\\8131-117016-0035.flac",
+          "reference": "colonel they'd kill me i don't know",
+          "hypothesis": "crirl they comy i do mow",
+          "speaker": "librispeech:8131",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8131\\117016\\8131-117016-0053.flac",
+          "reference": "it fitted with the dire predictions of security and with the spying gordon was going to do according to them",
+          "hypothesis": "it titid witha dieap predictions of scury and wit he spy gord  was goin tod thecorinto the",
+          "speaker": "librispeech:8131",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8131\\117017\\8131-117017-0029.flac",
+          "reference": "the little guy knew mars as few others did apparently from all sides",
+          "hypothesis": "the luld a bi yu marses fe atheirstad at parily fromoside",
+          "speaker": "librispeech:8131",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8131\\117016\\8131-117016-0016.flac",
+          "reference": "two years gordon admitted",
+          "hypothesis": "cheu arse cornendmended",
+          "speaker": "librispeech:8131",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8188\\274364\\8188-274364-0003.flac",
+          "reference": "the court which consisted of the chief officers of the army found the crime to be capital and condemned that nobleman to lose his head",
+          "hypothesis": "tet co wich onsisudop che ifpisuls of the oing toun the oit beceirtul inkodim thet nomen toes his het",
+          "speaker": "librispeech:8188",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8188\\269290\\8188-269290-0042.flac",
+          "reference": "am i my brother's keeper",
+          "hypothesis": "ar my mibothith kepu",
+          "speaker": "librispeech:8188",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8188\\269288\\8188-269288-0010.flac",
+          "reference": "i must pass in honors if i don't i shall die",
+          "hypothesis": "i most pothe ormus if i tout ishel d",
+          "speaker": "librispeech:8188",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8188\\269288\\8188-269288-0017.flac",
+          "reference": "here is a letter for you annie cried leslie",
+          "hypothesis": "hers the tisofpre ay criilisly",
+          "speaker": "librispeech:8188",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8280\\266249\\8280-266249-0004.flac",
+          "reference": "there are some nice looking people on board remarked mister travilla in an undertone to his wife",
+          "hypothesis": "theresn isitan theepl ongrn im mis charl an an andu cankis rits",
+          "speaker": "librispeech:8280",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8280\\266249\\8280-266249-0000.flac",
+          "reference": "old mister dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party and with the addition of servants it was a large one",
+          "hypothesis": "' mis to den smar ad excetit e pesing in thetacing s rem is gangdoater an her hisben te jin te pertin and wed theidision a sar rent so las e lrtn",
+          "speaker": "librispeech:8280",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8280\\266249\\8280-266249-0057.flac",
+          "reference": "it was the last game of cards for that trip",
+          "hypothesis": "i iste as inm a carse re that chin",
+          "speaker": "librispeech:8280",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8280\\266249\\8280-266249-0055.flac",
+          "reference": "what can it have been they asked each other",
+          "hypothesis": "hotini  beer th arsigaeti",
+          "speaker": "librispeech:8280",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8461\\278226\\8461-278226-0009.flac",
+          "reference": "how i wish you could get me a copy of that picture philip laura said entreatingly",
+          "hypothesis": "hallin wa she cad gan the a copo that pa to fiap y s tadan teting a",
+          "speaker": "librispeech:8461",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8461\\281231\\8461-281231-0028.flac",
+          "reference": "during all this time isaac of york sat mournfully apart grieving for the loss of his dearly loved daughter rebecca",
+          "hypothesis": "jur no this sti mi saol ug fat mond for y apot greein fol the os wo hy staa lohdow temverebacka",
+          "speaker": "librispeech:8461",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8461\\278226\\8461-278226-0000.flac",
+          "reference": "and laura had her own pet plans",
+          "hypothesis": "and yr o hatarn pa pane",
+          "speaker": "librispeech:8461",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8461\\258277\\8461-258277-0000.flac",
+          "reference": "when it was the seven hundred and eighteenth night",
+          "hypothesis": "lintya was thes fhat an uncrad and ny gane nigt",
+          "speaker": "librispeech:8461",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        }
+      ],
+      "word_edit_counts": {
+        "substitutions": 1674,
+        "deletions": 384,
+        "insertions": 42,
+        "matches": 223
+      },
+      "character_edit_counts": {
+        "substitutions": 2870,
+        "deletions": 2825,
+        "insertions": 184,
+        "matches": 6108
+      },
+      "pipeline_real_time_factor": 0.00621596422867664,
+      "by_corpus": {
+        "LibriSpeech": {
+          "examples": 132,
+          "wer": 0.920648838228847,
+          "cer": 0.49809370499025674
+        }
+      },
+      "by_dialect": {}
+    },
+    "lm02": {
+      "wer": 0.8982902235861464,
+      "cer": 0.48343641447089725,
+      "decode_elapsed_s": 24.472328499992727,
+      "lm_weight": 0.2,
+      "token_reward": 0.2,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1688\\142285\\1688-142285-0026.flac",
+          "reference": "personally as you call it and all",
+          "hypothesis": "pasmy as ye cols and do",
+          "speaker": "librispeech:1688",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1688\\142285\\1688-142285-0057.flac",
+          "reference": "margaret bent over and said bessy don't be impatient with your life whatever it is or may have been",
+          "hypothesis": "mo of thenti theronsid tisey tonthe in pasont wit he lif wat a erdas u ma hand thin",
+          "speaker": "librispeech:1688",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1688\\142285\\1688-142285-0092.flac",
+          "reference": "i am sure at any rate she would not like strangers to know anything about it",
+          "hypothesis": "om sho at an oura sho would at likes tinges snoiny iboute",
+          "speaker": "librispeech:1688",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1688\\142285\\1688-142285-0085.flac",
+          "reference": "very good but we must first catch our house mother",
+          "hypothesis": "ri goid put wo mus es cach a has othe",
+          "speaker": "librispeech:1688",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1998\\29455\\1998-29455-0019.flac",
+          "reference": "you stick to that said beale radiant with delight you're a fair masterpiece you are you earned it honest if ever a kid done",
+          "hypothesis": "he stic to that thad bea ration wis the nat the a fe a the besar you anded anis the beveciden",
+          "speaker": "librispeech:1998",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1998\\29454\\1998-29454-0014.flac",
+          "reference": "i shall catch it a fair treat as it is",
+          "hypothesis": "as hicesed ifetredesitis",
+          "speaker": "librispeech:1998",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1998\\29455\\1998-29455-0014.flac",
+          "reference": "dickie quick to imitate touched his",
+          "hypothesis": "teke citiamis hat thestes",
+          "speaker": "librispeech:1998",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\1998\\29454\\1998-29454-0031.flac",
+          "reference": "they could put a man away for less than that",
+          "hypothesis": "a co wouto manaway fule sott",
+          "speaker": "librispeech:1998",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2033\\164914\\2033-164914-0013.flac",
+          "reference": "when it was the seventy third night",
+          "hypothesis": "whend las the sevete ther ni",
+          "speaker": "librispeech:2033",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2033\\164915\\2033-164915-0007.flac",
+          "reference": "she said it hath reached me o auspicious king that when the stoker girthed his ass for flight and bespake himself saying oh would i knew what is become of him",
+          "hypothesis": "she sad be tath rest me oaspeshes ing the ents doger garthe hes as or mis and be spae himsel sin ove tha you waty's be come of him",
+          "speaker": "librispeech:2033",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2033\\164915\\2033-164915-0011.flac",
+          "reference": "twas as i feared the coming ills discerning but unto allah we are all returning",
+          "hypothesis": "wel isey f ur the comi neals the sarning but ton a lo we ar oreturning",
+          "speaker": "librispeech:2033",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2033\\164915\\2033-164915-0006.flac",
+          "reference": "the chamberlain called the castrato and charged him to do accordingly so he replied i hear and i obey and he took his pages with him and went out in search of the stoker till he found him in the rear of the caravan girthing his ass and preparing for flight",
+          "hypothesis": "the chamber le gole doga strat and cared im to the wa coringe so he a mid i he er an i al and he pl pespages with him and went altin surth of the stoger youl the forn  in i we ur of the caron or thing his as and brebating for iges",
+          "speaker": "librispeech:2033",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2414\\128291\\2414-128291-0026.flac",
+          "reference": "thou evil flatterer",
+          "hypothesis": "dout eve res se trur",
+          "speaker": "librispeech:2414",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2414\\128292\\2414-128292-0031.flac",
+          "reference": "thou poor rover and rambler thou tired butterfly",
+          "hypothesis": "to ooar o at agrobere to did poithe ",
+          "speaker": "librispeech:2414",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2414\\128292\\2414-128292-0028.flac",
+          "reference": "beware lest in the end a narrow faith capture thee a hard rigorous delusion",
+          "hypothesis": "the re hised en tity at narl sat cup sur d  i hared ae rus n tions",
+          "speaker": "librispeech:2414",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2414\\159411\\2414-159411-0027.flac",
+          "reference": "where was the tiger then",
+          "hypothesis": "the in woste cietit tin",
+          "speaker": "librispeech:2414",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2609\\169640\\2609-169640-0010.flac",
+          "reference": "i soon saw both proas and glad enough was i to perceive that they had not approached materially nearer",
+          "hypothesis": "usen shol bot trough  goning oup fois age pice on thy hand nat a prose ou tow le in the or",
+          "speaker": "librispeech:2609",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2609\\157645\\2609-157645-0004.flac",
+          "reference": "on one occasion he was at saint mary's church nottingham for a confirmation",
+          "hypothesis": "on he on antas his ot samas tirte non orvam for confo maten",
+          "speaker": "librispeech:2609",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2609\\157645\\2609-157645-0011.flac",
+          "reference": "six arms the nearest within reach presented with an obedient start as many tobacco pouches to the man of office",
+          "hypothesis": "sic ans the mase was eree froned we herame the diam sho has miy tdaccod papses o w the man avies",
+          "speaker": "librispeech:2609",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\2609\\169640\\2609-169640-0015.flac",
+          "reference": "kite went aft and returned with three or four muskets and as many pikes",
+          "hypothesis": "cie loo aved mentrne re trial fom thusate th as min te pice",
+          "speaker": "librispeech:2609",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3005\\163399\\3005-163399-0020.flac",
+          "reference": "has he come no says her husband",
+          "hypothesis": "his o corm no sis ourusben",
+          "speaker": "librispeech:3005",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3005\\163391\\3005-163391-0007.flac",
+          "reference": "the young chap was mighty thankful said it was tough work toting his baggage such weather",
+          "hypothesis": "the yon cuin ap was mi dy plale say was thof were poing this by ocit wer",
+          "speaker": "librispeech:3005",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3005\\163390\\3005-163390-0011.flac",
+          "reference": "greenhorns flatheads",
+          "hypothesis": "reinrng fli hes",
+          "speaker": "librispeech:3005",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3005\\163399\\3005-163399-0013.flac",
+          "reference": "pretty soon she made the cold chills streak all down my back because she says",
+          "hypothesis": "br te so she may the col to strego be mabat the goiche sys",
+          "speaker": "librispeech:3005",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3080\\5040\\3080-5040-0030.flac",
+          "reference": "you must give me leave to entertain you thus with discourses of the family for i can tell you nothing else from hence",
+          "hypothesis": "e laske meve sen aten sas ad discousisot firy fritin tel youlthinglsom hine",
+          "speaker": "librispeech:3080",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3080\\5032\\3080-5032-0010.flac",
+          "reference": "i think my youngest brother comes down with him",
+          "hypothesis": "iting ly an isprthe coms dons him",
+          "speaker": "librispeech:3080",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3080\\5040\\3080-5040-0021.flac",
+          "reference": "you are satisfied i hope ere this that i scaped drowning",
+          "hypothesis": "you isend is miniho and is their is g doning",
+          "speaker": "librispeech:3080",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3080\\5040\\3080-5040-0033.flac",
+          "reference": "ever since this adventure i have had so great a belief in all things of this nature that i could not forbear laying a peas cod with nine peas in't under my door yesterday and was informed by it that my husband's name should be thomas how do you like that",
+          "hypothesis": "an wisins dise ment i hentson grat ibeve in alsincor dis neater the a cold no for ber ling opes cind it noin beasend and imind istidin he was ing forme by at the lahusmins mam she be toece hond you lit thu",
+          "speaker": "librispeech:3080",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3331\\159605\\3331-159605-0040.flac",
+          "reference": "i don't mean to be prying but i really thought he did",
+          "hypothesis": "ateren to e pince pat oly ecout egak",
+          "speaker": "librispeech:3331",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3331\\159609\\3331-159609-0016.flac",
+          "reference": "said fanny turning hopeful all at once",
+          "hypothesis": "ecany enin hop por on at ons",
+          "speaker": "librispeech:3331",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3331\\159605\\3331-159605-0019.flac",
+          "reference": "at a street corner a black eyed school boy was parting from a rosy faced school girl whose music roll he was reluctantly surrendering",
+          "hypothesis": "i distat con ad beelies colpoi was coating fomoilse tace co ge whis omeaseci was wed ato clson andre",
+          "speaker": "librispeech:3331",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3331\\159609\\3331-159609-0020.flac",
+          "reference": "if fanny wanted to show him what she could do toward making a pleasant home she certainly succeeded better than she suspected for in spite of many failures and discouragements behind the scenes the little house became a most attractive place to mister sydney at least for he was more the house friend than ever and seemed determined to prove that change of fortune made no difference to him",
+          "hypothesis": "he peny mondo to show hin mu che cold to to od not ing a plestnton she sadend hocite bapances hispecte ponsby to mony canes and discocomens bhon the seens an ed he hous pecime mos the to to crie to stiipneceese who he rs mon the hous hon an aber and imete tomen to cot a chang of fortion maknout hons thim",
+          "speaker": "librispeech:3331",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3528\\168669\\3528-168669-0072.flac",
+          "reference": "think father fauvent if she were to work miracles here",
+          "hypothesis": "thek fot if ovent it she werch wek merkas here",
+          "speaker": "librispeech:3528",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3528\\168669\\3528-168669-0026.flac",
+          "reference": "no did you not hear the bell",
+          "hypothesis": "now de ou no hudebol",
+          "speaker": "librispeech:3528",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3528\\168669\\3528-168669-0098.flac",
+          "reference": "the prioress took breath then turned to fauchelevent",
+          "hypothesis": "the frirs sid bretht betur to fusho",
+          "speaker": "librispeech:3528",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3528\\168669\\3528-168669-0107.flac",
+          "reference": "the peal which orders the doctor for the dead to be summoned has already been rung",
+          "hypothesis": "dipal wich arre upter forttit to becevent has ore be rount",
+          "speaker": "librispeech:3528",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3538\\163622\\3538-163622-0020.flac",
+          "reference": "when they had travelled a long long way the foal said dost thou see anything",
+          "hypothesis": "or reathaveat lal al wi tuall shi us ha sian tan",
+          "speaker": "librispeech:3538",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3538\\163622\\3538-163622-0002.flac",
+          "reference": "hast thou watched faithfully and well the whole day long said the king when the lad came into his presence in the evening",
+          "hypothesis": "as hal was pal thomia wal the hoter lo sain the on ho the lie coin iis pasen a modmn",
+          "speaker": "librispeech:3538",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3538\\163624\\3538-163624-0010.flac",
+          "reference": "so sigurd said that sword would do",
+          "hypothesis": "so sinesaid that sor wha dil",
+          "speaker": "librispeech:3538",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3538\\163624\\3538-163624-0005.flac",
+          "reference": "he is no bigger than other dragons said the tutor and if you were as brave as your father you would not fear him",
+          "hypothesis": "heis nobigetan otertaiden se it ther and fur i yas ar fother yoat aperhom",
+          "speaker": "librispeech:3538",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\367\\293981\\367-293981-0001.flac",
+          "reference": "i say so continued don quixote because i hate taking away anyone's good name",
+          "hypothesis": "tisaso tainagon gehady the is a he tak aly aning anse bitne",
+          "speaker": "librispeech:367",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\367\\130732\\367-130732-0010.flac",
+          "reference": "king of shell fish",
+          "hypothesis": "chean to shoich",
+          "speaker": "librispeech:367",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\367\\130732\\367-130732-0013.flac",
+          "reference": "gobey's passed with the fire and the little restaurant bearing his name and in charge of his widow in union square avenue has not attained the fame of the old place",
+          "hypothesis": "l tee pase d the fi  telovest and bein usamen in chitemis witil in aninsqaveno hes nt ten he fa dole ples",
+          "speaker": "librispeech:367",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\367\\293981\\367-293981-0020.flac",
+          "reference": "sancho took it and as he was raising it to his mouth he was stopped by the cries of his master exclaiming sancho my son drink not water drink it not my son for it will kill thee see here i have the blessed balsam and he held up the flask of liquor and with drinking two drops of it thou wilt certainly be restored",
+          "hypothesis": "sunted to g in anse was masiy tas not y u stoppany cinee is metextale suchal my sen jank not in a gingin ot my stand foril gilbe  he a had the blese bosa iny held ap polust a lik an with jinking cogups id thal wil setinly beeverestorn",
+          "speaker": "librispeech:367",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3764\\168670\\3764-168670-0008.flac",
+          "reference": "and she will hold her tongue i answer for that",
+          "hypothesis": "and she will ot on anciffat at",
+          "speaker": "librispeech:3764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3764\\168670\\3764-168670-0019.flac",
+          "reference": "what is that empty coffin",
+          "hypothesis": "mos he shat and tecoon",
+          "speaker": "librispeech:3764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3764\\168671\\3764-168671-0008.flac",
+          "reference": "to be buried in pere lachaise is equivalent to having furniture of mahogany it is recognized as elegant",
+          "hypothesis": " tobe bog in pete shes se cuue tavininuch of whe ony is  rockignsed is angs",
+          "speaker": "librispeech:3764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3764\\168670\\3764-168670-0001.flac",
+          "reference": "cosette had waked up",
+          "hypothesis": "chisat hin weetol",
+          "speaker": "librispeech:3764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3997\\180294\\3997-180294-0020.flac",
+          "reference": "how why",
+          "hypothesis": "ho w",
+          "speaker": "librispeech:3997",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3997\\182399\\3997-182399-0004.flac",
+          "reference": "please mister buzzard please tell us the story he begged",
+          "hypothesis": "res i mistet a thro whe as ars the story he ad",
+          "speaker": "librispeech:3997",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3997\\180294\\3997-180294-0000.flac",
+          "reference": "the duke comes every morning they will tell him when he comes that i am asleep and perhaps he will wait until i wake",
+          "hypothesis": "he here has avy rarning he re sar  he hais  at ama a and cat shear wat and to a wa",
+          "speaker": "librispeech:3997",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\3997\\180294\\3997-180294-0019.flac",
+          "reference": "the woman becomes the man's mistress and loves him",
+          "hypothesis": "to wore i be commis the masneishis and los hir",
+          "speaker": "librispeech:3997",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4198\\12259\\4198-12259-0026.flac",
+          "reference": "i was wont heretofore to drink out all but now i leave nothing",
+          "hypothesis": "il as nt ar to foit to dra ou  a nilenethe",
+          "speaker": "librispeech:4198",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4198\\61336\\4198-61336-0009.flac",
+          "reference": "for three years he conducted vigorous campaigns in the western land where he met with vigorous resistance",
+          "hypothesis": "i hile e he codette the ouis campandint wasten lad le mand wif vago isresistice",
+          "speaker": "librispeech:4198",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4198\\12259\\4198-12259-0004.flac",
+          "reference": "by the belly of sanct buff let us talk of our drink i never drink but at my hours like the pope's mule",
+          "hypothesis": "a the beliou staing bo let is to a lo drak ind evedin lat am ollys i the pos me",
+          "speaker": "librispeech:4198",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4198\\61336\\4198-61336-0023.flac",
+          "reference": "he condemned israel for its idolatries and cried",
+          "hypothesis": "he con dendestil slice a doice as ning reg",
+          "speaker": "librispeech:4198",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4294\\35475\\4294-35475-0011.flac",
+          "reference": "he could see the ogre standing powerless to hurt him on the other side of the chasm and gnashing his teeth each one of which was as big as a millston",
+          "hypothesis": "he cl se al rice thaning pos t hate on the at i sad oft case and nosins te uch wen ofpich whas is pics an knosti",
+          "speaker": "librispeech:4294",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4294\\9934\\4294-9934-0002.flac",
+          "reference": "he affirmed to himself that he would not he declared to himself that he would not doubt and he began to doubt in spite of himself",
+          "hypothesis": "he a fomto sheudit he wit not he de cled whens elthe he bot not tat an ne the gando dout inspoid of an sol",
+          "speaker": "librispeech:4294",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4294\\35475\\4294-35475-0002.flac",
+          "reference": "but the king laughed him to scorn thou a sword he quoth",
+          "hypothesis": "but he kin lach in to scone ho a sord the co",
+          "speaker": "librispeech:4294",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4294\\9934\\4294-9934-0007.flac",
+          "reference": "he feared after having taken so many steps which had brought him nearer to his father to now take a step which should estrange him from that father",
+          "hypothesis": "he heared at hanintaking selmany tapt he en batin neured is bother nout i estapthe she distantiont h mat pathe",
+          "speaker": "librispeech:4294",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4350\\10919\\4350-10919-0026.flac",
+          "reference": "this is the third time you've asked me the same thing",
+          "hypothesis": "is en the ver too asthe te san thin",
+          "speaker": "librispeech:4350",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4350\\9170\\4350-9170-0023.flac",
+          "reference": "footnote the fact that in america the abuses of authority exist in spite of the small number of their troops not only fails to disprove this position but positively confirms it",
+          "hypothesis": "fout nuts it faithit in a mat ty raceif a thortisist in spid of te sallomber oter thise moto e vils i thispat is ssion it asee infems",
+          "speaker": "librispeech:4350",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4350\\9170\\4350-9170-0037.flac",
+          "reference": "but with universal military service it comes to pass that men after making every sacrifice to get rid of the cruelty of strife and the insecurity of existence are called upon to face all the perils they had meant to avoid",
+          "hypothesis": "thowth eversolaltery servis be cospasthat men at emaking evey seiis the gert of the qult ut sit an escurte aistes at calto onte fice alot irls they ad mentl oin",
+          "speaker": "librispeech:4350",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4350\\9170\\4350-9170-0050.flac",
+          "reference": "without the state men would not have been able to form the social institutions needed for doing any thing",
+          "hypothesis": "withot sthat mind not at te ablede for a sushal isitation nedefor deliini",
+          "speaker": "librispeech:4350",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4852\\28311\\4852-28311-0008.flac",
+          "reference": "think he really needs it he pursued",
+          "hypothesis": "e e elin asit in pro",
+          "speaker": "librispeech:4852",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4852\\28311\\4852-28311-0019.flac",
+          "reference": "all at once he wondered how his mother was and everything in him pinched and tightened itself",
+          "hypothesis": "at wons you wonder dowis mother was an ere thing an in an pad on tier but self",
+          "speaker": "librispeech:4852",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4852\\28319\\4852-28319-0007.flac",
+          "reference": "mister wicker waited patiently beside him for a few moments for chris to get up his courage",
+          "hypothesis": "was to ever wono paion in asoninver of eumomats for restigod of as cra",
+          "speaker": "librispeech:4852",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\4852\\28311\\4852-28311-0001.flac",
+          "reference": "chris looked from a nickel plated flashlight to a car jack and spark plug",
+          "hypothesis": "gris ot fromendecalplantin flifin to cariga gen spar plog",
+          "speaker": "librispeech:4852",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\533\\131556\\533-131556-0001.flac",
+          "reference": "for none could injure me as he has done oh",
+          "hypothesis": "for nonc in er me as he as that l",
+          "speaker": "librispeech:533",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\533\\131562\\533-131562-0006.flac",
+          "reference": "mister huntingdon then went up stairs",
+          "hypothesis": "mis ther hoen the then lan thi stis",
+          "speaker": "librispeech:533",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\533\\131564\\533-131564-0024.flac",
+          "reference": "milicent flew to thank me overflowing with gratitude",
+          "hypothesis": "no hisfu i fame bof or lening if greseted",
+          "speaker": "librispeech:533",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\533\\131564\\533-131564-0017.flac",
+          "reference": "i sought out and put into his hands two of milicent's letters one dated from london and written during one of his wildest seasons of reckless dissipation the other in the country during a lucid interval",
+          "hypothesis": "i su hodand foutin hous hande to me fislates wan ta ted fom anden and recand youring on of is alal the severs he rease the sipation the aid the conse dor lostithin to val",
+          "speaker": "librispeech:533",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5442\\41169\\5442-41169-0017.flac",
+          "reference": "but one's work is thrown in for nothing",
+          "hypothesis": "the ons mo isonin re morin",
+          "speaker": "librispeech:5442",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5442\\41168\\5442-41168-0024.flac",
+          "reference": "and the marshal disappeared through a side door",
+          "hypothesis": "and te son dis a bens or was i dor",
+          "speaker": "librispeech:5442",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5442\\41169\\5442-41169-0003.flac",
+          "reference": "i have told him so but it makes no difference only think of it",
+          "hypothesis": "o have do tomse boon esnodoes on enout",
+          "speaker": "librispeech:5442",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5442\\41169\\5442-41169-0022.flac",
+          "reference": "to my thinking i'd cut down that lime tree",
+          "hypothesis": "to mon ingin i co don the midin",
+          "speaker": "librispeech:5442",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5484\\24317\\5484-24317-0026.flac",
+          "reference": "hermon listened to the pair in silence",
+          "hypothesis": "har a lesent a a paran sase",
+          "speaker": "librispeech:5484",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5484\\24318\\5484-24318-0027.flac",
+          "reference": "so archias intended to leave the city on one of his own ships that very day",
+          "hypothesis": "sarc isin tadetele to se ut wine it is a ch tapay det",
+          "speaker": "librispeech:5484",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5484\\24317\\5484-24317-0017.flac",
+          "reference": "we women are only as old as we look and the leeches and tiring women of this beauty of forty practise arts which give her the appearance of twenty five yet perhaps the king values her intellect more than her person and the wisdom of a hundred serpents is certainly united in this woman's head",
+          "hypothesis": "w l ous dis te lok an vole this in thime of then at this teeur sh affoiche prat it at which gif at pance at to whate fof it the hapt te ting a ye sthe ento it mot an hapaste and yeu plisten of a inched spen aste nites in thisoming shed",
+          "speaker": "librispeech:5484",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5484\\24317\\5484-24317-0000.flac",
+          "reference": "when he came from the bath proclus visited him again",
+          "hypothesis": "whan he tameend baut paclustisades and hegan",
+          "speaker": "librispeech:5484",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5764\\299665\\5764-299665-0026.flac",
+          "reference": "man advances and necessarily advances through experience",
+          "hypothesis": "mon ausi han mierly ad a is foits beins",
+          "speaker": "librispeech:5764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5764\\299665\\5764-299665-0058.flac",
+          "reference": "has the bible made the people of georgia kind and merciful",
+          "hypothesis": "has the veid the me the beplo gone a cing then to",
+          "speaker": "librispeech:5764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5764\\299665\\5764-299665-0055.flac",
+          "reference": "let me refer to just one fact showing the influence of a belief in the bible on human beings",
+          "hypothesis": "et be a to to jes ton fat so ing eins of or beeving the bid on ouen beins",
+          "speaker": "librispeech:5764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\5764\\299665\\5764-299665-0087.flac",
+          "reference": "failure seems to be the trademark of nature why",
+          "hypothesis": "ay yousense the be ed fra mk smate w",
+          "speaker": "librispeech:5764",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6070\\63485\\6070-63485-0004.flac",
+          "reference": "in an instant the schoolmaster with a leap resembling in strength and agility the spring of a tiger seized seyton with one hand by the throat and exclaimed your money or i will fling you into this hole",
+          "hypothesis": "en aninston thiscomas tr witha le presenliis tinin jete thispron no the tiga seased se ton bith on hand by he crood and excr yo my ar awl lin ein to thes ho",
+          "speaker": "librispeech:6070",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6070\\63485\\6070-63485-0000.flac",
+          "reference": "they're done for said the schoolmaster in a low key to the chouette out with your vitriol and mind your eye",
+          "hypothesis": "tha don a said thisculmst hin in a lo ke to the swet awhithe a thetre and min your ",
+          "speaker": "librispeech:6070",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6070\\63485\\6070-63485-0002.flac",
+          "reference": "by means of this stratagem they followed so closely that although within a few steps of sarah and tom they did not hear them",
+          "hypothesis": "y mes of thiscoiigan they foo so cnoe as ode with ing the fase that sif sam an tom thay di no he an",
+          "speaker": "librispeech:6070",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6070\\63485\\6070-63485-0015.flac",
+          "reference": "in the plain of saint denis",
+          "hypothesis": "in the plain sine de m",
+          "speaker": "librispeech:6070",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6128\\63240\\6128-63240-0004.flac",
+          "reference": "he was tall and lean and dressed throughout in black his shirt collar was low and wide and the triangle of linen a little crumpled exhibited by the opening of his waistcoat was adorned by a pin containing a small red stone",
+          "hypothesis": "he wis to and and dest  mots in blok he sad owas lon waid and the coll a liin in isl homfold insitase bon ludining of es wase oud was at don's bon kin cona ismou rasto",
+          "speaker": "librispeech:6128",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6128\\63240\\6128-63240-0000.flac",
+          "reference": "the gentleman had not even needed to sit down to become interested apparently he had taken up the volume from a table as soon as he came in and standing there after a single glance round the apartment had lost himself in its pages",
+          "hypothesis": "the jone men had noten ne detisti don to the onen gistit it oudly he had akin at thevoting re tal a sinis etain andis tonen thow a thersine lans tan the a ole ned had lost inself in is ages",
+          "speaker": "librispeech:6128",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6128\\63240\\6128-63240-0002.flac",
+          "reference": "she is willing to risk that",
+          "hypothesis": "s is ant en tos bus",
+          "speaker": "librispeech:6128",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6128\\63240\\6128-63240-0016.flac",
+          "reference": "she hates it she would like to abolish it",
+          "hypothesis": "se hases so linto boesit",
+          "speaker": "librispeech:6128",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6432\\63722\\6432-63722-0035.flac",
+          "reference": "before the big wind in ireland suggested thong with a nod at his irish compatriot slightly laughed the colonel",
+          "hypothesis": "befed been wand ain sh i jest a do with an no on es iversh ambake ad sid len ave gi",
+          "speaker": "librispeech:6432",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6432\\63722\\6432-63722-0053.flac",
+          "reference": "in fact i have a feeling that i'll land my fish",
+          "hypothesis": "in fat ive of fe ing a im lit va",
+          "speaker": "librispeech:6432",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6432\\63723\\6432-63723-0031.flac",
+          "reference": "it wouldn't do you know after that story came out for me and the vice chancellor who sat in the case as well as other judges and members of the bar to be seen there kenneth explained to the colonel",
+          "hypothesis": "ind wone dian have othathorinalo pol in a ligh has he shad in the ga is vose ove a duasin members of the bor do by ing in aach ding of the car",
+          "speaker": "librispeech:6432",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6432\\63722\\6432-63722-0016.flac",
+          "reference": "the very pair i was going to buy",
+          "hypothesis": "the ey paies going bi",
+          "speaker": "librispeech:6432",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6938\\70848\\6938-70848-0025.flac",
+          "reference": "he spoke to the rump convention",
+          "hypothesis": "hesble doner on cud man chen",
+          "speaker": "librispeech:6938",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6938\\70848\\6938-70848-0028.flac",
+          "reference": "the will of millions of workers is now concentrated in this hall",
+          "hypothesis": "to en of meens of floges i sel gonsin dageding de ho",
+          "speaker": "librispeech:6938",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6938\\70848\\6938-70848-0023.flac",
+          "reference": "the dumas and zemstvos were dropped",
+          "hypothesis": "did do mesen enstels le dopd",
+          "speaker": "librispeech:6938",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\6938\\70848\\6938-70848-0017.flac",
+          "reference": "by declaring the assembly extraordinary conference it had been planned to block the reelection of the executive committee",
+          "hypothesis": "my to cany tes sounte extoin any confiens ided ben ban do dok did re nat shon of dee ogide gomede",
+          "speaker": "librispeech:6938",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7018\\75788\\7018-75788-0013.flac",
+          "reference": "next morning as soon as it was light he prayed the dawn prayer and after blessing mohammed the cream of all creatures betook himself to the house of sindbad the seaman and wished him a good day",
+          "hypothesis": "ext moning hat senes it was lit e prid the don pray ind of te blusing my hom und to cren aval creaties ce tokimself to the hosom sing thand the camen and misht im an goe day",
+          "speaker": "librispeech:7018",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7018\\75789\\7018-75789-0009.flac",
+          "reference": "i answered for allah's sake o my lord ere i speak give me somewhat to eat for i am starving and after ask me what thou wilt",
+          "hypothesis": "i ansid for alas sige a ma lound ber y spake cave mes on mot to at or im stobing and of tu as maye at tha wilt",
+          "speaker": "librispeech:7018",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7018\\75789\\7018-75789-0013.flac",
+          "reference": "so i rose without stay or delay and kissed the king's hand and acquainted him with my longing to set out with the merchants for that i pined after my people and mine own land",
+          "hypothesis": "saliris without stiond i li in cis the kingsand an a quinted im with my loning to said at wat a mighens for that ue poin dof to myt pable and min on land",
+          "speaker": "librispeech:7018",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7018\\75789\\7018-75789-0008.flac",
+          "reference": "o my brother answered he we are husbandmen and tillers of the soil who came out to water our fields and plantations and finding thee asleep on this raft laid hold of it and made it fast by us against thou shouldst awake at thy leisure",
+          "hypothesis": "o mon brothe anso  we hhos and men and tolas of the soil e cammout to atereo fales implintations and founding taa slepon thes roft ly toldof thit and my the ast by as a genset thas shund asto wi co a bat las",
+          "speaker": "librispeech:7018",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7105\\2330\\7105-2330-0035.flac",
+          "reference": "the warders have a private band of their own said the governor but of course i couldn't allow the men themselves",
+          "hypothesis": "the rd is shad a bivit by to the ing sedthe gavengin that af cris adontar the menten cous",
+          "speaker": "librispeech:7105",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7105\\2340\\7105-2340-0011.flac",
+          "reference": "the talk flitted nervously and hurriedly from one impersonal topic to another",
+          "hypothesis": "the ta pitind now vite andid fon in in bisinl tapi to a nothe",
+          "speaker": "librispeech:7105",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7105\\2330\\7105-2330-0026.flac",
+          "reference": "can't you get a strike permit asked the organiser",
+          "hypothesis": "ant a githis trit pr me es bhou ines",
+          "speaker": "librispeech:7105",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7105\\2340\\7105-2340-0016.flac",
+          "reference": "we feel that we must live on cream for the rest of our lives",
+          "hypothesis": "the to thity ast a lon em forder esthe or lis",
+          "speaker": "librispeech:7105",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7902\\96592\\7902-96592-0034.flac",
+          "reference": "guinea said the boy think i'd do it for a guinea well then two",
+          "hypothesis": "eis of the moy thidl dint ho y wolen o",
+          "speaker": "librispeech:7902",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7902\\96591\\7902-96591-0021.flac",
+          "reference": "a narrow table against the wall in two places",
+          "hypothesis": "a nar tailad ons to olen toplass",
+          "speaker": "librispeech:7902",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7902\\96595\\7902-96595-0015.flac",
+          "reference": "eh i say where's your master",
+          "hypothesis": "m te say wreds you master",
+          "speaker": "librispeech:7902",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7902\\96592\\7902-96592-0037.flac",
+          "reference": "why your clothes don't fit you and your cap's put on all skew rew",
+          "hypothesis": "lie upos on fe ou an or eps pat on stro",
+          "speaker": "librispeech:7902",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7975\\280063\\7975-280063-0005.flac",
+          "reference": "i think he'll be rather tough meat for breakfast i replied he might be all right for dinner",
+          "hypothesis": "of a ful le reatou my fr richatir apo he mob iverdene",
+          "speaker": "librispeech:7975",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7975\\280076\\7975-280076-0024.flac",
+          "reference": "helvin fickle and wife of greenton valley were attending the springs at that time and either of them will testify to the above for john and i sat in front of mister smith while he was preaching and was in his company for a few moments together with his wife and mister and missus fickle after service",
+          "hypothesis": "oven ve ore mine wo ren tinboy wher to is ins a theat te an ever enotis ofue to euble wor don no sid i from of mistrise boy wis priging in as inis cone for fou mois to ever with me wive hen mister misvile af o he sirs",
+          "speaker": "librispeech:7975",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7975\\280076\\7975-280076-0021.flac",
+          "reference": "poor john he has been hunted down and shot like a wild beast and never was a boy more innocent",
+          "hypothesis": "wrdon heas ben hounde band shom lit he wal based then never wos ab mor ins",
+          "speaker": "librispeech:7975",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\7975\\280085\\7975-280085-0008.flac",
+          "reference": "but they soon after got close enough so that one of them broke my walking stick with a shot",
+          "hypothesis": "wit the so afer gerclosomou softho moven bromou woing fat withase",
+          "speaker": "librispeech:7975",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8131\\117016\\8131-117016-0035.flac",
+          "reference": "colonel they'd kill me i don't know",
+          "hypothesis": "crirl the comy i do mow",
+          "speaker": "librispeech:8131",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8131\\117016\\8131-117016-0053.flac",
+          "reference": "it fitted with the dire predictions of security and with the spying gordon was going to do according to them",
+          "hypothesis": "it titid witha dia predictions of scury and wit the spy gord was goin to do the corinto the",
+          "speaker": "librispeech:8131",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8131\\117017\\8131-117017-0029.flac",
+          "reference": "the little guy knew mars as few others did apparently from all sides",
+          "hypothesis": "the luld a bin a marses fe atheirstad at parly fromoside",
+          "speaker": "librispeech:8131",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8131\\117016\\8131-117016-0016.flac",
+          "reference": "two years gordon admitted",
+          "hypothesis": "chu arse corned mended",
+          "speaker": "librispeech:8131",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8188\\274364\\8188-274364-0003.flac",
+          "reference": "the court which consisted of the chief officers of the army found the crime to be capital and condemned that nobleman to lose his head",
+          "hypothesis": "the co wich onsisudop che pisuls of the oing toun the ot becartl inkedime thet nomen to es his hit",
+          "speaker": "librispeech:8188",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8188\\269290\\8188-269290-0042.flac",
+          "reference": "am i my brother's keeper",
+          "hypothesis": "a my mibothits kepu",
+          "speaker": "librispeech:8188",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8188\\269288\\8188-269288-0010.flac",
+          "reference": "i must pass in honors if i don't i shall die",
+          "hypothesis": "i most pothe ormus if i dout ishe di",
+          "speaker": "librispeech:8188",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8188\\269288\\8188-269288-0017.flac",
+          "reference": "here is a letter for you annie cried leslie",
+          "hypothesis": "hers the thisofpre ay critilisly",
+          "speaker": "librispeech:8188",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8280\\266249\\8280-266249-0004.flac",
+          "reference": "there are some nice looking people on board remarked mister travilla in an undertone to his wife",
+          "hypothesis": "thersen isitat theepl on rn imat mis chal an an ande cantis rith",
+          "speaker": "librispeech:8280",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8280\\266249\\8280-266249-0000.flac",
+          "reference": "old mister dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party and with the addition of servants it was a large one",
+          "hypothesis": "l mis to den smar had excetit a pesing in the tacing hem is grang ater an her hisben te jin te pertin and wed theadision a sar rent so las e lartn",
+          "speaker": "librispeech:8280",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8280\\266249\\8280-266249-0057.flac",
+          "reference": "it was the last game of cards for that trip",
+          "hypothesis": "i isto ast im a carse he that chi",
+          "speaker": "librispeech:8280",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8280\\266249\\8280-266249-0055.flac",
+          "reference": "what can it have been they asked each other",
+          "hypothesis": "hotini a beer th asigeti",
+          "speaker": "librispeech:8280",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8461\\278226\\8461-278226-0009.flac",
+          "reference": "how i wish you could get me a copy of that picture philip laura said entreatingly",
+          "hypothesis": "hallin wa she cad gan the a coppof that pat to fiat y stad an theting a",
+          "speaker": "librispeech:8461",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8461\\281231\\8461-281231-0028.flac",
+          "reference": "during all this time isaac of york sat mournfully apart grieving for the loss of his dearly loved daughter rebecca",
+          "hypothesis": "jur nothis sti mi sa l uld fat mond for hapot greein fol the as wo he stay lodow tevere backa",
+          "speaker": "librispeech:8461",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8461\\278226\\8461-278226-0000.flac",
+          "reference": "and laura had her own pet plans",
+          "hypothesis": "and yor on hatard pa pane",
+          "speaker": "librispeech:8461",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_challenge\\LibriSpeech\\test-other\\8461\\258277\\8461-258277-0000.flac",
+          "reference": "when it was the seven hundred and eighteenth night",
+          "hypothesis": "linty was the fhat an ancrad and y gante nit",
+          "speaker": "librispeech:8461",
+          "corpus": "LibriSpeech",
+          "dialect": null
+        }
+      ],
+      "word_edit_counts": {
+        "substitutions": 1682,
+        "deletions": 309,
+        "insertions": 58,
+        "matches": 290
+      },
+      "character_edit_counts": {
+        "substitutions": 2668,
+        "deletions": 2850,
+        "insertions": 188,
+        "matches": 6285
+      },
+      "pipeline_real_time_factor": 0.03554633585604928,
+      "by_corpus": {
+        "LibriSpeech": {
+          "examples": 132,
+          "wer": 0.8982902235861464,
+          "cer": 0.48343641447089725
+        }
+      },
+      "by_dialect": {}
+    }
+  },
+  "acoustic_and_feature_elapsed_s": 4.9529260999988765,
+  "speaker_disjoint_from_training": true,
+  "evaluation_metadata_sha256": "18ec88279222b09cdaa840caa88f8f9aabe9ca7af4dfec3d0119ef296443bb18",
+  "audio_seconds": 827.7999375,
+  "device": "cpu",
+  "threads": 4,
+  "parameters": 807553,
+  "synthetic_noise": null,
+  "limits": "CTC probabilities + optional training-only character backoff scores. No dictionary correction or pretrained weights. Decoding time excludes cached acoustic inference. Select settings on development only; limited English read-speech."
+}

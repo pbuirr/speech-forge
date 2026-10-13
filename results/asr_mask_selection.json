@@ -1,0 +1,16 @@
+{
+  "selection": "Development WER tied; use lower development CER as explicit secondary criterion. Candidate selected before its challenge/test inference. Single seed, not a proven improvement.",
+  "candidate": "asr_feature_mask",
+  "decoder": "lm02",
+  "development": {
+    "asr_mask_control": {
+      "wer": 0.8070934256055363,
+      "cer": 0.3551966062979279
+    },
+    "asr_feature_mask": {
+      "wer": 0.8070934256055363,
+      "cer": 0.3488334149127101
+    }
+  },
+  "installation": "Neither continuation replaces the installed package: masked candidate has mixed independent results, control has worse new-speaker WER, and gains are not robust. Original and experimental weights preserved."
+}

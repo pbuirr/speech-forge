@@ -4,7 +4,7 @@ speech_engine/tokenizer.py — Character-level tokenizer for ASR.
 Maps between text strings and sequences of integer IDs that the model
 can compute on. We start character-level because:
 
-  - Zero out-of-vocabulary problem: any character seen at inference was in training
+  - Reduced word-level out-of-vocabulary problems; unseen characters still need coverage
   - The model learns to spell, not just recognize whole-word tokens
   - Straightforward to extend to new languages: just add their characters
   - Easy to debug: you can read the vocabulary by inspection
@@ -34,6 +34,7 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from pathlib import Path
 
 # ── Special token IDs (never change, regardless of language) ──────────────────
@@ -51,14 +52,15 @@ _SPECIAL_TOKENS: dict[str, int] = {
 }
 
 # Pre-built English base: 26 lowercase letters + space + apostrophe + hyphen.
-# Covers ~99.9% of LibriSpeech and Common Voice (English) transcripts.
+# Coverage must be checked against each corpus; unsupported lexical characters
+# are rejected by the supervised dataset instead of silently discarded.
 # Order is alphabetical so the vocabulary is deterministic and human-readable.
 _ENGLISH_CHARS: list[str] = sorted("abcdefghijklmnopqrstuvwxyz '-")
 
 
 # ── Text normalization ─────────────────────────────────────────────────────────
 
-def normalize_text(text: str) -> str:
+def normalize_text(text: str, mode: str = 'english') -> str:
     """Normalize a raw transcript into the character set the model uses.
 
     Steps applied in order:
@@ -70,14 +72,19 @@ def normalize_text(text: str) -> str:
 
     Why strip digits?
         LibriSpeech and most clean ASR corpora spell out numbers ("nineteen
-        eighty four" not "1984"). If your dataset has digits, call .fit() on
-        your transcripts and they'll be added to the vocabulary automatically.
+        eighty four" not "1984"). To retain digits use the explicit Unicode policy
+        and fit its vocabulary on training transcripts; match it to trained weights.
 
     Example:
         "Hello, World! It's 2024." → "hello world it's"
     """
-    text = text.lower()
-    text = re.sub(r"[^a-z '-]", " ", text)
+    if mode not in ('english', 'unicode'):
+        raise ValueError('Unknown transcript normalization policy')
+    text = unicodedata.normalize('NFC', text.lower())
+    if mode == 'unicode':
+        text = ''.join(c if unicodedata.category(c)[0] in 'LMN' or c in " '-" else ' ' for c in text)
+    else:
+        text = re.sub(r"[^a-z '-]", " ", text)
     text = re.sub(r"\s+", " ", text)
     return text.strip()
 
@@ -87,9 +94,10 @@ def normalize_text(text: str) -> str:
 class CharTokenizer:
     """Character-level tokenizer with fixed special tokens and an extensible vocabulary.
 
-    Out of the box it handles English. Call .fit(transcripts) to extend the
-    vocabulary with characters from any language (French accents, Arabic script,
-    etc.) without breaking the existing ID assignments.
+    The default English policy preserves legacy checkpoints. For other scripts
+    use CharTokenizer(normalization='unicode').fit(transcripts); this preserves
+    letters, combining marks and digits, without changing existing character IDs.
+    This policy is persisted with the tokenizer; it is not multilingual model training.
 
     Usage:
         tok = CharTokenizer()
@@ -100,7 +108,9 @@ class CharTokenizer:
         tok2 = CharTokenizer.load("data/tokenizer.json")
     """
 
-    def __init__(self) -> None:
+    def __init__(self, normalization: str = 'english') -> None:
+        normalize_text('', normalization)  # Validate and persist the training policy.
+        self.normalization = normalization
         self._char_to_id: dict[str, int] = {}
         self._id_to_char: dict[int, str] = {}
         self._init_special_tokens()
@@ -136,7 +146,7 @@ class CharTokenizer:
         """
         seen = set()
         for t in transcripts:
-            seen.update(normalize_text(t))
+            seen.update(normalize_text(t, self.normalization))
         new_chars = sorted(c for c in seen if c not in self._char_to_id)
         if new_chars:
             self._add_chars(new_chars)
@@ -159,7 +169,7 @@ class CharTokenizer:
         should only affect characters outside the base Latin set.
         """
         if normalize:
-            text = normalize_text(text)
+            text = normalize_text(text, self.normalization)
         return [self._char_to_id[ch] for ch in text if ch in self._char_to_id]
 
     def encode_with_eos(self, text: str, normalize: bool = True) -> list[int]:
@@ -226,7 +236,7 @@ class CharTokenizer:
         """
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
-        payload = {"version": "1.0", "char_to_id": self._char_to_id}
+        payload = {"version": "1.1", "normalization": self.normalization, "char_to_id": self._char_to_id}
         path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     @classmethod
@@ -234,6 +244,8 @@ class CharTokenizer:
         """Load vocabulary from a JSON file written by .save()."""
         data = json.loads(Path(path).read_text(encoding="utf-8"))
         obj = cls.__new__(cls)
+        obj.normalization = data.get('normalization', 'english')
+        normalize_text('', obj.normalization)
         obj._char_to_id = data["char_to_id"]
         obj._id_to_char = {int(v): k for k, v in data["char_to_id"].items()}
         return obj

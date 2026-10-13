@@ -1,0 +1,8 @@
+{
+  "sentences": 200,
+  "tokens": 4267,
+  "seconds_median_3_runs": {
+    "viterbi": 0.02023619999999937,
+    "viterbi_plus_marginals": 0.08301659999960975
+  }
+}

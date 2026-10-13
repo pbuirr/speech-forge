@@ -1,0 +1,25 @@
+{
+  "training_audio": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\train-clean-5\\6848\\252323\\6848-252323-0002.flac",
+  "duration_s": 11.09,
+  "measurements": [
+    {
+      "architecture": "compact",
+      "parameters": 807553,
+      "acoustic_median_s": 0.014311600010842085,
+      "time_reduction": 2
+    },
+    {
+      "architecture": "wide4",
+      "parameters": 2967809,
+      "acoustic_median_s": 0.015218300017295405,
+      "time_reduction": 4
+    },
+    {
+      "architecture": "full4",
+      "parameters": 4779233,
+      "acoustic_median_s": 0.024524200009182096,
+      "time_reduction": 4
+    }
+  ],
+  "scope": "Untrained inference resource probe, five warm CPU runs, four threads, features precomputed; concurrent work, no recognition quality claim."
+}

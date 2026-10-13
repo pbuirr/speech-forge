@@ -1,0 +1,21 @@
+{
+  "source": "https://openslr.org/83",
+  "license": "CC BY-SA 4.0",
+  "attribution": "Demirsahin, Kjartansson, Gutkin and Rivera (2020); Google Inc. (2018, 2019)",
+  "sha256": {
+    "LICENSE": "bae5ccc863235f984a52c07d011e48a86c0c12f923be2dedd8624c7abdc22c6c",
+    "about.html": "8ab6bc8e13e4b9fe00d5f4c9c368ee79bfc8e1a4f79453e37326ca9baabfff54",
+    "dialect_info.txt": "d6df377ffa2883b847c978991602aec93eaa29ed41754f29fa59522e682ae3bc",
+    "line_index_all.csv": "c4edc0328629278b1ba4288eec8615ba2bdff43137c88823629a56171a404da3",
+    "irish_english_male.zip": "2e5dbae4cc27e0e24e21f21c8e7464d219feb703f5fee3e567de6561a05024ed",
+    "northern_english_female.zip": "22b6229d08481e7605b028185dc55dccd0611db428854f2d485d9ff34395a65c",
+    "scottish_english_female.zip": "2dbe5545a7ab87112c7730086586f738ec4f42171f7738628ba084ed4ba15ccb"
+  },
+  "archives": [
+    "irish_english_male.zip",
+    "northern_english_female.zip",
+    "scottish_english_female.zip"
+  ],
+  "integrity": "HTTPS origin and ZIP CRC; locally recorded SHA256, no publisher checksum available at the inspected resource",
+  "limits": "Bounded three-region subset of elicited English; not spontaneous/conversational or all dialects. Licenses and raw references retained."
+}

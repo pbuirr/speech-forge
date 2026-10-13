@@ -359,7 +359,7 @@ class TransformerASR(nn.Module):
             memory_mask: (B, 1, 1, T//2) bool — True = valid frame (not padding)
         """
         x = mel.unsqueeze(1)           # (B, 1, n_mels, T)
-        x = self.conv_encoder(x)       # (B, T//2, d_model)
+        x = self.conv_encoder(x, mel_lengths)  # shared padding-aware acoustic frontend
 
         memory_mask = None
         if mel_lengths is not None:

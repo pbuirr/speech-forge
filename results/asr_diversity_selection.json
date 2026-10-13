@@ -1,0 +1,107 @@
+{
+  "candidate": "balanced",
+  "decoder": "lm02",
+  "criterion": "Lowest pooled development WER, then CER; inspect per-corpus and dialect tradeoffs. This is selection for independent evaluation, not an automatic replacement of installed weights.",
+  "development": {
+    "control": {
+      "wer": 0.886652977412731,
+      "cer": 0.44682713347921227,
+      "by_corpus": {
+        "MiniLibriSpeech": {
+          "examples": 80,
+          "wer": 0.8148788927335641,
+          "cer": 0.3630282264643498
+        },
+        "SLR83": {
+          "examples": 95,
+          "wer": 0.9515246286161063,
+          "cer": 0.5145759134678802
+        }
+      },
+      "by_dialect": {
+        "Scottish English": {
+          "examples": 28,
+          "wer": 0.9158653846153846,
+          "cer": 0.41978287092882993
+        },
+        "Northern English": {
+          "examples": 29,
+          "wer": 0.964769647696477,
+          "cer": 0.5245597775718258
+        },
+        "Irish English": {
+          "examples": 38,
+          "wer": 0.97165991902834,
+          "cer": 0.5875340599455041
+        }
+      }
+    },
+    "mixed": {
+      "wer": 0.8726899383983573,
+      "cer": 0.4201312910284464,
+      "by_corpus": {
+        "MiniLibriSpeech": {
+          "examples": 80,
+          "wer": 0.8131487889273357,
+          "cer": 0.35943873388807307
+        },
+        "SLR83": {
+          "examples": 95,
+          "wer": 0.9265050820953871,
+          "cer": 0.4691993140746603
+        }
+      },
+      "by_dialect": {
+        "Scottish English": {
+          "examples": 28,
+          "wer": 0.8653846153846154,
+          "cer": 0.3731403297145155
+        },
+        "Northern English": {
+          "examples": 29,
+          "wer": 0.9105691056910569,
+          "cer": 0.45041705282669137
+        },
+        "Irish English": {
+          "examples": 38,
+          "wer": 0.9898785425101214,
+          "cer": 0.5643732970027248
+        }
+      }
+    },
+    "balanced": {
+      "wer": 0.8718685831622177,
+      "cer": 0.41429613420860684,
+      "by_corpus": {
+        "MiniLibriSpeech": {
+          "examples": 80,
+          "wer": 0.8209342560553633,
+          "cer": 0.357970305106869
+        },
+        "SLR83": {
+          "examples": 95,
+          "wer": 0.9179046129788898,
+          "cer": 0.4598337950138504
+        }
+      },
+      "by_dialect": {
+        "Scottish English": {
+          "examples": 28,
+          "wer": 0.8413461538461539,
+          "cer": 0.3602734217933253
+        },
+        "Northern English": {
+          "examples": 29,
+          "wer": 0.9051490514905149,
+          "cer": 0.4462465245597776
+        },
+        "Irish English": {
+          "examples": 38,
+          "wer": 0.9919028340080972,
+          "cer": 0.5541553133514986
+        }
+      }
+    }
+  },
+  "policy": "Matched 1520 updates; identical initial acoustic weights/optimizer; test results unopened when this selection was written."
+}

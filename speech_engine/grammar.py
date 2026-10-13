@@ -66,17 +66,21 @@ class GrammarResult:
     text:      str
     lang:      str
     errors:    list[GrammarError]
-    score:     float    # 0.0 (many errors) – 1.0 (clean)
+    score:     Optional[float]  # Rule penalty; None when a check failed.
     n_words:   int
+    checked_rules: list[str] = field(default_factory=list)
+    failed_rules: list[dict] = field(default_factory=list)
 
     @property
     def is_clean(self) -> bool:
-        return len([e for e in self.errors if e.severity == Severity.ERROR]) == 0
+        return not self.failed_rules and not any(e.severity == Severity.ERROR for e in self.errors)
 
     def summary(self) -> str:
         if not self.errors:
-            return "No issues found."
-        lines = [f"Found {len(self.errors)} issue(s) in {self.n_words} words (score {self.score:.2f}):"]
+            return ("No findings from successful checks; result is incomplete."
+                    if self.failed_rules else "No issues found by the available rules.")
+        score_note = f"rule score {self.score:.2f}" if self.score is not None else "incomplete checks"
+        lines = [f"Found {len(self.errors)} issue(s) in {self.n_words} words ({score_note}):"]
         for e in self.errors:
             sug = f"  → {e.suggestion}" if e.suggestion else ""
             lines.append(f"  [{e.severity.upper():7}] {e.message}{sug}")
@@ -185,7 +189,6 @@ class SubjectVerbAgreementRule(GrammarRule):
     _patterns: list[tuple[re.Pattern, str, str]] = [
         # he/she/it + bare verb
         (re.compile(r'\b(he|she|it)\s+(don\'t|dont)\b', re.I), "he/she/it don't", "doesn't"),
-        (re.compile(r'\b(he|she|it)\s+(wasn\'t|ain\'t)\b', re.I), "he/she/it wasn't", "wasn't"),
         (re.compile(r'\b(he|she|it)\s+(have)\b(?!\s+been)', re.I), "he/she/it have", "has"),
         (re.compile(r'\b(he|she|it)\s+(go)\b', re.I), "he/she/it go", "goes"),
         (re.compile(r'\b(he|she|it)\s+(do)\b(?!\s+not)', re.I), "he/she/it do", "does"),
@@ -199,10 +202,22 @@ class SubjectVerbAgreementRule(GrammarRule):
         (re.compile(r'\bthere\s+is\s+\w+\s+and\s+\w+\b', re.I), "there is X and Y (plural)", "there are"),
     ]
 
+    # A bare verb after these words is grammatical: questions and negation
+    # ("does she want"), causatives/perception ("let it go", "made him run")
+    # and infinitives ("to have it go").
+    _licensing = {"do", "does", "did", "don't", "doesn't", "didn't", "will", "would", "can",
+                  "could", "shall", "should", "may", "might", "must", "won't", "wouldn't",
+                  "can't", "couldn't", "shouldn't", "let", "lets", "letting", "make", "makes",
+                  "made", "making", "have", "has", "had", "help", "helps", "helped", "watch",
+                  "watched", "see", "saw", "seen", "hear", "heard", "feel", "felt", "to", "bid"}
+
     def check(self, text: str) -> list[GrammarError]:
         errors: list[GrammarError] = []
         for pattern, desc, suggestion in self._patterns:
             for m in pattern.finditer(text):
+                before = re.findall(r"[\w']+", text[:m.start()].lower())
+                if before and before[-1] in self._licensing:
+                    continue
                 errors.append(self._make_error(
                     f"Subject-verb agreement: '{m.group()}' ({desc})",
                     (m.start(), m.end()),
@@ -229,11 +244,11 @@ class DoubleNegativeRule(GrammarRule):
         errors = []
         for m in self._pattern.finditer(text):
             errors.append(self._make_error(
-                f"Double negative: '{m.group().strip()}'",
+                f"Negative concord: '{m.group().strip()}' — grammatical in many English "
+                f"varieties; formal written English usually uses one negative",
                 (m.start(), m.end()),
-                suggestion="Replace the second negative with a positive equivalent "
-                           "(e.g., 'don't have nothing' → 'don't have anything')",
-                severity=Severity.WARNING,
+                suggestion="For formal register: 'don't have nothing' → 'don't have anything'",
+                severity=Severity.STYLE,
             ))
         return errors
 
@@ -264,8 +279,6 @@ class CommonConfusionsRule(GrammarRule):
         # affect / effect
         (re.compile(r'\bthe\s+affect\s+of\b', re.I),
          "Did you mean 'effect' (noun: the effect of)?"),
-        (re.compile(r'\bwill\s+effect\b', re.I),
-         "Did you mean 'affect' (verb: will affect)?"),
         # then / than
         (re.compile(r'\bbetter\s+then\b', re.I),  "Did you mean 'than' (comparison)?"),
         (re.compile(r'\bgreater\s+then\b', re.I), "Did you mean 'than' (comparison)?"),
@@ -273,7 +286,8 @@ class CommonConfusionsRule(GrammarRule):
         (re.compile(r'\bless\s+then\b', re.I),    "Did you mean 'than' (comparison)?"),
         (re.compile(r'\brather\s+then\b', re.I),  "Did you mean 'than' (comparison)?"),
         # to / too / two
-        (re.compile(r'\bto\s+(much|many|late|early|far|soon|long|short|fast|slow)\b', re.I),
+        # Only before punctuation/end: "to many people", "to long-standing" are fine.
+        (re.compile(r'\bto\s+(much|many|late|early|far|soon|long|fast|slow)\b(?=\s*(?:[.,!?;:]|$))', re.I),
          "Did you mean 'too' (also / excessively)?"),
         # loose / lose
         (re.compile(r'\b(going\s+to|gonna|will)\s+loose\b', re.I),
@@ -282,7 +296,8 @@ class CommonConfusionsRule(GrammarRule):
         (re.compile(r"\bwhose\s+(going|coming|there|here|been|got|done)\b", re.I),
          "Did you mean 'who's' (who is / who has)?"),
         # should of / could of / would of
-        (re.compile(r'\b(should|could|would|must|might|may)\s+of\b', re.I),
+        # 'may' excluded: "in May of last year" is correct.
+        (re.compile(r'\b(should|could|would|must|might)\s+of\b', re.I),
          "Did you mean 'have'? 'of' is incorrect after modal verbs."),
         # irregardless
         (re.compile(r'\birregardless\b', re.I),
@@ -293,15 +308,21 @@ class CommonConfusionsRule(GrammarRule):
         # everyday / every day
         (re.compile(r'\beveryday\s+(i|we|he|she|they|you)\b', re.I),
          "Did you mean 'every day' (each day)?"),
-        # accept / except
-        (re.compile(r'\bexpect\s+for\b', re.I),
-         "Did you mean 'except' (excluding)?"),
     ]
+
+    # Nouns, not modals: "the might of his arm". Relative possessive: "of whose coming".
+    _determiners = {"the", "a", "an", "his", "her", "their", "its", "our", "my", "your", "this", "that", "whose"}
+    _prepositions = {"of", "to", "in", "for", "by", "with", "from", "on", "at", "about", "upon", "without"}
 
     def check(self, text: str) -> list[GrammarError]:
         errors = []
         for pattern, message in self._confusions:
             for m in pattern.finditer(text):
+                before = re.findall(r"[\w']+", text[:m.start()].lower())
+                first = m.group().split()[0].lower()
+                if before and ((first in {"might", "must"} and before[-1] in self._determiners)
+                               or (first == "whose" and before[-1] in self._prepositions)):
+                    continue
                 errors.append(self._make_error(
                     f"Possible confusion: '{m.group()}' — {message}",
                     (m.start(), m.end()),
@@ -380,7 +401,7 @@ class PunctuationRule(GrammarRule):
 
     rule_id   = "EN_PUNCTUATION"
     category  = "punctuation"
-    languages = ["en", "fr", "de", "es", "it", "pt"]
+    languages = ["en", "de", "es", "it", "pt"]  # not fr: French typography requires a space before ; : ! ?
 
     _double_space     = re.compile(r'  +')
     _multiple_excl    = re.compile(r'!{3,}')
@@ -543,18 +564,24 @@ class SpanishAccentRule(GrammarRule):
         "quienes": "quiénes", "cuantos": "cuántos", "cuantas": "cuántas",
     }
 
+    # Question word positions: right after ¿ (optionally after a preposition).
+    _question_start = re.compile(
+        r'¿\s*(?:(?:de|a|por|para|con|en|desde|hasta|hacia|sin|sobre)\s+)?'
+        r'(como|donde|cuando|cuanto|cuanta|cuantos|cuantas|que|cual|cuales|quien|quienes)\b',
+        re.IGNORECASE,
+    )
+
     def check(self, text: str) -> list[GrammarError]:
+        # Only the word that opens a ¿…? question: in "¿Sabes que vienes?" 'que' is a
+        # conjunction and needs no accent. Embedded questions are left unflagged (abstain).
         errors = []
-        # Only flag in question context (sentence starts with ¿ or ends with ?)
-        if not re.search(r'[¿?]', text):
-            return errors
-        for m in self._unaccented_interrogatives.finditer(text):
-            word = m.group().lower()
+        for m in self._question_start.finditer(text):
+            word = m.group(1).lower()
             correct = self._accent_map.get(word)
             if correct:
                 errors.append(self._make_error(
-                    f"Missing accent in interrogative: '{m.group()}' → '{correct}'",
-                    (m.start(), m.end()),
+                    f"Missing accent in interrogative: '{m.group(1)}' → '{correct}'",
+                    (m.start(1), m.end(1)),
                     suggestion=correct,
                     severity=Severity.WARNING,
                 ))
@@ -570,15 +597,19 @@ class FrenchNegationRule(GrammarRule):
     category  = "agreement"
     languages = ["fr"]
 
-    _missing_ne = re.compile(r'\b(je|tu|il|elle|nous|vous|ils|elles)\s+(pas)\b', re.I)
+    # Subject pronoun + verb + pas, with no ne/n' before the verb ("je sais pas").
+    _missing_ne = re.compile(
+        r"\b(je|tu|il|elle|on|nous|vous|ils|elles)\s+(?!ne\b|n['’])([^\W\d_]+)\s+(pas)\b", re.I)
 
     def check(self, text: str) -> list[GrammarError]:
         errors = []
         for m in self._missing_ne.finditer(text):
+            pronoun, verb = m.group(1), m.group(2)
+            ne = "n'" if verb[0].lower() in "aeiouyhâàéèêîôû" else "ne "
             errors.append(self._make_error(
-                f"Incomplete negation: '{m.group()}' — in formal French, use 'ne … pas'",
+                f"Negation without 'ne': '{m.group()}' — usual in speech; formal French uses 'ne … pas'",
                 (m.start(), m.end()),
-                suggestion=f"{m.group(1)} ne {m.group(1)} pas",
+                suggestion=f"{pronoun} {ne}{verb} pas",
                 severity=Severity.STYLE,
             ))
         return errors
@@ -647,6 +678,8 @@ class GrammarChecker:
         """
         base_lang = lang.split("-")[0]
         all_errors: list[GrammarError] = []
+        checked_rules = []
+        failed_rules = []
 
         for rule in self._rules:
             applies = ("*" in rule.languages
@@ -656,9 +689,19 @@ class GrammarChecker:
                 continue
             try:
                 errors = rule.check(text)
+                if (not isinstance(errors, list)
+                        or any(not isinstance(error, GrammarError)
+                               or not isinstance(error.span, tuple) or len(error.span) != 2
+                               or any(type(offset) is not int for offset in error.span)
+                               or not 0 <= error.span[0] <= error.span[1] <= len(text)
+                               for error in errors)):
+                    raise ValueError('Rule returned invalid findings or original-text offsets')
                 all_errors.extend(errors)
-            except Exception:
-                pass  # rule bugs must not crash the whole check
+                checked_rules.append(rule.rule_id)
+            except Exception as error:
+                # Retain successful findings without falsely declaring a failed
+                # check clean. Exception types suffice; no internal trace leaks.
+                failed_rules.append({'rule_id': rule.rule_id, 'error_type': type(error).__name__})
 
         # Filter by severity if requested
         if severities:
@@ -669,7 +712,8 @@ class GrammarChecker:
 
         # Score: 1.0 − (weighted error count / word count)
         n_words = len(text.split())
-        weights  = {Severity.ERROR: 3.0, Severity.WARNING: 1.5, Severity.STYLE: 0.5}
+        # Style hints (passive voice, sentence length, register notes) are not errors.
+        weights  = {Severity.ERROR: 3.0, Severity.WARNING: 1.5, Severity.STYLE: 0.0}
         total_w  = sum(weights.get(e.severity, 1.0) for e in all_errors)
         score    = max(0.0, 1.0 - (total_w / max(1, n_words * 3)))
 
@@ -677,8 +721,10 @@ class GrammarChecker:
             text=text,
             lang=lang,
             errors=all_errors,
-            score=round(score, 3),
+            score=round(score, 3) if not failed_rules else None,
             n_words=n_words,
+            checked_rules=checked_rules,
+            failed_rules=failed_rules,
         )
 
     def available_rules(self) -> list[tuple[str, str, list[str]]]:

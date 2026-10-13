@@ -1,0 +1,30 @@
+{
+  "sentences": 400,
+  "tokens": 8101,
+  "corpus_sha256": "c80584f2bc2b31d5bada78a1136f9feec7ac49e5e18898db02dea434b5b8f0aa",
+  "models": {
+    "baseline": {
+      "sha256": "3c1420cd0cdf469ea67621c7e38c7e1c0ebadeef004090efd7975330c54564e9",
+      "bytes": 4521510,
+      "seconds": [
+        1.2487990999979957,
+        1.247212700000091,
+        1.2469395000007353,
+        1.2450387999997474
+      ],
+      "median_seconds": 1.2470761000004131
+    },
+    "candidate": {
+      "sha256": "a6d24b5a31096bb7db714292a1ce40db45b39dc6c45428d39c61842d943bfb66",
+      "bytes": 5257928,
+      "seconds": [
+        1.2960996000001614,
+        1.285092899997835,
+        1.2916686999997182,
+        1.292798500002391
+      ],
+      "median_seconds": 1.2922336000010546
+    }
+  },
+  "limits": "Parser-only warmed latency; identical cached production inputs, four alternating-order runs. Not full application latency or a hardware-independent speed claim."
+}

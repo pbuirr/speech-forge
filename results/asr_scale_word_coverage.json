@@ -1,0 +1,142 @@
+{
+  "development_examples": 175,
+  "training_vocabulary": {
+    "asr_capacity_compact": {
+      "training_word_types": 8422,
+      "development_words": 2435,
+      "unseen_development_word_occurrences": 362,
+      "unseen_rate": 0.1486652977412731,
+      "most_frequent_unseen": [
+        [
+          "statistical",
+          6
+        ],
+        [
+          "procedures",
+          6
+        ],
+        [
+          "gwynplaine",
+          5
+        ],
+        [
+          "michaelis",
+          3
+        ],
+        [
+          "norsemen",
+          3
+        ],
+        [
+          "sky",
+          3
+        ],
+        [
+          "causing",
+          3
+        ],
+        [
+          "roadways",
+          3
+        ],
+        [
+          "accepted",
+          3
+        ],
+        [
+          "charts",
+          3
+        ],
+        [
+          "updated",
+          3
+        ],
+        [
+          "tournament",
+          3
+        ],
+        [
+          "foretell",
+          3
+        ],
+        [
+          "site",
+          3
+        ],
+        [
+          "strategy",
+          3
+        ]
+      ]
+    },
+    "asr_scale_compact": {
+      "training_word_types": 34261,
+      "development_words": 2435,
+      "unseen_development_word_occurrences": 138,
+      "unseen_rate": 0.056673511293634495,
+      "most_frequent_unseen": [
+        [
+          "statistical",
+          6
+        ],
+        [
+          "procedures",
+          6
+        ],
+        [
+          "michaelis",
+          3
+        ],
+        [
+          "roadways",
+          3
+        ],
+        [
+          "updated",
+          3
+        ],
+        [
+          "tournament",
+          3
+        ],
+        [
+          "floyd",
+          3
+        ],
+        [
+          "epileptic",
+          3
+        ],
+        [
+          "seizures",
+          3
+        ],
+        [
+          "ensuring",
+          3
+        ],
+        [
+          "sampling",
+          3
+        ],
+        [
+          "measurement",
+          3
+        ],
+        [
+          "maths",
+          2
+        ],
+        [
+          "terrorist",
+          2
+        ],
+        [
+          "brion",
+          2
+        ]
+      ]
+    }
+  },
+  "limits": "Whitespace English reference-token coverage, not acoustic recognition accuracy. Shared character tokenizer can represent these unseen word forms."
+}

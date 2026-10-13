@@ -12,7 +12,7 @@
 <header class="app-header">
   <div class="app-logo">
     <span class="logo-mark">LinguaForge</span>
-    <span class="logo-sub">148 languages · built from scratch</span>
+    <span class="logo-sub">Multilingual analysis · built from scratch</span>
   </div>
   <button class="header-link" id="open-flashcards" type="button">📚 My Flashcards</button>
 </header>
@@ -22,8 +22,8 @@
 
   <!-- ── Input card ─────────────────────────────────────────────────────── -->
   <div class="input-card">
-    <h1 class="app-headline">Translate &amp; understand any language</h1>
-    <p class="app-sub">Type or speak text in any language. We detect it, translate it, and help you learn it.</p>
+    <h1 class="app-headline">Explore languages &amp; learn from text</h1>
+    <p class="app-sub">Analyze text and save learning context. Linguistic coverage varies; translation requires an installed model for the selected pair.</p>
 
     <!-- Language row -->
     <div class="lang-row">
@@ -58,6 +58,7 @@
     <div class="textarea-wrap">
       <textarea
         id="main-input"
+        aria-label="Text to analyze"
         rows="4"
         placeholder="Type or paste text in any language…
 
@@ -66,11 +67,16 @@ Try:  もしもし、予約したいんですが
       Bonjour, comment allez-vous ?"
       spellcheck="false"
       autocomplete="off"></textarea>
-      <button class="mic-btn" id="mic-btn" type="button" title="Speak text">
+      <button class="mic-btn" id="mic-btn" type="button" title="Browser speech input (may use an online service)">
         <span id="mic-icon" class="mic-icon-inner">🎙</span>
       </button>
     </div>
     <div id="mic-status" class="mic-status hidden">🔴 Listening… speak now</div>
+    <p class="muted-sm">Microphone input uses browser speech recognition, which may send audio to its provider. It does not use LinguaForge's local CTC model.</p>
+    <label for="local-audio">Local speech recognition · your trained CTC model</label>
+    <input id="local-audio" type="file" accept=".wav,audio/wav" />
+    <button id="local-transcribe" type="button" class="btn-secondary" disabled>Transcribe local WAV</button>
+    <p id="local-speech-status" class="muted-sm" aria-live="polite">Checking local CTC availability…</p>
 
     <button class="go-btn" id="go-btn" type="button">
       <span id="go-label">Translate &amp; Explain</span>
@@ -154,7 +160,7 @@ Try:  もしもし、予約したいんですが
 <aside class="fc-drawer hidden" id="fc-drawer">
   <div class="fc-drawer-header">
     <h2>My Flashcards</h2>
-    <button class="fc-close" id="close-flashcards" type="button">✕</button>
+    <button class="fc-close" id="close-flashcards" type="button" aria-label="Close flashcards">✕</button>
   </div>
 
   <div class="fc-section">
@@ -163,17 +169,32 @@ Try:  もしもし、予約したいんですが
   </div>
 
   <div class="fc-section">
+    <h3>Practice from your cards</h3>
+    <p class="muted-sm">Exercises use saved reference text. They do not judge every grammatically valid answer.</p>
+    <label for="exercise-card">Card</label>
+    <select id="exercise-card"></select>
+    <label for="exercise-kind">Exercise</label>
+    <select id="exercise-kind">
+      <option value="fill">Fill in the blank</option>
+      <option value="mcq">Multiple choice</option>
+      <option value="order">Reconstruct the saved sentence</option>
+    </select>
+    <button class="btn-secondary" id="exercise-start" type="button">Practice</button>
+    <div id="exercise-area" aria-live="polite"></div>
+  </div>
+
+  <div class="fc-section">
     <h3>Add a card</h3>
     <div class="fc-add-row">
       <input id="add-front" placeholder="Word / phrase">
       <input id="add-back"  placeholder="Meaning / translation">
-      <select id="add-lang">
+      <select id="add-lang" aria-label="Card language">
         <option value="es">es</option>
         <option value="en">en</option>
         <option value="fr">fr</option>
         <option value="de">de</option>
       </select>
-      <button id="add-btn" type="button">Add</button>
+      <button class="btn-secondary" id="add-btn" type="button">Add</button>
     </div>
   </div>
 

@@ -56,9 +56,9 @@ def greedy_decode(
     Returns:
         list of decoded strings, one per batch element
 
-    This is O(T * B) and deterministic. For real data with a well-trained
-    model, greedy decode typically gives WER within ~2% absolute of beam search
-    with beam_width=10. For poorly trained or ambiguous outputs, the gap is larger.
+    Argmax and collapse are deterministic. The quality gap to beam search
+    depends on the trained acoustic model, language and evaluation distribution;
+    measure it on development data rather than assuming a fixed WER difference.
     """
     if log_probs.ndim == 2:
         log_probs = log_probs.unsqueeze(1)  # (T, 1, V) — single example
@@ -100,6 +100,9 @@ def prefix_beam_search(
     log_probs_1d: np.ndarray,
     tokenizer,
     beam_width: int = 10,
+    lm=None,
+    lm_weight: float = 0.0,
+    token_reward: float = 0.0,
 ) -> str:
     """CTC prefix beam search for a single sequence.
 
@@ -137,6 +140,23 @@ def prefix_beam_search(
 
     After each time step, prune beam to top beam_width by log(Pb + Pn).
     """
+    if beam_width<1 or lm_weight<0:
+        raise ValueError('Beam width must be positive and LM weight nonnegative')
+    # Optional training-only character n-gram shallow fusion. Backoff scores
+    # are ranking scores, not calibrated probabilities or verified corrections.
+    lm_scores={():0.0}
+    def rank(key, probabilities):
+        prefix=key[0]
+        if lm is not None and lm_weight:
+            if prefix not in lm_scores:
+                parent=prefix[:-1]
+                context_size=getattr(lm,'context_size',2)
+                context=[tokenizer._id_to_char.get(i,'<unk>') for i in parent[-context_size:]]
+                context=['<s>']*(context_size-len(context))+context
+                lm_scores[prefix]=lm_scores[parent]+lm.score(tokenizer._id_to_char.get(prefix[-1],'<unk>'),context)
+            bonus=lm_weight*lm_scores[prefix]
+        else:bonus=0.0
+        return _logsumexp(*probabilities)+bonus+token_reward*len(prefix)
     BLANK = tokenizer.blank_id
     # Skip tokens that should never appear in CTC output
     SKIP = {tokenizer.pad_id, tokenizer.bos_id, tokenizer.eos_id}
@@ -188,13 +208,16 @@ def prefix_beam_search(
         beam = dict(
             sorted(
                 new_beam.items(),
-                key=lambda kv: _logsumexp(kv[1][0], kv[1][1]),
+                key=lambda kv: rank(kv[0],kv[1]),
                 reverse=True,
             )[:beam_width]
         )
+        if lm is not None and lm_weight:
+            # Only surviving prefixes can become parents on the next frame.
+            lm_scores = {key[0]: lm_scores[key[0]] for key in beam}
 
     # Return the best prefix (highest total log-probability)
-    best_key = max(beam, key=lambda k: _logsumexp(beam[k][0], beam[k][1]))
+    best_key = max(beam, key=lambda k: rank(k,beam[k]))
     best_prefix_ids = list(best_key[0])
     return tokenizer.decode(best_prefix_ids, skip_special=True)
 
@@ -203,6 +226,9 @@ def beam_decode(
     log_probs: torch.Tensor,
     tokenizer,
     beam_width: int = 10,
+    lm=None,
+    lm_weight: float = 0.0,
+    token_reward: float = 0.0,
 ) -> list[str]:
     """Batch wrapper for prefix_beam_search.
 
@@ -227,7 +253,7 @@ def beam_decode(
     results = []
     for b in range(B):
         # lp_np[:, b, :] has shape (T, V) — exactly what prefix_beam_search expects
-        text = prefix_beam_search(lp_np[:, b, :], tokenizer, beam_width)
+        text = prefix_beam_search(lp_np[:, b, :], tokenizer, beam_width,lm=lm,lm_weight=lm_weight,token_reward=token_reward)
         results.append(text)
 
     return results

@@ -1,0 +1,243 @@
+{
+  "training": [
+    {
+      "path": "C:\\Users\\user\\speech-forge\\data\\corpora\\es_en_filtered.tsv",
+      "pairs": 540688,
+      "sha256": "cd98507d4d725fc72d85b356039630d6687e8cd2877b000263567f5fb6d1d3c0"
+    },
+    {
+      "path": "C:\\Users\\user\\speech-forge\\data\\splits\\es_en_test_seed42.tsv",
+      "pairs": 54700,
+      "sha256": "705fcc06af5c0306a60f2db2e48bae3a07ed3007abfc70b971ff4745f79f8b16"
+    }
+  ],
+  "ngram": 8,
+  "near_threshold": 0.5,
+  "canonical_rule": "NFC + casefold + letters/digits only (same as train_local_translation.canonical)",
+  "tests": {
+    "news": {
+      "path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\training\\es_en_news\\test.tsv",
+      "sha256": "87dc02499505800087a23b4894c672150b7cfa75e99eb2cc8dbd2b96a2a8a3a0",
+      "pairs": 1040,
+      "exact_source": 2,
+      "exact_target": 2,
+      "near_duplicate": 0,
+      "flagged_total": 2,
+      "flagged_share": 0.0019230769230769232,
+      "sources_shorter_than_ngram_exact_check_only": 125,
+      "clean_pairs": 1038,
+      "clean_path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\results\\legacy_nmt_overlap\\news_clean.tsv",
+      "clean_sha256": "4a2ccc17309fdc2f166e9537effb689ab9bee28e0f259c00e12920879a5111a7",
+      "examples": [
+        {
+          "line": 146,
+          "source": "esto es bueno.",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        },
+        {
+          "line": 322,
+          "source": "eso me gusta\".",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        }
+      ]
+    },
+    "newscommentary": {
+      "path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\corpora\\es_en_newscommentary_independent.tsv",
+      "sha256": "4b5ec70fc2a27cb1db0d2dae0feaab58098a17fadaa08e8cd24a8e330e9ba6df",
+      "pairs": 45829,
+      "exact_source": 42,
+      "exact_target": 35,
+      "near_duplicate": 8,
+      "flagged_total": 63,
+      "flagged_share": 0.0013746754238582557,
+      "sources_shorter_than_ngram_exact_check_only": 2523,
+      "clean_pairs": 45766,
+      "clean_path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\results\\legacy_nmt_overlap\\newscommentary_clean.tsv",
+      "clean_sha256": "48e5b53f7ac007b23a88ff7a3f01d4a83f711c0055350a450c663ad2400a9f8b",
+      "examples": [
+        {
+          "line": 356,
+          "source": "la pregunta es: ¿por qué?",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        },
+        {
+          "line": 425,
+          "source": "pero, ¿por cuánto tiempo?",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        },
+        {
+          "line": 428,
+          "source": "pero, no puede.",
+          "reasons": [
+            "exact_source"
+          ]
+        },
+        {
+          "line": 629,
+          "source": "“no os engañéis.",
+          "reasons": [
+            "exact_source"
+          ]
+        },
+        {
+          "line": 991,
+          "source": "no hubo violencia.",
+          "reasons": [
+            "exact_source"
+          ]
+        },
+        {
+          "line": 1158,
+          "source": "esta situación no tiene que prevalecer.",
+          "reasons": [
+            "exact_target",
+            "near_target_1.00"
+          ]
+        },
+        {
+          "line": 1218,
+          "source": "pero hay esperanza.",
+          "reasons": [
+            "exact_source"
+          ]
+        },
+        {
+          "line": 2661,
+          "source": "tendremos que acostumbrarnos a ellos.",
+          "reasons": [
+            "exact_target"
+          ]
+        },
+        {
+          "line": 3006,
+          "source": "pero eso no es todo.",
+          "reasons": [
+            "exact_source"
+          ]
+        },
+        {
+          "line": 3771,
+          "source": "se concede a abraham lincoln la autoría de la frase «se puede engañar a parte de la gente todo el tiempo, y a toda la gente parte del tiempo, pero no se puede engañar a toda la gente todo el tiempo».",
+          "reasons": [
+            "near_target_0.55"
+          ]
+        }
+      ]
+    },
+    "tatoeba": {
+      "path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\training\\es_en_local\\test.tsv",
+      "sha256": "d5c6e33cd9576d846dfdf6bf1d13564253a32c9031b4af7cf5b98cce1d77c13a",
+      "pairs": 1993,
+      "exact_source": 1984,
+      "exact_target": 1981,
+      "near_duplicate": 880,
+      "flagged_total": 1984,
+      "flagged_share": 0.9954841946813848,
+      "sources_shorter_than_ngram_exact_check_only": 1353,
+      "clean_pairs": 9,
+      "clean_path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\results\\legacy_nmt_overlap\\tatoeba_clean.tsv",
+      "clean_sha256": "3d8f717014fb49347c060780584290974e776e50809ea7fdbb54ea120228bd15",
+      "examples": [
+        {
+          "line": 1,
+          "source": "el guardó el secreto para sí solo.",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        },
+        {
+          "line": 2,
+          "source": "¿cuál es el mejor modo de terminar con la guerra?",
+          "reasons": [
+            "exact_source",
+            "exact_target",
+            "near_source_1.00",
+            "near_target_1.00"
+          ]
+        },
+        {
+          "line": 3,
+          "source": "¿cuál es la mejor manera de terminar con la guerra?",
+          "reasons": [
+            "exact_source",
+            "exact_target",
+            "near_source_1.00",
+            "near_target_1.00"
+          ]
+        },
+        {
+          "line": 4,
+          "source": "me duelen las articulaciones cuando hace frío.",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        },
+        {
+          "line": 5,
+          "source": "hay un parque cerca de mi casa.",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        },
+        {
+          "line": 6,
+          "source": "él señaló que el plan costaría mucho dinero.",
+          "reasons": [
+            "exact_source",
+            "exact_target",
+            "near_source_1.00",
+            "near_target_1.00"
+          ]
+        },
+        {
+          "line": 7,
+          "source": "ellos son igual de fuertes que nosotros.",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        },
+        {
+          "line": 8,
+          "source": "son tan fuertes como nosotros.",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        },
+        {
+          "line": 9,
+          "source": "el lago es más profundo aquí.",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        },
+        {
+          "line": 10,
+          "source": "él busca un trabajo.",
+          "reasons": [
+            "exact_source",
+            "exact_target"
+          ]
+        }
+      ]
+    }
+  },
+  "limits": "Detects exact and n-gram near-duplicates only. Paraphrases, translations of the same article via other routes, and sentences shorter than the n-gram size (exact check only) can still be contaminated."
+}

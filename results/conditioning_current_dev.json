@@ -1,0 +1,99 @@
+{
+  "checkpoint_sha256": "aeb6c948eb37827628cb1fcaa183278501ca77e38064375df6139200bdad75de",
+  "cases_sha256": "75ed7b77cd4e1a03f0c748ad42a95f6dcc31f9858a4f5feb92524aceed1c0b87",
+  "split": "dev",
+  "limits": "Hand-authored linguistic contrasts, not a representative natural corpus or a validated semantic benchmark. Identical target across source contrasts controls target-length bias. Scoring is not generation accuracy. Examples never used for training. ES–EN examples only; evaluator uses the shared model interfaces.",
+  "source_preference_count": 8,
+  "examples": 8,
+  "mean_source_margin": 1.3597673363983631,
+  "rows": [
+    {
+      "phenomenon": "polarity",
+      "source": "El perro no duerme.",
+      "contrast_source": "El perro duerme.",
+      "reference": "The dog does not sleep.",
+      "paired_nll": 1.1949526071548462,
+      "contrast_nll": 2.4725773334503174,
+      "source_margin": 1.2776247262954712,
+      "source_translation": "The dog doesn't doubt.",
+      "contrast_translation": "The dog doubt."
+    },
+    {
+      "phenomenon": "roles",
+      "source": "Julia ayudó a Marcos.",
+      "contrast_source": "Marcos ayudó a Julia.",
+      "reference": "Julia helped Marcos.",
+      "paired_nll": 1.45785653591156,
+      "contrast_nll": 4.6938395500183105,
+      "source_margin": 3.2359830141067505,
+      "source_translation": "Julia helped march.",
+      "contrast_translation": "March helped july."
+    },
+    {
+      "phenomenon": "polarity",
+      "source": "No vendieron la casa.",
+      "contrast_source": "Vendieron la casa.",
+      "reference": "They did not sell the house.",
+      "paired_nll": 0.90815669298172,
+      "contrast_nll": 2.0441336631774902,
+      "source_margin": 1.1359769701957703,
+      "source_translation": "They didn't come at the house.",
+      "contrast_translation": "They come the house."
+    },
+    {
+      "phenomenon": "names",
+      "source": "Nora vive en Oslo.",
+      "contrast_source": "Nora vive en Roma.",
+      "reference": "Nora lives in Oslo.",
+      "paired_nll": 1.802209496498108,
+      "contrast_nll": 3.0474624633789062,
+      "source_margin": 1.2452529668807983,
+      "source_translation": "North lives in osing.",
+      "contrast_translation": "North lives in roma."
+    },
+    {
+      "phenomenon": "quantity",
+      "source": "La caja contiene 19 piezas.",
+      "contrast_source": "La caja contiene 91 piezas.",
+      "reference": "The box contains 19 pieces.",
+      "paired_nll": 0.34740903973579407,
+      "contrast_nll": 1.3272541761398315,
+      "source_margin": 0.9798451364040375,
+      "source_translation": "The box contains 19 pieces.",
+      "contrast_translation": "The box contains 91 pieces."
+    },
+    {
+      "phenomenon": "roles",
+      "source": "El maestro llamó al alumno.",
+      "contrast_source": "El alumno llamó al maestro.",
+      "reference": "The teacher called the student.",
+      "paired_nll": 1.0453503131866455,
+      "contrast_nll": 2.1948740482330322,
+      "source_margin": 1.1495237350463867,
+      "source_translation": "The teacher called the student.",
+      "contrast_translation": "The students called the teacher."
+    },
+    {
+      "phenomenon": "temporal",
+      "source": "Volvió antes de la reunión.",
+      "contrast_source": "Volvió después de la reunión.",
+      "reference": "He returned before the meeting.",
+      "paired_nll": 0.7265716791152954,
+      "contrast_nll": 1.5954703092575073,
+      "source_margin": 0.8688986301422119,
+      "source_translation": "He came back before the meeting.",
+      "contrast_translation": "He came back after the meeting."
+    },
+    {
+      "phenomenon": "polarity",
+      "source": "El plan nunca funcionó.",
+      "contrast_source": "El plan siempre funcionó.",
+      "reference": "The plan never worked.",
+      "paired_nll": 1.8020219802856445,
+      "contrast_nll": 2.787055492401123,
+      "source_margin": 0.9850335121154785,
+      "source_translation": "The plan never offered her.",
+      "contrast_translation": "The plan always founded by him."
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "threads": 4,
+  "device": "cpu",
+  "rows": [
+    {
+      "reference": "i hope miss milner you pass this evening at home",
+      "hypothesis": "i he mis noli you postas y min a hon",
+      "first_request_s": 0.21286800000234507,
+      "warm_median_s": 0.07611199999519158,
+      "audio_s": 3.13,
+      "wer": 0.8,
+      "cer": 0.4375
+    },
+    {
+      "reference": "yes how many",
+      "hypothesis": "as homan",
+      "first_request_s": 0.05710989999352023,
+      "warm_median_s": 0.05754290000186302,
+      "audio_s": 2.875,
+      "wer": 1.0,
+      "cer": 0.4166666666666667
+    },
+    {
+      "reference": "then don't you interfere with me sir",
+      "hypothesis": "then do  ine tr wit measer",
+      "first_request_s": 0.06791260000318289,
+      "warm_median_s": 0.0627846999996109,
+      "audio_s": 2.765,
+      "wer": 0.8571428571428571,
+      "cer": 0.3888888888888889
+    }
+  ]
+}

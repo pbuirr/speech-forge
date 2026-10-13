@@ -1,0 +1,12 @@
+{
+  "max_difference": 2.86102294921875e-06,
+  "iterations": 10,
+  "shape": [
+    16,
+    80,
+    2054
+  ],
+  "limits": "Concurrent training, single GPU; diagnostic kernel timings, not controlled application throughput.",
+  "transpose_s": 0.3068987000006018,
+  "flat_s": 0.028403100004652515
+}

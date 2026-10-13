@@ -1,0 +1,90 @@
+{
+  "previous_independent_period_splits": {
+    "boundary": {
+      "correct": 388,
+      "predicted": 441,
+      "reference": 400,
+      "precision": 0.8798185941043084,
+      "recall": 0.97,
+      "f1": 0.9227110582639715
+    },
+    "root": {
+      "correct": 257,
+      "predicted": 441,
+      "reference": 400,
+      "precision": 0.5827664399092971,
+      "recall": 0.6425,
+      "f1": 0.6111771700356718
+    },
+    "labeled_attachment": {
+      "correct": 4830,
+      "predicted": 7067,
+      "reference": 7076,
+      "precision": 0.683458327437385,
+      "recall": 0.6825890333521764,
+      "f1": 0.683023403804002
+    },
+    "seconds": 1.8358281000000716
+  },
+  "shared_without_abbreviation_hints": {
+    "boundary": {
+      "correct": 400,
+      "predicted": 412,
+      "reference": 400,
+      "precision": 0.970873786407767,
+      "recall": 1.0,
+      "f1": 0.9852216748768473
+    },
+    "root": {
+      "correct": 257,
+      "predicted": 412,
+      "reference": 400,
+      "precision": 0.6237864077669902,
+      "recall": 0.6425,
+      "f1": 0.6330049261083743
+    },
+    "labeled_attachment": {
+      "correct": 4834,
+      "predicted": 7067,
+      "reference": 7076,
+      "precision": 0.6840243384746002,
+      "recall": 0.6831543244771057,
+      "f1": 0.6835890546560135
+    },
+    "seconds": 1.653743700000632
+  },
+  "shared_source_boundaries": {
+    "boundary": {
+      "correct": 400,
+      "predicted": 405,
+      "reference": 400,
+      "precision": 0.9876543209876543,
+      "recall": 1.0,
+      "f1": 0.9937888198757764
+    },
+    "root": {
+      "correct": 257,
+      "predicted": 405,
+      "reference": 400,
+      "precision": 0.6345679012345679,
+      "recall": 0.6425,
+      "f1": 0.6385093167701863
+    },
+    "labeled_attachment": {
+      "correct": 4835,
+      "predicted": 7067,
+      "reference": 7076,
+      "precision": 0.6841658412339041,
+      "recall": 0.683295647258338,
+      "f1": 0.6837304673690164
+    },
+    "seconds": 1.6159267000002728
+  },
+  "data": {
+    "corpus_sha256": "c80584f2bc2b31d5bada78a1136f9feec7ac49e5e18898db02dea434b5b8f0aa",
+    "source_sentences": 400,
+    "paired_documents": 200,
+    "unaligned_reference_words": 0,
+    "limits": "First N held-out text records, paired with one space; gold boundaries never enter inference. Exact train/dev overlap excluded. Exact surface alignment can fail for expanded multiword tokens; all reference lexical arcs/root counts remain in recall denominators. Root F1 is exact source span, attachment F1 requires dependent/head spans and relation. PUD annotations sometimes contain multiple linguistic sentences in one record. Natural paragraph distribution and speech segmentation are not established."
+  }
+}

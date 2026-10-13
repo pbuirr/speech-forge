@@ -1,0 +1,123 @@
+{
+  "limits": "Whitespace word-form novelty is not linguistic unknown-word accuracy. Length and novelty correlate with domain; descriptive strata do not identify causal effects.",
+  "training": "data\\training\\es_en_masked\\train.tsv",
+  "checkpoint": "data\\models\\archive\\nmt_es_en-7be111d843035f82.pt",
+  "checkpoint_sha256": "7be111d843035f82af6057e6e24eb910304b3acc0ab1e22122afd000396c9618",
+  "training_sha256": "c5844ac26d9294b210b12bb3e74630d3c5784f1c24c6a028e138026472562125",
+  "datasets": {
+    "nmt_real_tatoeba_test": {
+      "examples": 1993,
+      "mean_source_words": 6.7616658304064226,
+      "unseen_source_wordform_rate": 0.05624814485010389,
+      "subwords_per_word": 1.5609973285841496,
+      "unknown_subword_rate": 0.0,
+      "raw_bleu": 33.1437,
+      "raw_character_f2": 55.21080167335956,
+      "length_bins": {
+        "1-10": {
+          "examples": 1838,
+          "mean_source_words": 6.255712731229598,
+          "unseen_source_wordform_rate": 0.055226995999304224,
+          "subwords_per_word": 1.562967472603931,
+          "unknown_subword_rate": 0.0,
+          "raw_bleu": 34.6461,
+          "raw_character_f2": 56.165716817995744
+        },
+        "11-20": {
+          "examples": 155,
+          "mean_source_words": 12.761290322580646,
+          "unseen_source_wordform_rate": 0.0621840242669363,
+          "subwords_per_word": 1.5495449949443882,
+          "unknown_subword_rate": 0.0,
+          "raw_bleu": 24.3311,
+          "raw_character_f2": 49.15533950047572
+        }
+      }
+    },
+    "nmt_real_globalvoices": {
+      "examples": 400,
+      "mean_source_words": 19.5975,
+      "unseen_source_wordform_rate": 0.21711953055236638,
+      "subwords_per_word": 2.0272994004337286,
+      "unknown_subword_rate": 0.0061036999748301035,
+      "raw_bleu": 5.3635,
+      "raw_character_f2": 26.87255527207741,
+      "length_bins": {
+        "1-10": {
+          "examples": 108,
+          "mean_source_words": 6.75,
+          "unseen_source_wordform_rate": 0.3017832647462277,
+          "subwords_per_word": 2.2208504801097395,
+          "unknown_subword_rate": 0.0074119827053736875,
+          "raw_bleu": 9.2135,
+          "raw_character_f2": 31.107642809588693
+        },
+        "11-20": {
+          "examples": 123,
+          "mean_source_words": 15.40650406504065,
+          "unseen_source_wordform_rate": 0.20686015831134566,
+          "subwords_per_word": 2.0015831134564643,
+          "unknown_subword_rate": 0.006854732401792776,
+          "raw_bleu": 7.3244,
+          "raw_character_f2": 30.015705569448986
+        },
+        "21-55": {
+          "examples": 166,
+          "mean_source_words": 30.343373493975903,
+          "unseen_source_wordform_rate": 0.20865594599960294,
+          "subwords_per_word": 2.0089338892197737,
+          "unknown_subword_rate": 0.0058306156734855225,
+          "raw_bleu": 4.1888,
+          "raw_character_f2": 25.243805491044963
+        },
+        "56-1000": {
+          "examples": 3,
+          "mean_source_words": 59.333333333333336,
+          "unseen_source_wordform_rate": 0.21910112359550563,
+          "subwords_per_word": 2.0280898876404496,
+          "unknown_subword_rate": 0.0,
+          "raw_bleu": 0.0,
+          "raw_character_f2": 18.504307809941388
+        }
+      }
+    },
+    "nmt_newscommentary_baseline": {
+      "examples": 400,
+      "mean_source_words": 24.7025,
+      "unseen_source_wordform_rate": 0.20908814897277603,
+      "subwords_per_word": 2.066390041493776,
+      "unknown_subword_rate": 0.003085512782838672,
+      "raw_bleu": 3.2548,
+      "raw_character_f2": 25.062897850474783,
+      "length_bins": {
+        "1-10": {
+          "examples": 47,
+          "mean_source_words": 8.02127659574468,
+          "unseen_source_wordform_rate": 0.19363395225464192,
+          "subwords_per_word": 2.1007957559681696,
+          "unknown_subword_rate": 0.010101010101010102,
+          "raw_bleu": 7.3159,
+          "raw_character_f2": 30.13958823674573
+        },
+        "11-20": {
+          "examples": 116,
+          "mean_source_words": 15.78448275862069,
+          "unseen_source_wordform_rate": 0.2009830693610049,
+          "subwords_per_word": 2.0436919716002184,
+          "unknown_subword_rate": 0.003206841261357563,
+          "raw_bleu": 5.2099,
+          "raw_character_f2": 28.344205467068115
+        },
+        "21-55": {
+          "examples": 237,
+          "mean_source_words": 32.37552742616034,
+          "unseen_source_wordform_rate": 0.21178157174508014,
+          "subwords_per_word": 2.070115991137756,
+          "unknown_subword_rate": 0.002707126668345505,
+          "raw_bleu": 2.4108,
+          "raw_character_f2": 23.955265561988735
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "data": "Mini LibriSpeech SLR31; CC BY 4.0; original CNN/BiLSTM CTC",
+  "counts": {
+    "train": 1519,
+    "dev": 80,
+    "test": 80
+  },
+  "seed": 839,
+  "audio_hours": {
+    "train": 5.310743003472223,
+    "dev": 0.12065694444444444,
+    "test": 0.11360277777777777
+  },
+  "train_max_duration": 20.0,
+  "eval_max_duration": 10,
+  "warm_start_sha256": "e5351dea164f1d6c537245f6f9cb23c974ce0606d9a93ec0ae93d95299d701aa",
+  "checkpoint_sha256": "7f3eefe2d3d352fbf0c93e3bea723fa85d85e303790f06914aeb40700d835a5e",
+  "manifest_sha256": {
+    "train": "d6e6cfd3b69b414bdf01e785233f2211f58b6970479771af1a94125d124ea4b2",
+    "dev": "1f150898ecf995107f545e0878e38657ff4beca3aa12e75657d866b18895452a",
+    "test": "b4855b3a367adc9ecebedf686d0abd687766720bed8a2ca26bc8cca08dbd39e5"
+  },
+  "history": {
+    "train_losses": [
+      1.6204637201208818,
+      1.4466422231573808,
+      1.325878125742862,
+      1.2236612696396678,
+      1.143022046904815,
+      1.087340926496606,
+      1.0452891832903812,
+      1.0256845270332537
+    ],
+    "val_losses": [
+      1.6245817333459853,
+      1.5294579066336156,
+      1.4641376465559006,
+      1.4013541541993617,
+      1.3832275956869124,
+      1.3524048708379268,
+      1.3431456126272678,
+      1.3418343864381312
+    ],
+    "best_val_loss": 1.3418343864381312,
+    "total_steps": 1520
+  },
+  "development": {
+    "cer": 0.4074074074074074,
+    "wer": 0.879757785467128,
+    "n_examples": 80,
+    "examples": [
+      {
+        "ref": "they had a great friend in this unknown visitor",
+        "hyp": "the hat a gvae fand an is innon visater",
+        "cer": 0.3404255319148936,
+        "wer": 0.8888888888888888
+      },
+      {
+        "ref": "the famous terrorist had never in his life raised personally as much as his little finger against the social edifice",
+        "hyp": "the thay mastarsd ad mever in as livfe raist prsly as much as hat ltl finger id ose selil anies",
+        "cer": 0.4051724137931034,
+        "wer": 0.7
+      },
+      {
+        "ref": "struggle warfare was the condition of private ownership it was fatal",
+        "hyp": "stat al woar thr was the cantissiinn o pieat omisht it was fatl",
+        "cer": 0.39705882352941174,
+        "wer": 0.8181818181818182
+      },
+      {
+        "ref": "no one could escape from this rictus",
+        "hyp": "kno in cas gat trmdis reactes",
+        "cer": 0.5555555555555556,
+        "wer": 1.0
+      },
+      {
+        "ref": "what true things are told in stories",
+        "hyp": "what str thnse her tal denstores",
+        "cer": 0.4166666666666667,
+        "wer": 0.8571428571428571
+      },
+      {
+        "ref": "cosette was no longer in rags she was in mourning",
+        "hyp": "chosat was no longer a ris she was a morning",
+        "cer": 0.22448979591836735,
+        "wer": 0.5
+      },
+      {
+        "ref": "evil to him that thinks otherwise said mister morton or who holds church government and ceremonies as the exclusive gage of christian faith or moral virtue",
+        "hyp": "e ltin an me tinxsetherissand mistommrnn or wo olster t gver met an sarmrnins as theexcwuc u gacee rictomn fat therm mrrl force",
+        "cer": 0.45161290322580644,
+        "wer": 0.9615384615384616
+      },
+      {
+        "ref": "i saw the lady who erewhile appeared veiled underneath the angelic festival direct her eyes to me across the river",
+        "hyp": "i sn the l who am w lpeaad tild ndo ne the angjelik festei do ruct whe ise tom a csterever",
+        "cer": 0.4298245614035088,
+        "wer": 0.9
+      },
+      {
+        "ref": "comrade ossipon's face twitched with exasperation",
+        "hyp": "comma us ilas flase tichd whitha seastertion",
+        "cer": 0.40816326530612246,
+        "wer": 1.1666666666666667
+      },
+      {
+        "ref": "he had been a prisoner himself",
+        "hyp": "he ind then acrasa hamsel",
+        "cer": 0.43333333333333335,
+        "wer": 0.8333333333333334
+      }
+    ]
+  },
+  "held_out_speakers": {
+    "cer": 0.40679660169915044,
+    "wer": 0.880275624461671,
+    "n_examples": 80,
+    "examples": [
+      {
+        "ref": "i hope miss milner you pass this evening at home",
+        "hyp": "i ho mis noli yopospas y min io hon",
+        "cer": 0.5208333333333334,
+        "wer": 0.9
+      },
+      {
+        "ref": "yes how many",
+        "hyp": "as oman",
+        "cer": 0.5,
+        "wer": 1.0
+      },
+      {
+        "ref": "then don't you interfere with me sir",
+        "hyp": "tan dotelinef fir wit ma ser",
+        "cer": 0.4722222222222222,
+        "wer": 1.0
+      },
+      {
+        "ref": "it relieved him for a while",
+        "hyp": "it elaved in for l",
+        "cer": 0.4074074074074074,
+        "wer": 0.6666666666666666
+      },
+      {
+        "ref": "geographers have divided it into four parts and we had to cross the southwest quarter which in the vernacular is called sudvestr fjordungr",
+        "hyp": "e oun eferst of tovitodion thef for parts and we adt e crosthe self was corder wich ind he then acoler as cooud sedest fur tingg",
+        "cer": 0.45652173913043476,
+        "wer": 1.0
+      },
+      {
+        "ref": "we looked all around and thought that the coast was clear",
+        "hyp": "wit ot dol erond in thout of the coust was lr",
+        "cer": 0.40350877192982454,
+        "wer": 0.8181818181818182
+      },
+      {
+        "ref": "well now said meekin with asperity i don't agree with you",
+        "hyp": "wellmal sid metin wit the sbpirt i do a greith hou",
+        "cer": 0.40350877192982454,
+        "wer": 0.9090909090909091
+      },
+      {
+        "ref": "sometimes schools do let kids take a lot of soft courses and then they're out on a limb later huh",
+        "hyp": "san henswle de wecis tak allalt a fofd corses and han ther ot aal lem liter ho",
+        "cer": 0.44329896907216493,
+        "wer": 0.9
+      },
+      {
+        "ref": "the kingdom of northumbria as the name implies embraced nearly all the country from the humber to the pictish border",
+        "hyp": "e tindio ntombry a as hen nanm am pse an brsnerly a the centre fom the omber to he pecdish porter",
+        "cer": 0.3879310344827586,
+        "wer": 0.85
+      },
+      {
+        "ref": "you ask me to stay away from you because you want me",
+        "hyp": "uust wis is ta wafom you be casy it m",
+        "cer": 0.5,
+        "wer": 0.9166666666666666
+      }
+    ]
+  },
+  "limits": "Small English read-speech pilot; no multilingual/noisy speech claim; batch-one evaluation avoids padded-context decoding",
+  "accepted_manifest_sha256": {
+    "train": "c77eec5065e0219ddfe60874b9b805ef2204df20f5356d8a1c6ebd50e108bd81",
+    "dev": "1a3be3f4c0566b3cca91fe95e9f3571c8e93292d46595dbc438d38046aa09fb3",
+    "test": "15a37a7bb98461baa1067dd163ea6d932ede7ec50a4a43f95b36c8eaf29cffc2"
+  },
+  "provenance_note": "Accepted hashes recorded from persisted evaluated manifests; checkpoint does not contain the newly added data-selection guard metadata."
+}

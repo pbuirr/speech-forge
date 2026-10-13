@@ -17,8 +17,8 @@ Usage:
     # Longer training on toy data:
     python scripts/phase3_demo.py --epochs 30
 
-    # Train on LibriSpeech test-clean (download first):
-    python scripts/phase3_demo.py --librispeech data/LibriSpeech --split test-clean --epochs 50
+    # Train on the official LibriSpeech training split (download first):
+    python scripts/phase3_demo.py --librispeech data/LibriSpeech --split train-clean-100 --epochs 50
 
     # Resume from checkpoint:
     python scripts/phase3_demo.py --resume checkpoints/latest.pt
@@ -298,7 +298,7 @@ def main() -> None:
     parser.add_argument("--epochs",      type=int,  default=5,   help="Training epochs (default 5)")
     parser.add_argument("--quick",       action="store_true",     help="Use tiny model (fast on CPU)")
     parser.add_argument("--librispeech", default=None,            help="LibriSpeech root directory")
-    parser.add_argument("--split",       default="test-clean",    help="LibriSpeech split")
+    parser.add_argument("--split",       default="train-clean-100", help="LibriSpeech training split; never report training-on-test as independent quality")
     parser.add_argument("--manifest",    default=None,            help="TSV manifest file")
     parser.add_argument("--resume",      default=None,            help="Resume from checkpoint path")
     parser.add_argument("--device",      default="auto",          help="cpu / cuda / mps / auto")

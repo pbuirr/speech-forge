@@ -9,9 +9,8 @@ you already have):
   - MultipleChoice — target word + distractors pulled from the same deck,
                       preferring same-POS distractors (so "cat" isn't
                       trivially distinguishable from "ran")
-  - WordOrder     — scramble an example sentence's tokens, ask the learner
-                      to put them back; a cheap way to drill word-order
-                      typology (see morphology.morphological_typology)
+  - WordOrder     — reconstruct one reference sentence's space-delimited
+                      units; this does not judge all grammatical word orders
 
 Pronunciation-style exercises (compare spoken attempt vs. target) are
 intentionally not implemented here — that needs the ASR decoder
@@ -28,6 +27,8 @@ from dataclasses import dataclass
 from typing import Optional
 
 from speech_engine.flashcard import Flashcard, FlashcardDeck
+from speech_engine.text_matching import answer_key
+from speech_engine.linguistic_resources import language_code
 
 
 @dataclass
@@ -42,9 +43,13 @@ class FillInBlankExercise:
     card_id:  str
     prompt:   str   # sentence with the target word replaced by "____"
     answer:   str
+    lang:     str = 'en'
+    source:   str = 'definition'
+    span:     Optional[tuple[int, int]] = None
+    case_sensitive: bool = False
 
     def grade(self, given: str) -> ExerciseResult:
-        ok = given.strip().lower() == self.answer.strip().lower()
+        ok = answer_key(given, self.lang, case_sensitive=self.case_sensitive) == answer_key(self.answer, self.lang, case_sensitive=self.case_sensitive)
         return ExerciseResult(correct=ok, expected=self.answer, given=given)
 
 
@@ -66,34 +71,55 @@ class WordOrderExercise:
     card_id:   str
     scrambled: list[str]
     answer:    str   # original sentence
+    lang:      str = 'en'
 
     def grade(self, given: str) -> ExerciseResult:
-        ok = _normalize_sentence(given) == _normalize_sentence(self.answer)
+        ok = _normalize_sentence(given, self.lang) == _normalize_sentence(self.answer, self.lang)
         return ExerciseResult(correct=ok, expected=self.answer, given=given)
 
 
-def _normalize_sentence(s: str) -> str:
-    return " ".join(s.strip().lower().rstrip(".!?").split())
+def _normalize_sentence(s: str, lang: str = 'en') -> str:
+    return " ".join(answer_key(s, lang).rstrip(".!?。！？؟।").split())
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Generators
 # ══════════════════════════════════════════════════════════════════════════════
 
-def generate_fill_in_blank(card: Flashcard) -> FillInBlankExercise:
+def generate_fill_in_blank(card: Flashcard, morph_engine=None) -> FillInBlankExercise:
     """Blank out `card.front` inside its example sentence, if one exists
     and contains the word; otherwise fall back to a definition prompt.
     """
-    if card.example:
-        # Whole-word, case-insensitive replace of the first occurrence.
-        words = card.example.split()
-        for i, w in enumerate(words):
-            stripped = w.strip(".,;:!?\"'()")
-            if stripped.lower() == card.front.lower():
-                words[i] = w.replace(stripped, "____")
-                return FillInBlankExercise(card_id=card.id, prompt=" ".join(words), answer=card.front)
+    if card.example and card.front.strip():
+        if morph_engine is None:
+            from speech_engine.morphology import MorphologyEngine
+            morph_engine = MorphologyEngine()
+        pieces = morph_engine.tokenize_with_spans(card.example, card.lang)
+        starts = {offsets[0] for _, offsets in pieces}
+        ends = {offsets[1] for _, offsets in pieces}
+        evidence = card.analysis if isinstance(card.analysis, dict) else {}
+        span = evidence.get('span')
+        valid = (evidence.get('span_unit') == 'unicode_codepoints'
+                 and isinstance(span, (list, tuple)) and len(span) == 2
+                 and all(type(v) is int for v in span)
+                 and 0 <= span[0] < span[1] <= len(card.example)
+                 and span[0] in starts and span[1] in ends
+                 and answer_key(card.example[span[0]:span[1]], card.lang) == answer_key(card.front, card.lang))
+        if valid:
+            span = tuple(span)
+            source = 'analysis_span'
+        else:
+            # Legacy/manual cards use the same production tokenizer. Never
+            # blank a partial Latin word merely because it contains the target.
+            span = next((offsets for surface, offsets in pieces
+                         if answer_key(surface, card.lang) == answer_key(card.front, card.lang)), None)
+            source = 'token_match'
+        if span is not None:
+            left, right = span
+            return FillInBlankExercise(card.id, card.example[:left] + '____' + card.example[right:],
+                                       card.example[left:right], card.lang, source, span)
     # No usable example — drill from the gloss instead.
-    return FillInBlankExercise(card_id=card.id, prompt=f"____ — {card.back}", answer=card.front)
+    return FillInBlankExercise(card_id=card.id, prompt=f"____ — {card.back}", answer=card.front, lang=card.lang)
 
 
 def generate_multiple_choice(
@@ -101,14 +127,30 @@ def generate_multiple_choice(
     deck: FlashcardDeck,
     n_distractors: int = 3,
     rng: Optional[random.Random] = None,
-) -> MultipleChoiceExercise:
+) -> Optional[MultipleChoiceExercise]:
     """Build a multiple-choice exercise: `card.back` as the prompt (the
     known side), `card.front` as the correct choice, distractors pulled
     from other cards in the deck (same POS preferred — guessing "cat"
     vs. "ran" by POS alone shouldn't be possible).
+
+    Returns None if no distinct same-language distractor is available. Exact
+    duplicate glosses are excluded; semantic equivalence is not established.
     """
     rng = rng or random.Random()
-    pool = [c for c in deck.all() if c.id != card.id and c.front.lower() != card.front.lower()]
+    if type(n_distractors) is not int or n_distractors < 1:
+        raise ValueError('n_distractors must be a positive integer')
+    seen = {answer_key(card.front, card.lang)}
+    pool = []
+    for candidate in deck.all():
+        if candidate.id == card.id or language_code(candidate.lang) != language_code(card.lang):
+            continue
+        key = answer_key(candidate.front, card.lang)
+        if not key or key in seen or answer_key(candidate.back, card.lang) == answer_key(card.back, card.lang):
+            continue  # an identical gloss cannot distinguish the choices
+        seen.add(key)
+        pool.append(candidate)
+    if not pool:
+        return None  # one choice is not a meaningful recognition exercise
     same_pos = [c for c in pool if card.pos and c.pos == card.pos]
     distractor_pool = same_pos if len(same_pos) >= n_distractors else pool
 
@@ -125,15 +167,18 @@ def generate_multiple_choice(
 
 def generate_word_order(card: Flashcard, rng: Optional[random.Random] = None) -> Optional[WordOrderExercise]:
     """Scramble the example sentence's words. Returns None if the card
-    has no example or the example is a single word (nothing to reorder).
+    has no usable space-delimited example or no distinguishable permutation.
     """
     if not card.example:
         return None
     words = card.example.rstrip(".!?").split()
-    if len(words) < 3:
+    if len(words) < 3 or len(set(words)) < 2:
         return None
     rng = rng or random.Random()
     scrambled = words[:]
-    while scrambled == words:           # don't hand back the unscrambled order
-        rng.shuffle(scrambled)
-    return WordOrderExercise(card_id=card.id, scrambled=scrambled, answer=card.example)
+    rng.shuffle(scrambled)
+    if scrambled == words:
+        # A bounded fallback also works with a no-op or unlucky RNG.
+        other = next(i for i, word in enumerate(words) if word != words[0])
+        scrambled[0], scrambled[other] = scrambled[other], scrambled[0]
+    return WordOrderExercise(card_id=card.id, scrambled=scrambled, answer=card.example, lang=card.lang)

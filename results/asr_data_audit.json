@@ -1,0 +1,65 @@
+{
+  "speaker_disjoint": true,
+  "partitions": {
+    "train": {
+      "clips": 1519,
+      "speakers": 28,
+      "hours": 5.310743003472223,
+      "duration_quantiles": [
+        1.87,
+        13.92,
+        15.775,
+        17.275
+      ],
+      "sample_rates": {
+        "16000": 1519
+      },
+      "unrepresented_characters": 0,
+      "normalization_changed_transcripts": 0,
+      "minimum_ctc_alignment_slack_frames": 62,
+      "unalignable": 0,
+      "training_word_oov_rate": 0.0,
+      "sequential_batch8_padding_fraction": 0.20536010073423872
+    },
+    "dev": {
+      "clips": 80,
+      "speakers": 13,
+      "hours": 0.12065694444444444,
+      "duration_quantiles": [
+        1.74,
+        4.782500000000001,
+        8.712000000000005,
+        9.83
+      ],
+      "sample_rates": {
+        "16000": 80
+      },
+      "unrepresented_characters": 0,
+      "normalization_changed_transcripts": 0,
+      "minimum_ctc_alignment_slack_frames": 68,
+      "unalignable": 0,
+      "training_word_oov_rate": 0.13321799307958476,
+      "sequential_batch8_padding_fraction": 0.4058259465966295
+    },
+    "test": {
+      "clips": 80,
+      "speakers": 12,
+      "hours": 0.11360277777777777,
+      "duration_quantiles": [
+        1.56,
+        4.7925,
+        8.152000000000003,
+        9.62
+      ],
+      "sample_rates": {
+        "16000": 80
+      },
+      "unrepresented_characters": 0,
+      "normalization_changed_transcripts": 0,
+      "minimum_ctc_alignment_slack_frames": 60,
+      "unalignable": 0,
+      "training_word_oov_rate": 0.11283376399655469,
+      "sequential_batch8_padding_fraction": 0.39437019135011303
+    }
+  }
+}

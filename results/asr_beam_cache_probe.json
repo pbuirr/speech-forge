@@ -1,0 +1,20 @@
+{
+  "rows": [
+    {
+      "implementation": "previous",
+      "hypothesis": "ab bab baabab bab bab bab bab b bab b bab bab bab bab bab bab babab bab babaab bab bab bab babab b bab b b",
+      "elapsed_s": 0.2872190999914892,
+      "python_peak_bytes": 874872
+    },
+    {
+      "implementation": "bounded",
+      "hypothesis": "ab bab baabab bab bab bab bab b bab b bab bab bab bab bab bab babab bab babaab bab bab bab babab b bab b b",
+      "elapsed_s": 0.2866417999903206,
+      "python_peak_bytes": 78992
+    }
+  ],
+  "frames": 400,
+  "seed": 127,
+  "equal_output": true,
+  "limits": "Synthetic logits; Python heap only, excludes acoustic inference and LM construction. Not an accuracy benchmark."
+}

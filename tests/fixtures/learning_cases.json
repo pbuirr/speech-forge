@@ -1,0 +1,14 @@
+[
+  {"lang":"en","text":"The cat, sleeps.","front":"cat","expected_prompt":"The ____, sleeps."},
+  {"lang":"es","text":"¿Dónde está la casa?","front":"casa","expected_prompt":"¿Dónde está la ____?"},
+  {"lang":"fr","text":"Il voit l’homme.","front":"l’homme","expected_prompt":"Il voit ____."},
+  {"lang":"ru","text":"Это «дом».","front":"дом","expected_prompt":"Это «____»."},
+  {"lang":"ar","text":"هذا كتاب، جميل.","front":"كتاب","expected_prompt":"هذا ____، جميل."},
+  {"lang":"hi","text":"यह घर।","front":"घर","expected_prompt":"यह ____।"},
+  {"lang":"fa","text":"من می‌روم، امروز.","front":"می‌روم","expected_prompt":"من ____، امروز."},
+  {"lang":"zh","text":"我爱学习。","front":"学习","expected_prompt":"我爱____。","annotated_span":true},
+  {"lang":"ja","text":"私は日本語を学ぶ。","front":"日本語","expected_prompt":"私は____を学ぶ。","annotated_span":true},
+  {"lang":"tr","text":"Bu İSTANBUL, güzel.","front":"istanbul","expected_prompt":"Bu ____, güzel."},
+  {"lang":"fr","text":"Un café.","front":"café","expected_prompt":"Un ____."},
+  {"lang":"en","text":"The  cat\nrests.","front":"cat","expected_prompt":"The  ____\nrests."}
+]

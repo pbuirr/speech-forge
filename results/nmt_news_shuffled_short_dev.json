@@ -1,0 +1,1889 @@
+{
+  "checkpoint": "data\\training\\es_en_news_shuffled\\best.pt",
+  "checkpoint_sha256": "4e805876fa5f2e3844a80c6b83fe6cebb33c567845e324a051f19bfce3c9c356",
+  "data_sha256": "914dac8e91cd78f212fe631648288359cc03fe63b99377e797673dcac3d31efd",
+  "metadata": {
+    "direction": "es→en",
+    "seed": 731,
+    "corpus_sha256": "6cfdec3b2a59218a223436ad49d2d4bc3930b1089e630ed1c7d46a6ad334b500",
+    "counts": {
+      "train": 59864,
+      "dev": 1005,
+      "test": 1040
+    },
+    "split_policy": "saved partitions; validated source/target disjointness",
+    "dataset": "Article-disjoint GlobalVoices + Tatoeba; matched conservative adaptation with shuffled domain mixing",
+    "quality_status": "experimental; development-loss selection; single-reference evaluation pending",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3050",
+    "learning_rate": 0.0002,
+    "curriculum_epochs": 0,
+    "split_sha256": {
+      "train": "6cfdec3b2a59218a223436ad49d2d4bc3930b1089e630ed1c7d46a6ad334b500",
+      "dev": "201e53888eb85a77c6cc27977e2c04baddbba6894938531a265083e8eaa1acc9",
+      "test": "87dc02499505800087a23b4894c672150b7cfa75e99eb2cc8dbd2b96a2a8a3a0"
+    },
+    "warm_start": "data\\models\\nmt_es_en.pt",
+    "training_corpus": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\training\\es_en_news_shuffled\\train.tsv",
+    "parameters": 1204736,
+    "epoch": 8,
+    "dev_token_nll": 3.094959580874305
+  },
+  "device": "cpu",
+  "decoder": "beam_4",
+  "sample_seed": 983,
+  "examples": 200,
+  "excluded_overlap": 0,
+  "metrics": {
+    "raw": {
+      "bleu": 27.5576,
+      "bp": 0.9806,
+      "precisions": [
+        56.0309,
+        33.6868,
+        22.2222,
+        14.873
+      ],
+      "hyp_len": 1426,
+      "ref_len": 1454,
+      "n_sentences": 200,
+      "character_f2_6_no_space": 50.20103161990177,
+      "exact_match_lowercase": 0.07
+    },
+    "application": {
+      "bleu": 27.5576,
+      "bp": 0.9806,
+      "precisions": [
+        56.0309,
+        33.6868,
+        22.2222,
+        14.873
+      ],
+      "hyp_len": 1426,
+      "ref_len": 1454,
+      "n_sentences": 200,
+      "character_f2_6_no_space": 50.20493458621896,
+      "exact_match_lowercase": 0.07
+    }
+  },
+  "copy_source_baseline": {
+    "bleu": 0.0,
+    "bp": 0.942,
+    "precisions": [
+      2.551,
+      0.0853,
+      0.0,
+      0.0
+    ],
+    "hyp_len": 1372,
+    "ref_len": 1454,
+    "n_sentences": 200
+  },
+  "review_flag_rate": 0.105,
+  "latency_median_s": 0.01392525000119349,
+  "latency_p95_s": 0.029051424993667748,
+  "elapsed_s": 3.1688059000007343,
+  "limits": "single-reference lowercase whitespace BLEU; custom character F2; no semantic correctness or calibrated confidence claim; lexical fallback not included",
+  "rows": [
+    {
+      "source": "el doctor le aconsejó que se controlara con el alcohol.",
+      "reference": "the doctor advised him to ease up on alcohol.",
+      "raw": "the doctor advised him to control with the alcohol.",
+      "application": "The doctor advised him to control with the alcohol.",
+      "latency_s": 0.024757999999565072,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3824625
+    },
+    {
+      "source": "agita esta botella antes de que la abras.",
+      "reference": "shake this bottle before you open it.",
+      "raw": "add this botters before the abs.",
+      "application": "Add this botters before the abs.",
+      "latency_s": 0.015831400000024587,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37828
+    },
+    {
+      "source": "no podía acordarme de su nombre.",
+      "reference": "i couldn't remember his name.",
+      "raw": "i couldn't remember her name.",
+      "application": "I couldn't remember her name.",
+      "latency_s": 0.011152299994137138,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4547666666666667
+    },
+    {
+      "source": "ya no eres más solo un niño.",
+      "reference": "you are no longer a mere child.",
+      "raw": "you are no longer a child.",
+      "application": "You are no longer a child.",
+      "latency_s": 0.011476100000436418,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.62855
+    },
+    {
+      "source": "no soy un pájaro, pero me gustaría serlo.",
+      "reference": "i am not a bird, but i'd like to be.",
+      "raw": "i am not a bird, but i would like to be it.",
+      "application": "I am not a bird, but I would like to be it.",
+      "latency_s": 0.017269799995119683,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35096153846153844
+    },
+    {
+      "source": "el aire es una mezcla de gases.",
+      "reference": "air is a mixture of gases.",
+      "raw": "air is a mexics.",
+      "application": "Air is a mexics.",
+      "latency_s": 0.01341359999787528,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47945714285714286
+    },
+    {
+      "source": "dos cabezas son mejores que una.",
+      "reference": "two heads are better than one.",
+      "raw": "two heads are better than one.",
+      "application": "Two heads are better than one.",
+      "latency_s": 0.012222999997902662,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.25815714285714286
+    },
+    {
+      "source": "debe presentarse en persona.",
+      "reference": "you have to appear in person.",
+      "raw": "he must press in personal people.",
+      "application": "He must press in personal people.",
+      "latency_s": 0.012832699998398311,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47425555555555554
+    },
+    {
+      "source": "mi padre todavía no ha llegado a casa.",
+      "reference": "my father is not home yet.",
+      "raw": "my father has not arrived home.",
+      "application": "My father has not arrived home.",
+      "latency_s": 0.010095500008901581,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3103166666666667
+    },
+    {
+      "source": "¡no seas boludo!",
+      "reference": "are you crazy?",
+      "raw": "don't be power!",
+      "application": "Don't be power!",
+      "latency_s": 0.008929500007070601,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5779666666666667
+    },
+    {
+      "source": "las sandías están en temporada ahora.",
+      "reference": "watermelons are in season now.",
+      "raw": "sandays are in temported now.",
+      "application": "Sandays are in temported now.",
+      "latency_s": 0.014595200002077036,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3715
+    },
+    {
+      "source": "¿cuál flor te gusta más?",
+      "reference": "what flower do you like best?",
+      "raw": "what flower you like be?",
+      "application": "What flower you like be?",
+      "latency_s": 0.010010600002715364,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39607142857142863
+    },
+    {
+      "source": "él es un estudiante aplicado.",
+      "reference": "he is an industrious student.",
+      "raw": "he is a appreciate students.",
+      "application": "He is a appreciate students.",
+      "latency_s": 0.010324300004867837,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42628888888888894
+    },
+    {
+      "source": "el ladrón salió corriendo en dirección a la estación.",
+      "reference": "the thief ran away in the direction of the station.",
+      "raw": "the thief ran out in directing to the station.",
+      "application": "The thief ran out in directing to the station.",
+      "latency_s": 0.016091099998448044,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4281133333333333
+    },
+    {
+      "source": "espero sacarme el graduado universitario la próxima primavera.",
+      "reference": "i hope to graduate from university next spring.",
+      "raw": "i hope to get the university gradue next to first.",
+      "application": "I hope to get the university gradue next to first.",
+      "latency_s": 0.021775900007924065,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45211250000000003
+    },
+    {
+      "source": "los seres humanos se distinguen de otros animales por su capacidad de hablar y reírse.",
+      "reference": "human beings differ from other animals in that they can speak and laugh.",
+      "raw": "human beings dislike other animals by his ability and refuged.",
+      "application": "Human beings dislike other animals by his ability and refuged.",
+      "latency_s": 0.022491899988381192,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4041263157894736
+    },
+    {
+      "source": "me estoy desangrando.",
+      "reference": "i'm bleeding badly.",
+      "raw": "i'm disappearing.",
+      "application": "I'm disappearing.",
+      "latency_s": 0.00823330000275746,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.6237600000000001
+    },
+    {
+      "source": "no sé quién es ese muchacho.",
+      "reference": "i don't know who that boy is.",
+      "raw": "i don't know who is that boy.",
+      "application": "I don't know who is that boy.",
+      "latency_s": 0.009068399987882003,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4607375
+    },
+    {
+      "source": "cuando termine el trabajo te llamo.",
+      "reference": "when i get through with my work, i'll call you.",
+      "raw": "when he finished the work to you.",
+      "application": "When he finished the work to you.",
+      "latency_s": 0.008724999992409721,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5408857142857143
+    },
+    {
+      "source": "¿quién piensas que llegará primero?",
+      "reference": "who do you think will come first?",
+      "raw": "who thinks will come first?",
+      "application": "Who thinks will come first?",
+      "latency_s": 0.010823600008734502,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4366625
+    },
+    {
+      "source": "desearía haber podido hablar en español.",
+      "reference": "i wish i could have spoken spanish.",
+      "raw": "i wish i could have been able to speak in spain.",
+      "application": "I wish I could have been able to speak in spain.",
+      "latency_s": 0.014413800003239885,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44530769230769235
+    },
+    {
+      "source": "me gustaría un poco de pastel.",
+      "reference": "i want some cake.",
+      "raw": "i'd like a little cake.",
+      "application": "I'd like a little cake.",
+      "latency_s": 0.008941699998104014,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5133
+    },
+    {
+      "source": "la condición del paciente cambia día tras día.",
+      "reference": "the patient's condition changes from day to day.",
+      "raw": "the patient of the space change day after day.",
+      "application": "The patient of the space change day after day.",
+      "latency_s": 0.016048400008003227,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4110583333333333
+    },
+    {
+      "source": "ella empezó a hablarle al perro.",
+      "reference": "she began to talk to the dog.",
+      "raw": "she began to talk to the dog.",
+      "application": "She began to talk to the dog.",
+      "latency_s": 0.010435400006826967,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4170571428571429
+    },
+    {
+      "source": "ellos obtuvieron un 8 por ciento de interés de su inversión.",
+      "reference": "they obtained a yield of 8 percent on their investment.",
+      "raw": "they objected a 8 for interest of his investment.",
+      "application": "They objected a 8 for interest of his investment.",
+      "latency_s": 0.020018099996377714,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4000214285714286
+    },
+    {
+      "source": "esta bicicleta lleva colocada aquí desde principios de mes.",
+      "reference": "this bicycle has been left here since the beginning of this month.",
+      "raw": "this bicycle cars here from main main princips.",
+      "application": "This bicycle cars here from main main princips.",
+      "latency_s": 0.022811300004832447,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4067733333333334
+    },
+    {
+      "source": "hasta un niño chico sabe algo tan simple.",
+      "reference": "the smallest child knows such a simple thing.",
+      "raw": "until a boy knows something simps.",
+      "application": "Until a boy knows something simps.",
+      "latency_s": 0.019414900001720525,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.368
+    },
+    {
+      "source": "él puso en orden las cosas de su cuarto.",
+      "reference": "he set things in order in his room.",
+      "raw": "he put on the things of his room.",
+      "application": "He put on the things of his room.",
+      "latency_s": 0.015062199992826208,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3838
+    },
+    {
+      "source": "nuestro profesor lucía sorprendido.",
+      "reference": "our teacher seemed surprised.",
+      "raw": "our teacher lutely surprised.",
+      "application": "Our teacher lutely surprised.",
+      "latency_s": 0.013584600004833192,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3487714285714286
+    },
+    {
+      "source": "quejarse de algo es una manera de adaptarse a un nuevo entorno.",
+      "reference": "complaining about something is one way to adapt yourself to a new environment.",
+      "raw": "he complaints of something is a new int.",
+      "application": "He complaints of something is a new int.",
+      "latency_s": 0.029622000001836568,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42163636363636364
+    },
+    {
+      "source": "no había esperado demasiado antes de que apareciese.",
+      "reference": "i had not waited long before he appeared.",
+      "raw": "there was not expected too much before it appears.",
+      "application": "There was not expected too much before it appears.",
+      "latency_s": 0.016015999994124286,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4446545454545454
+    },
+    {
+      "source": "este libro, que fue en su momento un superventas, está descatalogado.",
+      "reference": "this book, which was once a best seller, is now out of print.",
+      "raw": "this book, that he was in his moment, a superatalaw, is decated",
+      "application": "This book, that he was in his moment, a superatalaw, is decated.",
+      "latency_s": 0.037173999997321516,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4026260869565217
+    },
+    {
+      "source": "jane quería un cono de helado.",
+      "reference": "jane wanted an ice cream cone.",
+      "raw": "jane wanted a cot of helds.",
+      "application": "Jane wanted a cot of helds.",
+      "latency_s": 0.017556599996169098,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4373222222222222
+    },
+    {
+      "source": "¿puedo ir al cine esta noche?",
+      "reference": "may i go to the movies tonight?",
+      "raw": "can i go to the movies tonight?",
+      "application": "Can I go to the movies tonight?",
+      "latency_s": 0.016202899991185404,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44329999999999997
+    },
+    {
+      "source": "la gente seguía al dictador como borregos.",
+      "reference": "the people followed the dictator like so many sheep.",
+      "raw": "people will follow the dictators as dr.",
+      "application": "People will follow the dictators as dr.",
+      "latency_s": 0.015139399998588488,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37415833333333337
+    },
+    {
+      "source": "me pregunto si yo fui hecho para este mundo.",
+      "reference": "i wonder if i am made for this world.",
+      "raw": "i wonder if i went to this world.",
+      "application": "I wonder if I went to this world.",
+      "latency_s": 0.009915899994666688,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4139625
+    },
+    {
+      "source": "¿necesitas el libro?",
+      "reference": "do you need the book?",
+      "raw": "do you need the book?",
+      "application": "Do you need the book?",
+      "latency_s": 0.007562400001916103,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4470166666666667
+    },
+    {
+      "source": "vine a este país para estudiar música.",
+      "reference": "i came to this country for the purpose of studying music.",
+      "raw": "i came to this country to study music.",
+      "application": "I came to this country to study music.",
+      "latency_s": 0.011135999986436218,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.294825
+    },
+    {
+      "source": "yo quiero terminar el trabajo por mi cuenta.",
+      "reference": "i want to finish the work on my own.",
+      "raw": "i want to finish the work by my account.",
+      "application": "I want to finish the work by my account.",
+      "latency_s": 0.018764399996143766,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42179999999999995
+    },
+    {
+      "source": "¿por qué no puedes aceptar las cosas como son?",
+      "reference": "why can't you take things just as they are?",
+      "raw": "why can't you accept things as they aren't you way?",
+      "application": "Why can't you accept things as they aren't you way?",
+      "latency_s": 0.014485399995464832,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45162307692307696
+    },
+    {
+      "source": "dimos por hecho que aprobaría el plan.",
+      "reference": "we took it for granted that he would approve of the plan.",
+      "raw": "we died by fact that i would prove the plan.",
+      "application": "We died by fact that I would prove the plan.",
+      "latency_s": 0.01392630000191275,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41256153846153854
+    },
+    {
+      "source": "¿me concedes esta pieza?",
+      "reference": "may i have this dance?",
+      "raw": "will you tell me this piece?",
+      "application": "Will you tell me this piece?",
+      "latency_s": 0.010833899999852292,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.51065
+    },
+    {
+      "source": "debemos admitir que cometimos un error.",
+      "reference": "we must concede that we committed an error.",
+      "raw": "we must admit that we have a mistake.",
+      "application": "We must admit that we have a mistake.",
+      "latency_s": 0.013806400005705655,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3884888888888889
+    },
+    {
+      "source": "tengo muchos amigos en el extranjero.",
+      "reference": "i have many friends in foreign countries.",
+      "raw": "i have a lot of friends in abroad.",
+      "application": "I have a lot of friends in abroad.",
+      "latency_s": 0.01068380000651814,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4459375
+    },
+    {
+      "source": "gulliver viajó en busca de aventuras.",
+      "reference": "gulliver traveled in quest of adventure.",
+      "raw": "guilllia traveled in search of advantage.",
+      "application": "Guilllia traveled in search of advantage.",
+      "latency_s": 0.023548299999674782,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45774375
+    },
+    {
+      "source": "mi hermano me dio un muñeco adorable.",
+      "reference": "my brother gave me a cute doll.",
+      "raw": "my brother gave me a order.",
+      "application": "My brother gave me a order.",
+      "latency_s": 0.01327139999193605,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3758714285714285
+    },
+    {
+      "source": "como es común con las muchachas jóvenes, a alice le encanta el chocolate.",
+      "reference": "as usual with young girls, alice loves chocolate.",
+      "raw": "as he is common with young girls, to alize the chopposition to the cholata global",
+      "application": "As he is common with young girls, to alize the chopposition to the cholata global.",
+      "latency_s": 0.04888439999194816,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47029333333333334
+    },
+    {
+      "source": "recibió un montón de cartas esta mañana.",
+      "reference": "he received a good many letters this morning.",
+      "raw": "he received a lot of cards this morning.",
+      "application": "He received a lot of cards this morning.",
+      "latency_s": 0.017675700000836514,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.32137000000000004
+    },
+    {
+      "source": "creo que voy a tener un buen día.",
+      "reference": "i think it's going to be a nice day.",
+      "raw": "i think i am going to have a good day.",
+      "application": "I think I am going to have a good day.",
+      "latency_s": 0.014957500010496005,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43409999999999993
+    },
+    {
+      "source": "por favor ven a verme cuando tengas tiempo.",
+      "reference": "please come and see me if you have time.",
+      "raw": "please come to see me when you have time.",
+      "application": "Please come to see me when you have time.",
+      "latency_s": 0.014130299998214468,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3998666666666667
+    },
+    {
+      "source": "es licenciado en literatura inglesa.",
+      "reference": "he majors in english literature.",
+      "raw": "it is lickr in literature.",
+      "application": "It is lickr in literature.",
+      "latency_s": 0.01729699999850709,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.48694000000000004
+    },
+    {
+      "source": "tengo una sorpresa para ustedes.",
+      "reference": "i have a surprise for you.",
+      "raw": "i have a surprise for you.",
+      "application": "I have a surprise for you.",
+      "latency_s": 0.010330399993108585,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47052857142857146
+    },
+    {
+      "source": "¿sabes qué libro se está vendiendo bien ahora?",
+      "reference": "do you know which book sells well now?",
+      "raw": "do you know what book is coming now?",
+      "application": "Do you know what book is coming now?",
+      "latency_s": 0.013446700002532452,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35201111111111116
+    },
+    {
+      "source": "lucy hizo felices a sus padres.",
+      "reference": "lucy made her parents happy.",
+      "raw": "lucy made his parents.",
+      "application": "Lucy made his parents.",
+      "latency_s": 0.009151499994914047,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.31975
+    },
+    {
+      "source": "prefiero quedarme aquí mejor.",
+      "reference": "i would rather stay here.",
+      "raw": "i prefer to stay here better.",
+      "application": "I prefer to stay here better.",
+      "latency_s": 0.009685400000307709,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44498571428571426
+    },
+    {
+      "source": "esta aspiradora hace mucho ruido.",
+      "reference": "this vacuum cleaner makes a lot of noise.",
+      "raw": "this aspiroring makes a lot of noise.",
+      "application": "This aspiroring makes a lot of noise.",
+      "latency_s": 0.015406199992867187,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41039166666666665
+    },
+    {
+      "source": "te lo agradezco.",
+      "reference": "i thank you.",
+      "raw": "i thanks to you.",
+      "application": "I thanks to you.",
+      "latency_s": 0.00865100001101382,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.7468
+    },
+    {
+      "source": "todavía no tuve la oportunidad de ver la película.",
+      "reference": "i haven't had a chance to see the movie yet.",
+      "raw": "i had no opportunity to see the movie.",
+      "application": "I had no opportunity to see the movie.",
+      "latency_s": 0.019615099998191,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.48427692307692305
+    },
+    {
+      "source": "no todos nacemos con talento musical.",
+      "reference": "not all of us are born with musical talent.",
+      "raw": "we don't all access with tall.",
+      "application": "We don't all access with tall.",
+      "latency_s": 0.01680080000369344,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4713777777777778
+    },
+    {
+      "source": "jamás pensaba que acabaría así.",
+      "reference": "i never thought it would wind up like this.",
+      "raw": "i would never think i would have just like that.",
+      "application": "I would never think I would have just like that.",
+      "latency_s": 0.015270100004272535,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.48078000000000004
+    },
+    {
+      "source": "sospecho que está enfermo.",
+      "reference": "i suspect he is ill.",
+      "raw": "i suspect that he is sick.",
+      "application": "I suspect that he is sick.",
+      "latency_s": 0.014987000002292916,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44326
+    },
+    {
+      "source": "eres demasiado joven para estar enamorado.",
+      "reference": "you are too young to be in love.",
+      "raw": "you are too young to be angry.",
+      "application": "You are too young to be angry.",
+      "latency_s": 0.01604969998879824,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3516125
+    },
+    {
+      "source": "tu observación se asemeja casi a un insulto.",
+      "reference": "your remark amounts almost to insult.",
+      "raw": "your observation is almost a insult.",
+      "application": "Your observation is almost a insult.",
+      "latency_s": 0.022378499998012558,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4000363636363636
+    },
+    {
+      "source": "mirá esa montaña.",
+      "reference": "look at that mountain.",
+      "raw": "look at that mountain.",
+      "application": "Look at that mountain.",
+      "latency_s": 0.010080799998831935,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47108333333333335
+    },
+    {
+      "source": "esto está roto.",
+      "reference": "this is broken.",
+      "raw": "this is rot.",
+      "application": "This is rot.",
+      "latency_s": 0.01000460000068415,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.273075
+    },
+    {
+      "source": "quiero verlo por mi mismo.",
+      "reference": "i want to see it for myself.",
+      "raw": "i want to see him by my same way.",
+      "application": "I want to see him by my same way.",
+      "latency_s": 0.014905899995937943,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45251111111111114
+    },
+    {
+      "source": "esto es japón como los estadounidenses lo ven.",
+      "reference": "this is japan as americans see it.",
+      "raw": "this is japan like americans come.",
+      "application": "This is japan like americans come.",
+      "latency_s": 0.01845319999847561,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3584
+    },
+    {
+      "source": "la familia es demasiado pobre para pagar las deudas.",
+      "reference": "the family is too poor to pay back the debts.",
+      "raw": "the family is too poor to pay the debs.",
+      "application": "The family is too poor to pay the debs.",
+      "latency_s": 0.016673899997840635,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.33247272727272725
+    },
+    {
+      "source": "los colonizadores se encontraron con muchos peligros.",
+      "reference": "the pioneers met with many dangers.",
+      "raw": "the colleaders met with many dangers.",
+      "application": "The colleaders met with many dangers.",
+      "latency_s": 0.014890499995090067,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.35442999999999997
+    },
+    {
+      "source": "haré que venga a ayudarme.",
+      "reference": "i will get him to come and help me.",
+      "raw": "i will be able to help me.",
+      "application": "I will be able to help me.",
+      "latency_s": 0.013429800004814751,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5168285714285715
+    },
+    {
+      "source": "él me preguntó lo que había estado haciendo.",
+      "reference": "he asked me what i had been doing.",
+      "raw": "he asked me what he had been doing.",
+      "application": "He asked me what he had been doing.",
+      "latency_s": 0.013229400006821379,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42415555555555556
+    },
+    {
+      "source": "yo aprobé el examen, y tom también.",
+      "reference": "i passed the exam and so did tom.",
+      "raw": "i approved the exam, and tom too.",
+      "application": "I approved the exam, and tom too.",
+      "latency_s": 0.015067300002556294,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42521666666666663
+    },
+    {
+      "source": "su amabilidad me conmovió.",
+      "reference": "her kindness touched me.",
+      "raw": "his kindity conmoved me.",
+      "application": "His kindity conmoved me.",
+      "latency_s": 0.014481500009424053,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42195
+    },
+    {
+      "source": "él devolvió al banco su deuda.",
+      "reference": "he paid his loan back to the bank.",
+      "raw": "he came back to the bank his deby.",
+      "application": "He came back to the bank his deby.",
+      "latency_s": 0.01485819999652449,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4836181818181819
+    },
+    {
+      "source": "el estómago es uno de los órganos internos.",
+      "reference": "the stomach is one of the internal organs.",
+      "raw": "the stage is one of interns.",
+      "application": "The stage is one of interns.",
+      "latency_s": 0.018573599998489954,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.33205555555555555
+    },
+    {
+      "source": "adoro ese comercial.",
+      "reference": "i love that commercial.",
+      "raw": "i love that communcial comeral.",
+      "application": "I love that communcial comeral.",
+      "latency_s": 0.013368300002184696,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5166200000000001
+    },
+    {
+      "source": "están hechos un manojo de nervios.",
+      "reference": "they're on pins and needles.",
+      "raw": "they are made an eye of nerves.",
+      "application": "They are made an eye of nerves.",
+      "latency_s": 0.012394799996400252,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45554999999999995
+    },
+    {
+      "source": "llegamos al mismo tiempo.",
+      "reference": "we got there at the same time.",
+      "raw": "we arrived at the same time.",
+      "application": "We arrived at the same time.",
+      "latency_s": 0.006908600000315346,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39843333333333336
+    },
+    {
+      "source": "estos problemas han surgido como un resultado de la indiferencia.",
+      "reference": "these problems have arisen as a result of indifference.",
+      "raw": "these problems have suggested as a result of indience.",
+      "application": "These problems have suggested as a result of indience.",
+      "latency_s": 0.029039899993222207,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36990000000000006
+    },
+    {
+      "source": "llévate un amuleto para tu seguridad.",
+      "reference": "take an amulet for safety's sake.",
+      "raw": "take a love for your safety.",
+      "application": "Take a love for your safety.",
+      "latency_s": 0.014429600007133558,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.451525
+    },
+    {
+      "source": "éste es el lago más bello que jamás he visto.",
+      "reference": "this is the most beautiful lake that i have ever seen.",
+      "raw": "this is the most beautiful lake i've ever seen it.",
+      "application": "This is the most beautiful lake I've ever seen it.",
+      "latency_s": 0.018453799988492392,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4396818181818181
+    },
+    {
+      "source": "hay muchas cosas por hacer, ¿quieres ayuda?",
+      "reference": "there's quite a lot of things to do; do you want some help?",
+      "raw": "there are a lot of things for do, do you want help?",
+      "application": "There are a lot of things for do, do you want help?",
+      "latency_s": 0.02460790000623092,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4529571428571429
+    },
+    {
+      "source": "byron se fue de inglaterra, para no volver.",
+      "reference": "byron left england, never to return.",
+      "raw": "byrang was from england.",
+      "application": "Byrang was from england.",
+      "latency_s": 0.021859499989659525,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39108750000000003
+    },
+    {
+      "source": "es igual para todo el mundo.",
+      "reference": "it's the same for everyone.",
+      "raw": "it is as well as the world.",
+      "application": "It is as well as the world.",
+      "latency_s": 0.011266899993643165,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5013857142857143
+    },
+    {
+      "source": "vas a echar de menos la comida japonesa en los estados unidos.",
+      "reference": "you will miss japanese food in the united states.",
+      "raw": "you are going to look at least japanese food.",
+      "application": "You are going to look at least japanese food.",
+      "latency_s": 0.01451019999512937,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4770499999999999
+    },
+    {
+      "source": "asociamos el nombre de darwin con la teoría de la evolución.",
+      "reference": "we associate the name of darwin with the theory of evolution.",
+      "raw": "we associate the name of dawin with the theory of evution.",
+      "application": "We associate the name of dawin with the theory of evution.",
+      "latency_s": 0.03129330000956543,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.406435
+    },
+    {
+      "source": "hollywood no es lo que solía ser.",
+      "reference": "hollywood isn't what it used to be.",
+      "raw": "holiywood is not what i used to go.",
+      "application": "Holiywood is not what I used to go.",
+      "latency_s": 0.019172800006344914,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.44769166666666665
+    },
+    {
+      "source": "mantente lejos de los taxis sin licencia.",
+      "reference": "keep away from the unlicensed taxis.",
+      "raw": "keep away from taxis without licence.",
+      "application": "Keep away from taxis without licence.",
+      "latency_s": 0.013471700003719889,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.419
+    },
+    {
+      "source": "su composición no deja nada que desear.",
+      "reference": "his composition leaves nothing to be desired.",
+      "raw": "his composition doesn't stop anything i wish to with.",
+      "application": "His composition doesn't stop anything I wish to with.",
+      "latency_s": 0.01556719999643974,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41835
+    },
+    {
+      "source": "por un lado, estás equivocado, pero por el otro, no puedo culparte por eso.",
+      "reference": "on the one hand, you are wrong, but on the other hand, i can't blame you for that.",
+      "raw": "for a hand, you are wrong but for the other thing, i can't blame for that.",
+      "application": "For a hand, you are wrong but for the other thing, I can't blame for that.",
+      "latency_s": 0.024691300000995398,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4037052631578948
+    },
+    {
+      "source": "la montaña está cubierta con nieve el año entero.",
+      "reference": "the mountain is covered with snow all the year round.",
+      "raw": "the mountain is covered with snow.",
+      "application": "The mountain is covered with snow.",
+      "latency_s": 0.018189199996413663,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38398750000000004
+    },
+    {
+      "source": "la nube tenía la forma de un oso.",
+      "reference": "the cloud was in the shape of a bear.",
+      "raw": "the cloud had the form of a she.",
+      "application": "The cloud had the form of a she.",
+      "latency_s": 0.012078200001269579,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37335454545454544
+    },
+    {
+      "source": "el director apareció en el escenario.",
+      "reference": "the conductor appeared on the stage.",
+      "raw": "the director appeared in the scene.",
+      "application": "The director appeared in the scene.",
+      "latency_s": 0.016032700004871003,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42160000000000003
+    },
+    {
+      "source": "yo fui a tokio a ver a tony.",
+      "reference": "i went to tokyo to see tony.",
+      "raw": "i went to tokyo at tony.",
+      "application": "I went to tokyo at tony.",
+      "latency_s": 0.010959799998090602,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4348428571428572
+    },
+    {
+      "source": "cuando un tonto coge un camino el camino se acaba y el tonto sigue.",
+      "reference": "fools rush in where angels fear to tread.",
+      "raw": "when a tony took place on the way of the way and tongue.",
+      "application": "When a tony took place on the way of the way and tongue.",
+      "latency_s": 0.023789899991243146,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4960625
+    },
+    {
+      "source": "¿qué concluyes a partir de eso?",
+      "reference": "what do you conclude from that?",
+      "raw": "what concluding parties of that?",
+      "application": "What concluding parties of that?",
+      "latency_s": 0.011425200005760416,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.48166999999999993
+    },
+    {
+      "source": "ayer llovió todo el día.",
+      "reference": "it rained all day yesterday.",
+      "raw": "it rained all day.",
+      "application": "It rained all day.",
+      "latency_s": 0.007837400000425987,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5955199999999999
+    },
+    {
+      "source": "ella no tiene mucho dinero.",
+      "reference": "she does not have much money.",
+      "raw": "she doesn't have a lot of money.",
+      "application": "She doesn't have a lot of money.",
+      "latency_s": 0.007504599998355843,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39958571428571427
+    },
+    {
+      "source": "toma el que más te guste, sea cuál sea.",
+      "reference": "take the one you like best, whichever it is.",
+      "raw": "take the more you like, whatever you see.",
+      "application": "Take the more you like, whatever you see.",
+      "latency_s": 0.012860100003308617,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5188090909090909
+    },
+    {
+      "source": "si sus precios son competitivos, haremos un pedido mayor.",
+      "reference": "if your prices are competitive, we will place a large order.",
+      "raw": "if his price are competivels, we will do a petor.",
+      "application": "If his price are competivels, we will do a petor.",
+      "latency_s": 0.021584900008747354,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3487882352941177
+    },
+    {
+      "source": "mantendrán su promesa.",
+      "reference": "they will keep their promise.",
+      "raw": "they will keep his promise.",
+      "application": "They will keep his promise.",
+      "latency_s": 0.00941110000712797,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45726666666666665
+    },
+    {
+      "source": "tengo la garganta hecha polvo.",
+      "reference": "i've got a frog in my throat.",
+      "raw": "i have the garden made poor.",
+      "application": "I have the garden made poor.",
+      "latency_s": 0.011824100001831539,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5276375
+    },
+    {
+      "source": "ellos no tienen derechos sobre la propiedad.",
+      "reference": "they have no claim to the property.",
+      "raw": "they are not rights on the own age.",
+      "application": "They are not rights on the own age.",
+      "latency_s": 0.01392420000047423,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39558
+    },
+    {
+      "source": "te visitaremos mañana.",
+      "reference": "we'll visit you tomorrow.",
+      "raw": "we will visit you tomorrow.",
+      "application": "We will visit you tomorrow.",
+      "latency_s": 0.009006299995235167,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4082
+    },
+    {
+      "source": "lo esperé durante una hora.",
+      "reference": "i waited for him for an hour.",
+      "raw": "i waited for him for an hour.",
+      "application": "I waited for him for an hour.",
+      "latency_s": 0.010238400005619042,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4699625
+    },
+    {
+      "source": "mi departamento está a cinco minutos de la estación.",
+      "reference": "my apartment is located within five minutes' walk of the station.",
+      "raw": "my department is five minutes of the station.",
+      "application": "My department is five minutes of the station.",
+      "latency_s": 0.013916099997004494,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.32877272727272727
+    },
+    {
+      "source": "¿a qué hora comienza la escuela?",
+      "reference": "what time does school begin?",
+      "raw": "what time does school begin?",
+      "application": "What time does school begin?",
+      "latency_s": 0.009800300002098083,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45601428571428565
+    },
+    {
+      "source": "sin tu ayuda no lo habría logrado.",
+      "reference": "if it were not for your help, i could not succeed.",
+      "raw": "without your help i would not have succeeded.",
+      "application": "Without your help I would not have succeeded.",
+      "latency_s": 0.01068830001167953,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3373888888888889
+    },
+    {
+      "source": "lo que se necesita ahora son acciones, no palabras.",
+      "reference": "not words but action is needed now.",
+      "raw": "what you need now are actions, not words.",
+      "application": "What you need now are actions, not words.",
+      "latency_s": 0.013663199992151931,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44913636363636367
+    },
+    {
+      "source": "bill trabaja como vendedor de autos.",
+      "reference": "bill's work is selling cars.",
+      "raw": "bill works as well as authors.",
+      "application": "Bill works as well as authors.",
+      "latency_s": 0.012783899990608916,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4431111111111112
+    },
+    {
+      "source": "durante años el hombre ha estado luchando contra las enfermedades.",
+      "reference": "for ages, man has been fighting against disease.",
+      "raw": "during the man has been fighting against the illness.",
+      "application": "During the man has been fighting against the illness.",
+      "latency_s": 0.01416340000287164,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3554461538461539
+    },
+    {
+      "source": "leí eso en la edición de hoy.",
+      "reference": "i read it in today's edition.",
+      "raw": "i read that in the edition of today.",
+      "application": "I read that in the edition of today.",
+      "latency_s": 0.010558299996773712,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42243
+    },
+    {
+      "source": "él dudó antes de responder.",
+      "reference": "he hesitated before answering.",
+      "raw": "he duled before his response to answer.",
+      "application": "He duled before his response to answer.",
+      "latency_s": 0.011492400008137338,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4344909090909091
+    },
+    {
+      "source": "las anotaciones están al pie de la página.",
+      "reference": "the footnotes are at the bottom of the page.",
+      "raw": "the twitter are on the page.",
+      "application": "The twitter are on the page.",
+      "latency_s": 0.011626799998339266,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5465222222222224
+    },
+    {
+      "source": "este líquido transparente contiene un tipo de veneno.",
+      "reference": "this transparent liquid contains a kind of poison.",
+      "raw": "this lead translated a kind of venend.",
+      "application": "This lead translated a kind of venend.",
+      "latency_s": 0.017765099997632205,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42038333333333333
+    },
+    {
+      "source": "en cuanto acabó su reunión, se pusieron a trabajar.",
+      "reference": "as soon as their meeting was over, they set to work.",
+      "raw": "as soon as his meeting was put to work.",
+      "application": "As soon as his meeting was put to work.",
+      "latency_s": 0.01444120000815019,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5235666666666666
+    },
+    {
+      "source": "¿estás casado o soltero?",
+      "reference": "are you married or are you single?",
+      "raw": "are you married or alter?",
+      "application": "Are you married or alter?",
+      "latency_s": 0.009967200006940402,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4874428571428572
+    },
+    {
+      "source": "tenemos que cancelar nuestro viaje a japón.",
+      "reference": "we must cancel our trip to japan.",
+      "raw": "we have to cancelebrate our trip to japan.",
+      "application": "We have to cancelebrate our trip to japan.",
+      "latency_s": 0.018232599992188625,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4015153846153846
+    },
+    {
+      "source": "el chico huyó.",
+      "reference": "the boy ran away.",
+      "raw": "the boy ran away.",
+      "application": "The boy ran away.",
+      "latency_s": 0.008916099992347881,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.446625
+    },
+    {
+      "source": "abre la ventana, por favor.",
+      "reference": "open the window, please.",
+      "raw": "please open the window.",
+      "application": "Please open the window.",
+      "latency_s": 0.009119700000155717,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47208000000000006
+    },
+    {
+      "source": "el bebé se llama tom.",
+      "reference": "the baby is called tom.",
+      "raw": "the baby calls total voices",
+      "application": "The baby calls total voices.",
+      "latency_s": 0.013046300009591505,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.47435
+    },
+    {
+      "source": "francia queda en europa occidental.",
+      "reference": "france is in western europe.",
+      "raw": "france is in europe ocurrencial",
+      "application": "France is in europe ocurrencial.",
+      "latency_s": 0.017965799997909926,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5045266666666667
+    },
+    {
+      "source": "eres un buen chico.",
+      "reference": "you are a good boy.",
+      "raw": "you are a good boy.",
+      "application": "You are a good boy.",
+      "latency_s": 0.00893250000081025,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4556833333333333
+    },
+    {
+      "source": "¿no conoces su nombre?",
+      "reference": "don't you know his name?",
+      "raw": "don't you know his name?",
+      "application": "Don't you know his name?",
+      "latency_s": 0.009132899998803623,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3876
+    },
+    {
+      "source": "apenas podía entenderle.",
+      "reference": "i could hardly understand him.",
+      "raw": "i could only understand him.",
+      "application": "I could only understand him.",
+      "latency_s": 0.009093900007428601,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.48628
+    },
+    {
+      "source": "aunque a mike le gusta mucho su trabajo no está bien pagado.",
+      "reference": "though mike likes his job very much, it does not pay well.",
+      "raw": "although mike likes her job is not payment.",
+      "application": "Although mike likes her job is not payment.",
+      "latency_s": 0.02123579999897629,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4298166666666667
+    },
+    {
+      "source": "tommy no quería correr el riesgo de perder su trabajo.",
+      "reference": "tommy did not want to run the risk of losing his job.",
+      "raw": "tommand didn't want to run the risk of his work.",
+      "application": "Tommand didn't want to run the risk of his work.",
+      "latency_s": 0.024660000010044314,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38166428571428573
+    },
+    {
+      "source": "no llegarás a tiempo si no corres.",
+      "reference": "you won't be in time unless you run.",
+      "raw": "you will not be in time if you don't correct it.",
+      "application": "You will not be in time if you don't correct it.",
+      "latency_s": 0.018571599997812882,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5219692307692309
+    },
+    {
+      "source": "eso no cambiará nada.",
+      "reference": "that won't make any difference.",
+      "raw": "that will not change anything.",
+      "application": "That will not change anything.",
+      "latency_s": 0.009604099992429838,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3293833333333333
+    },
+    {
+      "source": "este cuchillo está muy afilado.",
+      "reference": "this knife is very sharp.",
+      "raw": "this knife is very duty.",
+      "application": "This knife is very duty.",
+      "latency_s": 0.01287890000094194,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.34416250000000004
+    },
+    {
+      "source": "¿vives en tokio?",
+      "reference": "do you live in tokyo?",
+      "raw": "do you live in tokyo?",
+      "application": "Do you live in tokyo?",
+      "latency_s": 0.010411500014015473,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45898333333333335
+    },
+    {
+      "source": "¿no es mejor que nos vayamos ahora?",
+      "reference": "hadn't we better be going now?",
+      "raw": "don't you had better go now?",
+      "application": "Don't you had better go now?",
+      "latency_s": 0.010635300001013093,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5255571428571428
+    },
+    {
+      "source": "mi jardín de flores fue pisoteado por los erizos.",
+      "reference": "my flower garden was trampled by urchins.",
+      "raw": "my garden of flowers was piected by the american of the americans.",
+      "application": "My garden of flowers was piected by the american of the americans.",
+      "latency_s": 0.0256095000077039,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3368473684210526
+    },
+    {
+      "source": "vi el monte fuji.",
+      "reference": "i have seen mt. fuji.",
+      "raw": "i saw the fuji.",
+      "application": "I saw the fuji.",
+      "latency_s": 0.01084390000323765,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5659833333333334
+    },
+    {
+      "source": "les gustaban los coches grandes.",
+      "reference": "they liked large cars.",
+      "raw": "they liked the cars group.",
+      "application": "They liked the cars group.",
+      "latency_s": 0.013366699990001507,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5152333333333333
+    },
+    {
+      "source": "yo preferiría morir a llevar una vida así.",
+      "reference": "i might as well die as lead such a life.",
+      "raw": "i would rather die to take a life.",
+      "application": "I would rather die to take a life.",
+      "latency_s": 0.018348400000832044,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4648222222222222
+    },
+    {
+      "source": "me atrevo a decir que estás en lo correcto.",
+      "reference": "i dare say you are right.",
+      "raw": "i am attack to say that you are in the correct.",
+      "application": "I am attack to say that you are in the correct.",
+      "latency_s": 0.01856739999493584,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45541999999999994
+    },
+    {
+      "source": "el parlamento está ahora en sesión.",
+      "reference": "parliament is now in session.",
+      "raw": "the parliament is now in ssion.",
+      "application": "The parliament is now in ssion.",
+      "latency_s": 0.01613189998897724,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4010090909090909
+    },
+    {
+      "source": "la pelota rebotó bien alto en el aire.",
+      "reference": "the ball bounced high in the air.",
+      "raw": "the hair rebotted well in the air.",
+      "application": "The hair rebotted well in the air.",
+      "latency_s": 0.01688799999828916,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44259999999999994
+    },
+    {
+      "source": "presumía de haber ganado el primer premio.",
+      "reference": "she boasted of having won the first prize.",
+      "raw": "i presented having won the first prize.",
+      "application": "I presented having won the first prize.",
+      "latency_s": 0.01689970000006724,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4118636363636364
+    },
+    {
+      "source": "él aceptó su regalo.",
+      "reference": "he accepted her gift.",
+      "raw": "he accepted his pression.",
+      "application": "He accepted his pression.",
+      "latency_s": 0.01089720000163652,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4219125
+    },
+    {
+      "source": "había perdido una cámara el día anterior.",
+      "reference": "i had lost a camera in the previous day.",
+      "raw": "i had lost a camera day.",
+      "application": "I had lost a camera day.",
+      "latency_s": 0.013371000008191913,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40974285714285713
+    },
+    {
+      "source": "¿qué tan a menudo lo ves?",
+      "reference": "how often do you see him?",
+      "raw": "what do you often you?",
+      "application": "What do you often you?",
+      "latency_s": 0.011269599999650382,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.53268
+    },
+    {
+      "source": "así es como nos conocimos el uno al otro.",
+      "reference": "this is how we've got to know each other.",
+      "raw": "this is how we known each other.",
+      "application": "This is how we known each other.",
+      "latency_s": 0.01546270000108052,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4134428571428571
+    },
+    {
+      "source": "él es jugador de tenis.",
+      "reference": "he is a tennis player.",
+      "raw": "he is playing tennis.",
+      "application": "He is playing tennis.",
+      "latency_s": 0.012909400000353344,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.49545
+    },
+    {
+      "source": "no quiero almorzar.",
+      "reference": "i don't want lunch.",
+      "raw": "i don't want to eat lunch.",
+      "application": "I don't want to eat lunch.",
+      "latency_s": 0.012258199989446439,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5055285714285713
+    },
+    {
+      "source": "es un don nadie.",
+      "reference": "he is a mere nobody.",
+      "raw": "it is a funnment of anyone.",
+      "application": "It is a funnment of anyone.",
+      "latency_s": 0.015082300000358373,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5714
+    },
+    {
+      "source": "nosotros le mostramos algunas fotos de los alpes.",
+      "reference": "we showed him some pictures of the alps.",
+      "raw": "we showed you some pictures of the alphotopics.",
+      "application": "We showed you some pictures of the alphotopics.",
+      "latency_s": 0.025306399998953566,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40352666666666676
+    },
+    {
+      "source": "anoche trabajé hasta tarde, así que voy a pegar las cejas un rato después de almuerzo si es posible.",
+      "reference": "i worked hard till late last night, so i'll have to catch some z's after lunch if it's possible.",
+      "raw": "last night i worked until taren, so i am going to pet the center after the death after this possible.",
+      "application": "Last night I worked until taren, so I am going to pet the center after the death after this possible.",
+      "latency_s": 0.04897769998933654,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4558464285714286
+    },
+    {
+      "source": "desde un punto de vista práctico, su plan no es fácil de llevar a cabo.",
+      "reference": "from the practical point of view, his plan is not easy to carry out.",
+      "raw": "from a practice of view, his plan is not easy to take a horse.",
+      "application": "From a practice of view, his plan is not easy to take a horse.",
+      "latency_s": 0.028427800003555603,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39223684210526316
+    },
+    {
+      "source": "¿obtuviste una respuesta?",
+      "reference": "have you had an answer?",
+      "raw": "did you have a answer?",
+      "application": "Did you have a answer?",
+      "latency_s": 0.012768899992806837,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45103333333333334
+    },
+    {
+      "source": "conduce más despacio o te pondrán una papeleta.",
+      "reference": "drive more slowly, or you'll get a ticket.",
+      "raw": "driving more despace will put you a paper.",
+      "application": "Driving more despace will put you a paper.",
+      "latency_s": 0.02580050000688061,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4482076923076923
+    },
+    {
+      "source": "la buena disposición a tomar responsabilidad es una señal de madurez.",
+      "reference": "willingness to take responsibility is a sign of maturity.",
+      "raw": "the good disposition to take responsibility is a signight of maline.",
+      "application": "The good disposition to take responsibility is a signight of maline.",
+      "latency_s": 0.03284570001414977,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4127130434782609
+    },
+    {
+      "source": "tiene un poco más de cuarenta años.",
+      "reference": "he is a little over forty.",
+      "raw": "he has a little more room.",
+      "application": "He has a little more room.",
+      "latency_s": 0.01423590000194963,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4819166666666666
+    },
+    {
+      "source": "dos chicos salieron corriendo de la sala.",
+      "reference": "two boys came running out of the room.",
+      "raw": "two boys went out of the salt.",
+      "application": "Two boys went out of the salt.",
+      "latency_s": 0.01536429999396205,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4199666666666667
+    },
+    {
+      "source": "a decir verdad, ella es mi hermana.",
+      "reference": "to tell the truth, she is my sister.",
+      "raw": "to tell the truth, she is my sister.",
+      "application": "To tell the truth, she is my sister.",
+      "latency_s": 0.01592279999749735,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.38288
+    },
+    {
+      "source": "australia es rica en recursos naturales.",
+      "reference": "australia is rich in natural resources.",
+      "raw": "australia is ricate in natural resources.",
+      "application": "Australia is ricate in natural resources.",
+      "latency_s": 0.0292704000021331,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.43063333333333337
+    },
+    {
+      "source": "estamos justo a tiempo para el último tren.",
+      "reference": "we are just in time for the last train.",
+      "raw": "we are just time for the last train.",
+      "application": "We are just time for the last train.",
+      "latency_s": 0.01597340000444092,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39390000000000003
+    },
+    {
+      "source": "traté de no reírme.",
+      "reference": "i tried not to laugh.",
+      "raw": "i tried not to laugh.",
+      "application": "I tried not to laugh.",
+      "latency_s": 0.010467999993124977,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44646666666666657
+    },
+    {
+      "source": "nos queremos el uno al otro.",
+      "reference": "we love each other.",
+      "raw": "we want to love each other.",
+      "application": "We want to love each other.",
+      "latency_s": 0.012898800006951205,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5847000000000001
+    },
+    {
+      "source": "él es un alumno estudioso.",
+      "reference": "he is an industrious student.",
+      "raw": "he is a student.",
+      "application": "He is a student.",
+      "latency_s": 0.013208799995481968,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42776
+    },
+    {
+      "source": "¿nos da permiso hacer un enlace de su página a nuestro sitio corporativo?",
+      "reference": "would you please make a hyperlink to our corporate site from your page?",
+      "raw": "do we allowed us to make a sense of his page in our portive?",
+      "application": "Do we allowed us to make a sense of his page in our portive?",
+      "latency_s": 0.03830030000244733,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4615571428571429
+    },
+    {
+      "source": "revisaré su vista.",
+      "reference": "i'll check your vision.",
+      "raw": "i will review his viewer.",
+      "application": "I will review his viewer.",
+      "latency_s": 0.012282099996809848,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42475555555555555
+    },
+    {
+      "source": "la luz del sol ilumina la habitación.",
+      "reference": "sunlight brightens the room.",
+      "raw": "the sun of the imine of the room.",
+      "application": "The sun of the imine of the room.",
+      "latency_s": 0.01632229999813717,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5861099999999999
+    },
+    {
+      "source": "la cisterna no tiene agua.",
+      "reference": "the toilet doesn't flush.",
+      "raw": "the citizen has no water.",
+      "application": "The citizen has no water.",
+      "latency_s": 0.011347799998475239,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4628375
+    },
+    {
+      "source": "¡mira! una estrella fugaz.",
+      "reference": "look! there goes a shooting star.",
+      "raw": "look! a state start.",
+      "application": "Look! a state start.",
+      "latency_s": 0.010162599995965138,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4229714285714286
+    },
+    {
+      "source": "es por esta razón que él dejó la escuela.",
+      "reference": "it is by this reason that he left school.",
+      "raw": "it is for this reason that he left school.",
+      "application": "It is for this reason that he left school.",
+      "latency_s": 0.014544100005878136,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37516999999999995
+    },
+    {
+      "source": "estas ciruelas están maduras.",
+      "reference": "these plums are ripe.",
+      "raw": "these scientists are mature.",
+      "application": "These scientists are mature.",
+      "latency_s": 0.011445999989518896,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3564000000000001
+    },
+    {
+      "source": "¿por qué no pasas adentro?",
+      "reference": "why don't you come in?",
+      "raw": "why don't you come enter?",
+      "application": "Why don't you come enter?",
+      "latency_s": 0.01037720000022091,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5930857142857142
+    },
+    {
+      "source": "era ambicioso con éxito en los negocios.",
+      "reference": "he was ambitious of success in business.",
+      "raw": "it was love with success to success in business.",
+      "application": "It was love with success to success in business.",
+      "latency_s": 0.018164900000556372,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4427666666666667
+    },
+    {
+      "source": "disfrutamos nadando en el lago.",
+      "reference": "we enjoyed swimming in the lake.",
+      "raw": "we enjoyed swimming in the lake.",
+      "application": "We enjoyed swimming in the lake.",
+      "latency_s": 0.012461100006476045,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4241125
+    },
+    {
+      "source": "la grabadora es una ayuda útil para enseñar.",
+      "reference": "the tape recorder is a useful aid to teaching.",
+      "raw": "the group is a useful help to tea.",
+      "application": "The group is a useful help to tea.",
+      "latency_s": 0.0175362000009045,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3499999999999999
+    },
+    {
+      "source": "el anciano llamó al muñeco de madera pinocho.",
+      "reference": "the old man named the wooden doll pinocchio.",
+      "raw": "the old man called the mad of mature.",
+      "application": "The old man called the mad of mature.",
+      "latency_s": 0.015759000001708046,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41980000000000006
+    },
+    {
+      "source": "será capaz de nadar en una semana.",
+      "reference": "she will be able to swim in a week.",
+      "raw": "he will be able to swim in a week.",
+      "application": "He will be able to swim in a week.",
+      "latency_s": 0.013273500007926486,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3663666666666667
+    },
+    {
+      "source": "el museo está abierto de lunes a viernes.",
+      "reference": "the museum is open from monday to friday.",
+      "raw": "the museum is open on monday.",
+      "application": "The museum is open on monday.",
+      "latency_s": 0.018594200009829365,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.40688
+    },
+    {
+      "source": "ella actuó en la obra.",
+      "reference": "she acted in the play.",
+      "raw": "she acted in the brazy.",
+      "application": "She acted in the brazy.",
+      "latency_s": 0.013858400008757599,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41516249999999993
+    },
+    {
+      "source": "dile que espere.",
+      "reference": "tell him to wait.",
+      "raw": "tell him to wait for him.",
+      "application": "Tell him to wait for him.",
+      "latency_s": 0.009690699997008778,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5838833333333333
+    },
+    {
+      "source": "smith se ha muerto de un ataque cardiaco.",
+      "reference": "smith died of a heart attack.",
+      "raw": "smith has been dead from a attack.",
+      "application": "Smith has been dead from a attack.",
+      "latency_s": 0.025583900001947768,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42690000000000006
+    },
+    {
+      "source": "para empezar, debemos despedir al cocinero.",
+      "reference": "first of all, we must dismiss the cook.",
+      "raw": "to begin, we must despend the kitchen.",
+      "application": "To begin, we must despend the kitchen.",
+      "latency_s": 0.021716499992180616,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45531428571428584
+    },
+    {
+      "source": "puedes venir cuando quieras.",
+      "reference": "you may come whenever you like.",
+      "raw": "you can come when you want to.",
+      "application": "You can come when you want to.",
+      "latency_s": 0.01057559999753721,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4244428571428571
+    },
+    {
+      "source": "nunca he oído hablar de esa ciudad.",
+      "reference": "i've never heard of that city.",
+      "raw": "i have never heard about that city.",
+      "application": "I have never heard about that city.",
+      "latency_s": 0.00992739999492187,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3763714285714285
+    },
+    {
+      "source": "debido a los modernos sistemas de comunicación y transporte, el mundo se está volviendo pequeño.",
+      "reference": "because of modern communication and transportation systems, the world is getting smaller.",
+      "raw": "because of the modern moders of communication and transports, the world is watching small.",
+      "application": "Because of the modern moders of communication and transports, the world is watching small.",
+      "latency_s": 0.039445300004445016,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.44559200000000004
+    },
+    {
+      "source": "¡qué bonita cara tiene ella!",
+      "reference": "what a nice face she has!",
+      "raw": "what a beautiful expensive expensive her!",
+      "application": "What a beautiful expensive expensive her!",
+      "latency_s": 0.011744400006136857,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.39711111111111114
+    },
+    {
+      "source": "tiene que pagar por adelantado.",
+      "reference": "you must pay in advance.",
+      "raw": "he has to pay for adly.",
+      "application": "He has to pay for adly.",
+      "latency_s": 0.010226500002318062,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42714285714285716
+    },
+    {
+      "source": "ahora es la temporada de las sandías.",
+      "reference": "watermelons are in season now.",
+      "raw": "now is the season of sandays.",
+      "application": "Now is the season of sandays.",
+      "latency_s": 0.013730999999097548,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.5106777777777778
+    },
+    {
+      "source": "esta aspiradora es muy ruidosa.",
+      "reference": "this vacuum cleaner makes a lot of noise.",
+      "raw": "this asking is very noisy.",
+      "application": "This asking is very noisy.",
+      "latency_s": 0.013975599998957478,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.34738749999999996
+    },
+    {
+      "source": "¿te acuerdas del día en que conocimos a dick?",
+      "reference": "do you remember the day when we first met dick?",
+      "raw": "do you remember the day when we knowle?",
+      "application": "Do you remember the day when we knowle?",
+      "latency_s": 0.015434100001584738,
+      "review_flag": true,
+      "attention_entropy_uncalibrated": 0.51345
+    },
+    {
+      "source": "siempre deberías pedir disculpas en persona.",
+      "reference": "you should always apologize in person.",
+      "raw": "you should always ask apologies in person.",
+      "application": "You should always ask apologies in person.",
+      "latency_s": 0.016279200004646555,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4523
+    },
+    {
+      "source": "me has abierto los ojos a cómo es cuando todo está bien.",
+      "reference": "you opened up my eyes to what it's like when everything is right.",
+      "raw": "you have opened my eyes when it is all right.",
+      "application": "You have opened my eyes when it is all right.",
+      "latency_s": 0.01409520000743214,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.4892000000000001
+    },
+    {
+      "source": "su nombre es conocido en todo el país.",
+      "reference": "his name is known all over the country.",
+      "raw": "his name is known in all the country.",
+      "application": "His name is known in all the country.",
+      "latency_s": 0.009607499989215285,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.23881249999999998
+    },
+    {
+      "source": "ellos pensarían que la persona es modesta o floja.",
+      "reference": "they would think the person is modest or lazy.",
+      "raw": "they thought that the person is modan or floja.",
+      "application": "They thought that the person is modan or floja.",
+      "latency_s": 0.01864769999519922,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.3877857142857143
+    },
+    {
+      "source": "a los doce años empecé a conducir nuestro tractor para ayudar a mi padre durante la cosecha.",
+      "reference": "i began driving our tractor when i was 12 years old to help my father out at harvest time.",
+      "raw": "the dozen years employed to drive our translation for helping my father during the coche.",
+      "application": "The dozen years employed to drive our translation for helping my father during the coche.",
+      "latency_s": 0.04166830000758637,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.42177916666666665
+    },
+    {
+      "source": "esta sala de clases está limpia.",
+      "reference": "this classroom is cleaned.",
+      "raw": "this classroom is cleaning.",
+      "application": "This classroom is cleaning.",
+      "latency_s": 0.009820299994316883,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.37965714285714286
+    },
+    {
+      "source": "disfrutamos escuchando la música.",
+      "reference": "we enjoyed listening to the music.",
+      "raw": "we enjoyed listening to music.",
+      "application": "We enjoyed listening to music.",
+      "latency_s": 0.010331600002245978,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5056285714285714
+    },
+    {
+      "source": "tenías tiempo de sobra.",
+      "reference": "you had plenty of time.",
+      "raw": "you had better time.",
+      "application": "You had better time.",
+      "latency_s": 0.00873180000053253,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.5680499999999999
+    },
+    {
+      "source": "su caballo ganó por tres cuerpos.",
+      "reference": "his horse won by three lengths.",
+      "raw": "his horse won the three body.",
+      "application": "His horse won the three body.",
+      "latency_s": 0.010279900001478381,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.33572222222222226
+    },
+    {
+      "source": "él debería estar muy orgulloso de su auto.",
+      "reference": "he may well be proud of his car.",
+      "raw": "he should be very proud of his car.",
+      "application": "He should be very proud of his car.",
+      "latency_s": 0.010139100006199442,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.28322499999999995
+    },
+    {
+      "source": "helen keller era sorda y ciega.",
+      "reference": "helen keller was deaf and blind.",
+      "raw": "helin kellaw was surprise and cy.",
+      "application": "Helin kellaw was surprise and cy.",
+      "latency_s": 0.015109800006030127,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.36545384615384613
+    },
+    {
+      "source": "todavía son jóvenes.",
+      "reference": "you're still young.",
+      "raw": "they are still young people.",
+      "application": "They are still young people.",
+      "latency_s": 0.0059422000049380586,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.45660000000000006
+    },
+    {
+      "source": "no sabéis quién soy.",
+      "reference": "you don't know who i am.",
+      "raw": "you don't know who soy.",
+      "application": "You don't know who soy.",
+      "latency_s": 0.007444200004101731,
+      "review_flag": false,
+      "attention_entropy_uncalibrated": 0.41619999999999996
+    }
+  ]
+}

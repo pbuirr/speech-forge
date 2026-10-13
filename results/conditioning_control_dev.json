@@ -1,0 +1,99 @@
+{
+  "checkpoint_sha256": "73df72dea1963f666be941805de5288faf7ac84deef5af0c79c6cbe43a1dafda",
+  "cases_sha256": "75ed7b77cd4e1a03f0c748ad42a95f6dcc31f9858a4f5feb92524aceed1c0b87",
+  "split": "dev",
+  "limits": "Hand-authored linguistic contrasts, not a representative natural corpus or a validated semantic benchmark. Identical target across source contrasts controls target-length bias. Scoring is not generation accuracy. Examples never used for training. ES–EN examples only; evaluator uses the shared model interfaces.",
+  "source_preference_count": 8,
+  "examples": 8,
+  "mean_source_margin": 1.3523694053292274,
+  "rows": [
+    {
+      "phenomenon": "polarity",
+      "source": "El perro no duerme.",
+      "contrast_source": "El perro duerme.",
+      "reference": "The dog does not sleep.",
+      "paired_nll": 1.2140272855758667,
+      "contrast_nll": 2.464601993560791,
+      "source_margin": 1.2505747079849243,
+      "source_translation": "The dog doesn't doubt.",
+      "contrast_translation": "The dog doubt."
+    },
+    {
+      "phenomenon": "roles",
+      "source": "Julia ayudó a Marcos.",
+      "contrast_source": "Marcos ayudó a Julia.",
+      "reference": "Julia helped Marcos.",
+      "paired_nll": 1.4308865070343018,
+      "contrast_nll": 4.662919521331787,
+      "source_margin": 3.2320330142974854,
+      "source_translation": "Julia helped march.",
+      "contrast_translation": "March helped july."
+    },
+    {
+      "phenomenon": "polarity",
+      "source": "No vendieron la casa.",
+      "contrast_source": "Vendieron la casa.",
+      "reference": "They did not sell the house.",
+      "paired_nll": 0.8895888328552246,
+      "contrast_nll": 1.969506025314331,
+      "source_margin": 1.0799171924591064,
+      "source_translation": "They didn't come the house.",
+      "contrast_translation": "They came home by the house."
+    },
+    {
+      "phenomenon": "names",
+      "source": "Nora vive en Oslo.",
+      "contrast_source": "Nora vive en Roma.",
+      "reference": "Nora lives in Oslo.",
+      "paired_nll": 1.8083311319351196,
+      "contrast_nll": 3.0648021697998047,
+      "source_margin": 1.256471037864685,
+      "source_translation": "North lives in osing.",
+      "contrast_translation": "North lives in rome."
+    },
+    {
+      "phenomenon": "quantity",
+      "source": "La caja contiene 19 piezas.",
+      "contrast_source": "La caja contiene 91 piezas.",
+      "reference": "The box contains 19 pieces.",
+      "paired_nll": 0.3958340883255005,
+      "contrast_nll": 1.3616756200790405,
+      "source_margin": 0.96584153175354,
+      "source_translation": "The box has 19 pieces.",
+      "contrast_translation": "The box contains 91 pieces."
+    },
+    {
+      "phenomenon": "roles",
+      "source": "El maestro llamó al alumno.",
+      "contrast_source": "El alumno llamó al maestro.",
+      "reference": "The teacher called the student.",
+      "paired_nll": 0.9613854289054871,
+      "contrast_nll": 2.0965776443481445,
+      "source_margin": 1.1351922154426575,
+      "source_translation": "The teacher called the major called the student.",
+      "contrast_translation": "The students called the teacher."
+    },
+    {
+      "phenomenon": "temporal",
+      "source": "Volvió antes de la reunión.",
+      "contrast_source": "Volvió después de la reunión.",
+      "reference": "He returned before the meeting.",
+      "paired_nll": 0.7125667333602905,
+      "contrast_nll": 1.6022852659225464,
+      "source_margin": 0.8897185325622559,
+      "source_translation": "He came back before the meeting.",
+      "contrast_translation": "He came back after the meeting."
+    },
+    {
+      "phenomenon": "polarity",
+      "source": "El plan nunca funcionó.",
+      "contrast_source": "El plan siempre funcionó.",
+      "reference": "The plan never worked.",
+      "paired_nll": 1.7447683811187744,
+      "contrast_nll": 2.7539753913879395,
+      "source_margin": 1.009207010269165,
+      "source_translation": "The plan never offered him.",
+      "contrast_translation": "The plan always functed."
+    }
+  ]
+}

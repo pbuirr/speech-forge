@@ -1,0 +1,276 @@
+{
+  "checkpoint_sha256": "7f3eefe2d3d352fbf0c93e3bea723fa85d85e303790f06914aeb40700d835a5e",
+  "alternatives": {
+    "0": {
+      "cer": 0.4074074074074074,
+      "wer": 0.879757785467128,
+      "n_examples": 80,
+      "examples": [
+        {
+          "ref": "they had a great friend in this unknown visitor",
+          "hyp": "the hat a gvae fand an is innon visater",
+          "cer": 0.3404255319148936,
+          "wer": 0.8888888888888888
+        },
+        {
+          "ref": "the famous terrorist had never in his life raised personally as much as his little finger against the social edifice",
+          "hyp": "the thay mastarsd ad mever in as livfe raist prsly as much as hat ltl finger id ose selil anies",
+          "cer": 0.4051724137931034,
+          "wer": 0.7
+        },
+        {
+          "ref": "struggle warfare was the condition of private ownership it was fatal",
+          "hyp": "stat al woar thr was the cantissiinn o pieat omisht it was fatl",
+          "cer": 0.39705882352941174,
+          "wer": 0.8181818181818182
+        },
+        {
+          "ref": "no one could escape from this rictus",
+          "hyp": "kno in cas gat trmdis reactes",
+          "cer": 0.5555555555555556,
+          "wer": 1.0
+        },
+        {
+          "ref": "what true things are told in stories",
+          "hyp": "what str thnse her tal denstores",
+          "cer": 0.4166666666666667,
+          "wer": 0.8571428571428571
+        },
+        {
+          "ref": "cosette was no longer in rags she was in mourning",
+          "hyp": "chosat was no longer a ris she was a morning",
+          "cer": 0.22448979591836735,
+          "wer": 0.5
+        },
+        {
+          "ref": "evil to him that thinks otherwise said mister morton or who holds church government and ceremonies as the exclusive gage of christian faith or moral virtue",
+          "hyp": "e ltin an me tinxsetherissand mistommrnn or wo olster t gver met an sarmrnins as theexcwuc u gacee rictomn fat therm mrrl force",
+          "cer": 0.45161290322580644,
+          "wer": 0.9615384615384616
+        },
+        {
+          "ref": "i saw the lady who erewhile appeared veiled underneath the angelic festival direct her eyes to me across the river",
+          "hyp": "i sn the l who am w lpeaad tild ndo ne the angjelik festei do ruct whe ise tom a csterever",
+          "cer": 0.4298245614035088,
+          "wer": 0.9
+        },
+        {
+          "ref": "comrade ossipon's face twitched with exasperation",
+          "hyp": "comma us ilas flase tichd whitha seastertion",
+          "cer": 0.40816326530612246,
+          "wer": 1.1666666666666667
+        },
+        {
+          "ref": "he had been a prisoner himself",
+          "hyp": "he ind then acrasa hamsel",
+          "cer": 0.43333333333333335,
+          "wer": 0.8333333333333334
+        }
+      ],
+      "elapsed_s": 3.3422137000015937
+    },
+    "1": {
+      "cer": 0.4078968836678088,
+      "wer": 0.8788927335640139,
+      "n_examples": 80,
+      "examples": [
+        {
+          "ref": "they had a great friend in this unknown visitor",
+          "hyp": "the hata gvae fand an his innonveisater",
+          "cer": 0.3829787234042553,
+          "wer": 1.0
+        },
+        {
+          "ref": "the famous terrorist had never in his life raised personally as much as his little finger against the social edifice",
+          "hyp": "the thay mas tarsd ad mever in as live raist prsly as much as hat ltl finger id ose selial aies",
+          "cer": 0.3879310344827586,
+          "wer": 0.75
+        },
+        {
+          "ref": "struggle warfare was the condition of private ownership it was fatal",
+          "hyp": "stat al woar thr was the cantisiinn o pivat onisot it was favl",
+          "cer": 0.38235294117647056,
+          "wer": 0.8181818181818182
+        },
+        {
+          "ref": "no one could escape from this rictus",
+          "hyp": "know in cas gat trmdis reactes",
+          "cer": 0.5833333333333334,
+          "wer": 1.0
+        },
+        {
+          "ref": "what true things are told in stories",
+          "hyp": "what tr thanse her tal denstoares",
+          "cer": 0.4166666666666667,
+          "wer": 0.8571428571428571
+        },
+        {
+          "ref": "cosette was no longer in rags she was in mourning",
+          "hyp": "chosat was no longher a ris she was a morning",
+          "cer": 0.24489795918367346,
+          "wer": 0.6
+        },
+        {
+          "ref": "evil to him that thinks otherwise said mister morton or who holds church government and ceremonies as the exclusive gage of christian faith or moral virtue",
+          "hyp": "e lt an mhe tinxsetherissand mistommrnn or wo olster t gver met an sarmrnins as teexcuc u gacee ricton fat therm mrrl forcy",
+          "cer": 0.45161290322580644,
+          "wer": 0.9615384615384616
+        },
+        {
+          "ref": "i saw the lady who erewhile appeared veiled underneath the angelic festival direct her eyes to me across the river",
+          "hyp": "i sn the ly who am w l peaad id do ne the angjelik festeil do ruct he ise tom acsterever",
+          "cer": 0.40350877192982454,
+          "wer": 0.9
+        },
+        {
+          "ref": "comrade ossipon's face twitched with exasperation",
+          "hyp": "comma us ilas flase tichd whithasestertion",
+          "cer": 0.42857142857142855,
+          "wer": 1.0
+        },
+        {
+          "ref": "he had been a prisoner himself",
+          "hyp": "he ind the acras a hansell",
+          "cer": 0.5,
+          "wer": 0.8333333333333334
+        }
+      ],
+      "elapsed_s": 88.15817280000192
+    },
+    "8": {
+      "cer": 0.4080600424212759,
+      "wer": 0.8823529411764706,
+      "n_examples": 80,
+      "examples": [
+        {
+          "ref": "they had a great friend in this unknown visitor",
+          "hyp": "the hat a gvae fand an is innon visater",
+          "cer": 0.3404255319148936,
+          "wer": 0.8888888888888888
+        },
+        {
+          "ref": "the famous terrorist had never in his life raised personally as much as his little finger against the social edifice",
+          "hyp": "the thay mastarsd ad mever in as livfe raist prsly as much as hat ltl finger id ose selhil anies",
+          "cer": 0.41379310344827586,
+          "wer": 0.7
+        },
+        {
+          "ref": "struggle warfare was the condition of private ownership it was fatal",
+          "hyp": "stat al woar thr was the candissiinn o pi at omisht it was fatl",
+          "cer": 0.38235294117647056,
+          "wer": 0.9090909090909091
+        },
+        {
+          "ref": "no one could escape from this rictus",
+          "hyp": "kno in cas gat trmdis rectes",
+          "cer": 0.5277777777777778,
+          "wer": 1.0
+        },
+        {
+          "ref": "what true things are told in stories",
+          "hyp": "what str thnse her tal denstores",
+          "cer": 0.4166666666666667,
+          "wer": 0.8571428571428571
+        },
+        {
+          "ref": "cosette was no longer in rags she was in mourning",
+          "hyp": "chosat was no longer a ris she was a morning",
+          "cer": 0.22448979591836735,
+          "wer": 0.5
+        },
+        {
+          "ref": "evil to him that thinks otherwise said mister morton or who holds church government and ceremonies as the exclusive gage of christian faith or moral virtue",
+          "hyp": "e ltin an me tinxsetherissand mistommrnn or wo olster t gver met an sarmrnins as theexcuc u gacee rictomn fat therm mrrl forcy",
+          "cer": 0.45806451612903226,
+          "wer": 0.9615384615384616
+        },
+        {
+          "ref": "i saw the lady who erewhile appeared veiled underneath the angelic festival direct her eyes to me across the river",
+          "hyp": "i sn the l who am w lpeaad tild ndo ne the angjelik festeil do ruct whe ise tom a csterever",
+          "cer": 0.42105263157894735,
+          "wer": 0.9
+        },
+        {
+          "ref": "comrade ossipon's face twitched with exasperation",
+          "hyp": "comma us ilas flase tichd whitha seastetion",
+          "cer": 0.42857142857142855,
+          "wer": 1.1666666666666667
+        },
+        {
+          "ref": "he had been a prisoner himself",
+          "hyp": "he and then acras a hamsel",
+          "cer": 0.43333333333333335,
+          "wer": 0.8333333333333334
+        }
+      ],
+      "elapsed_s": 18.30863440000394
+    }
+  },
+  "training_sample": {
+    "cer": 0.29715653153153154,
+    "wer": 0.763335837716003,
+    "n_examples": 80,
+    "examples": [
+      {
+        "ref": "sorra taste of it muttered another there's a sea runnin outside now that would swamp a life boat i'll not lose an illigant situation of six pounds ten a year",
+        "hyp": "sor r tast othi moter another thers as sy ronan o sid now thet woid som e mis bo lwn not eos an o ogint sichuatio n six pounse tane yr",
+        "cer": 0.35668789808917195,
+        "wer": 0.9
+      },
+      {
+        "ref": "the people and army were out of hand the ephemeral emperor could count on no loyalty and any shock was sufficient to upset his precarious throne we must now turn to the banished justinian",
+        "hyp": "the peeple an army wor oun and thei femeroll amprcood cown on no lty an inhe shop wasafition to apsad his precariy os tron we mas t trn to the bans justiniin",
+        "cer": 0.32085561497326204,
+        "wer": 0.7647058823529411
+      },
+      {
+        "ref": "and the shock the surprise",
+        "hyp": "and the shock the surprise",
+        "cer": 0.0,
+        "wer": 0.0
+      },
+      {
+        "ref": "in his nature there was no alloy nor moderation nor forbearance the appreciative esquemeling who might be called the boswell of the buccaneers could never have met his hero roc",
+        "hyp": "ind is nateur  ther was no alot a modiation n o fobaris he apresutife esqomelling who mut becald the bas wel of the buinrs gut nevr a met his her ow ro",
+        "cer": 0.3068181818181818,
+        "wer": 0.8333333333333334
+      },
+      {
+        "ref": "that every one rose with the exception of carlini who remained seated and ate and drank calmly diavolaccio advanced amidst the most profound silence and laid rita at the captain's feet",
+        "hyp": "thet every one ros whit the exception of carlin coremain seded and at and dringk caomly divba lceo ad vansed omist the most prfonnd siluns and layter redt at the capttnsfet",
+        "cer": 0.23369565217391305,
+        "wer": 0.6774193548387096
+      },
+      {
+        "ref": "and is there anything finer than to search for one's own virtues is it not almost to believe in one's own virtues but this believing in one's own virtues",
+        "hyp": "an is ther any vhingfinder vhan dosrch fer onton vertus is id not ols to belv in wane ton verts thet this belving on wandson vrts",
+        "cer": 0.3333333333333333,
+        "wer": 0.7931034482758621
+      },
+      {
+        "ref": "and then calling on the second khazar served him in the same fashion before the khan's orders had been divulged to any one this gave him time to escape and he fled in a fishing boat out into the euxine with a few friends and servants who had followed him into exile",
+        "hyp": "and than calin on he secing cosar sarftimin the sanme fation b for the onsrers had din do ogh toinyon whis givamntime to iscap and yflandna fiing bo ou into the youcin with af fe frans an srvenswhit fo od hemmin to lax",
+        "cer": 0.3584905660377358,
+        "wer": 0.8269230769230769
+      },
+      {
+        "ref": "once there lived a king who had no children for many years after his marriage at length heaven granted him a daughter of such remarkable beauty that he could think of no name so appropriate for her as fairer than a fairy",
+        "hyp": "en stali ticing h had nchilden tor man yearsaftor his marage at langt hevingranto t im medoater of sut re mrcll beuty that he codthingt of no naan soo prpreyt fo her as far than a fiary",
+        "cer": 0.3181818181818182,
+        "wer": 0.7380952380952381
+      },
+      {
+        "ref": "the giant's heavy eyes lifted quickly but he spoke to the girl you go on home",
+        "hyp": "the gins hav he ise mifte qikly but y spok to the gir you go on o",
+        "cer": 0.2597402597402597,
+        "wer": 0.625
+      },
+      {
+        "ref": "the hybrid european a tolerably ugly plebeian taken all in all absolutely requires a costume he needs history as a storeroom of costumes",
+        "hyp": "the hi br ur apen a tllr by ugly polbn takan o  omsodo t ricars a costem he ese istery as istorgro of costos",
+        "cer": 0.4117647058823529,
+        "wer": 0.8260869565217391
+      }
+    ]
+  }
+}

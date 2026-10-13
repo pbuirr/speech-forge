@@ -1,0 +1,495 @@
+{
+  "baseline": {
+    "sha256": "fa024f43dc5da3c5ac02563bc9bd0e974f46cbb1560823976a8f342a37dc494a",
+    "excluded_sentences": 115,
+    "seconds_including_first_model_build": 1.018425299998853,
+    "tokens_per_second": 24409.252205368422,
+    "all_returned_predictions": {
+      "known": {
+        "tokens": 22583,
+        "accuracy": 0.9405304875348713
+      },
+      "unknown": {
+        "tokens": 2276,
+        "accuracy": 0.5030755711775043
+      }
+    },
+    "reliability_coverage": 0.9932016573474396,
+    "raw": {
+      "tokens": 24690,
+      "accuracy": 0.9011340623734305,
+      "mean_score": 0.9215581710680935,
+      "binary_brier": 0.05781482026572371,
+      "ece_10_bins": 0.02158979827250748,
+      "bins": [
+        {
+          "bin": 0,
+          "tokens": 3,
+          "mean_score": 0.08428751881634261,
+          "accuracy": 0.0
+        },
+        {
+          "bin": 1,
+          "tokens": 76,
+          "mean_score": 0.15869335259180914,
+          "accuracy": 0.06578947368421052
+        },
+        {
+          "bin": 2,
+          "tokens": 269,
+          "mean_score": 0.2550930585309325,
+          "accuracy": 0.2936802973977695
+        },
+        {
+          "bin": 3,
+          "tokens": 435,
+          "mean_score": 0.3460862870966091,
+          "accuracy": 0.21839080459770116
+        },
+        {
+          "bin": 4,
+          "tokens": 432,
+          "mean_score": 0.4559942810571483,
+          "accuracy": 0.4652777777777778
+        },
+        {
+          "bin": 5,
+          "tokens": 736,
+          "mean_score": 0.550154980459384,
+          "accuracy": 0.4673913043478261
+        },
+        {
+          "bin": 6,
+          "tokens": 803,
+          "mean_score": 0.652357611539963,
+          "accuracy": 0.6425902864259029
+        },
+        {
+          "bin": 7,
+          "tokens": 850,
+          "mean_score": 0.7511702921109478,
+          "accuracy": 0.72
+        },
+        {
+          "bin": 8,
+          "tokens": 1191,
+          "mean_score": 0.8545170518237283,
+          "accuracy": 0.81696053736356
+        },
+        {
+          "bin": 9,
+          "tokens": 19895,
+          "mean_score": 0.9921999901768386,
+          "accuracy": 0.9763257099773812
+        }
+      ],
+      "selective_accuracy": [
+        {
+          "threshold": 0.0,
+          "tokens": 24690,
+          "coverage": 1.0,
+          "accuracy": 0.9011340623734305
+        },
+        {
+          "threshold": 0.5,
+          "tokens": 23475,
+          "coverage": 0.9507897934386391,
+          "accuracy": 0.9315867944621938
+        },
+        {
+          "threshold": 0.8,
+          "tokens": 21086,
+          "coverage": 0.8540299716484406,
+          "accuracy": 0.9673242909987669
+        },
+        {
+          "threshold": 0.9,
+          "tokens": 19895,
+          "coverage": 0.8057918185500202,
+          "accuracy": 0.9763257099773812
+        },
+        {
+          "threshold": 0.95,
+          "tokens": 18790,
+          "coverage": 0.7610368570271365,
+          "accuracy": 0.9814262905800958
+        },
+        {
+          "threshold": 0.98,
+          "tokens": 17399,
+          "coverage": 0.7046982584042122,
+          "accuracy": 0.9835622736938905
+        }
+      ]
+    },
+    "calibrated": null,
+    "unknown_confusions": [
+      {
+        "gold": "PROPN",
+        "predicted": "NOUN",
+        "tokens": 342
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "PRON",
+        "tokens": 82
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "DET",
+        "tokens": 76
+      },
+      {
+        "gold": "ADJ",
+        "predicted": "NOUN",
+        "tokens": 45
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "DET",
+        "tokens": 40
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "ADP",
+        "tokens": 38
+      },
+      {
+        "gold": "ADJ",
+        "predicted": "DET",
+        "tokens": 34
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "PRON",
+        "tokens": 34
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "VERB",
+        "tokens": 33
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "PROPN",
+        "tokens": 33
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "ADJ",
+        "tokens": 29
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "ADJ",
+        "tokens": 28
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "VERB",
+        "tokens": 28
+      },
+      {
+        "gold": "VERB",
+        "predicted": "NOUN",
+        "tokens": 24
+      },
+      {
+        "gold": "ADJ",
+        "predicted": "VERB",
+        "tokens": 23
+      }
+    ]
+  },
+  "learned": {
+    "sha256": "fa024f43dc5da3c5ac02563bc9bd0e974f46cbb1560823976a8f342a37dc494a",
+    "excluded_sentences": 115,
+    "seconds_including_first_model_build": 0.9906400999989273,
+    "tokens_per_second": 25093.876171605527,
+    "all_returned_predictions": {
+      "known": {
+        "tokens": 22583,
+        "accuracy": 0.9412832661736704
+      },
+      "unknown": {
+        "tokens": 2276,
+        "accuracy": 0.6568541300527241
+      }
+    },
+    "reliability_coverage": 0.9931614304678386,
+    "raw": {
+      "tokens": 24689,
+      "accuracy": 0.9160354813884726,
+      "mean_score": 0.9408424551914453,
+      "binary_brier": 0.05600675676062292,
+      "ece_10_bins": 0.024806973802972667,
+      "bins": [
+        {
+          "bin": 1,
+          "tokens": 2,
+          "mean_score": 0.18997622693342717,
+          "accuracy": 0.0
+        },
+        {
+          "bin": 2,
+          "tokens": 44,
+          "mean_score": 0.2668488963803019,
+          "accuracy": 0.1590909090909091
+        },
+        {
+          "bin": 3,
+          "tokens": 133,
+          "mean_score": 0.35828542052858764,
+          "accuracy": 0.24060150375939848
+        },
+        {
+          "bin": 4,
+          "tokens": 311,
+          "mean_score": 0.45756277009375956,
+          "accuracy": 0.3536977491961415
+        },
+        {
+          "bin": 5,
+          "tokens": 684,
+          "mean_score": 0.5547260209964183,
+          "accuracy": 0.45760233918128657
+        },
+        {
+          "bin": 6,
+          "tokens": 790,
+          "mean_score": 0.6483631059750519,
+          "accuracy": 0.6189873417721519
+        },
+        {
+          "bin": 7,
+          "tokens": 931,
+          "mean_score": 0.7505400890816919,
+          "accuracy": 0.7046186895810956
+        },
+        {
+          "bin": 8,
+          "tokens": 1279,
+          "mean_score": 0.8563171178241156,
+          "accuracy": 0.8123534010946052
+        },
+        {
+          "bin": 9,
+          "tokens": 20515,
+          "mean_score": 0.9915068106840649,
+          "accuracy": 0.9734340726297831
+        }
+      ],
+      "selective_accuracy": [
+        {
+          "threshold": 0.0,
+          "tokens": 24689,
+          "coverage": 1.0,
+          "accuracy": 0.9160354813884726
+        },
+        {
+          "threshold": 0.5,
+          "tokens": 24199,
+          "coverage": 0.9801531046214913,
+          "accuracy": 0.9284267944956404
+        },
+        {
+          "threshold": 0.8,
+          "tokens": 21794,
+          "coverage": 0.8827413017943213,
+          "accuracy": 0.9639809121776636
+        },
+        {
+          "threshold": 0.9,
+          "tokens": 20515,
+          "coverage": 0.8309368544696019,
+          "accuracy": 0.9734340726297831
+        },
+        {
+          "threshold": 0.95,
+          "tokens": 19253,
+          "coverage": 0.7798209729029122,
+          "accuracy": 0.9801069963122631
+        },
+        {
+          "threshold": 0.98,
+          "tokens": 17713,
+          "coverage": 0.7174450159990279,
+          "accuracy": 0.9827245525884943
+        }
+      ]
+    },
+    "calibrated": {
+      "tokens": 24689,
+      "accuracy": 0.9160354813884726,
+      "mean_score": 0.9109165216151491,
+      "binary_brier": 0.05507365189042597,
+      "ece_10_bins": 0.00810665254922293,
+      "bins": [
+        {
+          "bin": 2,
+          "tokens": 146,
+          "mean_score": 0.24950059802666893,
+          "accuracy": 0.2328767123287671
+        },
+        {
+          "bin": 3,
+          "tokens": 225,
+          "mean_score": 0.3822811902811903,
+          "accuracy": 0.28888888888888886
+        },
+        {
+          "bin": 4,
+          "tokens": 676,
+          "mean_score": 0.45923257151912655,
+          "accuracy": 0.4393491124260355
+        },
+        {
+          "bin": 5,
+          "tokens": 903,
+          "mean_score": 0.5761866227958332,
+          "accuracy": 0.5813953488372093
+        },
+        {
+          "bin": 6,
+          "tokens": 737,
+          "mean_score": 0.6672765437623781,
+          "accuracy": 0.7177747625508819
+        },
+        {
+          "bin": 7,
+          "tokens": 879,
+          "mean_score": 0.7223514811776435,
+          "accuracy": 0.7667804323094426
+        },
+        {
+          "bin": 8,
+          "tokens": 1870,
+          "mean_score": 0.8539192552148732,
+          "accuracy": 0.8673796791443851
+        },
+        {
+          "bin": 9,
+          "tokens": 19253,
+          "mean_score": 0.9771402449664912,
+          "accuracy": 0.9801069963122631
+        }
+      ],
+      "selective_accuracy": [
+        {
+          "threshold": 0.0,
+          "tokens": 24689,
+          "coverage": 1.0,
+          "accuracy": 0.9160354813884726
+        },
+        {
+          "threshold": 0.5,
+          "tokens": 23642,
+          "coverage": 0.9575924500789825,
+          "accuracy": 0.9398528043312748
+        },
+        {
+          "threshold": 0.8,
+          "tokens": 21123,
+          "coverage": 0.8555632062862003,
+          "accuracy": 0.9701273493348482
+        },
+        {
+          "threshold": 0.9,
+          "tokens": 19253,
+          "coverage": 0.7798209729029122,
+          "accuracy": 0.9801069963122631
+        },
+        {
+          "threshold": 0.95,
+          "tokens": 18740,
+          "coverage": 0.7590424885576572,
+          "accuracy": 0.9819103521878335
+        },
+        {
+          "threshold": 0.98,
+          "tokens": 0,
+          "coverage": 0.0,
+          "accuracy": null
+        }
+      ]
+    },
+    "unknown_confusions": [
+      {
+        "gold": "PROPN",
+        "predicted": "NOUN",
+        "tokens": 141
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "PROPN",
+        "tokens": 111
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "ADJ",
+        "tokens": 39
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "PRON",
+        "tokens": 31
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "ADP",
+        "tokens": 27
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "ADJ",
+        "tokens": 27
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "NUM",
+        "tokens": 24
+      },
+      {
+        "gold": "ADJ",
+        "predicted": "NOUN",
+        "tokens": 23
+      },
+      {
+        "gold": "ADJ",
+        "predicted": "PROPN",
+        "tokens": 23
+      },
+      {
+        "gold": "ADJ",
+        "predicted": "VERB",
+        "tokens": 22
+      },
+      {
+        "gold": "VERB",
+        "predicted": "NOUN",
+        "tokens": 19
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "AUX",
+        "tokens": 18
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "PRON",
+        "tokens": 18
+      },
+      {
+        "gold": "PROPN",
+        "predicted": "NUM",
+        "tokens": 17
+      },
+      {
+        "gold": "NOUN",
+        "predicted": "ADP",
+        "tokens": 16
+      }
+    ]
+  },
+  "limits": "Gold boundaries; no fitting on evaluation data. Baseline uses the previous flat unknown emissions. Timings include model construction and marginals, one run. Domain-shift calibration is applied unchanged from EWT development."
+}

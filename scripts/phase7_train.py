@@ -26,7 +26,6 @@ import time
 from pathlib import Path
 
 import torch
-from torch.cuda.amp import autocast, GradScaler
 import torch.nn as nn
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -180,7 +179,7 @@ def run_bleu_eval(
     hypotheses: list[str] = []
     with torch.no_grad():
         for src_str in sources:
-            src_ids = src_vocab.encode(src_str)
+            src_ids = src_vocab.encode(src_str, add_bos=True, add_eos=True)
             if not src_ids:
                 hypotheses.append("")
                 continue
@@ -246,6 +245,9 @@ def train(
     tgt_vocab: BPEVocab | None = None,
     raw_pairs: list[tuple[str, str]] | None = None,
     bpe_dropout: float = 0.0,
+    epoch_callback=None,
+    curriculum_epochs: int | None = None,
+    source_contrast_weight: float = 0.0,
 ) -> None:
     """Train with AdamW, cosine LR, gradient accumulation, curriculum, and BPE dropout.
 
@@ -258,6 +260,9 @@ def train(
     if device is None:
         device = next(model.parameters()).device
 
+    if source_contrast_weight < 0:
+        raise ValueError('source_contrast_weight must be nonnegative')
+    contrast_rng=random.Random(90210)  # Keep batch shuffling independent of the auxiliary sampler.
     micro_size = max(1, batch_size // accum_steps)
 
     # AdamW: weight decay on weight matrices only, not biases/embeddings/layer norms
@@ -272,7 +277,7 @@ def train(
          {"params": no_decay_params, "weight_decay": 0.0}],
         lr=lr, betas=(0.9, 0.98), eps=1e-9,
     )
-    scaler = GradScaler()
+    scaler = torch.amp.GradScaler('cuda', enabled=device.type == 'cuda')
 
     total_steps  = epochs * math.ceil(len(data) / batch_size)
     warmup_steps = max(1, total_steps // 10)
@@ -286,7 +291,9 @@ def train(
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
 
     # Sentence-length curriculum: sort ascending by (src+tgt) length for first 20% of epochs
-    curriculum_epochs = max(1, epochs // 5)
+    curriculum_epochs = max(1, epochs // 5) if curriculum_epochs is None else curriculum_epochs
+    if curriculum_epochs < 0:
+        raise ValueError('curriculum_epochs must be nonnegative')
     data_sorted = sorted(data, key=lambda p: len(p[0]) + len(p[1]))
 
     model.train()
@@ -325,10 +332,20 @@ def train(
                 src_tensor = src_tensor.to(device)
                 tgt_in     = tgt_in.to(device)
                 tgt_out    = tgt_out.to(device)
-                with autocast():
+                with torch.autocast(device_type=device.type, enabled=device.type == 'cuda'):
                     logits = model(src_tensor, tgt_in)
                     n_micro = math.ceil(len(batch) / micro_size)
                     loss   = nmt_loss(logits, tgt_out, pad_id=0) / n_micro
+                    if source_contrast_weight > 0 and len(micro)>1:
+                        from speech_engine.model_objectives import conditional_contrast_loss
+                        shift=contrast_rng.randrange(1,len(micro))
+                        indices=torch.arange(len(micro),device=device).roll(shift)
+                        wrong_src=src_tensor[indices]
+                        valid=src_tensor.ne(wrong_src).any(1) & tgt_out.ne(tgt_out[indices]).any(1)
+                        if valid.any():
+                            wrong_logits=model(wrong_src,tgt_in)
+                            loss=loss+source_contrast_weight*conditional_contrast_loss(
+                                logits,wrong_logits,tgt_out,valid)/n_micro
                 scaler.scale(loss).backward()
                 accum_loss += loss.item()
 
@@ -352,6 +369,10 @@ def train(
             save_checkpoint(model, src_vocab, tgt_vocab, ckpt,
                             meta={"direction": "es→en", "epoch": epoch})
             print(f"  [checkpoint] saved → {ckpt}")
+
+        if epoch_callback is not None:
+            epoch_callback(epoch, model, avg_loss, optimizer, scheduler, scaler)
+            model.train()
 
 
 # ── Evaluation ────────────────────────────────────────────────────────────────
@@ -445,7 +466,7 @@ def main() -> None:
 
     # ── Load corpora (curated + generated) ───────────────────────────────────
     print("Loading corpora…")
-    raw_pairs = load_all_corpora()
+    raw_pairs = load_corpus(Path(args.corpus)) if Path(args.corpus) != CORPUS_PATH else load_all_corpora()
     print(f"  {len(raw_pairs)} unique sentence pairs loaded")
 
     # ── Train/test split (MUST happen before augmentation) ───────────────────
@@ -457,7 +478,7 @@ def main() -> None:
     # Cap the real-corpus contribution to stay within --max_pairs and avoid OOM
     # during BPE training and the encode step on large (440k+) datasets.
     # Only use training split — test set must never enter the training pipeline.
-    curated = load_corpus(CORPUS_PATH)
+    curated = load_corpus(CORPUS_PATH) if CORPUS_PATH.exists() and Path(args.corpus) == CORPUS_PATH else []
     curated_train = [p for p in curated if p in train_raw_set]
     curated_train_set = set(curated_train)
     generated_extra = [p for p in train_raw if p not in curated_train_set]
@@ -531,7 +552,7 @@ def main() -> None:
 
     # ── Evaluate (on a random sample — full eval on 35k takes too long) ───────
     acc = evaluate(model, encoded, tgt_vocab, beam=args.beam, sample=500)
-    print(f"\nExact-match on 500-pair sample: {acc*100:.1f}%")
+    print(f"\nTraining-set exact-match on up to 500 pairs (not generalization): {acc*100:.1f}%")
 
     # ── Test sentences ────────────────────────────────────────────────────────
     model.eval()

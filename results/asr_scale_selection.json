@@ -1,0 +1,17 @@
+{
+  "status": "Development-selected candidate; not installed or independently validated",
+  "selected_directory": "data/training/asr_scale_wide2",
+  "development_report": "results/asr_scale_wide2_dev_lm5.json",
+  "mode": "lm02",
+  "lm_order": 5,
+  "checkpoint_sha256": "5bb993e76118d4bb6aa0422e22b59462bc85f1063173b0ca6e633e83ca359fb2",
+  "wer": 0.6837782340862423,
+  "cer": 0.3043034281546317,
+  "comparison_reports": [
+    "results/asr_scale_wide2_dev_lm5.json",
+    "results/asr_scale_wide2_dev_lm3_fixedtext.json",
+    "results/asr_scale_compact_dev_lm5_fulltext.json"
+  ],
+  "independent_candidate_evaluation_completed": false,
+  "limits": "Single training seed. Selection uses development only. Fresh/parliament test references remain excluded from training and LM. User requested external AI review before continuing."
+}

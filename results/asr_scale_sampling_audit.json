@@ -1,0 +1,22 @@
+{
+  "training_manifest_sha256": "39639a2a51837ebb57bf7490004234303e3a7ec0f9a7bb38405e69f845929ae0",
+  "sampler_seed": 839,
+  "sampled_cycles": 24,
+  "draws_per_cycle": 2192,
+  "draws": 52608,
+  "pool_recordings": 29211,
+  "unique_recordings_drawn": 24368,
+  "pool_coverage": 0.8342062921502174,
+  "draws_by_corpus": {
+    "LibriSpeech100": 51410,
+    "SLR83": 1198
+  },
+  "draws_by_dialect": {
+    "unspecified": 51410,
+    "Northern English": 466,
+    "Scottish English": 583,
+    "Irish English": 149
+  },
+  "declared_speakers_drawn": 255,
+  "limits": "Exact reproduction of uniform sampler indices; not trained accuracy or independent verification of SLR83 speaker identities."
+}

@@ -1,0 +1,7 @@
+{
+  "sentences": 12544,
+  "projective_training_sentences": 12257,
+  "epochs": 3,
+  "steps": 1176726,
+  "seconds": 124.0433200999978
+}

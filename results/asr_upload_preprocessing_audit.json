@@ -1,0 +1,17 @@
+[
+  {
+    "file": "data\\speech_real\\browser_checks\\heldout-1.wav",
+    "waveform_max_absolute_difference": 0.0,
+    "feature_max_absolute_difference": 0.0
+  },
+  {
+    "file": "data\\speech_real\\browser_checks\\heldout-2.wav",
+    "waveform_max_absolute_difference": 0.0,
+    "feature_max_absolute_difference": 0.0
+  },
+  {
+    "file": "data\\speech_real\\browser_checks\\heldout-3.wav",
+    "waveform_max_absolute_difference": 0.0,
+    "feature_max_absolute_difference": 0.0
+  }
+]

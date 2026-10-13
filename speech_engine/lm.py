@@ -11,8 +11,9 @@ is much higher than P("everyone" | "the") in any English corpus, so the LM
 picks correctly.
 
 Algorithm: stupid backoff (Brants et al., 2007 — "Large Language Models
-in Machine Translation"). Simpler than Kneser-Ney; nearly identical
-accuracy in practice, and used by Google at web scale.
+in Machine Translation"). These unnormalized scores rank hypotheses; they
+are not probabilities of linguistic correctness. Trigrams remain the default
+for compatibility; optional orders four/five support controlled context trials.
 
   score(w | c2, c1):
     if trigram (c2,c1,w) seen:   count(c2,c1,w) / count(c2,c1)
@@ -22,9 +23,8 @@ accuracy in practice, and used by Google at web scale.
 
 α = 0.4 (Brants et al. default).
 
-Reference implementations: KenLM (Heafield, 2011) uses modified KN smoothing
-for better OOV handling, but stupid backoff is sufficient for 5-10 word
-translation glosses where context windows are short.
+Quality depends on the training corpus, token units and task; compare decoding
+settings on development data rather than assuming one smoothing method suffices.
 """
 
 from __future__ import annotations
@@ -42,7 +42,13 @@ class NgramLM:
     top-k candidate pool rather than always defaulting to the highest-IDF word.
     """
 
-    def __init__(self, alpha: float = 0.4, min_count: int = 2) -> None:
+    def __init__(self, alpha: float = 0.4, min_count: int = 2, order: int = 3) -> None:
+        if order not in (3, 4, 5):
+            raise ValueError('Backoff order must be three, four or five')
+        self.order = order
+        self.context_size = order - 1
+        self._higher = {n: {} for n in range(4, order + 1)}
+        self._higher_ctx = {n: {} for n in range(4, order + 1)}
         self.alpha = alpha
         self.min_count = min_count          # prune n-grams seen < min_count times
         self._log_alpha  = math.log(alpha)
@@ -70,6 +76,13 @@ class NgramLM:
             if not tokens:
                 continue
             padded = ["<s>", "<s>"] + tokens
+            extended = ["<s>"] * self.context_size + tokens
+            for n, counts in self._higher.items():
+                for i in range(self.context_size, len(extended)):
+                    context = tuple(extended[i - n + 1:i])
+                    inner = counts.setdefault(context, {})
+                    token = extended[i]
+                    inner[token] = inner.get(token, 0) + 1
 
             for i in range(2, len(padded)):
                 w2, w1, w0 = padded[i], padded[i - 1], padded[i - 2]
@@ -119,14 +132,37 @@ class NgramLM:
             else:
                 del self._tri[ctx]
 
+        for n, counts in self._higher.items():
+            denominators = {}
+            for context in list(counts):
+                inner = {w: c for w, c in counts[context].items() if c >= self.min_count}
+                if inner:
+                    counts[context] = inner
+                    denominators[context] = sum(inner.values())
+                else:
+                    del counts[context]
+            self._higher_ctx[n] = denominators
         self._finalized = True
 
     def score(self, word: str, context: tuple[str, ...] | list[str]) -> float:
+        """Unnormalized backoff ranking score, never a calibrated probability."""
+        if not self._finalized:
+            self.finalize()
+        offset = 0.0
+        padded = ["<s>"] * max(0, self.context_size - len(context)) + list(context)
+        for n in range(self.order, 3, -1):
+            key = tuple(padded[-(n - 1):])
+            count = self._higher[n].get(key, {}).get(word, 0)
+            if count:
+                return offset + math.log(count / self._higher_ctx[n][key])
+            offset += self._log_alpha
+        return offset + self._score_trigram(word, context)
+
+    def _score_trigram(self, word: str, context: tuple[str, ...] | list[str]) -> float:
         """
         Stupid-backoff log-score: log P(word | last two context words).
 
-        Returns a comparable log-probability. Higher = more likely given context.
-        Monotone: a word with bigram evidence always scores higher than pure unigram.
+        Returns an unnormalized log-score for candidate ranking.
         """
         if not self._finalized:
             self.finalize()

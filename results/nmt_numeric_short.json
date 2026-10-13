@@ -1,0 +1,17 @@
+{
+  "limits": "Literal source/reference digit-group intersection, occurrence-sensitive. Not numerical equivalence, hallucination precision, named entity accuracy, role/scope or factual correctness. Formatting/paraphrase can change counts.",
+  "previous": {
+    "report_sha256": "51f4cb11ce2ef704b465b88b8abadd263cbe722ba47f4ddaaa1cb566b103b69a",
+    "anchor_occurrences": 16,
+    "preserved_occurrences": 14,
+    "sentences_with_common_anchors": 16,
+    "strict_mention_recall": 0.875
+  },
+  "selected": {
+    "report_sha256": "932561049ad336eded2f4d9a73b81e5f5a6e47fffe9a36f1f123b09f73582f97",
+    "anchor_occurrences": 16,
+    "preserved_occurrences": 13,
+    "sentences_with_common_anchors": 16,
+    "strict_mention_recall": 0.8125
+  }
+}

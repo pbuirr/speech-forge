@@ -19,6 +19,7 @@ Then open http://127.0.0.1:8765 in a browser.
 from __future__ import annotations
 
 import json
+import argparse
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -36,15 +37,20 @@ from speech_engine.flashcard import FlashcardDeck
 from speech_engine.grammar import GrammarChecker
 from speech_engine.language_detector import LanguageDetector
 from speech_engine.morphology import MorphologyEngine
+from speech_engine.understanding import LinguisticPipeline, morphology_payload, grammar_payload
 from speech_engine.conjugation import conjugate, lookup_form, TENSE_NAMES, PERSONS, EN_PERSONS, known_verbs
 from speech_engine.nmt import load_checkpoint
 from speech_engine.preprocessing import normalize_es_input, postprocess_en_output, detect_translation_failure
 from speech_engine.lexical_fallback import LexicalFallback
 from speech_engine.vad import VoiceActivityDetector
+from speech_engine.local_asr import LocalCTCRecognizer, read_pcm_wav, MAX_WAV_BYTES
+from speech_engine.input_evidence import input_evidence
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 DECK_PATH = PROJECT_ROOT / "data" / "decks" / "web.json"
 PORT = 8765
+NMT_DEVICE = 'cpu'
+local_asr = LocalCTCRecognizer(PROJECT_ROOT / 'checkpoints' / 'best.pt', PROJECT_ROOT / 'data' / 'tokenizer.json', 'en')
 
 # Parallel corpora for statistical lexical fallback — one TSV per language pair.
 # IBM Model 1 is trained on whichever corpus is present at startup.
@@ -85,12 +91,20 @@ def _get_fallback(direction: str):
     if direction not in _lex_cache:
         src, tgt = direction.split("→")
         corpora = []
-        real = CORPUS_PATHS.get(direction)
-        if real and real.exists():
-            corpora.append(real)
-        curated = _CURATED.get(direction)
-        if curated and curated.exists():
-            corpora.append(curated)
+        metadata = _nmt_metadata.get('__multi__' if _uses_multilingual_nmt(direction) else direction, {})
+        training_corpus = metadata.get('training_corpus')
+        if training_corpus:
+            # A model's held-out partitions must not enter its statistical fallback.
+            path = Path(training_corpus)
+            if path.is_file():
+                corpora.append(path)
+        else:
+            real = CORPUS_PATHS.get(direction)
+            if real and real.exists():
+                corpora.append(real)
+            curated = _CURATED.get(direction)
+            if curated and curated.exists():
+                corpora.append(curated)
         _lex_cache[direction] = LexicalFallback.from_corpora(
             corpora, src_lang=src, tgt_lang=tgt
         )
@@ -100,6 +114,19 @@ def _get_fallback(direction: str):
 # NMT models — loaded lazily on first /api/translate call.
 # _nmt_cache["__multi__"] holds the shared multilingual model.
 _nmt_cache: dict[str, tuple] = {}
+_nmt_metadata: dict[str, dict] = {}
+_nmt_fingerprints: dict[str, tuple] = {}
+
+
+def _uses_multilingual_nmt(direction: str) -> bool:
+    return direction in {f"{lang}→en" for lang in MULTILINGUAL_LANGS} and MULTILINGUAL_CHECKPOINT.exists()
+
+
+def _available_nmt_directions() -> list[str]:
+    directions = {d for d, path in NMT_CHECKPOINTS.items() if path.exists()}
+    if MULTILINGUAL_CHECKPOINT.exists():
+        directions.update(f"{lang}→en" for lang in MULTILINGUAL_LANGS)
+    return sorted(directions)
 
 
 def _get_nmt(direction: str):
@@ -108,20 +135,25 @@ def _get_nmt(direction: str):
     Prefers the multilingual 16k model for ES/FR/DE → EN when available.
     Falls back to per-language monolingual checkpoints, then returns None.
     """
-    src_lang = direction.split("→")[0]
-    use_multi = src_lang in MULTILINGUAL_LANGS and MULTILINGUAL_CHECKPOINT.exists()
+    use_multi = _uses_multilingual_nmt(direction)
 
     cache_key = "__multi__" if use_multi else direction
-    if cache_key not in _nmt_cache:
-        if use_multi:
-            model, src_vocab, tgt_vocab, _ = load_checkpoint(MULTILINGUAL_CHECKPOINT)
-            _nmt_cache[cache_key] = (model, src_vocab, tgt_vocab)
-        else:
-            ckpt_path = NMT_CHECKPOINTS.get(direction)
-            if ckpt_path is None or not ckpt_path.exists():
-                return None
-            model, src_vocab, tgt_vocab, _ = load_checkpoint(ckpt_path)
-            _nmt_cache[cache_key] = (model, src_vocab, tgt_vocab)
+    ckpt_path = MULTILINGUAL_CHECKPOINT if use_multi else NMT_CHECKPOINTS.get(direction)
+    if ckpt_path is None or not ckpt_path.exists():
+        _nmt_cache.pop(cache_key,None); _nmt_metadata.pop(cache_key,None)
+        _nmt_fingerprints.pop(cache_key,None)
+        return None
+    stat = ckpt_path.stat()
+    fingerprint = (str(ckpt_path.resolve()),stat.st_size,stat.st_mtime_ns)
+    if cache_key not in _nmt_cache or _nmt_fingerprints.get(cache_key) != fingerprint:
+        # Load before publishing cache entries; invalid replacements produce errors.
+        model, src_vocab, tgt_vocab, metadata = load_checkpoint(ckpt_path)
+        model.to(NMT_DEVICE)
+        _nmt_metadata[cache_key] = metadata
+        _nmt_cache[cache_key] = (model, src_vocab, tgt_vocab)
+        _nmt_fingerprints[cache_key] = fingerprint
+        for pair in ([f'{lang}→en' for lang in MULTILINGUAL_LANGS] if use_multi else [direction]):
+            _lex_cache.pop(pair,None)
 
     return _nmt_cache.get(cache_key)
 
@@ -175,19 +207,24 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:
         path = urlparse(self.path).path
+        if path == '/api/speech':
+            return self._send_json(local_asr.status())
         if path == "/":
             return self._send_static("index.html")
         if path == "/api/deck":
-            deck = _load_deck()
-            due_ids = {c.id for c in deck.due()}
-            cards = [dict(c.to_dict(), is_due=c.id in due_ids) for c in deck.all()]
-            return self._send_json({"name": deck.name, "cards": cards, "stats": deck.stats()})
+            try:
+                deck = _load_deck()
+                due_ids = {c.id for c in deck.due()}
+                cards = [dict(c.to_dict(), is_due=c.id in due_ids) for c in deck.all()]
+                return self._send_json({"name": deck.name, "cards": cards, "stats": deck.stats()})
+            except (OSError, ValueError) as error:
+                return self._send_json({"error": f"Deck unavailable: {error}"}, 500)
         if path == "/api/languages":
             from speech_engine.language_detector import LANG_DB
-            _MORPH_DEEP = {"en", "es", "fr", "de", "ru", "ar"}
             _GRAMMAR    = {"en", "es", "fr"}
-            _nmt_src = {d.split("→")[0] for d, p in NMT_CHECKPOINTS.items() if p.exists()}
-            _nmt_tgt = {d.split("→")[1] for d, p in NMT_CHECKPOINTS.items() if p.exists()}
+            directions = _available_nmt_directions()
+            _nmt_src = {d.split("→")[0] for d in directions}
+            _nmt_tgt = {d.split("→")[1] for d in directions}
             langs = [
                 {
                     "code": code,
@@ -196,7 +233,7 @@ class Handler(BaseHTTPRequestHandler):
                     "dialect_of": defn.dialect_of,
                     "caps": {
                         "detection": True,
-                        "morphology": code in _MORPH_DEEP,
+                        "morphology": morph.capabilities(code)["morphology"] != "unavailable",
                         "grammar": code in _GRAMMAR,
                         "nmt_src": code in _nmt_src,
                         "nmt_tgt": code in _nmt_tgt,
@@ -204,12 +241,30 @@ class Handler(BaseHTTPRequestHandler):
                 }
                 for code, defn in LANG_DB.items()
             ]
-            return self._send_json({"languages": langs, "total": len(langs)})
+            return self._send_json({"languages": langs, "total": len(langs), "translation_directions": directions})
         self._send_static(path)
 
     def do_POST(self) -> None:
         path = urlparse(self.path).path
         try:
+            if path == '/api/transcribe':
+                length = int(self.headers.get('Content-Length', 0))
+                if not 0 < length <= MAX_WAV_BYTES:
+                    return self._send_json({'error': 'Provide a PCM WAV file of at most 2 MB'}, 413)
+                payload = self.rfile.read(length)
+                try:
+                    samples = read_pcm_wav(payload)
+                except ValueError as error:
+                    return self._send_json({'error': str(error)}, 400)
+                if not local_asr.status()['available']:
+                    return self._send_json({'error': local_asr.status()['message']}, 503)
+                transcript = local_asr.transcribe(samples)
+                identity=local_asr.status()
+                return self._send_json({'transcript': transcript, 'language': local_asr.language,
+                                        'checkpoint_name':identity['checkpoint_name'],'checkpoint_sha256':identity['checkpoint_sha256'],
+                                        'engine': 'local_ctc', 'confidence': None,
+                                        'input_evidence':input_evidence({'method':'local_ctc','language':local_asr.language,'model_sha256':identity['checkpoint_sha256']}),
+                                        'duration_s': len(samples) / 16000})
             data = self._read_json()
             handler = _ROUTES.get(path)
             if handler is None:
@@ -222,10 +277,15 @@ class Handler(BaseHTTPRequestHandler):
 # ── POST endpoint implementations ────────────────────────────────────────────
 
 def _detect(self: Handler, data: dict) -> None:
+    try:evidence=input_evidence(data.get('input_evidence'))
+    except ValueError as error:return self._send_json({'error':str(error)},400)
     text = data.get("text", "")
     result = detector.detect(text)
     self._send_json({
         "language": result.language,
+        "input_evidence":evidence,
+        "evidence_scope":"generated_text" if evidence else "supplied_text",
+        "automatic_routing_allowed":evidence is None,
         "name": result.name,
         "dialect": result.dialect,
         "script": result.script,
@@ -236,58 +296,58 @@ def _detect(self: Handler, data: dict) -> None:
 
 
 def _grammar(self: Handler, data: dict) -> None:
+    try:evidence=input_evidence(data.get('input_evidence'))
+    except ValueError as error:return self._send_json({'error':str(error)},400)
     text = data.get("text", "")
     lang = data.get("lang", "en")
     r = checker.check(text, lang=lang)
-    self._send_json({
-        "is_clean": r.is_clean,
-        "score": r.score,
-        "n_words": r.n_words,
-        "errors": [
-            {"message": e.message, "suggestion": e.suggestion, "severity": e.severity,
-             "category": e.category, "rule_id": e.rule_id, "span": list(e.span)}
-            for e in r.errors
-        ],
-    })
-
-
-_MORPH_DEEP_LANGS = {"en", "es", "fr", "de", "ru", "ar"}
+    payload=grammar_payload(r, checker);payload['input_evidence']=evidence
+    self._send_json(payload)
 
 
 def _morphology(self: Handler, data: dict) -> None:
+    try:evidence=input_evidence(data.get('input_evidence'))
+    except ValueError as error:return self._send_json({'error':str(error)},400)
     text = data.get("text", "")
     lang = data.get("lang", "en")
     r = morph.analyze(text, lang=lang)
-    limited = lang not in _MORPH_DEEP_LANGS
-    self._send_json({
-        "typology": morph.get_typology(lang),
-        "limited": limited,
-        "limited_note": (
-            f"Full morphological analysis is not yet available for '{lang}'. "
-            "Showing basic tokenization (punctuation-split). "
-            "POS tags, morpheme breakdown, and root extraction require a dedicated "
-            "language profile — contribute lexical data or a tokenizer to unlock it."
-        ) if limited else None,
-        "tokens": [
-            {"surface": a.surface, "root": a.root, "pos": a.pos,
-             "morphemes": a.morphemes, "features": a.features.to_dict()}
-            for a in r.analyses
-        ],
-    })
+    payload=morphology_payload(r, morph);payload['input_evidence']=evidence
+    self._send_json(payload)
+
+
+def _analyze(self: Handler, data: dict) -> None:
+    try:
+        result = LinguisticPipeline(morph, checker, detector).analyze(data.get('text', ''), data.get('lang'),data.get('input_evidence'))
+    except ValueError as error:
+        return self._send_json({'error': str(error)}, 400)
+    self._send_json(result.to_dict(morph, checker))
 
 
 def _extract(self: Handler, data: dict) -> None:
     text = data.get("text", "")
     lang = data.get("lang", "en")
     deck = _load_deck()
-    new_cards = deck.extract_from_text(text, lang, morph)
+    try:
+        result = LinguisticPipeline(morph, checker, detector).analyze(text, lang,data.get('input_evidence'))
+        new_cards = deck.extract_from_understanding(result, morph, checker)
+    except ValueError as error:
+        return self._send_json({'error': str(error)}, 400)
     deck.save(DECK_PATH)
     self._send_json({"added": len(new_cards), "cards": [c.to_dict() for c in new_cards]})
 
 
 def _add_card(self: Handler, data: dict) -> None:
+    analysis = data.get("analysis")
+    if analysis is not None and not isinstance(analysis, dict):
+        return self._send_json({"error": "analysis must be an object"}, 400)
+    context=analysis.get('context') if analysis else None
+    if context is not None and not isinstance(context,dict):return self._send_json({'error':'analysis context must be an object'},400)
+    if analysis is not None and any(v is not None for v in (data.get('input_evidence'),analysis.get('input_evidence'),(context or {}).get('input_evidence'))):
+        return self._send_json({'error':'Automatic learning cards are unavailable for model-generated input; add manually checked material'},400)
     deck = _load_deck()
-    card = deck.add(front=data["front"], back=data["back"], lang=data.get("lang", "en"), tags=["manual"])
+    card = deck.add(front=data["front"], back=data["back"], lang=data.get("lang", "en"),
+                    tags=(["auto", "needs-review"] + (["pos-uncertain"] if analysis.get('pos_review_recommended') is True else [])) if analysis is not None else ["manual"],
+                    analysis=analysis, example=data.get("example"))
     deck.save(DECK_PATH)
     self._send_json({"card": card.to_dict()})
 
@@ -306,10 +366,15 @@ def _exercise(self: Handler, data: dict) -> None:
         return self._send_json({"error": "no such card"}, 404)
     kind = data.get("kind", "fill")
     if kind == "fill":
-        ex = generate_fill_in_blank(card)
-        return self._send_json({"kind": "fill", "prompt": ex.prompt, "answer": ex.answer})
+        ex = generate_fill_in_blank(card, morph_engine=morph)
+        return self._send_json({"kind": "fill", "prompt": ex.prompt, "answer": ex.answer,
+                               "lang": ex.lang, "source": ex.source,
+                               "span": list(ex.span) if ex.span is not None else None,
+                               "span_unit": "unicode_codepoints"})
     if kind == "mcq":
         ex = generate_multiple_choice(card, deck)
+        if ex is None:
+            return self._send_json({"error": "No distinct same-language distractors; add more cards or use a fill exercise."}, 400)
         return self._send_json({"kind": "mcq", "prompt": ex.prompt, "choices": ex.choices,
                                  "answer_index": ex.answer_index})
     if kind == "order":
@@ -335,13 +400,18 @@ def _vad(self: Handler, data: dict) -> None:
     """
     import numpy as np
     samples = data.get("samples")
-    sr      = int(data.get("sr", 16_000))
+    sr      = data.get("sr", 16_000)
     if not samples:
         return self._send_json({"error": "samples required"}, 400)
+    if type(sr) is not int or sr < 1000 or sr > 192000:
+        return self._send_json({"error": "sr must be an integer sample rate from 1000 to 192000 Hz"}, 400)
 
     audio    = np.array(samples, dtype=np.float32)
-    segments = vad.detect(audio)
-    features = vad.frame_features(audio)
+    if audio.ndim != 1 or not np.isfinite(audio).all() or np.max(np.abs(audio)) > 1:
+        return self._send_json({"error": "samples must be finite mono PCM values between -1 and 1"}, 400)
+    detector_for_audio = vad if sr == vad.sr else VoiceActivityDetector(sr=sr)
+    segments = detector_for_audio.detect(audio)
+    features = detector_for_audio.frame_features(audio)
     self._send_json({
         "segments": [
             {"start": round(s.start, 3), "end": round(s.end, 3), "duration": round(s.duration, 3)}
@@ -419,21 +489,35 @@ def _lookup_form(self: Handler, data: dict) -> None:
 
 def _translate(self: Handler, data: dict) -> None:
     import torch
-    text = data.get("text", "").strip()
+    original_text = data.get("text", "")
+    try:evidence=input_evidence(data.get('input_evidence'))
+    except ValueError as error:return self._send_json({'error':str(error)},400)
+    if not isinstance(original_text,str):
+        return self._send_json({"error":"text must be a string"},400)
+    text = original_text.strip()
     direction = data.get("direction", "es→en")
     beam = int(data.get("beam", 4))
+    if not 1 <= beam <= 8:
+        return self._send_json({'error': 'beam must be between 1 and 8'}, 400)
 
     if not text:
         return self._send_json({"error": "text is required"}, 400)
 
+    parts=direction.split('→') if isinstance(direction,str) else []
+    if len(parts)==2 and parts[0].strip() and parts[0].strip().lower()==parts[1].strip().lower():
+        from speech_engine.linguistic_resources import language_code
+        try:language_code(parts[0].strip())
+        except ValueError as error:return self._send_json({'error':str(error)},400)
+        return self._send_json({'translation':original_text,'raw_translation':original_text,
+            'direction':direction,'method':'identity','attention':None,
+            'input_evidence':evidence,'output_evidence':evidence,
+            'model_status':'Source and target selections match; showing your original text. No translation or correction was performed.'})
     result = _get_nmt(direction)
     if result is None:
         multi_note = " (multilingual model not found)" if MULTILINGUAL_CHECKPOINT.exists() is False else ""
-        available = (
-            [f"{l}→en" for l in MULTILINGUAL_LANGS] if MULTILINGUAL_CHECKPOINT.exists()
-            else [d for d, p in NMT_CHECKPOINTS.items() if p.exists()]
-        )
+        available = _available_nmt_directions()
         return self._send_json({
+            'input_evidence':evidence,
             "error": (
                 f"No trained model for {direction!r}{multi_note}. "
                 f"Available: {available or 'none yet'}"
@@ -441,9 +525,10 @@ def _translate(self: Handler, data: dict) -> None:
         }, 404)
 
     model, src_vocab, tgt_vocab = result
+    metadata = _nmt_metadata.get('__multi__' if _uses_multilingual_nmt(direction) else direction, {})
     device = next(model.parameters()).device
     src_lang = direction.split("→")[0]
-    is_multi = src_lang in MULTILINGUAL_LANGS and MULTILINGUAL_CHECKPOINT.exists()
+    is_multi = _uses_multilingual_nmt(direction)
 
     # ── Linguistic preprocessing ─────────────────────────────────────────────
     if direction == "es→en":
@@ -468,6 +553,9 @@ def _translate(self: Handler, data: dict) -> None:
     else:
         src_ids = bpe_ids
 
+    max_source_tokens = model._config.get('max_src_len', 256)
+    if len(src_ids) > max_source_tokens:
+        return self._send_json({'error': f'Translation input exceeds this model\'s {max_source_tokens}-token limit. Use a shorter passage.'}, 413)
     src_tensor = torch.tensor([src_ids], dtype=torch.long, device=device)
 
     # ── Translation + attention in one shot ─────────────────────────────────
@@ -477,6 +565,7 @@ def _translate(self: Handler, data: dict) -> None:
     entropy   = attn_result["entropy"]     # (T_out,) floats, 0=confident 1=uncertain
 
     translation = tgt_vocab.decode(out_ids)
+    raw_translation = translation
 
     # Source tokens for the heatmap — skip the leading language token if present
     src_ids_for_labels = src_ids[1:] if is_multi else src_ids
@@ -492,7 +581,6 @@ def _translate(self: Handler, data: dict) -> None:
         failures = prep.coverage_failures(translation)
         if failures:
             coverage_warnings = [f.target_hint for f in failures]
-            translation = prep.repair(translation)
 
     avg_entropy = (sum(entropy) / len(entropy)) if entropy else None
     failed = detect_translation_failure(
@@ -513,10 +601,15 @@ def _translate(self: Handler, data: dict) -> None:
 
     self._send_json({
         "translation": translation,
+        "input_evidence":evidence,
+        "output_evidence":input_evidence({'method':'local_translation','language':direction.split('→')[-1],
+            'original_input_evidence':evidence.get('original_input_evidence',evidence) if evidence else None}),
+        "raw_translation": raw_translation,
         "direction": direction,
+        "model_status": metadata.get('quality_status', 'Local model; translation quality has not been verified here.'),
         "normalized_input": normalized_text if normalized_text != text else None,
         "coverage_warnings": coverage_warnings or None,
-        "low_confidence": failed or None,
+        "low_confidence": failed or bool(coverage_warnings) or None,
         "literal_fallback": literal,
         # Attention heatmap data
         "attention": {
@@ -529,6 +622,7 @@ def _translate(self: Handler, data: dict) -> None:
 
 
 _ROUTES = {
+    "/api/analyze": _analyze,
     "/api/detect": _detect,
     "/api/grammar": _grammar,
     "/api/morphology": _morphology,
@@ -545,8 +639,30 @@ _ROUTES = {
 
 
 def main() -> None:
-    server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
-    print(f"LinguaForge web demo running at http://127.0.0.1:{PORT}  (Ctrl+C to stop)")
+    global local_asr, NMT_DEVICE
+    parser = argparse.ArgumentParser(description="LinguaForge local application")
+    parser.add_argument("--port", type=int, default=PORT)
+    parser.add_argument('--nmt-device', choices=['auto', 'cpu', 'cuda'], default='cpu')
+    parser.add_argument('--asr-checkpoint', type=Path, default=local_asr.checkpoint)
+    parser.add_argument('--asr-tokenizer', type=Path, default=local_asr.tokenizer_path)
+    parser.add_argument('--asr-language', default='en', help='Language supported by your trained CTC checkpoint')
+    parser.add_argument("--linguistic-resources", type=Path, default=PROJECT_ROOT / "data" / "linguistics")
+    args = parser.parse_args()
+    import torch
+    torch.set_num_threads(4)
+    NMT_DEVICE = ('cuda' if torch.cuda.is_available() else 'cpu') if args.nmt_device == 'auto' else args.nmt_device
+    if NMT_DEVICE == 'cuda' and not torch.cuda.is_available():
+        parser.error('CUDA is not available; use --nmt-device cpu')
+    local_asr = LocalCTCRecognizer(args.asr_checkpoint, args.asr_tokenizer, args.asr_language)
+    for resource in morph.load_resources(args.linguistic_resources):
+        print(f"Loaded {resource['language']}: {resource['forms']} corpus-attested forms")
+    for language in morph.tagger.load_calibrations(args.linguistic_resources / 'calibration'):
+        print(f"Loaded development POS calibration: {language}")
+    from speech_engine.dependency import load_dependency_models
+    for language in load_dependency_models(morph, args.linguistic_resources / 'syntax'):
+        print(f"Loaded experimental local dependency parser: {language}")
+    server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
+    print(f"LinguaForge web demo running at http://127.0.0.1:{args.port}  (Ctrl+C to stop)")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

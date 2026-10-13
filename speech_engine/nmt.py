@@ -140,7 +140,7 @@ class Seq2SeqNMT(nn.Module):
         Args:
             src_ids:     (B, S) source token IDs
             tgt_ids:     (B, T) target token IDs (decoder input, starts with BOS)
-            src_lengths: (B,) real lengths for source padding mask; None = no mask
+            src_lengths: (B,) real lengths; None infers padding from PAD_ID
 
         Returns:
             logits: (B, T, tgt_vocab_size)
@@ -150,7 +150,8 @@ class Seq2SeqNMT(nn.Module):
         device = src_ids.device
 
         src_mask = (
-            make_padding_mask(src_lengths, S) if src_lengths is not None else None
+            make_padding_mask(src_lengths.to(device), S) if src_lengths is not None
+            else src_ids.ne(PAD_ID).unsqueeze(1).unsqueeze(2)
         )
         tgt_mask = make_causal_mask(T, device)
 
@@ -211,6 +212,9 @@ class Seq2SeqNMT(nn.Module):
         min_len_ratio: float = 0.5,
         coverage_penalty: float = 0.0,
         word_penalty: float = 0.0,
+        eos_boost: bool = True,
+        repeat_guard: bool = True,
+        repeat_exempt_ids: set[int] | None = None,
     ) -> list[int]:
         """Beam search decoding.
 
@@ -218,12 +222,14 @@ class Seq2SeqNMT(nn.Module):
         highest cumulative log-probability at each step.  Finished beams
         (those that produced EOS) are held in a separate pool and scored with
         a length penalty to discourage short outputs.
+        Optional repeat_exempt_ids permits legitimate repeated subword fragments;
+        EOS and repetition ablations preserve legacy defaults unless explicitly set.
 
         Args:
             src_ids:          (1, S) source token IDs
             beam_size:        number of beams to maintain
             max_len:          hard upper limit on generated length
-            length_penalty:   Wu et al. (2016) penalty α — higher values favour
+            length_penalty:   power length normalization α — higher values favour
                               longer translations.  0.0 = no penalty.
             coverage_penalty: β for attention coverage penalty (Tu et al. 2016 /
                               Wu et al. 2016 §7).  0.0 = disabled.
@@ -239,6 +245,8 @@ class Seq2SeqNMT(nn.Module):
         """
         self.eval()
         device = src_ids.device
+        if repeat_exempt_ids is None:
+            repeat_exempt_ids = getattr(self, '_repeat_exempt_ids', set())
 
         # Cap generation at 2× source length; floor at min_len_ratio * src_len.
         # min_len_ratio prevents the model from emitting EOS early and ignoring
@@ -301,7 +309,7 @@ class Seq2SeqNMT(nn.Module):
                 log_probs[:, eos_id] = -1e9
 
             # Progressive EOS boost: +6 at expected length, growing by +3 per step beyond
-            elif step >= eos_boost_after:
+            elif eos_boost and step >= eos_boost_after:
                 boost = 6.0 + (step - eos_boost_after) * 3.0
                 log_probs[:, eos_id] += boost
 
@@ -322,13 +330,14 @@ class Seq2SeqNMT(nn.Module):
                 # Ban any non-special token appearing ≥2× in the last 6 positions
                 recent = ids[-6:] if len(ids) >= 6 else ids
                 for tok_id in set(recent):
-                    if tok_id not in (bos_id, eos_id) and recent.count(tok_id) >= 2:
+                    if repeat_guard and tok_id not in (bos_id, eos_id) and recent.count(tok_id) >= 2:
                         banned.add(tok_id)
                 # Ban immediate repetition of last token (prevents BPE fragment doubling: "c c at" → "ccat")
-                if len(ids) > 1 and ids[-1] not in (bos_id, eos_id):
+                if repeat_guard and len(ids) > 1 and ids[-1] not in (bos_id, eos_id):
                     banned.add(ids[-1])
 
-                top_lps, top_ids = log_probs[i].topk(beam_size + len(banned))
+                banned.difference_update(repeat_exempt_ids or ())
+                top_lps, top_ids = log_probs[i].topk(min(log_probs.size(-1), beam_size + len(banned)))
                 added = 0
                 for j in range(len(top_ids)):
                     tok = int(top_ids[j].item())
@@ -435,6 +444,7 @@ class Seq2SeqNMT(nn.Module):
         max_len: int = 100,
         bos_id: int = BOS_ID,
         eos_id: int = EOS_ID,
+        **decoding_options,
     ) -> dict:
         """
         Translate and return the cross-attention matrix + per-token confidence.
@@ -457,7 +467,7 @@ class Seq2SeqNMT(nn.Module):
         # 1. Beam search to get the best output sequence
         out_ids = self.translate_beam(
             src_ids, beam_size=beam_size, max_len=max_len,
-            bos_id=bos_id, eos_id=eos_id,
+            bos_id=bos_id, eos_id=eos_id, **decoding_options,
         )
         if not out_ids:
             return {"out_ids": [], "attention": [], "entropy": []}
@@ -515,7 +525,7 @@ def nmt_loss(
     Smoothing spreads `smoothing` probability mass uniformly across the
     vocabulary instead of placing 1.0 on the correct token.  This prevents
     the model from becoming overconfident on training patterns and
-    consistently improves BLEU / generalisation on held-out sentences.
+    may improve generalisation; its effect requires held-out evaluation.
 
     Args:
         logits:     (B, T, V_tgt) — raw model outputs
@@ -600,7 +610,7 @@ def load_checkpoint(path: Path | str) -> tuple[Seq2SeqNMT, BPEVocab, BPEVocab, d
     Returns:
         model, src_vocab, tgt_vocab, meta_dict
     """
-    ckpt = torch.load(path, map_location="cpu", weights_only=False)
+    ckpt = torch.load(path, map_location="cpu", weights_only=True)
 
     src_vocab = BPEVocab()
     src_vocab._token_to_id = ckpt["src_vocab"]["token_to_id"]
@@ -630,4 +640,8 @@ def load_checkpoint(path: Path | str) -> tuple[Seq2SeqNMT, BPEVocab, BPEVocab, d
     model.load_state_dict(ckpt["model_state"])
     model.eval()
 
-    return model, src_vocab, tgt_vocab, ckpt.get("meta", {})
+    metadata = ckpt.get("meta", {})
+    if metadata.get('decoding_policy') == 'preserve_numeric_fragments':
+        model._repeat_exempt_ids = {i for i, token in tgt_vocab._id_to_token.items()
+                                   if token.removesuffix('</w>').isdigit()}
+    return model, src_vocab, tgt_vocab, metadata

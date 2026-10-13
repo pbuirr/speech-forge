@@ -1,0 +1,446 @@
+{
+  "checkpoint_sha256": "7f3eefe2d3d352fbf0c93e3bea723fa85d85e303790f06914aeb40700d835a5e",
+  "manifest_sha256": "0ef9f75702324e2000af91b93575c85eb04a0b2ef382788eef8332c2126fe0d8",
+  "training_manifest_sha256": "c77eec5065e0219ddfe60874b9b805ef2204df20f5356d8a1c6ebd50e108bd81",
+  "examples": 20,
+  "split": "long_test",
+  "metrics": {
+    "greedy": {
+      "wer": 0.8504398826979472,
+      "cer": 0.379584017515052,
+      "decode_elapsed_s": 0.12368840000999626,
+      "lm_weight": 0,
+      "token_reward": 0,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0010.flac",
+          "reference": "well too if he like love would filch our hoard with pleasure to ourselves sluicing our vein and vigour to perpetuate the strain of life by spilth of life within us stored",
+          "hypothesis": "wel sho waf hev li k lof whud fil share hored whith pleser twar slse swecsing ar vn andviger to perpetoat he stran af  livef biy spil ofi lifef wik an a stord"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0000.flac",
+          "reference": "once there was a father who thought he would build for his children a beautiful home putting into it every thing they could need or desire throughout their lives",
+          "hypothesis": "ons the wot of cfobther with thut o woltl bod forhi told rim o beui t opl ho puty mane to lamt aewey then thekunu ord a varr froupper me"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0001.flac",
+          "reference": "every time he beheld the object of his passion for he still continued his visits though not so frequently as heretofore he pleaded his cause with such ardour that miss woodley who was sometimes present and ever compassionate could not resist wishing him success",
+          "hypothesis": "at ritc homie bhle haol bhe oje t o his posin or he stolkincin id is is is the nosea fregrotmasersa fr she preetid his cas with us arter atd mis watlin wasoun ins presnd and aver composin et cold not rmessist wising imnsixcost"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0017.flac",
+          "reference": "at the usual hour mister dorriforth and his ward were summoned to tea he entered with a countenance which evinced the remains of anger his eye gave testimony of his absent thoughts and though he took up a pamphlet affecting to read it was plain to discern that he scarcely knew he held it in his hand",
+          "hypothesis": "a bhe us  oerm mistordoa ry ount is rd wersummin toce fhe anter wit a cosin in s whch i incs the remans o inber his ige thustemon if is osan bocs and noti so ut ta pan lit auing to red it was pransee dsanta y steirsling e he haoutid inhs hanse"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0027.flac",
+          "reference": "before the two clergymen had got half way down the steep path that led from the commandant's house to the flat on which the cottages of the doctor and chaplain were built macklewain rejoined them",
+          "hypothesis": "the for the to cargon an had don hafly doneste p thet lad fom the colmanonsls to the flat on withch a coigs of the d ouctrean shupin agilld ba g lin mredine"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0012.flac",
+          "reference": "now every missionary that ever went out from iona had taught that to reduce christians to slavery was wholly inconsistent with a belief in the doctrines of the gospel",
+          "hypothesis": "n everinmisinare the aver win out frmynu had tot teturegus cutiins toslaveret was holentonsist int wit a blly nd the doctrns of the gasba"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0004.flac",
+          "reference": "money is false and light unless it be bought by a man's own worthy qualities and blood is such that its corrupt disease and ignorant pretence are foul to see",
+          "hypothesis": "mony us faos and migt an lesit be bat by hm mans o woare the cqaies andbloty suche fhad its cerops thise and ing ner a pretens or fl o s"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0068.flac",
+          "reference": "that at all times debasing at this particular time it was infamous that a vice unworthy of any man was doubly sinful in a man of education and a minister of god in vain",
+          "hypothesis": "that at al times debaciyng at this phe tiki aitim m was intimnes that avise in wr the ovini man was dubliy sinfl int a man a igucation and a menast rarf go in tn"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0005.flac",
+          "reference": "walk down the sloping foot path now and be careful to keep out of the way of the little cars that are coming and going on each side of you loaded on one side and empty on the other and seeming to run up and down by themselves",
+          "hypothesis": "wok oun theflopen fort patnmo and becar fo phe cepot the wa ofhe loo cari fit ar comin and golin in faid ofbo loter ow one fid in emp on the ouer and sememin to rom a in boon oeom s"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0008.flac",
+          "reference": "under such circumstances she was hardly likely to be lively herself but her name was madge and it was the accident of her christian name which decided me to go",
+          "hypothesis": "on ther suc urpon stacs she was ardly likele the bea lively er self ut her na was mag and it was the acein thefer resin nim wich dthe sidted me to go"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0017.flac",
+          "reference": "how every pulse did beat and leap and how every heart did throb with emotions of joy which seemed nearly akin to heaven when we received the glad intelligence of our onward march toward the land of promise and of our loved ones",
+          "hypothesis": "hoivery posd to beet talp and harvry hoard and trabwithe motions of jhoy which sa nrly a cin the haven on ley re sc bthe glad in tlages at ar on wore margee tord the land of prmos an tho ar lod ong"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6319\\57405\\6319-57405-0001.flac",
+          "reference": "after jupiter had bound prometheus on mount caucasus and had sent diseases and cares into the world men became very very wicked",
+          "hypothesis": "asfter gjoupter had barand pomthyas son mod copesis and atd sen diseasus in  camrs and it the wor men be cing thary thary wikad"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0009.flac",
+          "reference": "organ of rut not reason is the lord who from the body politic doth drain lust for himself instead of toil and pain leaving us lean as crickets on dry sward",
+          "hypothesis": "ore an ofrut not ereesen is thelrd ho from ta boty pallitshik dotft drin w lust cfor he self ind stet of too an pa bevmin oslie nas creces ondri swrd"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0011.flac",
+          "reference": "the barren rock about three miles in length was covered with monastic buildings and its cemetery was already adorned with the tombs of saints and kings",
+          "hypothesis": "the beri rok bou tomemils an link was covmend wit en nasti dl things and it sentatary was yrraty and drnd wit the toos of sin and cems"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0005.flac",
+          "reference": "she called his name on the threshold but in her swift flight across the room she felt a change in him and caught herself up so deftly that he could not tell just when she did it",
+          "hypothesis": "she cont his nam on the freshold thed in herswits pflied acesthe rom she fothi cangin him and coerse ut sodely as he cold not telnjes when she diit"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0010.flac",
+          "reference": "what happier future could await her especially if she justified randal's past experience of all that was candid and truthful in her character than to become his friend's wife",
+          "hypothesis": "wt pha ter fatr cud wayt her e spesol if shejest pfiranls past exparin isofal that was candedin trs fhel in or tartter than to be com his prans we"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0027.flac",
+          "reference": "what he said he looked with so much sincerity that had she been burning with rage at his late behaviour she must have forgiven him for the regret which he so forcibly exprest",
+          "hypothesis": "what he sat he loe to with semmo sancsarsy thet ha emenbronin wi th rase of is rat behi er she most f fr givan en fro ther grat wich heso orsale axprst"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0032.flac",
+          "reference": "the first thing either of them noticed was a new sound that broke into the clear air louder than they had ever heard it before the bell of the monastery of their own village ringing for early prayers",
+          "hypothesis": "e furs theng gi therofe hen notnest was annou son bha bro into the cun r lura he ban ad aver herdat the fr the bol on the m a stary ouf throon vellacsh r frrlly prrs"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6319\\57405\\6319-57405-0008.flac",
+          "reference": "we should like above all things said deucalion to see this land full of people once more for without neighbors and friends the world is a very lonely place indeed",
+          "hypothesis": "we sud lihet e to  things sido canyon to se the s lan fol f papl wons mor for wast out navers an frens the world as a thiry lonlhy placen dd"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0020.flac",
+          "reference": "miss woodley did not recollect herself so but was so in reality in her peace and charity were instinctive virtues accident could not increase them",
+          "hypothesis": "mis wanly id not rote uc ter sol sol but ws soling raaty in hrpesancarty wreincstin divertces osit ens cwolnons ing creston"
+        }
+      ]
+    },
+    "beam": {
+      "wer": 0.8489736070381232,
+      "cer": 0.36535303776683087,
+      "decode_elapsed_s": 8.101670699994429,
+      "lm_weight": 0,
+      "token_reward": 0,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0010.flac",
+          "reference": "well too if he like love would filch our hoard with pleasure to ourselves sluicing our vein and vigour to perpetuate the strain of life by spilth of life within us stored",
+          "hypothesis": "wel sho waf heevli k lof whud fil shar hored whith pleser towar selse swesing ar vin and viger to perpetoat he strain afv  live by spil ofi liff wik an a stord"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0000.flac",
+          "reference": "once there was a father who thought he would build for his children a beautiful home putting into it every thing they could need or desire throughout their lives",
+          "hypothesis": "ons the wot of cfabher wit thut yo wol bold for his told rima o beu t opl ho puty mand to lad aewey then thekoneu ord a varyr fhroupper le"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0001.flac",
+          "reference": "every time he beheld the object of his passion for he still continued his visits though not so frequently as heretofore he pleaded his cause with such ardour that miss woodley who was sometimes present and ever compassionate could not resist wishing him success",
+          "hypothesis": "at ritc homee bhle hald bhe ojet o his prosin or ye stolkincin id is is is the nos e fregrotmas ersa for she preetid his cas with sus  arter ad mis watlin wasson ins presend and aver com osin et cold not mesist wising imsixcost"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0017.flac",
+          "reference": "at the usual hour mister dorriforth and his ward were summoned to tea he entered with a countenance which evinced the remains of anger his eye gave testimony of his absent thoughts and though he took up a pamphlet affecting to read it was plain to discern that he scarcely knew he held it in his hand",
+          "hypothesis": "a bhe yus oer mistrdoa ry ont is ord wersummin toce fhe anter wit a cosin in s whch i incs the remanes o anber his ige t hustemon if is osan bocs and no i so ut ta panlit auing to red it was pranse dsanta y steirsling e he hout id inhs hanse"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0027.flac",
+          "reference": "before the two clergymen had got half way down the steep path that led from the commandant's house to the flat on which the cottages of the doctor and chaplain were built macklewain rejoined them",
+          "hypothesis": "the for the to cargon an had don hafly don este p the lad fom the colmanonsls to the flat on witch a conigis of the douctran shupin agilld ba g lin regine"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0012.flac",
+          "reference": "now every missionary that ever went out from iona had taught that to reduce christians to slavery was wholly inconsistent with a belief in the doctrines of the gospel",
+          "hypothesis": "n everinmisinare the aver win out fomyonu had tot teturegus crtiins toslaveret was holle ntonsist int wit a blly and the doctrens of the gasban"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0004.flac",
+          "reference": "money is false and light unless it be bought by a man's own worthy qualities and blood is such that its corrupt disease and ignorant pretence are foul to see",
+          "hypothesis": "mony us fals and migt an lesit be bat by hm mans on woare the cqaies andbloty suche fhad its cerops thise and ing ner a pretens ar fal o se"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0068.flac",
+          "reference": "that at all times debasing at this particular time it was infamous that a vice unworthy of any man was doubly sinful in a man of education and a minister of god in vain",
+          "hypothesis": "that at aal times de bacyng at this phe tikil itim m was intimnes that avise in wor the ovini man was dubly sinfl int a man a igucation and a menast rarf go in tain"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0005.flac",
+          "reference": "walk down the sloping foot path now and be careful to keep out of the way of the little cars that are coming and going on each side of you loaded on one side and empty on the other and seeming to run up and down by themselves",
+          "hypothesis": "wok on theflopen fort pa enmo and becar fo phe cepot the waa ofthe loo cari fit ar comin and gola in in fad ofbo loter ow one fid in amp on the oer and sememin to rom u in boon rueom s"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0008.flac",
+          "reference": "under such circumstances she was hardly likely to be lively herself but her name was madge and it was the accident of her christian name which decided me to go",
+          "hypothesis": "on ther sutc surpon staces she was ardly likele the bea lively er self ut her na was mag and it was the actein thefer risin nim wich dthe sidted me to do"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0017.flac",
+          "reference": "how every pulse did beat and leap and how every heart did throb with emotions of joy which seemed nearly akin to heaven when we received the glad intelligence of our onward march toward the land of promise and of our loved ones",
+          "hypothesis": "hoivery posd tod beet to lp and harvry hoard and trlbwithe motsions of joy which san nerly a cin the haven on ley re ce bthe glad in tolages a ar on wore margee tord the land of pramus an tho war lod ong"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6319\\57405\\6319-57405-0001.flac",
+          "reference": "after jupiter had bound prometheus on mount caucasus and had sent diseases and cares into the world men became very very wicked",
+          "hypothesis": "asfter gjoupter had barand pomethyas son mod copesis and atd sen diseasus in  camrs and it the werl men be cing  thary thary wikad"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0009.flac",
+          "reference": "organ of rut not reason is the lord who from the body politic doth drain lust for himself instead of toil and pain leaving us lean as crickets on dry sward",
+          "hypothesis": "ore an of ruct not eresen is thelrd wo frome ta boty pallits hik dot drain wh lust for he self ind stet of tol an pa bevmin osli as creces ondri swrd"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0011.flac",
+          "reference": "the barren rock about three miles in length was covered with monastic buildings and its cemetery was already adorned with the tombs of saints and kings",
+          "hypothesis": "the berin rok but tomemels an link was covend wit en nasti dl things and it sentatary was yraty and drnd wit the toos of sin and cems"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0005.flac",
+          "reference": "she called his name on the threshold but in her swift flight across the room she felt a change in him and caught herself up so deftly that he could not tell just when she did it",
+          "hypothesis": "she cont his nae on the fresholld thed in herswifts flied acesthe rom she fothi changin him and coerse upt sodesly as he cold not telnjes when she diit"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0010.flac",
+          "reference": "what happier future could await her especially if she justified randal's past experience of all that was candid and truthful in her character than to become his friend's wife",
+          "hypothesis": "wat hap ter fatr cud wayt her e spesol if shejest afiranls past exparin isofal that was candedin trs fhel in or tartter than to be com his prans wie"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0027.flac",
+          "reference": "what he said he looked with so much sincerity that had she been burning with rage at his late behaviour she must have forgiven him for the regret which he so forcibly exprest",
+          "hypothesis": "what he sat he loe to with semo sancsarsy the ha emenbronin wi th rase of is rat be hi er she most f fr givan hen fro ther grat wich hesof orsale axsprst"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0032.flac",
+          "reference": "the first thing either of them noticed was a new sound that broke into the clear air louder than they had ever heard it before the bell of the monastery of their own village ringing for early prayers",
+          "hypothesis": "e frs theng gi therof hen notest was anno son bha bro into the cun ar lotra he ban ad aver herdat the for the bol on the  a stary of thron vel ach r frrly prrs"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6319\\57405\\6319-57405-0008.flac",
+          "reference": "we should like above all things said deucalion to see this land full of people once more for without neighbors and friends the world is a very lonely place indeed",
+          "hypothesis": "we shud mihet e to ll things sido canyon to se the s land fol f peapl wons mor for wast out navers an frens the world as a thiry lonlhy placen ded"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0020.flac",
+          "reference": "miss woodley did not recollect herself so but was so in reality in her peace and charity were instinctive virtues accident could not increase them",
+          "hypothesis": "mis wanly id not rote ucter sole sol but was soling raaty in hrpesancarthy wreincstin iverces osit ens cwolnont ing creston"
+        }
+      ]
+    },
+    "lm01": {
+      "wer": 0.8372434017595308,
+      "cer": 0.3555008210180624,
+      "decode_elapsed_s": 13.51722970000992,
+      "lm_weight": 0.1,
+      "token_reward": 0.1,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0010.flac",
+          "reference": "well too if he like love would filch our hoard with pleasure to ourselves sluicing our vein and vigour to perpetuate the strain of life by spilth of life within us stored",
+          "hypothesis": "wel sho waf hev i k lof whad fil shar hored with pleser towar sels swesing ar vin and veger to perpecoat he strain of  live by spil ofi lif wic an a stord"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0000.flac",
+          "reference": "once there was a father who thought he would build for his children a beautiful home putting into it every thing they could need or desire throughout their lives",
+          "hypothesis": "ons the wot of father wit thout yo wol bold for his told rim o beit opl ho puty mand to lad a wey then theconeu ord a varr froupper le"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0001.flac",
+          "reference": "every time he beheld the object of his passion for he still continued his visits though not so frequently as heretofore he pleaded his cause with such ardour that miss woodley who was sometimes present and ever compassionate could not resist wishing him success",
+          "hypothesis": "at rit home bhe hald bhe ojet of his prosin or he stolkincin id is is is the nose fregrom as ersa for she preetid his cas with sus arter ad mis watlin wasson ins presend and aver composin et cold not mis ist wising imsicost"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0017.flac",
+          "reference": "at the usual hour mister dorriforth and his ward were summoned to tea he entered with a countenance which evinced the remains of anger his eye gave testimony of his absent thoughts and though he took up a pamphlet affecting to read it was plain to discern that he scarcely knew he held it in his hand",
+          "hypothesis": "a the us or mistrdoory ont is ord wersommin toce fhe anter wit a cosin in s whch i ins the remanes of anber his ige thuste on if his osan bos and no i so ut ta pan lit a uing to red it was pranse dsantat y stirsling he he hout id in hs hanse"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0027.flac",
+          "reference": "before the two clergymen had got half way down the steep path that led from the commandant's house to the flat on which the cottages of the doctor and chaplain were built macklewain rejoined them",
+          "hypothesis": "the for the to cargon an had don hafly doneste p the lad fom the comanonsls to the flat on witch a conigis of the doctran shuppin a gilld bag lin regine"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0012.flac",
+          "reference": "now every missionary that ever went out from iona had taught that to reduce christians to slavery was wholly inconsistent with a belief in the doctrines of the gospel",
+          "hypothesis": "n everin misinare the aver win out fomy u had tot the turegus crtions toslaveret was holle ntonsist int wit a blly and the doctrens of the gasban"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0004.flac",
+          "reference": "money is false and light unless it be bought by a man's own worthy qualities and blood is such that its corrupt disease and ignorant pretence are foul to see",
+          "hypothesis": "mony us fals and migt an les it be bat by ham mans on wore the cqaites andblot i suche fhad its cerops thise and ing ner a pretens ar fal o se"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0068.flac",
+          "reference": "that at all times debasing at this particular time it was infamous that a vice unworthy of any man was doubly sinful in a man of education and a minister of god in vain",
+          "hypothesis": "that at al times de bacing at this phe tikil itim me was intines that avise in wor the ovini man was dubly sinfl int a man a igucation and a menast ref go in tan"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0005.flac",
+          "reference": "walk down the sloping foot path now and be careful to keep out of the way of the little cars that are coming and going on each side of you loaded on one side and empty on the other and seeming to run up and down by themselves",
+          "hypothesis": "wok on the flopen fort pa no and becar fo the cepot the waa ofthe loo carid fit a comin and golin in faid ofbo loter ow one fid in emp on the oer and sememin to rom a in boon rueom s"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0008.flac",
+          "reference": "under such circumstances she was hardly likely to be lively herself but her name was madge and it was the accident of her christian name which decided me to go",
+          "hypothesis": "on ther sut surpon staces she was ardly likele the bea lively er self ut her na was mag and it was the acein thefer rin nim which dthe sided me to do"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0017.flac",
+          "reference": "how every pulse did beat and leap and how every heart did throb with emotions of joy which seemed nearly akin to heaven when we received the glad intelligence of our onward march toward the land of promise and of our loved ones",
+          "hypothesis": "hoivery posd to beet to l and havery hard and trabwithe motions of joy which sen nirly a cin the haven on ley re c bthe glad in tolages a ar on wore marge tord the land of promus an tho war lod ong"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6319\\57405\\6319-57405-0001.flac",
+          "reference": "after jupiter had bound prometheus on mount caucasus and had sent diseases and cares into the world men became very very wicked",
+          "hypothesis": "after joupter had barand promethy ason mod copesis and itd sen disesus in  cars and it the wer men be cing thary thary wikad"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0009.flac",
+          "reference": "organ of rut not reason is the lord who from the body politic doth drain lust for himself instead of toil and pain leaving us lean as crickets on dry sward",
+          "hypothesis": "ore an of ruct noteresen is thelrd wo frome a buty polits hik dot drain wh lust for he self ind stet of tol an pa bevin oslie as creces ondry swred"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0011.flac",
+          "reference": "the barren rock about three miles in length was covered with monastic buildings and its cemetery was already adorned with the tombs of saints and kings",
+          "hypothesis": "the berin rok but tome mils an link was covend wit en nast bl things and it sen atary was yrat y and drnd wit the tos of sin and cens"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0005.flac",
+          "reference": "she called his name on the threshold but in her swift flight across the room she felt a change in him and caught herself up so deftly that he could not tell just when she did it",
+          "hypothesis": "she con his nam on the freshold thed in herswits flied acesthe rom she fothi cangin him and coerse up sodesly as he cold not tel jes wen she diit"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0010.flac",
+          "reference": "what happier future could await her especially if she justified randal's past experience of all that was candid and truthful in her character than to become his friend's wife",
+          "hypothesis": "wat hap ter fatr cod wayt her e spesol if she just afiranls past experin isofall that was candedin tws fhel in or tartter then to be com his prans wie"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0027.flac",
+          "reference": "what he said he looked with so much sincerity that had she been burning with rage at his late behaviour she must have forgiven him for the regret which he so forcibly exprest",
+          "hypothesis": "what he sat he loe to with seme sansarsy the hat semen broning wi th ras of is rat be hi er she most f fr givan hen fro ther grat wich hes of orsale axprst"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0032.flac",
+          "reference": "the first thing either of them noticed was a new sound that broke into the clear air louder than they had ever heard it before the bell of the monastery of their own village ringing for early prayers",
+          "hypothesis": "e frs theng gi therof hen notest was anno son ba bro into the con ar lor a he ban had aver herdet the for the bol on the a stary of thron vel ach r forrly prrs"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6319\\57405\\6319-57405-0008.flac",
+          "reference": "we should like above all things said deucalion to see this land full of people once more for without neighbors and friends the world is a very lonely place indeed",
+          "hypothesis": "we sud migh to to le things sido canyon to se the s land fol f peapl wons mor for wast out navers an frens the world as a thery lonly placen ded"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0020.flac",
+          "reference": "miss woodley did not recollect herself so but was so in reality in her peace and charity were instinctive virtues accident could not increase them",
+          "hypothesis": "mis wanly id not rote ucter sole sol but was soling raity in hrpesin carty wrinstin diverces osit ens conont ing creston"
+        }
+      ]
+    },
+    "lm02": {
+      "wer": 0.8225806451612904,
+      "cer": 0.3527640941434045,
+      "decode_elapsed_s": 12.442789900000207,
+      "lm_weight": 0.2,
+      "token_reward": 0.2,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0010.flac",
+          "reference": "well too if he like love would filch our hoard with pleasure to ourselves sluicing our vein and vigour to perpetuate the strain of life by spilth of life within us stored",
+          "hypothesis": "wel sho waf he i k lof what fil shar hored with pleser towar sels swesing ar vin and veger to perpecoat he strain of  live by spil of lif wic an a stord"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0000.flac",
+          "reference": "once there was a father who thought he would build for his children a beautiful home putting into it every thing they could need or desire throughout their lives",
+          "hypothesis": "ons the wit of father wit thout yo wol bold for his told rim of beit opl ho puty mand to lad a wey then the cone ord a varr frout per le"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0001.flac",
+          "reference": "every time he beheld the object of his passion for he still continued his visits though not so frequently as heretofore he pleaded his cause with such ardour that miss woodley who was sometimes present and ever compassionate could not resist wishing him success",
+          "hypothesis": "at rit home ble hald bhe oje of his prosin or he stokincin id is is is the nose frecrom asers a for she predid his cas with sus arter had mis wat lin wasson ins presend and aver composin et could not mis ist wising insicost"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0017.flac",
+          "reference": "at the usual hour mister dorriforth and his ward were summoned to tea he entered with a countenance which evinced the remains of anger his eye gave testimony of his absent thoughts and though he took up a pamphlet affecting to read it was plain to discern that he scarcely knew he held it in his hand",
+          "hypothesis": "a the us or mistrdoory ont is ard wersomen toce fhe anter wit a cosin in s which i ins the remans of an ber his iget huste on i his as an bos and noti so ut a pan lit auing to red it was pranse dsantat y stersling he he hout id in his hans"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0027.flac",
+          "reference": "before the two clergymen had got half way down the steep path that led from the commandant's house to the flat on which the cottages of the doctor and chaplain were built macklewain rejoined them",
+          "hypothesis": "the for the to cargon an had don hafly doneste p the lad fom the coman onsls to the flat on witch a conigis of the doctran shappin a gild bat calin regine"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0012.flac",
+          "reference": "now every missionary that ever went out from iona had taught that to reduce christians to slavery was wholly inconsistent with a belief in the doctrines of the gospel",
+          "hypothesis": "n everin misinare the aver win out fomy a had tot the turegus crtions toslaveret was holle ntonsist int wit a blly and the doctrens of the gasban"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0004.flac",
+          "reference": "money is false and light unless it be bought by a man's own worthy qualities and blood is such that its corrupt disease and ignorant pretence are foul to see",
+          "hypothesis": "mony us fals and mit an les it be but by mmans on wor the caus anblot i suche fhat its ceraps thisse and ing ner a pretens ar fal fo se"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3752\\4944\\3752-4944-0068.flac",
+          "reference": "that at all times debasing at this particular time it was infamous that a vice unworthy of any man was doubly sinful in a man of education and a minister of god in vain",
+          "hypothesis": "that at al times de bacing at this petikil itim me was intines that avise in wor the ovini man was dubly sinfl int a man a igucation and a menest af g in tan"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2803\\161169\\2803-161169-0005.flac",
+          "reference": "walk down the sloping foot path now and be careful to keep out of the way of the little cars that are coming and going on each side of you loaded on one side and empty on the other and seeming to run up and down by themselves",
+          "hypothesis": "wok on the flopen fort pa no and becar fo the cepot the way of he loo cara fit a comin and gol in in faid of  loter on one fid in ampt on the oer and sememin to rom a in boon ruem so"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2428\\83699\\2428-83699-0008.flac",
+          "reference": "under such circumstances she was hardly likely to be lively herself but her name was madge and it was the accident of her christian name which decided me to go",
+          "hypothesis": "on ther sut surponstaces she was ardly likele the bea lively er self ut her na was mag and it was the actain thefer rin nam which the sided me to do"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\5694\\64038\\5694-64038-0017.flac",
+          "reference": "how every pulse did beat and leap and how every heart did throb with emotions of joy which seemed nearly akin to heaven when we received the glad intelligence of our onward march toward the land of promise and of our loved ones",
+          "hypothesis": "hoivery posed to beet to l and havery hard and trabwithe motions of joy which sen nirly a cin the haven on le re s the glad in tolages a ar on wore marge tord the land of promus an tho ar lod ong"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6319\\57405\\6319-57405-0001.flac",
+          "reference": "after jupiter had bound prometheus on mount caucasus and had sent diseases and cares into the world men became very very wicked",
+          "hypothesis": "after jopter had barand promethas son mod copesis and itd sen disess in  cars and it the wer men be cing thary thary wik"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8842\\304647\\8842-304647-0009.flac",
+          "reference": "organ of rut not reason is the lord who from the body politic doth drain lust for himself instead of toil and pain leaving us lean as crickets on dry sward",
+          "hypothesis": "ore an of ruct noteresen is the lard wo frome a buty polits hik dot dran wh lust for he self and stet of tol an pa bevin oslie as creces ondriswred"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\152373\\2035-152373-0011.flac",
+          "reference": "the barren rock about three miles in length was covered with monastic buildings and its cemetery was already adorned with the tombs of saints and kings",
+          "hypothesis": "the berin rock but to me mils an link was covend wit en nast bl things and it sen atary was yrat y and dond wit the tos of sin and cens"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\1462\\170142\\1462-170142-0005.flac",
+          "reference": "she called his name on the threshold but in her swift flight across the room she felt a change in him and caught herself up so deftly that he could not tell just when she did it",
+          "hypothesis": "she con his nam on the freshold the in herswits flied acesthe rom she fothe cang in him and coerse up so dely as he cold not tel jes wen she diit"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\8297\\275156\\8297-275156-0010.flac",
+          "reference": "what happier future could await her especially if she justified randal's past experience of all that was candid and truthful in her character than to become his friend's wife",
+          "hypothesis": "wat hater fatur cod wayt her he speol if she just afir anls past experin asofall that was canded in ts felin or tarter then to be com his prans wi"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0027.flac",
+          "reference": "what he said he looked with so much sincerity that had she been burning with rage at his late behaviour she must have forgiven him for the regret which he so forcibly exprest",
+          "hypothesis": "what he sat he loe to with seme sinsarsy the hat semen broning wi th ras of is rat be hi r she most f fr givan hen fro ther grat wich hes of orsale axprst"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\2035\\147961\\2035-147961-0032.flac",
+          "reference": "the first thing either of them noticed was a new sound that broke into the clear air louder than they had ever heard it before the bell of the monastery of their own village ringing for early prayers",
+          "hypothesis": "e frs theng i ther of hen notest was anno son ba bro into the con ar lor he ban had aver herdet the for the bol on the a stry of theron vel ach re forrly prrs"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\6319\\57405\\6319-57405-0008.flac",
+          "reference": "we should like above all things said deucalion to see this land full of people once more for without neighbors and friends the world is a very lonely place indeed",
+          "hypothesis": "we sud mighte to l things sido canyon to se the s land fol f peapel wons mor for wast out navers an frens the world as a thery lonly placen ded"
+        },
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3536\\23268\\3536-23268-0020.flac",
+          "reference": "miss woodley did not recollect herself so but was so in reality in her peace and charity were instinctive virtues accident could not increase them",
+          "hypothesis": "mis wanly id not rothe ucter sole sol but was soling raity in herpes an carty wrinstin everces osit ens conons ing creston"
+        }
+      ]
+    }
+  },
+  "limits": "CTC probabilities + optional training-only character backoff scores. No dictionary correction or pretrained weights. Decoding time excludes cached acoustic inference. Select settings on development only; limited English read-speech."
+}

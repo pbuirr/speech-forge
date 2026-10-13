@@ -125,11 +125,12 @@ def demo_exercises(deck: FlashcardDeck) -> None:
     print(f"    {_D}answer: {fib.answer}{_R}")
 
     mcq = generate_multiple_choice(card, deck)
-    print(f"\n  Multiple choice  (card: {card.front})")
-    print(f"    What word means: \"{mcq.prompt}\"?")
-    for i, choice in enumerate(mcq.choices):
-        print(f"      {i + 1}. {choice}")
-    print(f"    {_D}answer: {mcq.choices[mcq.answer_index]}{_R}")
+    if mcq:
+        print(f"\n  Multiple choice  (card: {card.front})")
+        print(f"    What word means: \"{mcq.prompt}\"?")
+        for i, choice in enumerate(mcq.choices):
+            print(f"      {i + 1}. {choice}")
+        print(f"    {_D}answer: {mcq.choices[mcq.answer_index]}{_R}")
 
     word_order = generate_word_order(card)
     if word_order:

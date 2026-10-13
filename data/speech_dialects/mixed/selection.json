@@ -1,0 +1,42 @@
+{
+  "source": "https://openslr.org/83",
+  "license": "CC BY-SA 4.0",
+  "counts": {
+    "train": 2195,
+    "dev": 175,
+    "test": 169
+  },
+  "dialect_counts": {
+    "train": 676,
+    "dev": 95,
+    "test": 89
+  },
+  "dialect_hours": {
+    "train": 1.2474785185185184,
+    "dev": 0.16256,
+    "test": 0.14321777777777775
+  },
+  "dialect_groups": {
+    "train": {
+      "Irish English": 92,
+      "Northern English": 254,
+      "Scottish English": 330
+    },
+    "dev": {
+      "Irish English": 38,
+      "Northern English": 29,
+      "Scottish English": 28
+    },
+    "test": {
+      "Irish English": 30,
+      "Northern English": 28,
+      "Scottish English": 31
+    }
+  },
+  "exclusions": {
+    "speaker_prompt_partition_intersection": 1182,
+    "lexical_normalization_or_vocabulary_loss": 52
+  },
+  "metadata_sha256": "18ec88279222b09cdaa840caa88f8f9aabe9ca7af4dfec3d0119ef296443bb18",
+  "limits": "Bounded three-region elicited speech; conservative anonymous code disjointness and SLR83 prompt-disjointness, not independently verified human identity. Legacy LibriSpeech uses utterance prompt IDs; no unseen-text claim for legacy evaluation."
+}

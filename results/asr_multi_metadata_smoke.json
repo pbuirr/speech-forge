@@ -1,0 +1,68 @@
+{
+  "checkpoint_sha256": "7eb00b601adf66caf2c32ef024325fac7ab26857be55d63681c86bf0be859a21",
+  "manifest_sha256": "439b4c24d4f7fc9875aa3d245d84d4536c908ccee22a0e5a1e704fc6c4b2bb75",
+  "training_manifest_sha256": "8013c2474a04fa426f060a941d49e67a47a3959a57bf03762b759c429aaa76fd",
+  "lm_training_manifest_path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\training\\asr_capacity_compact\\train.tsv",
+  "lm_training_manifest_sha256": "8013c2474a04fa426f060a941d49e67a47a3959a57bf03762b759c429aaa76fd",
+  "examples": 1,
+  "split": "dev",
+  "metrics": {
+    "greedy": {
+      "wer": 0.9230769230769231,
+      "cer": 0.36363636363636365,
+      "decode_elapsed_s": 0.001501599996117875,
+      "lm_weight": 0,
+      "token_reward": 0,
+      "rows": [
+        {
+          "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_real\\LibriSpeech\\dev-clean-2\\3576\\138058\\3576-138058-0013.flac",
+          "reference": "sancho replied that all the trees were full of men's feet and legs",
+          "hypothesis": "son o weplve tat o the trees wefol ofmens theiden lgs",
+          "speaker": "librispeech:3576",
+          "corpus": "MiniLibriSpeech",
+          "dialect": null
+        }
+      ],
+      "word_edit_counts": {
+        "substitutions": 8,
+        "deletions": 3,
+        "insertions": 1,
+        "matches": 2
+      },
+      "character_edit_counts": {
+        "substitutions": 11,
+        "deletions": 13,
+        "insertions": 0,
+        "matches": 42
+      },
+      "pipeline_real_time_factor": 0.00905507953525427,
+      "by_corpus": {
+        "MiniLibriSpeech": {
+          "examples": 1,
+          "wer": 0.9230769230769231,
+          "cer": 0.36363636363636365
+        }
+      },
+      "by_dialect": {}
+    }
+  },
+  "acoustic_and_feature_elapsed_s": 0.04119310001260601,
+  "speaker_disjoint_from_training": true,
+  "evaluation_metadata_sha256": "18ec88279222b09cdaa840caa88f8f9aabe9ca7af4dfec3d0119ef296443bb18",
+  "evaluation_metadata_sources": [
+    {
+      "path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_dialects\\mixed\\metadata.jsonl",
+      "sha256": "18ec88279222b09cdaa840caa88f8f9aabe9ca7af4dfec3d0119ef296443bb18"
+    },
+    {
+      "path": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_scale\\fresh_test\\metadata.jsonl",
+      "sha256": "c34b3a457e59db75cf42214fab98dbedc825869c557cc86a016fc75c4a43c744"
+    }
+  ],
+  "audio_seconds": 4.715,
+  "device": "cpu",
+  "threads": 4,
+  "parameters": 807553,
+  "synthetic_noise": null,
+  "limits": "CTC probabilities + optional training-only character backoff scores. No dictionary correction or pretrained weights. Decoding time excludes cached acoustic inference. Select settings on development only; limited English read-speech."
+}

@@ -14,14 +14,29 @@ A from-scratch multilingual NLP engine — speech recognition, machine translati
 | 2 | Tokenizer + dataset pipeline | BPE from scratch (Sennrich et al. 2016); sliding-window chunker; no sentencepiece |
 | 3 | CTC speech recognition | BiLSTM acoustic model + CTC loss; greedy and beam-search decoder |
 | 4 | Transformer encoder-decoder | Multi-head attention, positional encoding, label-smoothing cross-entropy |
-| 5 | Linguistic engine | Language ID (148 langs / 26 scripts, **95.5% accuracy**); dialect detection (190 dialects); BPE morphology; POS tagger; grammar checker |
+| 5 | Linguistic engine | Language/dialect ID; BPE subwords; corpus-backed lemmas/features and contextual POS tagging; heuristic fallback; grammar checker |
 | 6 | Spaced-repetition learning | SM-2 scheduler (Anki-compatible); flashcard deck; exercise generator |
-| 7 | Neural machine translation | Seq2seq Transformer; BPE tokenizer; beam search with coverage penalty + word penalty; IBM Model 2 + trigram LM fallback; back-translation; **27.7 BLEU on 38k ES→EN test pairs** |
+| 7 | Neural machine translation | Original Transformer/BPE and statistical fallback; current ES→EN model: **29.92 BLEU on 1,993 short sentences, 14.71 on 400 reserved news article sentences, 9.37 on 400 fresh separate-publisher sentences**; experimental, with a short-sentence regression (custom evaluation) |
 | 8 | Voice activity detection | Short-time energy + ZCR + spectral flatness + 4-state FSM; **F1 = 0.94**; numpy only |
 
 ---
 
 ## Quick start
+
+The locally trained Spanish→English checkpoint is installed on this development
+machine and verified through the browser. It remains experimental, especially on
+longer text. Training, independent evaluation, limitations and reproduction commands
+are recorded in [Real model validation](docs/REAL_MODEL_VALIDATION.md).
+The latest [domain adaptation and speech report](docs/DOMAIN_ADAPTATION.md) records
+news improvements, short-sentence tradeoffs and an acoustic pilot whose WER remains
+too high to enable in the default application.
+Checkpoints and downloaded corpora are ignored by Git; a fresh clone requires training
+or restoring your own checkpoint. Real local speech recognition still needs trained weights.
+
+For the local web application's CTC checkpoint configuration, WAV requirements,
+and verified limitations, see [Local model integration](docs/LOCAL_MODEL_INTEGRATION.md).
+Implemented architectures require trained weights; their presence in this repository
+does not by itself establish usable speech or translation accuracy.
 
 ```bash
 # 1. Install PyTorch for your platform first
@@ -131,4 +146,64 @@ docs/               Per-phase technical notes
 
 ---
 
-See [`ROADMAP.md`](ROADMAP.md) for the full technical roadmap and known limitations.
+See [`docs/PROJECT_CONTEXT.md`](docs/PROJECT_CONTEXT.md) for the current direction,
+inspected limitations, and development preferences. Recorded quality scores above
+are not independently reproduced by the regression suite.
+
+## Regression checks
+
+```bash
+python -m pytest -q
+node tests/test_web_rendering.cjs
+```
+
+These cover morphology/subword separation, resource import and validation,
+contextual predictions, Unicode offsets, language isolation, HTTP routing,
+flashcard evidence/persistence, and rendering. Corpus observations, context
+predictions, and heuristics remain distinct; uncalibrated confidence is null.
+
+The UI uses `/api/analyze` to coordinate language detection, word analysis, and
+grammar feedback using the same text, language selection, and word spans. Grammar
+findings link to the affected tokens; existing individual endpoints remain usable.
+Flashcards can reuse that analysis rather than repeat inference. No rule findings
+does not prove grammatical correctness. This shared pipeline does not yet perform
+joint multilingual learning; corpus-based parsing is evaluated on English and Turkish.
+
+Learning exercises reuse word spans and Unicode-aware matching across languages.
+Duplicate/cross-language distractors and unbounded shuffling have been corrected.
+Failed grammar checks remain visible and cannot produce a clean result or score.
+See [learning evidence](docs/LEARNING_EVIDENCE.md) for reproducible cases and limits.
+
+`python scripts/prepare_english_resource.py --calibrate` also fits the project's
+local POS reliability model on development data, using the original tagger's
+forward–backward scores. The UI and saved cards expose POS-specific review hints.
+See [POS reliability](docs/POS_RELIABILITY.md) for measurements and limits; these
+estimates do not certify lemmas or meaning.
+
+Prepare the optional original count-based English model and reproduce its held-out
+evaluation with `python scripts/prepare_english_resource.py`. The app loads the
+compiled local resource on restart. See [linguistic resources](docs/LINGUISTIC_RESOURCES.md)
+for sources, licensing, metrics, and limits. The measured English POS accuracy is
+90.2% versus 68.5% for heuristics on gold-tokenized EWT test data; this does not
+establish multilingual accuracy, semantic understanding, or speech/NMT quality.
+
+See [`ROADMAP.md`](ROADMAP.md) for the earlier technical roadmap.
+
+Experimental original dependency parsing is available as an optional locally trained linguistic resource. See [method, evaluation and reproduction](docs/DEPENDENCY_ANALYSIS.md). It reuses shared POS/features and source offsets; syntax predictions are uncalibrated and do not establish meaning.
+
+Latest local translation quality, decoding/data comparisons and remaining semantic failures: [translation reliability](docs/TRANSLATION_RELIABILITY.md).
+
+Latest source-meaning experiments, real CTC progress and application integration: [meaning and speech](docs/MEANING_AND_SPEECH.md).
+## Measured speech quality
+
+The [speech capacity and supervision report](docs/SPEECH_SCALE.md) records the
+larger licensed-audio comparison, checkpoint compatibility and generated-text
+language-routing investigation.
+
+The [diverse-supervision and connected-evidence report](docs/SPEECH_DIVERSITY.md)
+compares matched acoustic training with new dialect recordings and documents how
+generated-input uncertainty carries into analysis, translation and learning.
+
+The original local CTC remains experimental. The latest speaker-disjoint evaluation
+and locally trained decoder comparison are in [SPEECH_QUALITY.md](docs/SPEECH_QUALITY.md).
+Better aggregate error rates do not make transcripts authoritative learning answers.

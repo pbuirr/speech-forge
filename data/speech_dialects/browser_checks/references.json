@@ -1,0 +1,26 @@
+[
+  {
+    "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_dialects\\browser_checks\\heldout-1.wav",
+    "source_file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_dialects\\irish_english_male\\irm_03397_00026086636.wav",
+    "reference": "a full-scale use of nuclear weapons by two or more opposing sides would cause the complete annihilation of both the attacker and the defender",
+    "dialect": "Irish English",
+    "speaker": "slr83:conservative:03397",
+    "prompt_id": "slr83:EN0030"
+  },
+  {
+    "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_dialects\\browser_checks\\heldout-2.wav",
+    "source_file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_dialects\\northern_english_female\\nof_03397_00074399239.wav",
+    "reference": "the actual primary rainbow observed is said to be the effect of super-imposition of a number of bows",
+    "dialect": "Northern English",
+    "speaker": "slr83:conservative:03397",
+    "prompt_id": "slr83:EN0018"
+  },
+  {
+    "file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_dialects\\browser_checks\\heldout-3.wav",
+    "source_file": "C:\\Users\\user\\Documents\\Code\\speech-forge\\data\\speech_dialects\\scottish_english_female\\scf_03397_00048047670.wav",
+    "reference": "if the red of the second bow falls upon the green of the first the result is a bow with an abnormally wide yellow band",
+    "dialect": "Scottish English",
+    "speaker": "slr83:conservative:03397",
+    "prompt_id": "slr83:EN0019"
+  }
+]

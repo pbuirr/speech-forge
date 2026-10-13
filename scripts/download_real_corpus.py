@@ -271,9 +271,10 @@ def download(
     tgt_lang: str,
     source_keys: list[str],
     max_per_source: int | None = None,
+    output_path: Path | None = None,
 ) -> None:
     """Download and merge parallel corpora for the given language pair."""
-    out_path = CORPORA_DIR / f"{src_lang}_{tgt_lang}_real.tsv"
+    out_path = output_path or CORPORA_DIR / f"{src_lang}_{tgt_lang}_real.tsv"
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
     all_pairs: list[tuple[str, str]] = []
@@ -336,6 +337,7 @@ def main() -> None:
         help="Which corpus sources to download",
     )
     parser.add_argument("--max", type=int, default=None, help="Max pairs per source")
+    parser.add_argument('--output', type=Path, help='Separate output for independent evaluation corpora')
     parser.add_argument("--list", action="store_true", help="List available sources and exit")
     args = parser.parse_args()
 
@@ -349,9 +351,9 @@ def main() -> None:
     print(f"\nLinguaForge — Corpus Downloader")
     print(f"Language pair : {args.src} → {args.tgt}")
     print(f"Sources       : {', '.join(args.corpora)}")
-    print(f"Output        : {CORPORA_DIR / f'{args.src}_{args.tgt}_real.tsv'}\n")
+    print(f"Output        : {args.output or CORPORA_DIR / f'{args.src}_{args.tgt}_real.tsv'}\n")
 
-    download(args.src, args.tgt, args.corpora, max_per_source=args.max)
+    download(args.src, args.tgt, args.corpora, max_per_source=args.max, output_path=args.output)
 
 
 if __name__ == "__main__":

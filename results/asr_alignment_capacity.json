@@ -1,0 +1,18 @@
+{
+  "examples": 2195,
+  "frame_to_required_alignment_ratio": {
+    "2": {
+      "min": 2.1646341463414633,
+      "p10": 2.8785232586758553,
+      "median": 3.541899441340782,
+      "p90": 4.855625000000001
+    },
+    "4": {
+      "min": 1.0853658536585367,
+      "p10": 1.4393160326021235,
+      "median": 1.7727272727272727,
+      "p90": 2.429352396972246
+    }
+  },
+  "limits": "Conservative frame counts; necessary CTC alignment slack, not a measured causal explanation of recognition quality."
+}
