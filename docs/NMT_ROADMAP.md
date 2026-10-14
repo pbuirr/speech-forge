@@ -28,13 +28,13 @@ entirely from scratch — no HuggingFace, no pretrained weights, no fairseq.
 
 ```bash
 # Full training — 200 epochs, up to 100k pairs, gradient accum × 4
-.venv/bin/python3 scripts/phase7_train.py
+.venv/bin/python3 scripts/translation/train_nmt.py
 
 # Fast smoke-test (50 epochs, small model, 10k pairs)
-.venv/bin/python3 scripts/phase7_train.py --fast
+.venv/bin/python3 scripts/translation/train_nmt.py --fast
 
 # Custom settings
-.venv/bin/python3 scripts/phase7_train.py \
+.venv/bin/python3 scripts/translation/train_nmt.py \
     --epochs 300 --batch 128 --accum 4 \
     --max_pairs 100000 --save_every 25 \
     --out data/models/nmt_es_en.pt
@@ -50,21 +50,21 @@ Training automatically:
 
 ```bash
 # Evaluate against the held-out test split
-python evaluate_nmt.py --src es --tgt en \
+python scripts/translation/evaluate_nmt.py --src es --tgt en \
     --checkpoint data/models/nmt_es_en.pt
 
 # With attention heatmap for a specific sentence
-python evaluate_nmt.py --src es --tgt en \
+python scripts/translation/evaluate_nmt.py --src es --tgt en \
     --checkpoint data/models/nmt_es_en.pt \
     --attention "el gato curioso exploró la casa vieja"
 
 # With named-entity protection
-python evaluate_nmt.py --src es --tgt en \
+python scripts/translation/evaluate_nmt.py --src es --tgt en \
     --checkpoint data/models/nmt_es_en.pt \
     --protect-entities
 
 # Evaluate faster on a subset
-python evaluate_nmt.py --src es --tgt en \
+python scripts/translation/evaluate_nmt.py --src es --tgt en \
     --checkpoint data/models/nmt_es_en.pt \
     --max-test 500
 ```
@@ -75,7 +75,7 @@ Attention heatmap: `results/attention_es_en.png`
 ### 3. Translate a sentence
 
 ```bash
-.venv/bin/python3 scripts/phase7_train.py \
+.venv/bin/python3 scripts/translation/train_nmt.py \
     --translate "me gusta el mundo" \
     --load data/models/nmt_es_en.pt
 ```
@@ -99,7 +99,7 @@ cut -f2 data/corpora/es_en_real.tsv > data/monolingual_en.txt
 # (requires manually creating an en_es corpus TSV)
 
 # Generate synthetic ES←EN pairs
-python backtranslate.py \
+python scripts/translation/backtranslate.py \
     --src en --tgt es \
     --input data/monolingual_en.txt \
     --output data/synthetic_en_es.tsv \

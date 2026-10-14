@@ -84,7 +84,7 @@ def test_training_on_predicted_evidence_preserves_gold_tree(tmp_path):
 def test_production_training_command_binds_shared_analyzer(tmp_path,monkeypatch):
     import json
     import sys
-    from scripts.train_dependency import main
+    from scripts.analysis.train_dependency import main
     from speech_engine.linguistic_resources import CorpusLexicon
     path=tmp_path/'train.conllu';path.write_text(tree_text())
     resources=tmp_path/'resources';resources.mkdir()

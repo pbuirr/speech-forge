@@ -1,7 +1,7 @@
 import hashlib,json,sys
 import pytest
 import torch
-from scripts import install_local_speech as installer
+from scripts.speech import install_local_speech as installer
 from speech_engine.tokenizer import CharTokenizer
 
 

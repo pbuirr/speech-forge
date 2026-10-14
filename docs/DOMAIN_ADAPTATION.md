@@ -9,7 +9,7 @@ dependencies. This report supplements the earlier short-sentence experiment in
 
 ## Translation diagnosis
 
-`scripts/diagnose_translation.py` and `results/nmt_domain_diagnosis.json` describe
+`scripts/translation/diagnose_translation.py` and `results/nmt_domain_diagnosis.json` describe
 the original checkpoint's distribution shift. Tatoeba test sentences average 6.76
 words, compared with 19.60 in GlobalVoices and 24.70 in a separate News Commentary
 sample. Unseen whitespace word forms increase from 5.62% to 21.71%/20.91%; subword
@@ -96,8 +96,8 @@ The previous installed weights are archived before replacement; metadata-only ex
 changes the installed file hash while preserving evaluated weights.
 
 ```powershell
-python -X utf8 -u -B scripts/train_local_translation.py --corpus data/training/es_en_news_balanced/train.tsv --splits-dir data/training/es_en_news_balanced --load data/models/archive/nmt_es_en-7be111d843035f82.pt --output-dir data/training/es_en_news_replay --epochs 8 --batch 64 --lr 0.0008 --curriculum-epochs 1 --dataset "GlobalVoices article-disjoint + Tatoeba training replay"
-python -X utf8 -u -B scripts/evaluate_local_translation.py --checkpoint data/training/es_en_news_balanced_adapt/best.pt --pairs data/corpora/es_en_newscommentary_independent.tsv --output results/news_recheck.json --limit 400 --device cpu
+python -X utf8 -u -B scripts/translation/train_local_translation.py --corpus data/training/es_en_news_balanced/train.tsv --splits-dir data/training/es_en_news_balanced --load data/models/archive/nmt_es_en-7be111d843035f82.pt --output-dir data/training/es_en_news_replay --epochs 8 --batch 64 --lr 0.0008 --curriculum-epochs 1 --dataset "GlobalVoices article-disjoint + Tatoeba training replay"
+python -X utf8 -u -B scripts/translation/evaluate_local_translation.py --checkpoint data/training/es_en_news_balanced_adapt/best.pt --pairs data/corpora/es_en_newscommentary_independent.tsv --output results/news_recheck.json --limit 400 --device cpu
 ```
 
 ## Shared reliability and application changes

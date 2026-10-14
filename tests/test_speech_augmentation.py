@@ -20,7 +20,7 @@ def test_masks_preserve_padding_cache_and_lengths():
 
 
 def test_error_breakdown_does_not_invent_semantic_recall():
-    from scripts.analyze_speech_errors import summarize
+    from scripts.speech.analyze_speech_errors import summarize
     rows=[{'reference':"john did not buy two",'hypothesis':"jon did buy three"}]
     result=summarize(rows,english=True)
     assert result['word_edits']['deletions']==1

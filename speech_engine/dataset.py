@@ -377,7 +377,7 @@ def load_librispeech(root: str | Path, split: str = "test-clean") -> list[tuple[
 
     Download::
 
-        python scripts/download_librispeech.py --split test-clean
+        python scripts/speech/acquire_librispeech.py --archive test-clean
         # or via torchaudio:
         import torchaudio
         torchaudio.datasets.LIBRISPEECH("data/", url="test-clean", download=True)
@@ -387,7 +387,7 @@ def load_librispeech(root: str | Path, split: str = "test-clean") -> list[tuple[
     if not split_dir.exists():
         raise FileNotFoundError(
             f"LibriSpeech split not found: {split_dir}\n"
-            f"  Download: python scripts/download_librispeech.py --split {split}\n"
+            f"  Download: python scripts/speech/acquire_librispeech.py --archive {split}\n"
             f"  Or:       import torchaudio; "
             f"torchaudio.datasets.LIBRISPEECH('data/', url='{split}', download=True)"
         )

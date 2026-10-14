@@ -1,9 +1,9 @@
 import numpy as np
 import pytest
 import torch
-from scripts.prepare_news_adaptation import article_partitions
-from scripts.train_local_translation import canonical
-from scripts.prepare_real_speech import validate_disjoint
+from scripts.translation.prepare_news_adaptation import article_partitions
+from scripts.translation.train_local_translation import canonical
+from scripts.speech.prepare_real_speech import validate_disjoint
 from speech_engine.dataset import ASRDataset, collate_fn
 from speech_engine.tokenizer import CharTokenizer
 
@@ -181,7 +181,7 @@ def test_ctc_beam_matches_exhaustive_paths_and_optional_fusion():
 def test_real_speech_warm_start_binds_data_and_preserves_tokenizer(tmp_path,monkeypatch):
     import hashlib,json,sys
     import soundfile as sf
-    from scripts import train_real_speech as driver
+    from scripts.speech import train_real_speech as driver
     from speech_engine.model_ctc import CTCModel
     data=tmp_path/'data';data.mkdir()
     old=tmp_path/'old';old.mkdir()
@@ -219,7 +219,7 @@ def test_real_speech_warm_start_binds_data_and_preserves_tokenizer(tmp_path,monk
     assert report['counts']=={'train':1,'dev':1,'test':1}
 def test_unavailable_cuda_is_rejected_before_data_or_outputs(tmp_path, monkeypatch):
     import sys
-    from scripts import train_real_speech
+    from scripts.speech import train_real_speech
     monkeypatch.setattr(train_real_speech.torch.cuda, 'is_available', lambda: False)
     output=tmp_path/'preserved'
     monkeypatch.setattr(sys,'argv',['train_real_speech','--device','cuda','--data',str(tmp_path/'missing'),

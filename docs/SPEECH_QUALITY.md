@@ -64,7 +64,7 @@ CTC sums compatible frame alignments and removes repeated labels/blanks as
 described by [Graves et al.](https://www.cs.toronto.edu/~graves/icml_2006.pdf).
 No transcript timing labels are invented. Error counts, CPU acoustic/feature
 time, decoding time and real-time factor are recorded by
-scripts/evaluate_speech_decoding.py. CER counts Unicode code points including
+scripts/speech/evaluate_speech_decoding.py. CER counts Unicode code points including
 spaces; WER uses whitespace-delimited words, suitable here for English. Other
 writing systems need appropriate token-unit evaluation, not automatic English
 word segmentation assumptions. The dataset now rejects silently dropped
@@ -149,7 +149,7 @@ exposes a much larger acoustic generalization gap than the short clean test.
 
 Downloaded official [LibriSpeech test-other](https://openslr.org/12), CC BY 4.0,
 with publisher MD5 verification, local SHA256, attribution and extraction filter.
-scripts/prepare_speech_challenge.py fixes four duration-eligible random utterances
+scripts/speech/prepare_speech_challenge.py fixes four duration-eligible random utterances
 per speaker (seed127) after excluding every speaker in all previous raw partitions.
 132 recordings, 33 new speakers, 827.80 seconds. Manifest and archive fingerprints
 are in data/speech_challenge/provenance.json. This is a harder official subset and
@@ -210,7 +210,7 @@ Do not promote this modest single-seed result to robust overall gain.
 The old clean-test WER regresses and the control's new-speaker WER worsens. Both
 experimental checkpoints remain saved; installed package hash is unchanged.
 
-scripts/analyze_speech_errors.py exposes deterministic minimum-edit alignments,
+scripts/speech/analyze_speech_errors.py exposes deterministic minimum-edit alignments,
 character confusions and whitespace errors. English lexical probes are opt-in:
 negation forms, number words and a small list of name-spelling probes. These
 measure exact aligned spelling, not negation scope, factual accuracy or verified

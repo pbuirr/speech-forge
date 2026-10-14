@@ -180,10 +180,10 @@ not HTTP or unit-test claims.
 Reproduction (same saved data and original model):
 
 ```powershell
-python -X utf8 -u -B scripts/prepare_translation_quality.py --checkpoint data/models/archive/nmt_es_en-7dcf2a17ab9d895b.pt --news data/training/es_en_quality/news.tsv --replay data/training/es_en_masked/train.tsv --splits data/training/es_en_news_balanced --output data/training/es_en_quality_recheck
-python -X utf8 -u -B scripts/train_local_translation.py --corpus data/training/es_en_news_balanced/train.tsv --splits-dir data/training/es_en_news_balanced --load data/models/archive/nmt_es_en-7dcf2a17ab9d895b.pt --output-dir data/training/es_en_quality_full_recheck --epochs 4 --batch 64 --lr 0.0004 --curriculum-epochs 0
-python -X utf8 -u -B scripts/evaluate_local_translation.py --checkpoint data/models/nmt_es_en.pt --pairs data/corpora/es_en_newscommentary_independent.tsv --output results/publisher_recheck.json --limit 400 --sample-seed 2027 --exclude-prior-report results/nmt_newscommentary_adapted.json --device cpu
-python -X utf8 -u -B scripts/evaluate_translation_facts.py --checkpoint data/models/nmt_es_en.pt --output results/facts_recheck.json
+python -X utf8 -u -B scripts/translation/prepare_translation_quality.py --checkpoint data/models/archive/nmt_es_en-7dcf2a17ab9d895b.pt --news data/training/es_en_quality/news.tsv --replay data/training/es_en_masked/train.tsv --splits data/training/es_en_news_balanced --output data/training/es_en_quality_recheck
+python -X utf8 -u -B scripts/translation/train_local_translation.py --corpus data/training/es_en_news_balanced/train.tsv --splits-dir data/training/es_en_news_balanced --load data/models/archive/nmt_es_en-7dcf2a17ab9d895b.pt --output-dir data/training/es_en_quality_full_recheck --epochs 4 --batch 64 --lr 0.0004 --curriculum-epochs 0
+python -X utf8 -u -B scripts/translation/evaluate_local_translation.py --checkpoint data/models/nmt_es_en.pt --pairs data/corpora/es_en_newscommentary_independent.tsv --output results/publisher_recheck.json --limit 400 --sample-seed 2027 --exclude-prior-report results/nmt_newscommentary_adapted.json --device cpu
+python -X utf8 -u -B scripts/translation/evaluate_translation_facts.py --checkpoint data/models/nmt_es_en.pt --output results/facts_recheck.json
 ```
 
 The next useful work is stronger source-conditioned learning and cleaner aligned

@@ -31,8 +31,8 @@ executions on 2,077 EWT original sentences without failures or invalid offsets;
 they do not establish correctness of the rule findings.
 
 ```bash
-python scripts/evaluate_learning_exercises.py
-python scripts/evaluate_learning_exercises.py --baseline-module PATH_TO_TRUSTED_OLD_EXERCISE_PY --grammar-corpus PATH_TO_EWT_TEST_CONLLU
+python scripts/analysis/evaluate_learning_exercises.py
+python scripts/analysis/evaluate_learning_exercises.py --baseline-module PATH_TO_TRUSTED_OLD_EXERCISE_PY --grammar-corpus PATH_TO_EWT_TEST_CONLLU
 python -m pytest -q
 node tests/test_web_rendering.cjs
 ```
@@ -71,7 +71,7 @@ quality, learning effectiveness, or general performance. Raw-text tokenization
 limitations still apply. Authored Turkish, Arabic and Spanish tests verify common
 source/offset transport; measured natural-corpus coverage remains English-only.
 
-Reproduce `scripts/evaluate_contextual_learning.py --help`; reports are
+Reproduce `scripts/analysis/evaluate_contextual_learning.py --help`; reports are
 `results/contextual_learning_ewt.json` and `results/contextual_learning_pud.json`.
 Validation covers persistence, homograph cloze selection, multilingual offsets,
 no repeated inference, real HTTP extraction, and escaped UI context rendering.
@@ -132,7 +132,7 @@ not establish raw-text explanation or learning effectiveness. About 1.02 seconds
 EWT and .95 seconds PUD for complete inference plus comparison in one local run,
 excluding resource loading. Output grows linearly in tokens, not quadratically.
 
-Reproduce `scripts/evaluate_form_relationships.py --help`; reports in
+Reproduce `scripts/analysis/evaluate_form_relationships.py --help`; reports in
 `results/form_relationships_ewt.json` and `results/form_relationships_pud.json`.
 Existing pinned corpus notices/provenance apply. Validation: 104 Python tests,
 UI rendering/flow and JavaScript syntax checks. Remaining work includes contextual

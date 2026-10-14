@@ -74,18 +74,18 @@ unknown-word errors, ambiguous morphology and segmentation errors all propagate.
 
 ## Reproduction and validation
 
-Use `scripts/train_dependency.py --help` with the pinned EWT **train** file,
+Use `scripts/analysis/train_dependency.py --help` with the pinned EWT **train** file,
 language, source URL/license, three epochs and output
 `data/linguistics/syntax/en.json`. Reports record corpus and model SHA-256.
 The original corpus pin/notices remain those documented in POS_RELIABILITY.md.
 The dependency model derives from CC-BY-SA-4.0 EWT annotations; preserve their
 existing source/license notices. PUD is evaluation-only, with its existing notices.
 
-`scripts/evaluate_dependency.py --help` reproduces gold/production feature
+`scripts/analysis/evaluate_dependency.py --help` reproduces gold/production feature
 comparisons and per-relation scores. Reports:
 `results/dependency_{development,test}_ewt.json`,
 `results/dependency_test_pud.json`, `results/dependency_training_ewt.json`.
-`scripts/evaluate_contextual_learning.py --with-syntax` reproduces raw-text/card
+`scripts/analysis/evaluate_contextual_learning.py --with-syntax` reproduces raw-text/card
 transport checks (`results/contextual_syntax_{ewt,pud}.json`).
 
 112 Python tests plus UI rendering/flow, JavaScript syntax and diff checks pass.
@@ -162,7 +162,7 @@ on development only. Gold-word EWT POS accuracy remains91.86%, ECE1.08%; that
 calibration does not validate raw-text sentence choices or syntax. The UI explicitly
 states that correct token and sentence boundaries are assumptions.
 
-Reproduce `scripts/evaluate_sentence_pipeline.py --help`; reports are
+Reproduce `scripts/analysis/evaluate_sentence_pipeline.py --help`; reports are
 `results/sentence_pipeline_{development,test_ewt,test_pud}.json`,
 `results/dependency_shared_boundaries_pud.json`, and
 `results/pos_sentence_calibration_ewt.json`. Natural-data results are English-only;
@@ -245,13 +245,13 @@ existing API/UI/card context rather than used as a grammar verdict or answer key
 
 Reproduction: download the three `tr_boun-ud-{train,dev,test}.conllu` files from
 the pinned [BOUN repository](https://github.com/UniversalDependencies/UD_Turkish-BOUN/tree/f828b02872123a8dfb336584eab0767c4e55c5f9),
-then compile training only with `scripts/import_linguistic_corpus.py --lang tr`.
-Train each corpus using `scripts/train_dependency.py --resources data/linguistics`
+then compile training only with `scripts/analysis/import_linguistic_corpus.py --lang tr`.
+Train each corpus using `scripts/analysis/train_dependency.py --resources data/linguistics`
 with matching `--language`, `--corpus`, `--source-url`, `--license CC-BY-SA-4.0`,
 `--output` and `--report`; omit `--resources` to reproduce the comparison baseline.
-`scripts/evaluate_dependency.py` reproduces attachment/input ablations;
-`scripts/evaluate_sentence_pipeline.py --lang tr --syntax-resources DIRECTORY`
-supports controlled raw model comparisons, and `scripts/benchmark_dependency.py`
+`scripts/analysis/evaluate_dependency.py` reproduces attachment/input ablations;
+`scripts/analysis/evaluate_sentence_pipeline.py --lang tr --syntax-resources DIRECTORY`
+supports controlled raw model comparisons, and `scripts/analysis/benchmark_dependency.py`
 compares warmed runtime. Each command's `--help` lists required paths.
 Reports are `results/dependency_{production*,input_ablation*,adaptation*}.json`,
 `results/dependency_turkish_*_training.json` and `results/sentence_adaptation*.json`.

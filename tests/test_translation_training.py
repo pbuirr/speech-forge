@@ -1,5 +1,5 @@
 import pytest
-from scripts.train_local_translation import canonical, split_pairs
+from scripts.translation.train_local_translation import canonical, split_pairs
 
 
 def test_parallel_splits_group_both_sides_and_are_reproducible():
@@ -65,15 +65,15 @@ def test_source_anchor_review_handles_grouped_numbers_without_altering_output():
 def test_original_training_loop_can_shuffle_warm_start_from_first_epoch(monkeypatch,contrast_weight):
     import math
     import torch
-    from scripts import phase7_train
+    from scripts.translation import train_nmt
     from speech_engine.nmt import Seq2SeqNMT
     model=Seq2SeqNMT(8,8,d_model=16,n_heads=2,n_layers=1,d_ff=32,dropout=0)
     examples=[([1,4,2],[1,5,2]),([1,6,2],[1,7,2])]*2
     shuffled=[]; callback=[]
-    monkeypatch.setattr(phase7_train.random,'shuffle',lambda rows: shuffled.append(len(rows)))
+    monkeypatch.setattr(train_nmt.random,'shuffle',lambda rows: shuffled.append(len(rows)))
     def completed(epoch,model,loss,*state):
         callback.append((epoch,math.isfinite(loss))); model.eval()
-    phase7_train.train(model,examples,epochs=1,batch_size=2,lr=2e-4,device=torch.device('cpu'),
+    train_nmt.train(model,examples,epochs=1,batch_size=2,lr=2e-4,device=torch.device('cpu'),
                        curriculum_epochs=0,epoch_callback=completed,source_contrast_weight=contrast_weight,accum_steps=1 if contrast_weight else 2)
     assert shuffled==[4] and callback==[(1,True)] and model.training
 
@@ -98,7 +98,7 @@ def test_decoding_ablation_can_preserve_repeated_tokens():
 
 def test_alignment_ranking_loss_ignores_batch_padding():
     import torch
-    from scripts.prepare_translation_quality import losses
+    from scripts.translation.prepare_translation_quality import losses
     from speech_engine.bpe import BPEVocab
     from speech_engine.nmt import Seq2SeqNMT
     torch.manual_seed(33)
@@ -132,7 +132,7 @@ def test_installation_requires_matching_numeric_decoding_evaluation(tmp_path,mon
     import hashlib,json,sys
     from speech_engine.bpe import BPEVocab
     from speech_engine.nmt import Seq2SeqNMT,save_checkpoint,load_checkpoint
-    from scripts.install_local_translation import main
+    from scripts.translation.install_local_translation import main
     corpus=tmp_path/'train.tsv';corpus.write_text('año 2027\tyear 2027\n',encoding='utf-8')
     sv=BPEVocab().train(['año 2027'],25);tv=BPEVocab().train(['year 2027'],25)
     model=Seq2SeqNMT(sv.vocab_size,tv.vocab_size,d_model=8,n_heads=2,n_layers=1,d_ff=16)

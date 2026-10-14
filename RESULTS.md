@@ -22,7 +22,7 @@ Every experiment that changed a decision, newest first. Development sets are use
 
 ## Translation (Spanish → English)
 
-Scores are on sentences with no exact or near-duplicate overlap with either model's training data (checked with `scripts/check_bitext_overlap.py`). BLEU here is lowercase and whitespace-tokenised, so it isn't directly comparable with published BLEU.
+Scores are on sentences with no exact or near-duplicate overlap with either model's training data (checked with `scripts/translation/check_bitext_overlap.py`). BLEU here is lowercase and whitespace-tokenised, so it isn't directly comparable with published BLEU.
 
 | Model | Training data | News BLEU (400) | News char-F2 | News Commentary BLEU (400) | News Commentary char-F2 |
 | --- | --- | --- | --- | --- | --- |

@@ -95,8 +95,8 @@ original sampled input was reconstructed from accepted partitions after an indep
 download overwrote its filename. Downloader now supports explicit `--output`.
 
 ```powershell
-python -X utf8 -u -B scripts/train_local_translation.py --corpus data/corpora/es_en_real.tsv --splits-dir data/training/es_en_masked --output-dir data/training/es_en_replay --epochs 50 --dataset "OPUS Tatoeba v2023-04-12; CC BY 2.0 FR"
-python -X utf8 -u -B scripts/evaluate_local_translation.py --checkpoint data/models/nmt_es_en.pt --pairs data/training/es_en_masked/test.tsv --output results/nmt_recheck.json --device cpu
+python -X utf8 -u -B scripts/translation/train_local_translation.py --corpus data/corpora/es_en_real.tsv --splits-dir data/training/es_en_masked --output-dir data/training/es_en_replay --epochs 50 --dataset "OPUS Tatoeba v2023-04-12; CC BY 2.0 FR"
+python -X utf8 -u -B scripts/translation/evaluate_local_translation.py --checkpoint data/models/nmt_es_en.pt --pairs data/training/es_en_masked/test.tsv --output results/nmt_recheck.json --device cpu
 python -u -B -m webapp.server --port 8765
 ```
 

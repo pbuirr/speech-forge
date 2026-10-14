@@ -17,7 +17,7 @@ from the lexical index. Case is preserved and lookup normalizes Unicode to NFC.
 From the repository root:
 
 ```bash
-python scripts/prepare_english_resource.py
+python scripts/analysis/prepare_english_resource.py
 python webapp/server.py
 ```
 
@@ -35,8 +35,8 @@ Review source terms before redistributing derived resources.
 ## Import another annotated corpus
 
 ```bash
-python scripts/import_linguistic_corpus.py --input train.conllu --lang es --source-url https://example.org/dataset --license DATASET-LICENSE --output data/linguistics/es.json
-python scripts/evaluate_linguistic_resource.py --resource data/linguistics/es.json --test test.conllu --context --output results/linguistic_eval_es.json
+python scripts/analysis/import_linguistic_corpus.py --input train.conllu --lang es --source-url https://example.org/dataset --license DATASET-LICENSE --output data/linguistics/es.json
+python scripts/analysis/evaluate_linguistic_resource.py --resource data/linguistics/es.json --test test.conllu --context --output results/linguistic_eval_es.json
 ```
 
 Supply the actual source and license. Import support does not establish language
@@ -87,7 +87,7 @@ The contextual model can still make grammatical mistakes; deeper syntax and
 context-sensitive word senses are not implemented by this change.
 # Raw-text evaluation
 
-Run `python scripts/evaluate_linguistic_resource.py --resource data/linguistics/en.json --test PATH_TO_HELD_OUT_CONLLU --raw-text --output results/raw_text_eval_ewt.json` to measure the production analyzer on original sentence text. Sentence boundaries remain supplied; word boundaries do not. Exact token-span precision, recall, F1, and UPOS accuracy over all gold words are reported. Incorrect boundaries count as POS errors. Missing original text or non-concatenative word expansions are explicitly excluded, with counts. Unicode NFC and whitespace are normalized only for scoring, not production offsets.
+Run `python scripts/analysis/evaluate_linguistic_resource.py --resource data/linguistics/en.json --test PATH_TO_HELD_OUT_CONLLU --raw-text --output results/raw_text_eval_ewt.json` to measure the production analyzer on original sentence text. Sentence boundaries remain supplied; word boundaries do not. Exact token-span precision, recall, F1, and UPOS accuracy over all gold words are reported. Incorrect boundaries count as POS errors. Missing original text or non-concatenative word expansions are explicitly excluded, with counts. Unicode NFC and whitespace are normalized only for scoring, not production offsets.
 
 On the pinned EWT test split, 2,077 sentences and 25,094 words aligned without exclusions. English clitic rules improved token F1 from 91.25% to 92.89% and raw-text POS accuracy from 85.62% to 87.75%. These are before/after measurements on the same test corpus, not evidence of generalization across domains or languages. The earlier gold-word POS result measures a different, easier input condition. The raw-text evaluation includes all annotated POS labels, including words with missing lemmas.
 

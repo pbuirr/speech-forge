@@ -16,14 +16,14 @@ The binning and seen/unseen grouping are project choices evaluated below.
 ## Reproduce
 
 ```bash
-python scripts/prepare_english_resource.py --calibrate
+python scripts/analysis/prepare_english_resource.py --calibrate
 python webapp/server.py
 ```
 
 This downloads the pinned EWT development split as well as train/test, checks
 checksums, builds the original model, fits calibration locally on development
 labels, and evaluates on test labels. No external inference, pretrained weights,
-or new dependencies are used. The generic `scripts/calibrate_pos.py` accepts other
+or new dependencies are used. The generic `scripts/analysis/calibrate_pos.py` accepts other
 resources and their original training/development/test corpora. Generated
 calibration files live under `data/linguistics/calibration/` and are ignored by Git.
 
@@ -129,7 +129,7 @@ Remaining errors concentrate on proper/common noun ambiguity. Gold token and
 sentence boundaries are supplied; these gains do not establish improvements to
 raw-text segmentation, unknown lemmas, morphology, grammar, or translation.
 
-Reproduce with `scripts/evaluate_unknown_words.py --help`, supplying the pinned
+Reproduce with `scripts/analysis/evaluate_unknown_words.py --help`, supplying the pinned
 resource, train/dev files, regenerated calibration, and a separate test corpus.
 Reports: `results/pos_suffix_calibration_ewt.json`, `results/pos_unknown_ewt.json`,
 `results/pos_unknown_pud.json`. Validation: 92 Python tests and both Node UI suites.

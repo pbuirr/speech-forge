@@ -88,21 +88,21 @@ print(ld.detect("die Katze erkundete das Haus")) # → ('de', 0.995)
 
 ```bash
 # Download OPUS corpora (ES/FR/DE → EN)
-python3 scripts/download_real_corpus.py
+python3 scripts/translation/download_parallel_corpus.py
 
 # Filter for quality
-python3 scripts/filter_corpus.py \
+python3 scripts/translation/filter_corpus.py \
     --input data/corpora/es_en_real.tsv \
     --output data/corpora/es_en_filtered.tsv
 
 # Train ES → EN
-python3 scripts/phase7_train.py \
+python3 scripts/translation/train_nmt.py \
     --epochs 150 --batch 128 --accum 4 \
     --vocab 4000 --max_pairs 100000 \
     --out data/models/nmt_es_en.pt
 
 # Evaluate BLEU
-python3 evaluate_nmt.py \
+python3 scripts/translation/evaluate_nmt.py \
     --checkpoint data/models/nmt_es_en.pt \
     --beam 4 --n 200
 ```
@@ -174,14 +174,14 @@ Duplicate/cross-language distractors and unbounded shuffling have been corrected
 Failed grammar checks remain visible and cannot produce a clean result or score.
 See [learning evidence](docs/LEARNING_EVIDENCE.md) for reproducible cases and limits.
 
-`python scripts/prepare_english_resource.py --calibrate` also fits the project's
+`python scripts/analysis/prepare_english_resource.py --calibrate` also fits the project's
 local POS reliability model on development data, using the original tagger's
 forward–backward scores. The UI and saved cards expose POS-specific review hints.
 See [POS reliability](docs/POS_RELIABILITY.md) for measurements and limits; these
 estimates do not certify lemmas or meaning.
 
 Prepare the optional original count-based English model and reproduce its held-out
-evaluation with `python scripts/prepare_english_resource.py`. The app loads the
+evaluation with `python scripts/analysis/prepare_english_resource.py`. The app loads the
 compiled local resource on restart. See [linguistic resources](docs/LINGUISTIC_RESOURCES.md)
 for sources, licensing, metrics, and limits. The measured English POS accuracy is
 90.2% versus 68.5% for heuristics on gold-tokenized EWT test data; this does not

@@ -3,7 +3,7 @@ import tarfile
 
 import pytest
 
-from scripts.prepare_voxpopuli_accent_test import RangeTar, eligible_rows, select_rows
+from scripts.speech.prepare_voxpopuli_accent_test import RangeTar, eligible_rows, select_rows
 
 
 def row(identifier, session='20190101-event', speaker='1', accent='en_fr', **extra):
