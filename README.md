@@ -1,210 +1,94 @@
 # LinguaForge
 
-A from-scratch multilingual NLP engine — speech recognition, machine translation, linguistic analysis, and spaced-repetition learning — built entirely in PyTorch without pretrained weights or HuggingFace.
+LinguaForge is a language-learning and language-analysis system I'm building from scratch. Every model in it is my own: I wrote the architectures and training code and trained the weights locally on public, licensed datasets. No pretrained weights, no hosted APIs.
 
-> **Hard constraint:** no Whisper, no HuggingFace model hub, no pretrained weights of any kind. PyTorch primitives (`nn.Linear`, `nn.LSTM`, `nn.MultiheadAttention`, autograd) are used the way you'd use NumPy. Every architecture, training loop, decoder, and linguistic rule is original.
+The goal is a tool that helps you learn a language from real material (videos, articles, books) by showing what each word is, how the sentence is built and what it means, then turning what you meet into practice.
 
----
+## What works today
 
-## What's implemented
+| Component | What it does | Best measured result |
+| --- | --- | --- |
+| Speech recognition (English) | CNN + BiLSTM acoustic model trained with CTC, character language model for decoding | **22.5% WER, 7.9% CER** on 160 held-out LibriSpeech test-clean recordings from 40 unseen speakers |
+| Translation (Spanish → English) | Transformer encoder–decoder with BPE subwords | **27.7 BLEU** on clean news sentences with an older, larger model I trained (the currently installed model scores 16.2) |
+| Word analysis (English, Turkish) | Corpus-backed lemmas and features, HMM part-of-speech tagger with calibrated confidence | **90.2%** POS accuracy on UD English-EWT test (gold tokens) |
+| Dependency parsing (English, Turkish) | Transition-based parser trained on Universal Dependencies | **72.5 LAS** English-EWT, **45.3 LAS** Turkish-BOUN |
+| Grammar checks | Pattern rules, measured for false alarms on published text | 184 error-level flags on 29,211 published sentences (down from 347) |
+| Learning | Flashcards with sentence context, spaced repetition (SM-2), generated exercises | Not yet evaluated with learners |
 
-| Phase | Component | Highlights |
-|---|---|---|
-| 1 | Audio preprocessing | Resample → mono → normalize → log-mel spectrogram; matches torchaudio output |
-| 2 | Tokenizer + dataset pipeline | BPE from scratch (Sennrich et al. 2016); sliding-window chunker; no sentencepiece |
-| 3 | CTC speech recognition | BiLSTM acoustic model + CTC loss; greedy and beam-search decoder |
-| 4 | Transformer encoder-decoder | Multi-head attention, positional encoding, label-smoothing cross-entropy |
-| 5 | Linguistic engine | Language/dialect ID; BPE subwords; corpus-backed lemmas/features and contextual POS tagging; heuristic fallback; grammar checker |
-| 6 | Spaced-repetition learning | SM-2 scheduler (Anki-compatible); flashcard deck; exercise generator |
-| 7 | Neural machine translation | Original Transformer/BPE and statistical fallback; current ES→EN model: **29.92 BLEU on 1,993 short sentences, 14.71 on 400 reserved news article sentences, 9.37 on 400 fresh separate-publisher sentences**; experimental, with a short-sentence regression (custom evaluation) |
-| 8 | Voice activity detection | Short-time energy + ZCR + spectral flatness + 4-state FSM; **F1 = 0.94**; numpy only |
+All numbers come from data the models never trained on or were tuned on. Full history: [RESULTS.md](RESULTS.md).
 
----
+## How it fits together
 
-## Quick start
-
-The locally trained Spanish→English checkpoint is installed on this development
-machine and verified through the browser. It remains experimental, especially on
-longer text. Training, independent evaluation, limitations and reproduction commands
-are recorded in [Real model validation](docs/REAL_MODEL_VALIDATION.md).
-The latest [domain adaptation and speech report](docs/DOMAIN_ADAPTATION.md) records
-news improvements, short-sentence tradeoffs and an acoustic pilot whose WER remains
-too high to enable in the default application.
-Checkpoints and downloaded corpora are ignored by Git; a fresh clone requires training
-or restoring your own checkpoint. Real local speech recognition still needs trained weights.
-
-For the local web application's CTC checkpoint configuration, WAV requirements,
-and verified limitations, see [Local model integration](docs/LOCAL_MODEL_INTEGRATION.md).
-Implemented architectures require trained weights; their presence in this repository
-does not by itself establish usable speech or translation accuracy.
-
-```bash
-# 1. Install PyTorch for your platform first
-#    Mac (MPS):  pip install torch torchaudio
-#    CUDA:       pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
-#    CPU only:   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cpu
-
-# 2. Install the package
-pip install -e .
-
-# 3. Launch the web UI (language detection, grammar, morphology, translation, flashcards)
-python3 webapp/server.py
-# → open http://127.0.0.1:8765
+```
+ audio ──► speech recognizer ──┐
+                               ├──► one text record (offsets, language, where it came from)
+ typed or pasted text ─────────┘            │
+                                            ├──► analysis: tokens, lemmas, POS, syntax, grammar checks
+                                            ├──► translation
+                                            └──► learning: flashcards and exercises built from the analysis
 ```
 
----
+Anything a model generated (a transcript, a translation) is marked as a prediction all the way through, so it can't silently become an answer key for a flashcard.
 
-## Translation demo
+More detail on each part:
 
-```python
-from speech_engine.nmt import load_checkpoint
+- [Speech recognition](docs/speech-recognition.md)
+- [Translation](docs/translation.md)
+- [Linguistic analysis](docs/linguistic-analysis.md)
+- [Learning features and the web app](docs/learning-and-web-app.md)
 
-model, src_vocab, tgt_vocab, _ = load_checkpoint("data/models/nmt_es_en.pt")
-src = src_vocab.encode("el gato exploró la casa", add_bos=True, add_eos=True)
+## What I learned building it
 
-import torch
+A few results changed how I worked:
 
-src_t = torch.tensor([src])
-ids = model.translate_beam(src_t, beam_size=4)
-print(tgt_vocab.decode(ids))
-# → "the cat explored the house"
-```
-
----
-
-## Language detection demo
-
-```python
-from speech_engine.language_detector import LanguageDetector
-
-ld = LanguageDetector()
-print(ld.detect("el gato exploró la casa"))  # → ('es', 0.998)
-print(ld.detect("le chat a exploré la maison"))  # → ('fr', 0.997)
-print(ld.detect("die Katze erkundete das Haus"))  # → ('de', 0.995)
-```
-
----
-
-## Training your own NMT model
-
-```bash
-# Download OPUS corpora (ES/FR/DE → EN)
-python3 scripts/translation/download_parallel_corpus.py
-
-# Filter for quality
-python3 scripts/translation/filter_corpus.py \
-    --input data/corpora/es_en_real.tsv \
-    --output data/corpora/es_en_filtered.tsv
-
-# Train ES → EN
-python3 scripts/translation/train_nmt.py \
-    --epochs 150 --batch 128 --accum 4 \
-    --vocab 4000 --max_pairs 100000 \
-    --out data/models/nmt_es_en.pt
-
-# Evaluate BLEU
-python3 scripts/translation/evaluate_nmt.py \
-    --checkpoint data/models/nmt_es_en.pt \
-    --beam 4 --n 200
-```
-
----
+- **My speech model wasn't too small. It was barely trained.** Development loss was still falling when the learning-rate schedule ended (about 1.8 passes over the data). Training the same model four times longer cut test WER from 47.6% to 30.3%. Adding 360 more hours of audio and a slightly larger model brought it to 22.5%.
+- **My translation test set was contaminated for an older model.** Before comparing against an older model I'd trained, I checked overlap between its training data and my test sets. It had seen 99.5% of my short-sentence test, so I only compared on news sets with no overlap.
+- **Rule-based grammar checks need measuring too.** Run over 29,211 sentences from published books, where almost every flag is a false alarm, the checker flagged 22% of them, mostly for passive voice. I turned passive voice and sentence length into style hints and fixed the rules behind the rest. That took the sentences with error- or warning-level flags from 347 to 184.
 
 ## Repository layout
 
 ```
-speech_engine/      Core implementations (BPE, NMT, language detector, VAD, …)
-scripts/            Training scripts for each phase
-webapp/             Local browser UI — no framework, stdlib http.server only
-data/
-  samples/          Small audio samples and spectrograms
-  toy_dataset/      Minimal WAV dataset for smoke-testing
-results/            BLEU reports and attention heatmaps
-docs/               Per-phase technical notes
+speech_engine/        the library: audio, models, training, decoding, analysis, learning
+scripts/speech/       data preparation, training and evaluation for speech recognition
+scripts/translation/  corpus download and filtering, training, evaluation, overlap audit
+scripts/analysis/     treebank resources, POS calibration, parser training and evaluation
+scripts/demos/        small self-contained demos of each component on toy data
+webapp/               local web app (standard-library server + one static page)
+tests/                pytest suite and Node tests for the front end
+results/              JSON reports behind every number in RESULTS.md
+docs/                 design notes for each component
 ```
 
----
+## Running it
 
-## Key design decisions
-
-**Why no pretrained weights?** The goal is to be able to explain every component from first principles. "I implemented BPE tokenization, CTC decoding, and a Seq2Seq Transformer with beam search" is a different claim than "I called the Whisper API."
-
-**Why IBM Model 2 as a fallback?** Classic statistical MT provides a robust, interpretable fallback when the neural model produces low-confidence output. The diagonal alignment prior is a direct implementation of the Brown et al. (1993) / Och & Ney (2003) approach.
-
-**Why a shared BPE vocabulary for multilingual?** Latin-script languages (ES/FR/DE) share large portions of their subword inventory. A shared 16k-token BPE vocab covers all three with only ~10–15% more tokens than a monolingual 4k vocab, enabling knowledge transfer across language pairs (Johnson et al. 2017).
-
----
-
-## References
-
-- Sennrich et al. (2016) — Neural Machine Translation of Rare Words with Subword Units
-- Vaswani et al. (2017) — Attention Is All You Need
-- Provilkov et al. (2020) — BPE-Dropout: Simple and Effective Subword Regularization
-- Loshchilov & Hutter (2019) — Decoupled Weight Decay Regularization (AdamW)
-- Platanios et al. (2019) — Competence-based Curriculum Learning
-- Johnson et al. (2017) — Google's Multilingual Neural Machine Translation System
-- Brown et al. (1993) — The Mathematics of Statistical Machine Translation
-
----
-
-See [`docs/PROJECT_CONTEXT.md`](docs/PROJECT_CONTEXT.md) for the current direction,
-inspected limitations, and development preferences. Recorded quality scores above
-are not independently reproduced by the regression suite.
-
-## Regression checks
+Requires Python 3.11+ and PyTorch (CUDA optional). Install PyTorch for your platform first (see pytorch.org), then:
 
 ```bash
-python -m pytest -q
-node tests/test_web_rendering.cjs
+pip install -e . pytest
+python webapp/server.py        # local web app at http://127.0.0.1:8765
+python -m pytest -q            # tests
+python scripts/demos/ctc_training.py   # quick toy demo, no downloads
 ```
 
-These cover morphology/subword separation, resource import and validation,
-contextual predictions, Unicode offsets, language isolation, HTTP routing,
-flashcard evidence/persistence, and rendering. Corpus observations, context
-predictions, and heuristics remain distinct; uncalibrated confidence is null.
+Model weights and datasets aren't in the repository (they're large). The scripts download the public data and retrain each model; the design notes in `docs/` list the commands behind each result.
 
-The UI uses `/api/analyze` to coordinate language detection, word analysis, and
-grammar feedback using the same text, language selection, and word spans. Grammar
-findings link to the affected tokens; existing individual endpoints remain usable.
-Flashcards can reuse that analysis rather than repeat inference. No rule findings
-does not prove grammatical correctness. This shared pipeline does not yet perform
-joint multilingual learning; corpus-based parsing is evaluated on English and Turkish.
+## Limitations
 
-Learning exercises reuse word spans and Unicode-aware matching across languages.
-Duplicate/cross-language distractors and unbounded shuffling have been corrected.
-Failed grammar checks remain visible and cannot produce a clean result or score.
-See [learning evidence](docs/LEARNING_EVIDENCE.md) for reproducible cases and limits.
+- Speech recognition is English read speech only. Regional accents are much worse (66–78% WER on the Northern English and Irish English dev speakers), and noisy or conversational audio hasn't been tested.
+- Translation handles formal Spanish reasonably well but still mangles names and sometimes runs on past the end of short sentences.
+- Language detection is hand-written rules and is unreliable on short or machine-generated text.
+- Nothing has been tested with real learners yet.
 
-`python scripts/analysis/prepare_english_resource.py --calibrate` also fits the project's
-local POS reliability model on development data, using the original tagger's
-forward–backward scores. The UI and saved cards expose POS-specific review hints.
-See [POS reliability](docs/POS_RELIABILITY.md) for measurements and limits; these
-estimates do not certify lemmas or meaning.
+## Next
 
-Prepare the optional original count-based English model and reproduce its held-out
-evaluation with `python scripts/analysis/prepare_english_resource.py`. The app loads the
-compiled local resource on restart. See [linguistic resources](docs/LINGUISTIC_RESOURCES.md)
-for sources, licensing, metrics, and limits. The measured English POS accuracy is
-90.2% versus 68.5% for heuristics on gold-tokenized EWT test data; this does not
-establish multilingual accuracy, semantic understanding, or speech/NMT quality.
+- Fine-tune the older translation model on clean data, fix its run-on short sentences, and install it.
+- More languages: Spanish analysis from UD, then translation for a handful of language pairs.
+- A reading/watching overlay that shows word-by-word help on subtitles and web pages.
 
-See [`ROADMAP.md`](ROADMAP.md) for the earlier technical roadmap.
+## Data
 
-Experimental original dependency parsing is available as an optional locally trained linguistic resource. See [method, evaluation and reproduction](docs/DEPENDENCY_ANALYSIS.md). It reuses shared POS/features and source offsets; syntax predictions are uncalibrated and do not establish meaning.
+LibriSpeech (CC BY 4.0), SLR83 UK and Ireland English dialects (CC BY-SA 4.0), VoxPopuli (CC0, test only), Universal Dependencies treebanks (licences per treebank), OPUS Tatoeba, Europarl and GlobalVoices, News Commentary (evaluation only). Licence notes are kept next to each dataset.
 
-Latest local translation quality, decoding/data comparisons and remaining semantic failures: [translation reliability](docs/TRANSLATION_RELIABILITY.md).
+## AI assistance
 
-Latest source-meaning experiments, real CTC progress and application integration: [meaning and speech](docs/MEANING_AND_SPEECH.md).
-## Measured speech quality
-
-The [speech capacity and supervision report](docs/SPEECH_SCALE.md) records the
-larger licensed-audio comparison, checkpoint compatibility and generated-text
-language-routing investigation.
-
-The [diverse-supervision and connected-evidence report](docs/SPEECH_DIVERSITY.md)
-compares matched acoustic training with new dialect recordings and documents how
-generated-input uncertainty carries into analysis, translation and learning.
-
-The original local CTC remains experimental. The latest speaker-disjoint evaluation
-and locally trained decoder comparison are in [SPEECH_QUALITY.md](docs/SPEECH_QUALITY.md).
-Better aggregate error rates do not make transcripts authoritative learning answers.
+I used AI tools while building this project. What they were used for, and how, is documented in [docs/ai-assistance](docs/ai-assistance/).
