@@ -1,4 +1,4 @@
-"""Rescore stored predictions after display-only corrections, without new inference."""
+"""Rescore saved predictions after display-only fixes, without running the model again."""
 
 import argparse
 import json

@@ -1,4 +1,4 @@
-"""Local conditional sequence objectives; no semantic verification implied."""
+"""Sequence losses for scoring training pairs: per-sentence NLL and a paired-vs-mismatched source margin."""
 
 import torch.nn.functional as F
 

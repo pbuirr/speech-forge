@@ -1,30 +1,9 @@
-"""
-speech_engine/lexical_fallback.py — Statistical lexical translation fallback.
+"""Word and phrase glosses learned from a parallel corpus.
 
-When the neural model fails (coverage check or entropy gate fires), this
-module provides a word-level gloss derived from a parallel corpus using two
-classical NLP algorithms:
-
-  1. IBM Model 1  (Brown et al., 1993) — EM algorithm that learns P(e|f),
-     the probability that a target word e is a translation of a source word f.
-     Replaces hand-coded bilingual dictionaries: the corpus teaches the lexicon.
-
-  2. PMI phrase extraction — after word alignment, source n-grams that
-     consistently co-occur with a target n-gram (measured by pointwise mutual
-     information) are promoted to a phrase table.
-
-Architecture:
-  - Completely language-agnostic: pass any parallel TSV corpus and language
-    codes; the same code learns ES→EN, FR→EN, DE→EN, etc.
-  - Zero hardcoded translations: all lexical knowledge comes from data.
-  - Loaded once at server startup; translate_literal() is then O(n) in
-    sentence length.
-
-Why IBM Model 1?
-  Unlike a simple frequency table or positional alignment, IBM Model 1 uses
-  the entire bitext to resolve ambiguity. "banco" appears as both "bank" and
-  "bench" in the corpus — Model 1 assigns higher probability to whichever
-  translation appears more consistently across all sentences containing "banco".
+Used when the neural model's output fails coverage or entropy checks. IBM
+Model 1 (Brown et al., 1993) learns word translation probabilities with EM,
+and PMI over aligned n-grams adds a small phrase table. All lexical knowledge
+comes from the corpus, so the same code works for any language pair.
 """
 
 from __future__ import annotations
@@ -40,7 +19,7 @@ from speech_engine.lm import NgramLM
 from speech_engine.morphology import CLOSED_CLASS, INFLECTION_SUFFIXES, POS
 
 
-# ── Curated verb fallback (ES→EN) ─────────────────────────────────────────────
+# Curated verb fallback (ES→EN)
 # Common Spanish infinitives that may be absent from a news-domain IBM2 table
 # (vocab capped at 15k, minimum alignment probability ≥ 0.05).  These cover
 # conversational / language-learning vocabulary that would otherwise surface
@@ -99,7 +78,7 @@ _ES_VERB_FALLBACK: dict[str, str] = {
     "parar": "stop",
 }
 
-# ── Tokenizer ─────────────────────────────────────────────────────────────────
+# Tokenizer
 
 
 def _tokenize(text: str) -> list[str]:
@@ -107,7 +86,7 @@ def _tokenize(text: str) -> list[str]:
     return [w.lower() for w in re.findall(r"\b\w+\b", text, re.UNICODE) if w]
 
 
-# ── Corpus loader ─────────────────────────────────────────────────────────────
+# Corpus loader
 
 
 def _load_pairs(
@@ -140,7 +119,7 @@ def _load_pairs(
     return pairs
 
 
-# ── IBM Model 1 ───────────────────────────────────────────────────────────────
+# IBM Model 1
 
 _NULL = "<NULL>"  # Null alignment token — absorbs source words with no clean match
 
@@ -331,7 +310,7 @@ def _best_translations(
     return result
 
 
-# ── PMI phrase extraction ─────────────────────────────────────────────────────
+# PMI phrase extraction
 
 
 def _extract_phrase_pairs(
@@ -419,7 +398,7 @@ def _extract_phrase_pairs(
     return {k: v[0] for k, v in phrase_table.items()}
 
 
-# ── Core class ────────────────────────────────────────────────────────────────
+# Core class
 
 
 class LexicalFallback:
@@ -888,7 +867,7 @@ class LexicalFallback:
         return result[0].upper() + result[1:] if result else result
 
 
-# ── Disk cache helpers ────────────────────────────────────────────────────────
+# Disk cache helpers
 
 
 def _build_lm(pairs: list[tuple[list[str], list[str]]]) -> NgramLM:
@@ -916,7 +895,7 @@ def _cache_path(src_lang: str, tgt_lang: str, sig: str) -> Path:
     return root / f"ibm1_{src_lang}_{tgt_lang}_{sig}.pkl"
 
 
-# ── Per-language-pair cache ───────────────────────────────────────────────────
+# Per-language-pair cache
 
 _fallback_cache: dict[str, LexicalFallback] = {}
 

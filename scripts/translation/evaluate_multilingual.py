@@ -1,17 +1,12 @@
-"""
-scripts/translation/evaluate_multilingual.py — BLEU evaluation for the Phase 9 multilingual checkpoint.
+"""BLEU for the multilingual ES/FR/DE→EN checkpoint, per language and combined.
 
-Evaluates ES→EN, FR→EN, DE→EN independently and combined, using the same
-language-token + encode_pair() scheme as phase8_multilingual_train.py.
-
-Also audits filtered corpora for data-fusion rows (source/target fused with no
-tab separator, or single-column rows that slipped through).
+Also checks the filtered corpora for rows where source and target were fused.
 
 Usage:
-    .venv/bin/python3 scripts/translation/evaluate_multilingual.py
-    .venv/bin/python3 scripts/translation/evaluate_multilingual.py --checkpoint data/models/nmt_multilingual_16k_ep100.pt
-    .venv/bin/python3 scripts/translation/evaluate_multilingual.py --n 200 --beam 4
-    .venv/bin/python3 scripts/translation/evaluate_multilingual.py --audit_only
+    python scripts/translation/evaluate_multilingual.py
+    python scripts/translation/evaluate_multilingual.py --checkpoint data/models/nmt_multilingual_16k_ep100.pt
+    python scripts/translation/evaluate_multilingual.py --n 200 --beam 4
+    python scripts/translation/evaluate_multilingual.py --audit_only
 """
 
 from __future__ import annotations
@@ -50,7 +45,7 @@ CORPORA: dict[str, Path] = {
 EVAL_SEED = 99
 
 
-# ── Data-fusion audit ─────────────────────────────────────────────────────────
+# Data-fusion audit
 
 
 def audit_corpus(path: Path) -> dict:
@@ -94,7 +89,7 @@ def audit_corpus(path: Path) -> dict:
     }
 
 
-# ── Encoding ──────────────────────────────────────────────────────────────────
+# Encoding
 
 
 def encode_src(lang: str, src: str, vocab: BPEVocab) -> list[int]:
@@ -103,7 +98,7 @@ def encode_src(lang: str, src: str, vocab: BPEVocab) -> list[int]:
     return [lang_id] + vocab.encode(src, add_bos=True, add_eos=True)
 
 
-# ── Corpus loading ────────────────────────────────────────────────────────────
+# Corpus loading
 
 
 def load_test_pairs(
@@ -130,7 +125,7 @@ def load_test_pairs(
     return pairs[:n]
 
 
-# ── Per-language BLEU eval ────────────────────────────────────────────────────
+# Per-language BLEU eval
 
 
 def eval_language(
@@ -191,7 +186,7 @@ def eval_language(
     }
 
 
-# ── Main ─────────────────────────────────────────────────────────────────────
+# Main
 
 
 def parse_args() -> argparse.Namespace:
@@ -215,7 +210,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    # ── Corpus audit ─────────────────────────────────────────────────────────
+    # Corpus audit
     print("\n── Corpus audit ──────────────────────────────────────────────────────")
     audit_results = {}
     for lang, path in CORPORA.items():
@@ -236,7 +231,7 @@ def main() -> None:
         print(json.dumps({"audit": audit_results}, indent=2, ensure_ascii=False))
         return
 
-    # ── Device ───────────────────────────────────────────────────────────────
+    # Device
     if not args.no_mps and torch.backends.mps.is_available():
         device = torch.device("mps")
         print("\nUsing MPS (Apple Silicon GPU)")
@@ -247,7 +242,7 @@ def main() -> None:
         device = torch.device("cpu")
         print("\nUsing CPU")
 
-    # ── Load checkpoint ───────────────────────────────────────────────────────
+    # Load checkpoint
     print(f"\nLoading checkpoint: {args.checkpoint}")
     model, vocab, _, meta = load_checkpoint(args.checkpoint)
     model = model.to(device)
@@ -260,7 +255,7 @@ def main() -> None:
         if tid is None:
             print(f"  ERROR: {tok} missing from vocab — cannot evaluate {lang.upper()}")
 
-    # ── Per-language evaluation ───────────────────────────────────────────────
+    # Per-language evaluation
     print(f"\n── BLEU evaluation  (n={args.n} per lang, beam={args.beam}) ──────────")
     lang_results: dict[str, dict] = {}
     all_hyps: list[str] = []
@@ -292,7 +287,7 @@ def main() -> None:
         )
     print(f"  Combined:     BLEU {combined['bleu']:5.2f}  ({len(all_hyps):,} sentences)")
 
-    # ── Save report ───────────────────────────────────────────────────────────
+    # Save report
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     # Strip raw hypotheses/references before saving — samples cover the qualitative view

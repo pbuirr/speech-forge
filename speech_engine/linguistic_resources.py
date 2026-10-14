@@ -1,8 +1,8 @@
-"""Corpus-attested lexical analyses with provenance and explicit ambiguity.
+"""Lexical resources compiled from CoNLL-U treebanks.
 
-CoNLL-U supplies observed lemmas, UPOS, and features, not morpheme boundaries.
-This module does not parse new sentences or establish grammatical truth. It
-indexes annotations and preserves all distinct interpretations of each form.
+Indexes each attested form's lemma, UPOS and features, with provenance and
+every distinct analysis kept. CoNLL-U has no morpheme boundaries, so none are
+derived.
 """
 
 from __future__ import annotations

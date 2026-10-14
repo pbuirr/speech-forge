@@ -1,4 +1,4 @@
-"""Held-out evaluation of corpus lookup, separating coverage from correctness."""
+"""Held-out evaluation of corpus lookups, reporting coverage and accuracy separately."""
 
 from __future__ import annotations
 

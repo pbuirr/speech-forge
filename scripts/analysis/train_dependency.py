@@ -1,4 +1,4 @@
-"""Train the original parser locally from validated dependency trees."""
+"""Train the dependency parser on UD treebanks."""
 
 import argparse
 from hashlib import sha256

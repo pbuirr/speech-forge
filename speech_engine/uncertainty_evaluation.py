@@ -1,4 +1,4 @@
-"""Held-out POS reliability evaluation without changing the analyzer's decisions."""
+"""Held-out evaluation of POS confidence: calibration and selective accuracy."""
 
 from hashlib import sha256
 import json

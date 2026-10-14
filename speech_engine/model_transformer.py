@@ -1,45 +1,11 @@
-"""
-speech_engine/model_transformer.py — Transformer encoder-decoder ASR model.
+"""Transformer encoder–decoder speech recognizer.
 
-This is Phase 4 of LinguaForge. It replaces Phase 3's BiLSTM stack with a
-Transformer encoder-decoder, following the architecture of Whisper but built
-entirely from our own components.
+    mel → ConvEncoder (from model_ctc) → TransformerEncoder → memory
+    tokens → embeddings + learned positions → TransformerDecoder(memory) → logits
 
-Architecture:
-    ┌─────────────────────────────────────────────────────────────┐
-    │  ConvEncoder  (reused from Phase 3)                         │
-    │  mel (B,80,T) → (B, T//2, d_model)                         │
-    └────────────────────────┬────────────────────────────────────┘
-                             │
-    ┌────────────────────────▼────────────────────────────────────┐
-    │  TransformerEncoder                                         │
-    │  SinusoidalEncoding + N × (self-attn + FFN)                │
-    │  → memory (B, T//2, d_model)                               │
-    └────────────────────────┬────────────────────────────────────┘
-                             │  cross-attention
-    ┌────────────────────────▼────────────────────────────────────┐
-    │  TransformerDecoder                                         │
-    │  TokenEmb + LearnedPosEmb + N × (self-attn + xattn + FFN) │
-    │  tgt_ids (B,L) → logits (B, L, vocab_size)                 │
-    └─────────────────────────────────────────────────────────────┘
-
-Training (teacher forcing):
-    decoder input:  [BOS, c1, c2, ..., cn]    (length L)
-    decoder target: [c1, c2, ..., cn, EOS]    (length L)
-    loss: CrossEntropyLoss(logits, target, ignore_index=PAD_ID)
-
-Inference (auto-regressive greedy):
-    start with [BOS]
-    repeat: feed current sequence → take argmax of last logit → append
-    stop when EOS generated or max_len reached
-
-Pre-norm vs post-norm:
-    We use pre-norm (LayerNorm before each sublayer, like Whisper/GPT-2 style):
-        x = x + sublayer(norm(x))
-    vs post-norm (original Transformer, "Attention Is All You Need"):
-        x = norm(x + sublayer(x))
-    Pre-norm is more stable at higher learning rates and doesn't require
-    careful warmup tuning.
+Pre-norm residual blocks (x + sublayer(norm(x))). Trained with teacher
+forcing: input [BOS, c1..cn], target [c1..cn, EOS]. ``generate`` decodes
+greedily until EOS or max length.
 """
 
 from __future__ import annotations
@@ -56,7 +22,7 @@ from speech_engine.positional_encoding import LearnedPositionalEmbedding, Sinuso
 from speech_engine.tokenizer import BOS_ID, EOS_ID, PAD_ID
 
 
-# ── Mask helpers ──────────────────────────────────────────────────────────────
+# Mask helpers
 
 
 def make_causal_mask(T: int, device: torch.device) -> torch.Tensor:
@@ -78,15 +44,11 @@ def make_padding_mask(lengths: torch.Tensor, max_len: int) -> torch.Tensor:
     return (arange < lengths.unsqueeze(1)).unsqueeze(1).unsqueeze(2)  # (B, 1, 1, max_len)
 
 
-# ── Building blocks ───────────────────────────────────────────────────────────
+# Building blocks
 
 
 class FeedForward(nn.Module):
-    """Position-wise FFN: Linear(d_model→d_ff) → GELU → Linear(d_ff→d_model).
-
-    Applied independently to each position after the attention sublayer.
-    d_ff is typically 4× d_model (e.g. d_model=256, d_ff=1024).
-    """
+    """Position-wise feed-forward block: Linear(d_model→d_ff) → GELU → Linear(d_ff→d_model)."""
 
     def __init__(self, d_model: int, d_ff: int, dropout: float = 0.1) -> None:
         super().__init__()
@@ -169,7 +131,7 @@ class TransformerDecoderLayer(nn.Module):
         return x
 
 
-# ── Encoder and Decoder stacks ────────────────────────────────────────────────
+# Encoder and Decoder stacks
 
 
 class TransformerEncoder(nn.Module):
@@ -260,36 +222,28 @@ class TransformerDecoder(nn.Module):
         return x
 
 
-# ── Full model ────────────────────────────────────────────────────────────────
+# Full model
 
 
 class TransformerASR(nn.Module):
-    """LinguaForge Phase 4: Transformer encoder-decoder ASR model.
+    """Transformer encoder–decoder speech recognizer.
 
-    Combines:
-      - ConvEncoder from Phase 3 (CNN frontend for spectrograms)
-      - Transformer encoder (self-attention over audio frames)
-      - Transformer decoder (auto-regressive token generation)
+    ConvEncoder frontend, Transformer encoder over audio frames and an
+    autoregressive Transformer decoder. Trained with cross-entropy on shifted
+    targets (see ``train_transformer.py``); ``generate`` decodes greedily.
 
     Args:
-        vocab_size:      number of output tokens (from CharTokenizer.vocab_size)
-        n_mels:          mel bins (must match features.py N_MELS = 80)
-        d_model:         Transformer hidden dimension
-        n_heads:         number of attention heads (must divide d_model)
-        d_ff:            FFN inner dimension (typically 4 × d_model)
-        n_enc_layers:    Transformer encoder depth
-        n_dec_layers:    Transformer decoder depth
-        cnn_channels:    ConvEncoder channel counts per block
-        dropout:         dropout throughout
-        max_source_len:  max encoder output frames (1500 = 30s at 20ms/frame)
+        vocab_size:      number of output tokens (CharTokenizer.vocab_size)
+        n_mels:          Mel bins (must match features.N_MELS)
+        d_model:         hidden size
+        n_heads:         attention heads (must divide d_model)
+        d_ff:            feed-forward inner size
+        n_enc_layers:    encoder depth
+        n_dec_layers:    decoder depth
+        cnn_channels:    ConvEncoder channels per block
+        dropout:         dropout probability
+        max_source_len:  max encoder frames (1500 = 30 s at 20 ms per frame)
         max_target_len:  max decoder steps
-
-    Training loss:
-        nn.CrossEntropyLoss with ignore_index=PAD_ID applied to shifted targets.
-        See train_transformer.py.
-
-    Inference:
-        Use model.generate(mel) for greedy decoding.
     """
 
     def __init__(
@@ -361,7 +315,7 @@ class TransformerASR(nn.Module):
                     nn.init.zeros_(m.bias)
         # Token embedding already initialised to N(0, 0.02) in TransformerDecoder.__init__
 
-    # ── Encode / decode as separate steps ─────────────────────────────────────
+    # Encode / decode as separate steps
 
     def encode(
         self,
@@ -400,7 +354,7 @@ class TransformerASR(nn.Module):
         dec_out = self.decoder(tgt_ids, memory, tgt_mask=causal_mask, memory_mask=memory_mask)
         return self.output_proj(dec_out)  # (B, L, vocab_size)
 
-    # ── Full forward (teacher forcing) ────────────────────────────────────────
+    # Full forward (teacher forcing)
 
     def forward(
         self,
@@ -422,7 +376,7 @@ class TransformerASR(nn.Module):
         memory, memory_mask = self.encode(mel, mel_lengths)
         return self.decode(tgt_ids, memory, memory_mask)
 
-    # ── Auto-regressive inference ──────────────────────────────────────────────
+    # Auto-regressive inference
 
     @torch.no_grad()
     def generate(
@@ -469,7 +423,7 @@ class TransformerASR(nn.Module):
 
         return generated
 
-    # ── Utilities ─────────────────────────────────────────────────────────────
+    # Utilities
 
     def _enc_lengths(self, mel_lengths: torch.Tensor) -> torch.Tensor:
         return torch.tensor(

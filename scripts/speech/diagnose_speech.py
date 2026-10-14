@@ -1,4 +1,4 @@
-"""Training-only acoustic normalization audit; development chooses alternatives."""
+"""Compare acoustic normalisation options on training data before trying them on dev."""
 
 from pathlib import Path
 import sys, json, copy, time, hashlib

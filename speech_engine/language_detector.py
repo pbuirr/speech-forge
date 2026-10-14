@@ -1,51 +1,13 @@
-"""
-speech_engine/language_detector.py — Language and dialect detection, from scratch.
+"""Language and dialect identification from Unicode scripts and character statistics.
 
-Covers 170+ languages and 60+ dialect variants.  No pretrained models, no external
-databases.  The detector is purely statistical and rule-based, built entirely from
-Unicode properties and linguistic knowledge.
+1. Script detection: maps characters to Unicode scripts; scripts used by a
+   single language (Thai, Georgian, Hangul, ...) decide it directly.
+2. Language scoring within a script: distinctive characters, frequent
+   n-grams and negative markers.
+3. Dialect markers for the top language: spelling (colour/color) and
+   vocabulary (vosotros/ustedes).
 
-Detection pipeline (three layers, each narrows candidates):
-
-  1. Script detection
-       Maps every character to its Unicode script block.  Immediately
-       identifies languages that use unique scripts (Thai, Georgian, Armenian,
-       Ethiopic, Khmer, …).  For multi-script inputs it returns a distribution.
-
-  2. Language scoring
-       Within a script family, each language has:
-         • Unique characters that appear almost nowhere else (ß → German, ñ → Spanish)
-         • High-frequency n-grams from known statistics
-         • Negative markers (characters absent from this language but present in others)
-       Combined into a score with confidence.
-
-  3. Dialect detection
-       Given the top language candidate, applies a second layer of markers:
-         • Orthographic conventions  (colour/color, realise/realize)
-         • Vocabulary markers        (vosotros/ustedes, você/tu)
-         • Phonological spellings    (gonna/gotta in informal en-US)
-         • Country-specific loanwords
-       Returns the most likely regional variant.
-
-Usage::
-
-    detector = LanguageDetector()
-    result = detector.detect("Bonjour, comment allez-vous ?")
-    print(result.language)       # "fr"
-    print(result.dialect)        # "fr-FR"
-    print(result.script)         # "Latin"
-    print(result.confidence)     # 0.94
-    print(result.top)            # [("fr", 0.94), ("it", 0.31), ("es", 0.28)]
-
-    # Dialect-first detection
-    result = detector.detect("gonna grab some chips from the store, y'all")
-    print(result.dialect)  # "en-US-Southern"
-
-Training your own profiles (improves accuracy with real data)::
-
-    detector.fit("This is an English text.", "en")
-    detector.fit("Ceci est un texte français.", "fr")
-    detector.save("profiles.json")
+The rules are hand-written and unreliable on very short text.
 """
 
 from __future__ import annotations
@@ -58,10 +20,8 @@ from pathlib import Path
 from typing import Optional
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Unicode script ranges
 #  Each tuple: (start_codepoint, end_codepoint, script_name)
-# ══════════════════════════════════════════════════════════════════════════════
 
 SCRIPT_RANGES: list[tuple[int, int, str]] = [
     # Latin
@@ -245,10 +205,8 @@ def codepoint_to_script(cp: int) -> str:
     return "Unknown"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Language database
 #  Covers 170+ languages with unique character signatures and dialect markers
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 @dataclass
@@ -273,7 +231,7 @@ class LangDef:
 
 # Core language database: ISO 639-1 codes + BCP 47 dialect codes
 LANG_DB: dict[str, LangDef] = {
-    # ── English ──────────────────────────────────────────────────────────────
+    # English
     "en": LangDef(
         "English",
         "Latin",
@@ -461,7 +419,7 @@ LANG_DB: dict[str, LangDef] = {
             "kiwi",
         ],
     ),
-    # ── Spanish ──────────────────────────────────────────────────────────────
+    # Spanish
     # ¿ and ¡ are orthographically unique to Spanish — no other major language uses them.
     "es": LangDef(
         "Spanish",
@@ -615,7 +573,7 @@ LANG_DB: dict[str, LangDef] = {
         dialect_of="es",
         dialect_markers=["chamo", "chevere", "coño", "pana", "vaina", "arrechos"],
     ),
-    # ── Portuguese ───────────────────────────────────────────────────────────
+    # Portuguese
     "pt": LangDef(
         "Portuguese",
         "Latin",
@@ -664,7 +622,7 @@ LANG_DB: dict[str, LangDef] = {
         dialect_of="pt",
         dialect_markers=["kamba", "ganda", "marimbondo", "funge"],
     ),
-    # ── French ───────────────────────────────────────────────────────────────
+    # French
     "fr": LangDef(
         "French",
         "Latin",
@@ -758,7 +716,7 @@ LANG_DB: dict[str, LangDef] = {
         dialect_of="fr",
         dialect_markers=["septante", "huitante", "nonante", "panosse", "cornet"],
     ),
-    # ── Italian ──────────────────────────────────────────────────────────────
+    # Italian
     "it": LangDef(
         "Italian",
         "Latin",
@@ -768,7 +726,7 @@ LANG_DB: dict[str, LangDef] = {
     ),
     "it-IT": LangDef("Italian (Italy)", "Latin", dialect_of="it"),
     "it-CH": LangDef("Italian (Switzerland)", "Latin", dialect_of="it"),
-    # ── Romanian ─────────────────────────────────────────────────────────────
+    # Romanian
     "ro": LangDef(
         "Romanian",
         "Latin",
@@ -776,7 +734,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="de la cu în că și pentru",
         word_markers=["că", "de", "la", "cu", "în", "și", "este", "nu"],
     ),
-    # ── German ───────────────────────────────────────────────────────────────
+    # German
     "de": LangDef(
         "German",
         "Latin",
@@ -848,7 +806,7 @@ LANG_DB: dict[str, LangDef] = {
             "znüni",
         ],
     ),
-    # ── Dutch / Flemish ──────────────────────────────────────────────────────
+    # Dutch / Flemish
     "nl": LangDef(
         "Dutch",
         "Latin",
@@ -862,7 +820,7 @@ LANG_DB: dict[str, LangDef] = {
         dialect_of="nl",
         dialect_markers=["allez", "gij", "ge", "gjij", "voetbal", "frietjes"],
     ),
-    # ── Swedish ──────────────────────────────────────────────────────────────
+    # Swedish
     "sv": LangDef(
         "Swedish",
         "Latin",
@@ -871,7 +829,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="att och det är för den till av inte",
         word_markers=["att", "och", "det", "är", "för", "den", "till", "av", "inte"],
     ),
-    # ── Norwegian ────────────────────────────────────────────────────────────
+    # Norwegian
     "nb": LangDef(
         "Norwegian Bokmål",
         "Latin",
@@ -886,7 +844,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="og er at det i til for ikkje den",
         word_markers=["og", "er", "at", "det", "til", "for", "ikkje", "dei", "me"],
     ),
-    # ── Danish ───────────────────────────────────────────────────────────────
+    # Danish
     "da": LangDef(
         "Danish",
         "Latin",
@@ -894,7 +852,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="og er at det i til for ikke den",
         word_markers=["og", "er", "at", "det", "til", "for", "ikke", "den", "en"],
     ),
-    # ── Finnish ──────────────────────────────────────────────────────────────
+    # Finnish
     "fi": LangDef(
         "Finnish",
         "Latin",
@@ -903,7 +861,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="on ja että ei olla se kun kuin jonka",
         word_markers=["on", "ja", "että", "ei", "olla", "se", "kun", "olen", "kuin", "jonka"],
     ),
-    # ── Estonian ─────────────────────────────────────────────────────────────
+    # Estonian
     "et": LangDef(
         "Estonian",
         "Latin",
@@ -912,7 +870,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="ja on et ei ole",
         word_markers=["ja", "on", "et", "ei", "ole", "ning"],
     ),
-    # ── Latvian ──────────────────────────────────────────────────────────────
+    # Latvian
     "lv": LangDef(
         "Latvian",
         "Latin",
@@ -920,7 +878,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="ir un ka no arī",
         word_markers=["ir", "un", "ka", "no", "arī", "viņš"],
     ),
-    # ── Lithuanian ───────────────────────────────────────────────────────────
+    # Lithuanian
     "lt": LangDef(
         "Lithuanian",
         "Latin",
@@ -928,7 +886,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="ir kad ne bet jis",
         word_markers=["ir", "kad", "ne", "bet", "jis", "yra", "kaip"],
     ),
-    # ── Polish ───────────────────────────────────────────────────────────────
+    # Polish
     "pl": LangDef(
         "Polish",
         "Latin",
@@ -936,7 +894,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="że jest się nie jak na",
         word_markers=["że", "jest", "się", "nie", "jak", "na", "do", "to", "w"],
     ),
-    # ── Czech ────────────────────────────────────────────────────────────────
+    # Czech
     "cs": LangDef(
         "Czech",
         "Latin",
@@ -945,7 +903,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="je a se ne na to",
         word_markers=["je", "a", "se", "ne", "na", "to", "bylo", "jako", "jsem"],
     ),
-    # ── Slovak ───────────────────────────────────────────────────────────────
+    # Slovak
     "sk": LangDef(
         "Slovak",
         "Latin",
@@ -954,7 +912,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="je a sa nie na to",
         word_markers=["je", "a", "sa", "nie", "na", "to", "ako", "som"],
     ),
-    # ── Hungarian ────────────────────────────────────────────────────────────
+    # Hungarian
     "hu": LangDef(
         "Hungarian",
         "Latin",
@@ -963,7 +921,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="és az hogy nem a",
         word_markers=["és", "az", "hogy", "nem", "egy", "van", "is", "de"],
     ),
-    # ── Croatian ─────────────────────────────────────────────────────────────
+    # Croatian
     "hr": LangDef(
         "Croatian",
         "Latin",
@@ -972,7 +930,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="je i se da ne",
         word_markers=["je", "i", "se", "da", "ne", "su", "koja", "koji", "kao"],
     ),
-    # ── Serbian (Latin) ──────────────────────────────────────────────────────
+    # Serbian (Latin)
     "sr-Latn": LangDef(
         "Serbian (Latin)",
         "Latin",
@@ -981,7 +939,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="je i se da ne",
         word_markers=["je", "i", "se", "da", "ne", "su", "koja", "koji"],
     ),
-    # ── Bosnian ──────────────────────────────────────────────────────────────
+    # Bosnian
     "bs": LangDef(
         "Bosnian",
         "Latin",
@@ -989,7 +947,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="je i se da ne",
         word_markers=["je", "i", "se", "da", "ne", "su", "koji", "kao"],
     ),
-    # ── Slovenian ────────────────────────────────────────────────────────────
+    # Slovenian
     "sl": LangDef(
         "Slovenian",
         "Latin",
@@ -997,7 +955,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="je in se da ne",
         word_markers=["je", "in", "se", "da", "ne", "so", "ki", "pa", "ter"],
     ),
-    # ── Albanian ─────────────────────────────────────────────────────────────
+    # Albanian
     "sq": LangDef(
         "Albanian",
         "Latin",
@@ -1005,7 +963,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="dhe është se për me",
         word_markers=["dhe", "është", "se", "për", "me", "në", "jo", "po", "si"],
     ),
-    # ── Catalan ──────────────────────────────────────────────────────────────
+    # Catalan
     "ca": LangDef(
         "Catalan",
         "Latin",
@@ -1014,7 +972,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="de la el que en",
         word_markers=["que", "de", "la", "el", "en", "és", "per", "les", "dels"],
     ),
-    # ── Galician ─────────────────────────────────────────────────────────────
+    # Galician
     "gl": LangDef(
         "Galician",
         "Latin",
@@ -1022,7 +980,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="de o a que en",
         word_markers=["que", "de", "o", "a", "en", "é", "non", "un", "os", "as"],
     ),
-    # ── Basque ───────────────────────────────────────────────────────────────
+    # Basque
     "eu": LangDef(
         "Basque",
         "Latin",
@@ -1030,7 +988,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="eta da ez bat da",
         word_markers=["eta", "da", "ez", "bat", "zara", "naiz", "den", "zer"],
     ),
-    # ── Welsh ────────────────────────────────────────────────────────────────
+    # Welsh
     "cy": LangDef(
         "Welsh",
         "Latin",
@@ -1039,7 +997,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="y yr a ac yn",
         word_markers=["y", "yr", "a", "ac", "yn", "i", "ei", "ai", "yw", "ydy"],
     ),
-    # ── Irish Gaelic ─────────────────────────────────────────────────────────
+    # Irish Gaelic
     "ga": LangDef(
         "Irish Gaelic",
         "Latin",
@@ -1048,7 +1006,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="an na is agus",
         word_markers=["an", "na", "is", "agus", "go", "le", "ní", "den", "tá"],
     ),
-    # ── Scottish Gaelic ──────────────────────────────────────────────────────
+    # Scottish Gaelic
     "gd": LangDef(
         "Scottish Gaelic",
         "Latin",
@@ -1056,7 +1014,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="agus an a tha",
         word_markers=["agus", "an", "a", "tha", "na", "is", "le", "air"],
     ),
-    # ── Turkish ──────────────────────────────────────────────────────────────
+    # Turkish
     "tr": LangDef(
         "Turkish",
         "Latin",
@@ -1067,7 +1025,7 @@ LANG_DB: dict[str, LangDef] = {
     ),
     "tr-TR": LangDef("Turkish (Turkey)", "Latin", dialect_of="tr"),
     "tr-CY": LangDef("Turkish (Cyprus)", "Latin", dialect_of="tr"),
-    # ── Azerbaijani (Latin) ───────────────────────────────────────────────────
+    # Azerbaijani (Latin)
     "az": LangDef(
         "Azerbaijani",
         "Latin",
@@ -1075,7 +1033,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="və bir bu da",
         word_markers=["və", "bir", "bu", "da", "de", "ilə", "olan"],
     ),
-    # ── Uzbek (Latin) ────────────────────────────────────────────────────────
+    # Uzbek (Latin)
     "uz": LangDef(
         "Uzbek (Latin)",
         "Latin",
@@ -1083,7 +1041,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="va bir bu ham",
         word_markers=["va", "bir", "bu", "ham", "uchun", "bilan"],
     ),
-    # ── Maltese ──────────────────────────────────────────────────────────────
+    # Maltese
     "mt": LangDef(
         "Maltese",
         "Latin",
@@ -1092,14 +1050,14 @@ LANG_DB: dict[str, LangDef] = {
         grams="li il u ta",
         word_markers=["li", "il", "u", "ta", "din", "dan", "kif", "mhux"],
     ),
-    # ── Indonesian ───────────────────────────────────────────────────────────
+    # Indonesian
     "id": LangDef(
         "Indonesian",
         "Latin",
         grams="dan yang di ke pada adalah",
         word_markers=["dan", "yang", "di", "ke", "pada", "ini", "itu", "ada", "dengan", "adalah"],
     ),
-    # ── Malay ────────────────────────────────────────────────────────────────
+    # Malay
     "ms": LangDef(
         "Malay",
         "Latin",
@@ -1118,28 +1076,28 @@ LANG_DB: dict[str, LangDef] = {
         dialect_of="ms",
         dialect_markers=["lah", "leh", "lor", "meh", "sia", "shiok", "kiasu"],
     ),
-    # ── Filipino / Tagalog ───────────────────────────────────────────────────
+    # Filipino / Tagalog
     "tl": LangDef(
         "Tagalog/Filipino",
         "Latin",
         grams="ng sa mga at",
         word_markers=["ang", "ng", "sa", "mga", "at", "ay", "na", "ko", "mo"],
     ),
-    # ── Swahili ──────────────────────────────────────────────────────────────
+    # Swahili
     "sw": LangDef(
         "Swahili",
         "Latin",
         grams="na ya wa ku",
         word_markers=["na", "ya", "wa", "ku", "ni", "katika", "kwa", "hii", "hiyo"],
     ),
-    # ── Somali ───────────────────────────────────────────────────────────────
+    # Somali
     "so": LangDef(
         "Somali",
         "Latin",
         grams="iyo oo ka in",
         word_markers=["iyo", "oo", "ka", "in", "waa", "si", "ah", "ee"],
     ),
-    # ── Yoruba ───────────────────────────────────────────────────────────────
+    # Yoruba
     "yo": LangDef(
         "Yoruba",
         "Latin",
@@ -1148,7 +1106,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="ni ti ati fun",
         word_markers=["ni", "ti", "ati", "fun", "jẹ", "ọ", "ó"],
     ),
-    # ── Igbo ─────────────────────────────────────────────────────────────────
+    # Igbo
     "ig": LangDef(
         "Igbo",
         "Latin",
@@ -1157,7 +1115,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="na ya ọ n'",
         word_markers=["na", "ya", "ọ", "bụ", "nke", "ndi"],
     ),
-    # ── Hausa ────────────────────────────────────────────────────────────────
+    # Hausa
     "ha": LangDef(
         "Hausa",
         "Latin",
@@ -1165,21 +1123,21 @@ LANG_DB: dict[str, LangDef] = {
         grams="da na a",
         word_markers=["da", "na", "a", "ba", "don", "sai", "mai"],
     ),
-    # ── Zulu ─────────────────────────────────────────────────────────────────
+    # Zulu
     "zu": LangDef(
         "Zulu",
         "Latin",
         grams="uk' na ngob' uma",
         word_markers=["ukuthi", "nge", "uma", "noma", "futhi", "yebo"],
     ),
-    # ── Afrikaans ────────────────────────────────────────────────────────────
+    # Afrikaans
     "af": LangDef(
         "Afrikaans",
         "Latin",
         grams="die en van is in",
         word_markers=["die", "en", "van", "is", "in", "dat", "nie", "het", "dit"],
     ),
-    # ── Vietnamese ───────────────────────────────────────────────────────────
+    # Vietnamese
     "vi": LangDef(
         "Vietnamese",
         "Latin",
@@ -1188,8 +1146,8 @@ LANG_DB: dict[str, LangDef] = {
         grams="của và để có",
         word_markers=["của", "và", "để", "có", "là", "tôi", "không", "được", "các"],
     ),
-    # ── Yoruba, Igbo (covered above) ─────────────────────────────────────────
-    # ── Esperanto ────────────────────────────────────────────────────────────
+    # Yoruba, Igbo (covered above)
+    # Esperanto
     "eo": LangDef(
         "Esperanto",
         "Latin",
@@ -1197,7 +1155,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="kaj estas en la",
         word_markers=["kaj", "estas", "en", "la", "ne", "de", "al", "mi"],
     ),
-    # ══ Cyrillic script ═══════════════════════════════════════════════════════
+    # Cyrillic script
     # Russian
     "ru": LangDef(
         "Russian",
@@ -1279,7 +1237,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="ва дар ин",
         word_markers=["ва", "дар", "ин", "ба", "ки"],
     ),
-    # ══ Arabic script ═════════════════════════════════════════════════════════
+    # Arabic script
     # Modern Standard Arabic
     "ar": LangDef(
         "Arabic",
@@ -1372,7 +1330,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="و له کہ",
         word_markers=["و", "له", "کہ", "بۆ", "هات", "دا", "ئه"],
     ),
-    # ══ Devanagari script ═════════════════════════════════════════════════════
+    # Devanagari script
     "hi": LangDef(
         "Hindi",
         "Devanagari",
@@ -1401,7 +1359,7 @@ LANG_DB: dict[str, LangDef] = {
     ),
     "kok": LangDef("Konkani", "Devanagari"),
     "mai": LangDef("Maithili", "Devanagari"),
-    # ══ Bengali script ════════════════════════════════════════════════════════
+    # Bengali script
     "bn": LangDef(
         "Bengali",
         "Bengali",
@@ -1415,7 +1373,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="আৰু যে তাৰ",
         word_markers=["আৰু", "যে", "তাৰ", "মই", "তুমি", "এই"],
     ),
-    # ══ Other Indian scripts ═══════════════════════════════════════════════════
+    # Other Indian scripts
     "gu": LangDef(
         "Gujarati",
         "Gujarati",
@@ -1462,7 +1420,7 @@ LANG_DB: dict[str, LangDef] = {
     "si": LangDef(
         "Sinhala", "Sinhala", grams="හා ද නම්", word_markers=["හා", "ද", "නම්", "ගේ", "ය", "ඔහු", "ඈ"]
     ),
-    # ══ East / Southeast Asian ════════════════════════════════════════════════
+    # East / Southeast Asian
     "zh": LangDef(
         "Chinese (Mandarin)",
         "CJK",
@@ -1520,7 +1478,7 @@ LANG_DB: dict[str, LangDef] = {
         grams="នៃ ដែល ក្នុង",
         word_markers=["នៃ", "ដែល", "ក្នុង", "ជា", "ពី", "ទៅ", "មាន"],
     ),
-    # ══ Georgian / Armenian ═══════════════════════════════════════════════════
+    # Georgian / Armenian
     "ka": LangDef(
         "Georgian",
         "Georgian",
@@ -1533,14 +1491,14 @@ LANG_DB: dict[str, LangDef] = {
         grams="ն ի և",
         word_markers=["ն", "ի", "և", "է", "ոչ", "այն", "որ", "մ"],
     ),
-    # ══ Greek ═════════════════════════════════════════════════════════════════
+    # Greek
     "el": LangDef(
         "Greek",
         "Greek",
         grams="και το τα",
         word_markers=["και", "το", "τα", "που", "για", "δεν", "ότι", "αν", "από"],
     ),
-    # ══ Hebrew ════════════════════════════════════════════════════════════════
+    # Hebrew
     "he": LangDef(
         "Hebrew",
         "Hebrew",
@@ -1550,7 +1508,7 @@ LANG_DB: dict[str, LangDef] = {
     "yi": LangDef(
         "Yiddish", "Hebrew", grams="אויף פון", word_markers=["אויף", "פון", "אין", "אוי", "נישט"]
     ),
-    # ══ Ethiopian ══════════════════════════════════════════════════════════════
+    # Ethiopian
     "am": LangDef(
         "Amharic",
         "Ethiopic",
@@ -1561,13 +1519,13 @@ LANG_DB: dict[str, LangDef] = {
     "om": LangDef(
         "Oromo", "Latin", grams="fi kan tti", word_markers=["fi", "kan", "tti", "dha", "moo", "ykn"]
     ),
-    # ══ Tibetan ════════════════════════════════════════════════════════════════
+    # Tibetan
     "bo": LangDef(
         "Tibetan", "Tibetan", grams="དང་ ལ་ ཀྱི་", word_markers=["དང་", "ལ་", "ཀྱི་", "ནི་", "ལས་", "ཡིན"]
     ),
-    # ══ Mongolian ══════════════════════════════════════════════════════════════
+    # Mongolian
     # (Cyrillic form covered above)
-    # ══ Other ══════════════════════════════════════════════════════════════════
+    # Other
     "tpi": LangDef(
         "Tok Pisin (Papua New Guinea)",
         "Latin",
@@ -1639,14 +1597,12 @@ for code, defn in LANG_DB.items():
 _NO_SPACE_SCRIPTS = {"CJK", "Hiragana", "Katakana", "Thai", "Lao", "Myanmar", "Khmer"}
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Dialect markers registry (for post-detection dialect refinement)
-# ══════════════════════════════════════════════════════════════════════════════
 
 # Patterns specifically diagnostic for dialect/sub-variety detection.
 # Keyed by BCP 47 dialect code. Values are (regex_pattern, weight).
 DIALECT_PATTERNS: dict[str, list[tuple[str, float]]] = {
-    # ── English ──────────────────────────────────────────────────────────────
+    # English
     "en-US": [
         (r"\bcolor\b", 1.0),
         (r"\bhonor\b", 1.0),
@@ -1726,7 +1682,7 @@ DIALECT_PATTERNS: dict[str, list[tuple[str, float]]] = {
         (r"\bchemist shop\b", 1.5),
         (r"\bairport only\b", 1.0),
     ],
-    # ── Spanish dialects ──────────────────────────────────────────────────────
+    # Spanish dialects
     "es-ES": [
         (r"\bvosotros\b", 2.0),
         (r"\bos\b", 0.8),
@@ -1763,7 +1719,7 @@ DIALECT_PATTERNS: dict[str, list[tuple[str, float]]] = {
         (r"\bantro\b", 1.5),
         (r"\bchamba\b", 1.5),
     ],
-    # ── Portuguese dialects ───────────────────────────────────────────────────
+    # Portuguese dialects
     "pt-BR": [
         (r"\bvocê\b", 1.0),
         (r"\ba gente\b", 1.5),
@@ -1785,7 +1741,7 @@ DIALECT_PATTERNS: dict[str, list[tuple[str, float]]] = {
         (r"\bpronto\b", 0.8),
         (r"\bdescansado\b", 0.5),
     ],
-    # ── French dialects ───────────────────────────────────────────────────────
+    # French dialects
     "fr-CA": [
         (r"\btabernac\b", 2.0),
         (r"\bostie\b", 2.0),
@@ -1804,7 +1760,7 @@ DIALECT_PATTERNS: dict[str, list[tuple[str, float]]] = {
         (r"\bkot\b", 2.0),
         (r"\bpanosse\b", 2.0),
     ],
-    # ── Arabic dialects ───────────────────────────────────────────────────────
+    # Arabic dialects
     "ar-EG": [
         (r"إيه", 2.0),
         (r"ازيك", 2.0),
@@ -1830,7 +1786,7 @@ DIALECT_PATTERNS: dict[str, list[tuple[str, float]]] = {
         (r"منيح", 2.0),
         (r"هيك", 1.5),
     ],
-    # ── Chinese dialects ──────────────────────────────────────────────────────
+    # Chinese dialects
     "yue": [  # Cantonese
         (r"嘅", 3.0),
         (r"係", 2.0),
@@ -1864,7 +1820,7 @@ DIALECT_PATTERNS: dict[str, list[tuple[str, float]]] = {
         (r"样", 1.0),
         (r"国", 1.0),
     ],
-    # ── Norwegian ─────────────────────────────────────────────────────────────
+    # Norwegian
     "nb": [
         (r"\bikke\b", 1.5),
         (r"\bojeg\b", 0.5),
@@ -1880,7 +1836,7 @@ DIALECT_PATTERNS: dict[str, list[tuple[str, float]]] = {
         (r"\bkjem\b", 1.5),
         (r"\bfår\b", 1.0),
     ],
-    # ── South Asian (dialect sub-types) ──────────────────────────────────────
+    # South Asian (dialect sub-types)
     "fa-AF": [
         (r"هستم", 2.0),
         (r"استم", 2.0),
@@ -1889,9 +1845,7 @@ DIALECT_PATTERNS: dict[str, list[tuple[str, float]]] = {
 }
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Result dataclasses
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 @dataclass
@@ -1924,9 +1878,7 @@ class DetectionResult:
     is_mixed: bool  # True if multiple scripts detected
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Core detector
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class LanguageDetector:
@@ -1954,7 +1906,7 @@ class LanguageDetector:
         for code, patterns in DIALECT_PATTERNS.items():
             self._dialect_re[code] = [(re.compile(pat, re.IGNORECASE), w) for pat, w in patterns]
 
-    # ── Public API ────────────────────────────────────────────────────────────
+    # Public API
 
     def detect_script(self, text: str) -> ScriptInfo:
         """Identify the Unicode scripts present in this text."""
@@ -2089,7 +2041,7 @@ class LanguageDetector:
         data = json.loads(Path(path).read_text())
         self._trigram_profiles = {k: Counter(v) for k, v in data.items()}
 
-    # ── Internal ─────────────────────────────────────────────────────────────
+    # Internal
 
     def _get_candidates(
         self,

@@ -1,4 +1,4 @@
-"""Mixed-corpus adaptation with conservative speaker and prompt-disjoint splits."""
+"""Build train/dev/test manifests mixing LibriSpeech and SLR83, split by speaker and prompt."""
 
 from collections import Counter
 import csv

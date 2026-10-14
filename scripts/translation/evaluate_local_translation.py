@@ -1,4 +1,4 @@
-"""Measure original NMT with the same source boundaries/preprocessing as the app."""
+"""Evaluate an NMT checkpoint using the same sentence splitting and preprocessing as the web app."""
 
 from __future__ import annotations
 import argparse

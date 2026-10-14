@@ -1,4 +1,4 @@
-"""Evaluate corpus-derived form links on held-out gold word boundaries."""
+"""Evaluate lemma/POS form links against gold UD annotations."""
 
 import argparse
 from hashlib import sha256

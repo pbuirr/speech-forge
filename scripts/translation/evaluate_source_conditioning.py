@@ -1,4 +1,4 @@
-"""Evaluate source sensitivity on explicit linguistic contrasts, without confidence claims."""
+"""Check whether translations change when the source changes, on minimal-pair contrasts."""
 
 from __future__ import annotations
 import argparse, hashlib, json, sys

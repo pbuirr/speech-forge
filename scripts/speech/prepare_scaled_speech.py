@@ -1,4 +1,4 @@
-"""Join official training audio with existing dialect supervision; freeze evaluation."""
+"""Build the large training manifest from LibriSpeech train-clean-100/360 plus the dialect data, keeping dev and test fixed."""
 
 from collections import Counter
 import argparse

@@ -1,19 +1,10 @@
-"""
-webapp/server.py — LinguaForge local web demo
+"""Local web app for LinguaForge.
 
-A small hand-rolled HTTP server — stdlib `http.server` only, no Flask/
-FastAPI/Django — exposing the speech_engine's language detector, grammar
-checker, morphology engine, and flashcard/SRS system as a JSON API, with
-a single static HTML page as the frontend (vanilla JS, no build step,
-no frontend framework).
+A standard-library HTTP server (``http.server``) that exposes language
+detection, analysis, grammar checks, translation, speech recognition and
+flashcards as a JSON API, plus a single static page with plain JavaScript.
 
-This keeps the "from scratch" philosophy consistent through the web
-layer too: every line here is either stdlib or a call into the engines
-already built in earlier phases.
-
-Run:
-    .venv/bin/python3 webapp/server.py
-Then open http://127.0.0.1:8765 in a browser.
+    python webapp/server.py      # then open http://127.0.0.1:8765
 """
 
 from __future__ import annotations
@@ -189,7 +180,7 @@ _STATIC_TYPES = {
 
 
 class Handler(BaseHTTPRequestHandler):
-    # ── helpers ──────────────────────────────────────────────────────────────
+    # helpers
 
     def _send_json(self, obj, status: int = 200) -> None:
         body = json.dumps(obj, ensure_ascii=False).encode("utf-8")
@@ -219,7 +210,7 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args) -> None:  # quiet the default access log
         pass
 
-    # ── routing ──────────────────────────────────────────────────────────────
+    # routing
 
     def do_GET(self) -> None:
         path = urlparse(self.path).path
@@ -306,7 +297,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_json({"error": str(e)}, 500)
 
 
-# ── POST endpoint implementations ────────────────────────────────────────────
+# POST endpoint implementations
 
 
 def _detect(self: Handler, data: dict) -> None:
@@ -658,7 +649,7 @@ def _translate(self: Handler, data: dict) -> None:
     src_lang = direction.split("→")[0]
     is_multi = _uses_multilingual_nmt(direction)
 
-    # ── Linguistic preprocessing ─────────────────────────────────────────────
+    # Linguistic preprocessing
     if direction == "es→en":
         prep = normalize_es_input(text)
         normalized_text = prep.normalized
@@ -691,7 +682,7 @@ def _translate(self: Handler, data: dict) -> None:
         )
     src_tensor = torch.tensor([src_ids], dtype=torch.long, device=device)
 
-    # ── Translation + attention in one shot ─────────────────────────────────
+    # Translation + attention in one shot
     attn_result = model.translate_with_attention(src_tensor, beam_size=beam)
     out_ids = attn_result["out_ids"]
     attn_mat = attn_result["attention"]  # (T_out, T_src) floats
@@ -706,7 +697,7 @@ def _translate(self: Handler, data: dict) -> None:
     # Target tokens aligned with the attention rows
     tgt_tokens = [tgt_vocab._id_to_token.get(i, "?") for i in out_ids]
 
-    # ── Post-processing ──────────────────────────────────────────────────────
+    # Post-processing
     translation = postprocess_en_output(translation)
 
     coverage_warnings: list[str] = []

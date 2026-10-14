@@ -1,26 +1,14 @@
-"""
-scripts/demos/translation.py — Phase 7: Neural Machine Translation demo.
+"""Demo: train a small Spanish→English Transformer on 80 built-in sentence pairs.
 
-Trains a from-scratch Transformer seq2seq model on a small built-in Spanish→English
-parallel corpus, then translates a held-out test set.
-
-What this demonstrates:
-  - BPEVocab.train()  — learns subword merges from the corpus
-  - Seq2SeqNMT        — Transformer encoder-decoder (reuses Phase 4 building blocks)
-  - Teacher-forcing training loop with cross-entropy loss
-  - Greedy and beam-search decoding
-  - Checkpoint save/load
-
-The corpus is tiny (80 sentence pairs) — the model will overfit but that's
-intentional for a fast, self-contained demo.  Real translation quality requires
-parallel data (Europarl, CCAligned, OPUS) which you'd swap in via --corpus.
+It overfits on purpose; this is for checking the pipeline end to end (BPE,
+training, greedy and beam decoding, checkpoints), not for quality.
 
 Usage:
-    .venv/bin/python3 scripts/demos/translation.py            # train + save + translate test set
-    .venv/bin/python3 scripts/demos/translation.py --epochs 300
-    .venv/bin/python3 scripts/demos/translation.py --corpus europarl_es_en.txt --epochs 20
-    .venv/bin/python3 scripts/demos/translation.py --translate "el gato es pequeño"
-    .venv/bin/python3 scripts/demos/translation.py --load      # load saved checkpoint, skip training
+    python scripts/demos/translation.py
+    python scripts/demos/translation.py --epochs 300
+    python scripts/demos/translation.py --corpus pairs.tsv --epochs 20
+    python scripts/demos/translation.py --translate "el gato es pequeño"
+    python scripts/demos/translation.py --load
 """
 
 from __future__ import annotations
@@ -42,7 +30,7 @@ from speech_engine.nmt import Seq2SeqNMT, collate_pairs, load_checkpoint, nmt_lo
 
 CHECKPOINT_PATH = PROJECT_ROOT / "data" / "models" / "nmt_es_en.pt"
 
-# ── Built-in Spanish → English parallel corpus ───────────────────────────────
+# Built-in Spanish → English parallel corpus
 # 80 sentence pairs covering basic vocabulary, verb conjugations, and common
 # sentence structures.  Small enough to train in under a minute, big enough
 # to show the model learning.
@@ -139,7 +127,7 @@ _CORPUS: list[tuple[str, str]] = [
     ("guarda tus cosas en la mochila", "put your things in the backpack"),
 ]
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# Helpers
 
 
 def _load_corpus(path: str | None) -> list[tuple[str, str]]:
@@ -247,11 +235,11 @@ def _translate(
     return tgt_vocab.decode(out_ids)
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# Main
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Phase 7 NMT demo — Spanish → English")
+    parser = argparse.ArgumentParser(description="Translation demo — Spanish → English")
     parser.add_argument("--corpus", type=str, default=None, help="TSV file: src<TAB>tgt per line")
     parser.add_argument("--epochs", type=int, default=200, help="training epochs (default 200)")
     parser.add_argument("--vocab", type=int, default=800, help="BPE vocab size (default 800)")
@@ -262,7 +250,7 @@ def main() -> None:
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"\n{'─' * 60}")
-    print("  LinguaForge — Phase 7: Neural Machine Translation")
+    print("  LinguaForge — Neural Machine Translation")
     print(f"  Spanish → English  |  device: {device}")
     print(f"{'─' * 60}\n")
 
@@ -274,7 +262,7 @@ def main() -> None:
             f"  {model.param_count():,} parameters | trained {meta.get('epochs', '?')} epochs | final loss {meta.get('final_loss', '?')}\n"
         )
     else:
-        # ── Build corpus and vocabularies ─────────────────────────────────────
+        # Build corpus and vocabularies
         pairs = _load_corpus(args.corpus)
         print(f"Corpus: {len(pairs)} sentence pairs")
 
@@ -284,7 +272,7 @@ def main() -> None:
         encoded = _encode_pairs(pairs, src_vocab, tgt_vocab)
         print(f"Encoded:   {len(encoded)} usable pairs\n")
 
-        # ── Architecture overview ─────────────────────────────────────────────
+        # Architecture overview
         model = Seq2SeqNMT(
             src_vocab_size=len(src_vocab),
             tgt_vocab_size=len(tgt_vocab),
@@ -298,7 +286,7 @@ def main() -> None:
         print(f"  d_model=128  n_heads=4  n_layers=2  d_ff=256")
         print(f"  weight tying: output projection shares target embedding weights\n")
 
-        # ── Training ──────────────────────────────────────────────────────────
+        # Training
         print(f"Training for {args.epochs} epochs …")
         import time
 
@@ -334,7 +322,7 @@ def main() -> None:
         )
         print(f"Checkpoint saved → {CHECKPOINT_PATH}\n")
 
-    # ── Single-sentence translate mode ────────────────────────────────────────
+    # Single-sentence translate mode
     if args.translate:
         result = _translate(
             model, src_vocab, tgt_vocab, args.translate, beam_size=args.beam, device=device
@@ -343,7 +331,7 @@ def main() -> None:
         print(f"Output: {result}\n")
         return
 
-    # ── Test-set translation table ────────────────────────────────────────────
+    # Test-set translation table
     test_sentences = [
         "el gato es pequeño",
         "ella bebe agua",

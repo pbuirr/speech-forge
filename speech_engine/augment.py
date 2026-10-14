@@ -1,14 +1,16 @@
-"""Training-only, length-preserving feature masking; no transcript alteration."""
+"""SpecAugment-style frequency and time masking for training batches.
+
+Masks only real (unpadded) frames and leaves transcripts unchanged.
+"""
 
 import random
 
 
 def mask_features(mel, lengths, rng: random.Random, frequency_width=8, time_width=20):
-    """One frequency/time mask per utterance, capped at 10% of real time.
+    """One frequency mask and one time mask per utterance (time capped at 10% of real frames).
 
-    Fill with the utterance mean rather than assuming normalized zero is silence.
-    Randomness is independent of model/dropout RNG. Padding and cached data remain
-    unchanged. This is a small SpecAugment-inspired policy, without time warping.
+    Masked values are filled with the utterance mean. Uses its own RNG, so model
+    and dropout randomness are unaffected, and never touches padding or the cache.
     """
     if mel.ndim != 3 or len(lengths) != len(mel):
         raise ValueError("Expected batch, frequency, time and matching lengths")

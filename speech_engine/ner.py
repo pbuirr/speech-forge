@@ -1,40 +1,14 @@
-"""
-speech_engine/ner.py — Named-entity passthrough (rule-based).
+"""Protects names, numbers and URLs during translation.
 
-Named entities — proper nouns, places, brands, numbers, URLs — are often
-mangled or dropped by NMT because they are rare in the training corpus
-and the model may never have seen the specific token.
+Entities are replaced with placeholders (NE_0, NE_1, ...) before translation
+and restored afterwards:
 
-Strategy: protect entities BEFORE translation by replacing them with
-placeholder tokens (NE_0, NE_1, …), translate the masked sentence, then
-restore the originals in the output.
+    "Tesla verkauft Autos in Berlin" → "NE_0 verkauft Autos in NE_1"
+    → "NE_0 sells cars in NE_1" → "Tesla sells cars in Berlin"
 
-Example:
-    "Tesla verkauft Autos in Berlin"
-    → mask → "NE_0 verkauft Autos in NE_1"
-    → translate → "NE_0 sells cars in NE_1"
-    → restore → "Tesla sells cars in Berlin"
-
-Rules (in order of priority):
-    1. URLs / emails / file paths
-    2. All-caps tokens (acronyms: NATO, EU, CEO)
-    3. Tokens with digits (phone numbers, years, codes: 2024, €45, iPhone14)
-    4. @handles and #hashtags
-    5. Capitalized tokens NOT at the start of a sentence
-       (heuristic for proper nouns in languages that don't capitalize
-       all sentence-initial words — works well for DE, FR, ES, EN)
-
-False positive risk:
-    Rule 5 fires on sentence-initial words in some languages (DE capitalizes
-    all nouns). To reduce false positives, DE-source text is handled more
-    conservatively: only tokens after position 0 that appear in a short
-    "known German nouns not to protect" set (high-frequency common words)
-    are excluded.
-
-Enable with: --protect-entities (in scripts that accept this flag)
-
-This is a preprocessing/postprocessing layer — it runs OUTSIDE the NMT
-model and does not require any ML model or training data.
+Rules, in priority order: URLs/emails/paths, acronyms, tokens with digits,
+@handles and #hashtags, and capitalised words not at sentence start. For
+German source, common capitalised nouns are excluded from the last rule.
 """
 
 from __future__ import annotations
@@ -43,7 +17,7 @@ import re
 from dataclasses import dataclass
 
 
-# ── Patterns ──────────────────────────────────────────────────────────────────
+# Patterns
 
 _URL_RE = re.compile(r"https?://\S+|www\.\S+", re.IGNORECASE)
 _EMAIL_RE = re.compile(r"\S+@\S+\.\S+")
@@ -220,7 +194,7 @@ class EntityProtector:
         return result
 
 
-# ── Convenience function ──────────────────────────────────────────────────────
+# Convenience function
 
 
 def protect_and_translate(

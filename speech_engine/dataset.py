@@ -1,32 +1,12 @@
-"""
-speech_engine/dataset.py — ASR Dataset, collate function, and format loaders.
+"""Speech datasets, batching and corpus loaders.
 
-The dataset layer bridges raw files on disk and PyTorch training.
-Its job is to produce (mel_spectrogram, token_ids) pairs that the model
-can consume.
+``ASRDataset`` turns (audio path, transcript) pairs into (log-Mel, token IDs),
+with an on-disk feature cache and optional speed perturbation. ``collate_fn``
+pads a batch and records the real lengths that CTC loss needs.
+``BucketBatchSampler`` groups utterances of similar length.
 
-Data flow per example:
-    (audio_path, transcript_str)
-        → audio.preprocess()              →  (N,) float32 waveform at 16 kHz
-        → features.log_mel_spectrogram()  →  (80, T) float32 spectrogram
-        → duration validation             →  (80, actual frames)
-        → tokenizer.encode()              →  [int, ...] token IDs
-
-Data flow per batch (collate_fn):
-    B examples, each (mel: (80, T_i), tokens: (L_i,)) with varying T_i, L_i
-        → pad mels    →  (B, 80, T_max)
-        → pad tokens  →  (B, L_max)
-        → record real lengths  →  mel_lengths (B,), token_lengths (B,)
-
-Why record lengths?
-    nn.CTCLoss needs to know where real data ends and padding begins.
-    Without lengths it would try to learn from the padded zeros, which
-    produces garbage gradients.
-
-Format loaders supported:
-    load_librispeech(root, split)   — LibriSpeech directory layout
-    load_manifest(path)             — simple TSV: audio_path<TAB>transcript
-    load_common_voice(root, split)  — Mozilla Common Voice TSV + clips/
+Loaders: ``load_librispeech`` (LibriSpeech layout), ``load_manifest``
+(audio_path<TAB>transcript) and ``load_common_voice``.
 """
 
 from __future__ import annotations
@@ -51,23 +31,23 @@ from speech_engine.features import (
 from speech_engine.tokenizer import PAD_ID, CharTokenizer, normalize_text
 
 
-# ── Core dataset ──────────────────────────────────────────────────────────────
+# Core dataset
 
 
 class ASRDataset(Dataset):
-    """PyTorch Dataset for paired (audio, transcript) ASR examples.
+    """(audio path, transcript) pairs as (log-Mel, token IDs) examples.
 
     Args:
-        examples:    list of (audio_path, transcript) pairs
-        tokenizer:   CharTokenizer for encoding transcripts
-        max_frames:  reject longer clips; segment audio and transcript together
-        sample_rate: resample all audio to this rate
-        cache_dir:   if given, processed spectrograms are cached as .npy files.
-                     Speeds up subsequent epochs ~10× by skipping the STFT.
+        examples:      list of (audio_path, transcript) pairs
+        tokenizer:     CharTokenizer used to encode transcripts
+        max_frames:    clips longer than this are rejected
+        sample_rate:   audio is resampled to this rate
+        cache_dir:     if set, spectrograms are cached here as .npy files
+        speed_factors: speed perturbation factors; the dataset length is
+                       len(examples) × len(speed_factors)
 
-    __getitem__ returns:
-        mel:    (n_mels, actual_frames) float32 tensor
-        tokens: (L,) int64 tensor   — encoded transcript, no BOS/EOS (CTC convention)
+    ``__getitem__`` returns (mel (n_mels, frames) float32, tokens (L,) int64),
+    with no BOS/EOS in the tokens.
     """
 
     def __init__(
@@ -105,7 +85,7 @@ class ASRDataset(Dataset):
         slot, recording = divmod(idx, len(self.examples))
         audio_path, transcript = self.examples[recording]
 
-        # ── Spectrogram ───────────────────────────────────────────────────────
+        # Spectrogram
         speed = self.speed_factors[slot]
         # Keep the one-argument call for speed 1.0 (existing overrides/tests rely on it).
         spec = (
@@ -121,10 +101,9 @@ class ASRDataset(Dataset):
             )
         mel = torch.from_numpy(spec)  # (n_mels, actual_frames), float32
 
-        # ── Transcript ────────────────────────────────────────────────────────
+        # Transcript
         # encode() applies normalize_text() internally.
-        # We do NOT add BOS/EOS for CTC training — CTC doesn't use them.
-        # They'll be added in Phase 4 for the seq2seq decoder.
+        # CTC targets have no BOS/EOS.
         token_ids = self.tokenizer.encode(transcript)
         if self.tokenizer.decode(token_ids) != normalize_text(
             transcript, self.tokenizer.normalization
@@ -194,34 +173,26 @@ class ASRDataset(Dataset):
         )
 
 
-# ── Collate function ──────────────────────────────────────────────────────────
+# Collate function
 
 
 def collate_fn(
     batch: list[tuple[torch.Tensor, torch.Tensor]],
     pad_token_id: int = PAD_ID,
 ) -> dict[str, torch.Tensor]:
-    """Collate a list of (mel, tokens) examples into a single padded batch.
+    """Pad a list of (mel, tokens) examples into one batch.
 
-    Because audio clips have different durations and transcripts have different
-    lengths, we pad everything to the longest example in the batch.
-
-    nn.CTCLoss requires:
-        log_probs:      (T, B, C) — time-first (the model will rearrange)
-        targets:        (B, L) or flattened (sum_L,)
-        input_lengths:  (B,) — actual frame count per example, AFTER any conv
-                        downsampling in the encoder. Computed in train.py.
-        target_lengths: (B,) — actual token count per example (returned here)
-
-    Returns dict with keys:
+    Returns a dict:
         "mel"           (B, n_mels, T_max) float32
-        "mel_lengths"   (B,)               int64   — real frames, before padding
-        "tokens"        (B, L_max)         int64   — padded with pad_token_id
-        "token_lengths" (B,)               int64   — real tokens, before padding
+        "mel_lengths"   (B,) int64, real frames
+        "tokens"        (B, L_max) int64, padded with pad_token_id
+        "token_lengths" (B,) int64, real tokens
+
+    Encoder output lengths for CTC are computed from ``mel_lengths`` by the model.
     """
     mels, token_seqs = zip(*batch)
 
-    # ── Pad mel spectrograms ──────────────────────────────────────────────────
+    # Pad mel spectrograms
     mel_lengths = torch.tensor([m.shape[1] for m in mels], dtype=torch.long)
     T_max = int(mel_lengths.max().item())
     n_mels = mels[0].shape[0]
@@ -230,7 +201,7 @@ def collate_fn(
     for i, mel in enumerate(mels):
         mel_batch[i, :, : mel.shape[1]] = mel
 
-    # ── Pad token sequences ───────────────────────────────────────────────────
+    # Pad token sequences
     token_lengths = torch.tensor([len(t) for t in token_seqs], dtype=torch.long)
     L_max = int(token_lengths.max().item())
 
@@ -250,7 +221,7 @@ def collate_fn(
     }
 
 
-# ── Length-bucketed sampling ──────────────────────────────────────────────────
+# Length-bucketed sampling
 
 
 class BucketBatchSampler(torch.utils.data.Sampler):
@@ -306,7 +277,7 @@ class BucketBatchSampler(torch.utils.data.Sampler):
             yield batches[position]
 
 
-# ── DataLoader factory ────────────────────────────────────────────────────────
+# DataLoader factory
 
 
 def build_dataloader(
@@ -323,27 +294,22 @@ def build_dataloader(
     lengths: list[float] | None = None,
     speed_factors: tuple[float, ...] = (1.0,),
 ) -> DataLoader:
-    """Build a DataLoader ready for the training loop.
+    """Build the DataLoader used for training and evaluation.
 
     Args:
-        examples:    list of (audio_path, transcript) pairs
-        tokenizer:   fitted CharTokenizer
-        batch_size:  examples per batch (reduce if you run out of RAM)
-        shuffle:     True for training, False for validation/test
-        num_workers: parallel workers for loading. Use 0 on macOS (avoids a
-                     known multiprocessing conflict with torchaudio's MPS backend).
-                     Use 4 on Linux with LibriSpeech for faster epoch times.
-        max_frames:  spectrogram frame cap
-        cache_dir:   directory for cached spectrograms (strongly recommended
-                     when training for more than 1 epoch)
-        seed:        sampler generator seed (839 reproduces earlier runs)
-        lengths:     per-recording lengths (e.g. seconds); with a sample budget,
-                     enables length-bucketed batches
-        speed_factors: training-only speed perturbation; each draw picks one
-                     factor uniformly (requires a sample budget)
-
-    Returns:
-        torch.utils.data.DataLoader ready for iteration
+        examples:        list of (audio_path, transcript) pairs
+        tokenizer:       fitted CharTokenizer
+        batch_size:      examples per batch
+        shuffle:         shuffle when no sample budget is given
+        num_workers:     DataLoader worker processes
+        max_frames:      spectrogram frame cap
+        cache_dir:       spectrogram cache directory
+        samples_per_epoch: draws per epoch with replacement (the "sampled cycle")
+        seed:            sampler seed (839 reproduces earlier runs)
+        lengths:         per-recording lengths; with a sample budget, enables
+                         length-bucketed batches
+        speed_factors:   training-only speed perturbation; each draw picks one
+                         factor uniformly (requires a sample budget)
     """
     if tuple(speed_factors) != (1.0,) and samples_per_epoch is None:
         raise ValueError("Speed perturbation requires an explicit sample budget")
@@ -407,7 +373,7 @@ def build_dataloader(
     )
 
 
-# ── Format loaders ─────────────────────────────────────────────────────────────
+# Format loaders
 # Each returns list[tuple[str, str]] = [(audio_path, transcript), ...]
 # The uniform type makes it trivial to combine datasets:
 #   examples = load_librispeech(root, "train-clean-100") + load_manifest("custom.tsv")
@@ -478,25 +444,13 @@ def load_librispeech(root: str | Path, split: str = "test-clean") -> list[tuple[
 
 
 def load_manifest(path: str | Path) -> list[tuple[str, str]]:
-    """Load examples from a plain TSV manifest file.
+    """Load (audio_path, transcript) pairs from a TSV manifest.
 
-    File format — one example per line::
-
-        /absolute/or/relative/path/to/audio.wav<TAB>transcript text here
-        # lines starting with # are comments and are skipped
-
-    Relative paths are resolved relative to the manifest file's directory,
-    not the current working directory.
-
-    This is the recommended format for custom recordings, low-resource language
-    documentation, and mixing multiple data sources. It is human-editable.
-
-    To create a manifest for your own audio::
-
-        echo "data/audio/my_clip.wav\\tgood morning" > data/my_manifest.tsv
+    One ``path<TAB>transcript`` per line; lines starting with # are skipped.
+    Relative paths are resolved against the manifest's directory.
 
     Args:
-        path: path to the TSV manifest file
+        path: manifest file
 
     Returns:
         list of (resolved_audio_path, transcript) pairs
@@ -529,26 +483,17 @@ def load_common_voice(
     root: str | Path,
     split: str = "test",
 ) -> list[tuple[str, str]]:
-    """Load examples from a Mozilla Common Voice dataset directory.
+    """Load (clip path, sentence) pairs from an extracted Common Voice language folder.
 
-    Common Voice layout::
-
-        {root}/
-            {split}.tsv          — metadata (path, sentence, ...)
-            clips/               — MP3 audio files
-
-    The TSV uses tab-separated columns; we use 'path' and 'sentence'.
-
-    Download at https://commonvoice.mozilla.org/en/datasets
-    Select your language and version, extract to data/common_voice/{lang_code}/
+    Expects ``{root}/{split}.tsv`` and ``{root}/clips/``. Clips missing on disk
+    are skipped.
 
     Args:
-        root:  path to the extracted language directory
-               e.g. "data/common_voice/es" for Spanish
-        split: "train", "dev", or "test"
+        root:  language folder, e.g. "data/common_voice/es"
+        split: "train", "dev" or "test"
 
     Returns:
-        list of (path_to_mp3, transcript) for clips that exist on disk
+        list of (path_to_mp3, transcript) pairs
     """
     root = Path(root)
     tsv_path = root / f"{split}.tsv"

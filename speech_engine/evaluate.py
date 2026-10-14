@@ -1,33 +1,8 @@
-"""
-speech_engine/evaluate.py — CER and WER computed from scratch.
+"""Edit-distance metrics for speech recognition.
 
-No jiwer. No external libraries. Just the Levenshtein edit distance algorithm
-implemented directly, then applied at character level (CER) and word level (WER).
-
-Why implement it ourselves?
-    The algorithm is short (~25 lines), the math is fundamental to all NLP
-    evaluation, and understanding it means you can reason about why a model
-    with CER=15% is better or worse than one with WER=20%. Libraries hide this.
-
-Levenshtein distance:
-    The minimum number of single-character edits (insertions, deletions,
-    substitutions) required to change one sequence into another.
-
-    For ASR:
-        reference = "hello world"        (what was actually said)
-        hypothesis = "helo wrld"         (what the model predicted)
-        edits: delete one 'l', insert 'o' back... → distance = 3
-
-CER (Character Error Rate):
-    edit_distance(ref_chars, hyp_chars) / len(ref_chars)
-    Measures how many characters the model got wrong, as a fraction of the total.
-    CER=0.0 is perfect, CER=1.0 means every character was wrong.
-
-WER (Word Error Rate):
-    edit_distance(ref_words, hyp_words) / len(ref_words)
-    Same idea but at word level. WER is the standard benchmark metric for ASR.
-    Whisper large-v3 achieves WER < 5% on clean English. Our CTC model
-    trained on 100h should aim for WER < 30% on LibriSpeech test-clean.
+``char_error_rate`` and ``word_error_rate`` are Levenshtein distance divided by
+reference length. ``edit_counts`` and ``align_units`` break errors into
+substitutions, deletions and insertions.
 """
 
 from __future__ import annotations
@@ -37,7 +12,7 @@ from torch.utils.data import DataLoader
 from typing import Callable
 
 
-# ── Edit distance (Levenshtein) ───────────────────────────────────────────────
+# Edit distance (Levenshtein)
 
 
 def levenshtein(ref: list, hyp: list) -> int:
@@ -85,14 +60,14 @@ def levenshtein(ref: list, hyp: list) -> int:
     return prev[H]
 
 
-# ── CER and WER ───────────────────────────────────────────────────────────────
+# CER and WER
 
 
 def align_units(reference: list, hypothesis: list) -> list:
-    """Return one minimum-edit alignment as (reference, hypothesis) pairs.
+    """One minimum-edit alignment as (reference, hypothesis) pairs.
 
-    None denotes an inserted/deleted unit. Substitution-first tie handling is
-    deterministic; ambiguous alignments are not verified linguistic relations.
+    None marks an insertion or deletion. Ties prefer substitution, so the result
+    is deterministic.
     """
     table = [[0] * (len(hypothesis) + 1) for _ in range(len(reference) + 1)]
     for i in range(len(reference) + 1):
@@ -125,10 +100,9 @@ def align_units(reference: list, hypothesis: list) -> list:
 
 
 def edit_counts(reference: list, hypothesis: list) -> dict:
-    """Minimum-edit alignment counts; deterministic substitution-first tie handling.
+    """Substitution, deletion and insertion counts from ``align_units``.
 
-    Counts describe one optimal alignment, not the linguistic cause of an error.
-    Works with words, characters or language-specific token units supplied by caller.
+    Works on words, characters or any other token units.
     """
     counts = {"substitutions": 0, "deletions": 0, "insertions": 0, "matches": 0}
     for r, h in align_units(reference, hypothesis):
@@ -148,25 +122,16 @@ def char_error_rate(
     references: list[str],
     hypotheses: list[str],
 ) -> float:
-    """Character Error Rate over a list of (reference, hypothesis) pairs.
+    """Corpus-level character error rate.
 
-    CER = sum(edit_distance(ref_chars, hyp_chars)) / sum(len(ref_chars))
+        CER = Σ edit_distance(ref, hyp) / Σ len(ref)
 
-    The numerator and denominator are summed across all pairs before dividing.
-    This is the corpus-level CER, which weights longer utterances more heavily
-    and is the standard way to report the metric.
-
-    Args:
-        references:  list of reference strings (ground truth)
-        hypotheses:  list of hypothesis strings (model output)
-
-    Returns:
-        float — CER in [0, ∞). Values > 1.0 are possible when the hypothesis
-        contains many insertions relative to the reference length.
+    Totals are summed before dividing, so longer utterances weigh more. Values
+    above 1.0 are possible with many insertions.
 
     Example::
 
-        char_error_rate(["hello world"], ["helo wrld"])  # → 3/11 ≈ 0.273
+        char_error_rate(["hello world"], ["helo wrld"])  # 3/11 ≈ 0.273
     """
     if len(references) != len(hypotheses):
         raise ValueError(
@@ -192,23 +157,13 @@ def word_error_rate(
     references: list[str],
     hypotheses: list[str],
 ) -> float:
-    """Word Error Rate over a list of (reference, hypothesis) pairs.
+    """Corpus-level word error rate over whitespace-separated words.
 
-    WER = sum(edit_distance(ref_words, hyp_words)) / sum(len(ref_words))
-
-    This is the standard ASR evaluation metric. Each word is treated as one
-    unit; a substitution of "world" → "word" costs 1 edit, same as a deletion.
-
-    Args:
-        references:  list of reference strings (space-separated words)
-        hypotheses:  list of hypothesis strings (space-separated words)
-
-    Returns:
-        float — WER in [0, ∞).
+        WER = Σ edit_distance(ref_words, hyp_words) / Σ len(ref_words)
 
     Example::
 
-        word_error_rate(["hello world"], ["hello"])  # → 1/2 = 0.5
+        word_error_rate(["hello world"], ["hello"])  # 0.5
     """
     if len(references) != len(hypotheses):
         raise ValueError(
@@ -230,7 +185,7 @@ def word_error_rate(
     return total_edits / total_words
 
 
-# ── Dataset-level evaluation ──────────────────────────────────────────────────
+# Dataset-level evaluation
 
 
 def evaluate_dataset(

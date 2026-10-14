@@ -1,4 +1,4 @@
-"""Describe length/lexical distribution shifts from saved independent predictions."""
+"""Compare output length and vocabulary statistics between saved translation runs."""
 
 import argparse
 import json

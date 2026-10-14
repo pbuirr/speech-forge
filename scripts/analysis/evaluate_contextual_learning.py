@@ -1,4 +1,4 @@
-"""Measure source/evidence retention, not linguistic accuracy or learning gains."""
+"""Check that cards built from analysed text keep their source sentence and evidence links."""
 
 import argparse
 from hashlib import sha256

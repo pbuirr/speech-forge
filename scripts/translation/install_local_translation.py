@@ -1,4 +1,4 @@
-"""Install an evaluated original checkpoint atomically, retaining the previous weights."""
+"""Install an evaluated NMT checkpoint for the web app, keeping the previous one as a backup."""
 
 import argparse
 import hashlib

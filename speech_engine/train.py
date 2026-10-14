@@ -1,31 +1,9 @@
-"""
-speech_engine/train.py — Training loop for CTCModel, built from scratch.
+"""CTC training loop.
 
-No PyTorch Lightning. No HuggingFace Trainer. No Ignite. Every piece of the
-training loop is written here so you can see exactly what's happening:
-gradient updates, learning rate scheduling, checkpointing, loss reporting.
-
-Learning rate schedule (cosine warmup):
-    Two phases:
-    1. Warmup (steps 0 → warmup_steps): LR rises linearly from 0 to peak_lr.
-       Starting with a small LR avoids large early gradient updates that can
-       push the model into a poor local minimum before it has seen enough data.
-    2. Cosine decay (steps warmup_steps → max_steps): LR follows a half-cosine
-       curve from peak_lr down to min_lr. The smooth decay is better than a
-       step schedule because the model makes large updates while loss is high
-       and small, fine-grained updates as it converges.
-
-Gradient clipping:
-    Before each optimizer step, we clip all parameter gradients so their
-    global L2 norm is ≤ grad_clip (default 5.0). This prevents "exploding
-    gradients" — a common failure mode in RNNs where the gradient norm spikes
-    and destroys the model's weights. You'll see a warning if it triggers often.
-
-Checkpointing:
-    Two checkpoints are saved:
-    - checkpoints/latest.pt   — overwritten after each epoch (resume training)
-    - checkpoints/best.pt     — only overwritten when validation loss improves
-    Both contain model weights, optimizer state, and training metadata.
+Linear warmup then cosine decay of the learning rate, gradient clipping,
+optional SpecAugment and mixed precision (CUDA), and checkpoints
+(``latest.pt`` every epoch, ``best.pt`` on improved dev loss) that resume
+exactly, including sampler and RNG state.
 """
 
 from __future__ import annotations
@@ -44,29 +22,25 @@ from torch.utils.data import DataLoader
 from speech_engine.tokenizer import BLANK_ID
 
 
-# ── Configuration ─────────────────────────────────────────────────────────────
+# Configuration
 
 
 @dataclass
 class TrainConfig:
-    """All hyperparameters for one training run.
+    """Hyperparameters for one training run."""
 
-    Designed to be overridden per experiment. Reasonable defaults for
-    training on a CPU with the toy dataset or an official LibriSpeech training split.
-    """
-
-    # ── Data ──────────────────────────────────────────────────────────────────
+    # Data
     data_dir: str = "data/toy_dataset"
     manifest: Optional[str] = None  # TSV manifest (overrides data_dir)
     librispeech_root: Optional[str] = None  # LibriSpeech root dir
     librispeech_split: str = "train-clean-100"
 
-    # ── Model ─────────────────────────────────────────────────────────────────
+    # Model
     cnn_channels: tuple = (32, 64, 128)  # conv output channels per block
     hidden_size: int = 256  # LSTM hidden units per direction
     num_lstm_layers: int = 3
 
-    # ── Training ──────────────────────────────────────────────────────────────
+    # Training
     batch_size: int = 4
     max_epochs: int = 50
     peak_lr: float = 3e-4  # Adam peak learning rate
@@ -78,24 +52,20 @@ class TrainConfig:
     amp: bool = False  # CUDA mixed precision; CTC loss stays float32
     augmentation_seed: int = 839
 
-    # ── Output ────────────────────────────────────────────────────────────────
+    # Output
     checkpoint_dir: str = "checkpoints"
     tokenizer_path: str = "data/tokenizer.json"
     save_every: int = 5  # save checkpoint every N epochs
     log_every: int = 10  # print loss every N steps
 
-    # ── Device ────────────────────────────────────────────────────────────────
+    # Device
     device: str = "auto"  # "cpu", "cuda", "mps", or "auto"
 
 
 def resolve_device(spec: str) -> torch.device:
-    """Pick the best available device.
+    """Resolve "auto" to CUDA, then Apple MPS, then CPU.
 
-    "auto" order: CUDA → Apple MPS → CPU.
-    MPS (Metal Performance Shaders) uses the Apple GPU on M1/M2/M3 Macs.
-
-    Note: nn.CTCLoss is not yet supported on MPS (PyTorch 2.x). If MPS is
-    detected we fall back to CPU — you'll see a message explaining why.
+    nn.CTCLoss isn't supported on MPS, so MPS falls back to CPU with a message.
     """
     if spec == "auto":
         if torch.cuda.is_available():
@@ -106,7 +76,7 @@ def resolve_device(spec: str) -> torch.device:
     return torch.device(spec)
 
 
-# ── Learning rate schedule ────────────────────────────────────────────────────
+# Learning rate schedule
 
 
 def cosine_lr(
@@ -116,22 +86,14 @@ def cosine_lr(
     peak_lr: float,
     min_lr: float,
 ) -> float:
-    """Cosine schedule with linear warmup. Implemented from scratch.
-
-    Returns the learning rate that should be used at `step`.
-
-    Visual shape:
-        0          warmup       total_steps
-        ├──────────────┬──────────────────────┤
-        0 ──── peak_lr │ peak_lr ──── min_lr  (cosine curve)
-                       └── (linear rise on left, cosine decay on right)
+    """Learning rate at ``step``: linear warmup to ``peak_lr``, then cosine decay to ``min_lr``.
 
     Args:
-        step:         current global training step (counts from 0)
-        warmup_steps: length of the linear warmup phase
-        total_steps:  total number of training steps (epochs × steps_per_epoch)
-        peak_lr:      maximum learning rate (reached at end of warmup)
-        min_lr:       minimum learning rate (reached at end of training)
+        step:         global training step, from 0
+        warmup_steps: warmup length
+        total_steps:  total training steps
+        peak_lr:      learning rate at the end of warmup
+        min_lr:       learning rate at the end of training
     """
     if step < warmup_steps:
         # Linear warmup: 0 → peak_lr
@@ -149,7 +111,7 @@ def set_lr(optimizer: torch.optim.Optimizer, lr: float) -> None:
         group["lr"] = lr
 
 
-# ── Checkpointing ─────────────────────────────────────────────────────────────
+# Checkpointing
 
 
 def save_checkpoint(
@@ -198,7 +160,7 @@ def load_checkpoint(
     return ckpt
 
 
-# ── Training and evaluation steps ────────────────────────────────────────────
+# Training and evaluation steps
 
 
 def validate_ctc_alignment(tokens, token_lengths, input_lengths):
@@ -223,18 +185,10 @@ def train_epoch(
     total_steps: int,
     scaler=None,
 ) -> tuple[float, int]:
-    """Run one training epoch. Returns (mean_loss, updated_step).
+    """Run one epoch and return (mean_loss, global_step).
 
-    For each batch:
-        1. Update the learning rate (cosine schedule)
-        2. Forward pass through the model
-        3. Compute CTC loss
-        4. Backward pass (compute gradients)
-        5. Clip gradient norm
-        6. Optimizer step (update weights)
-
-    Returns updated global step counter so the LR schedule is continuous
-    across epochs.
+    Per batch: set the scheduled learning rate, optionally augment, forward, CTC
+    loss, backward (scaled under AMP), clip gradients and step the optimizer.
     """
     model.train()
     total_loss = 0.0
@@ -244,11 +198,11 @@ def train_epoch(
     augmentation_rng = random.Random(config.augmentation_seed + step)
 
     for batch in loader:
-        # ── 1. Update learning rate ───────────────────────────────────────────
+        # 1. Update learning rate
         lr = cosine_lr(step, config.warmup_steps, total_steps, config.peak_lr, config.min_lr)
         set_lr(optimizer, lr)
 
-        # ── 2. Move batch to device ───────────────────────────────────────────
+        # 2. Move batch to device
         mel = batch["mel"].to(device)  # (B, 80, T)
         tokens = batch["tokens"].to(device)  # (B, L_max)
         token_lengths = batch["token_lengths"].to(device)  # (B,)
@@ -263,7 +217,7 @@ def train_epoch(
 
             mel = mask_features(mel, mel_lengths, augmentation_rng)
 
-        # ── 3. Forward pass ───────────────────────────────────────────────────
+        # 3. Forward pass
         with torch.autocast(
             device_type=device.type, dtype=torch.float16, enabled=scaler is not None
         ):
@@ -280,7 +234,7 @@ def train_epoch(
                 "Non-finite CTC loss; check audio, transcripts and training configuration"
             )
 
-        # ── 4. Backward pass ──────────────────────────────────────────────────
+        # 4. Backward pass
         optimizer.zero_grad()
         if scaler is not None:
             scaler.scale(loss).backward()
@@ -288,12 +242,12 @@ def train_epoch(
         else:
             loss.backward()
 
-        # ── 5. Gradient clipping ──────────────────────────────────────────────
+        # 5. Gradient clipping
         # Clips the global L2 norm of all gradients to config.grad_clip.
         # Returns the pre-clip norm — useful for debugging unstable training.
         grad_norm = nn.utils.clip_grad_norm_(model.parameters(), config.grad_clip)
 
-        # ── 6. Weight update ──────────────────────────────────────────────────
+        # 6. Weight update
         if scaler is not None:
             scaler.step(optimizer)  # skips the step if gradients overflowed
             scaler.update()
@@ -343,7 +297,7 @@ def eval_epoch(
     return total_loss / max(1, n_batches)
 
 
-# ── Main training function ─────────────────────────────────────────────────────
+# Main training function
 
 
 def train(
@@ -367,7 +321,7 @@ def train(
     Returns:
         dict with "train_losses", "val_losses", "best_val_loss", "total_steps"
     """
-    # ── Setup ─────────────────────────────────────────────────────────────────
+    # Setup
     ckpt_dir = Path(config.checkpoint_dir)
     optimizer = torch.optim.Adam(model.parameters(), lr=config.peak_lr)
     ctc_loss = nn.CTCLoss(blank=BLANK_ID, zero_infinity=True, reduction="mean")
@@ -410,7 +364,7 @@ def train(
 
     model.to(device)
 
-    # ── History ───────────────────────────────────────────────────────────────
+    # History
     train_losses: list[float] = []
     val_losses: list[float] = []
     epoch_elapsed_s: list[float] = []
@@ -429,7 +383,7 @@ def train(
         t0 = time.perf_counter()
         print(f"Epoch {epoch + 1}/{config.max_epochs}")
 
-        # ── Train ─────────────────────────────────────────────────────────────
+        # Train
         train_loss, global_step = train_epoch(
             model,
             train_loader,
@@ -443,7 +397,7 @@ def train(
         )
         train_losses.append(train_loss)
 
-        # ── Validate ──────────────────────────────────────────────────────────
+        # Validate
         val_loss = None
         if val_loader is not None:
             val_loss = eval_epoch(model, val_loader, ctc_loss, device)
@@ -454,7 +408,7 @@ def train(
         val_str = f"  val_loss: {val_loss:.4f}" if val_loss is not None else ""
         print(f"  train_loss: {train_loss:.4f}{val_str}  ({elapsed:.1f}s)")
 
-        # ── Checkpoint ────────────────────────────────────────────────────────
+        # Checkpoint
         monitor_loss = val_loss if val_loss is not None else train_loss
         rng_state = {
             "torch": torch.get_rng_state(),

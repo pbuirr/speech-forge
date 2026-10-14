@@ -1,8 +1,7 @@
-"""Conservative learning-answer matching, separate from model tokenization.
+"""Answer matching for exercises.
 
-Canonical Unicode equivalence is accepted. Accents, joiners, compatibility
-characters, and spelling distinctions are preserved. This is not a semantic
-equivalence test or a complete locale-sensitive casing implementation.
+Accepts canonically equivalent Unicode but keeps accents and spelling
+differences significant.
 """
 
 import unicodedata

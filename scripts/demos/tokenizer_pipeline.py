@@ -1,21 +1,11 @@
-"""
-scripts/demos/tokenizer_pipeline.py — LinguaForge Phase 2: Tokenizer and Dataset Pipeline
+"""Demo: character tokenizer, dataset and batching.
 
-Demonstrates:
-  1. CharTokenizer: encode / decode / ctc_collapse / save+load
-  2. Toy dataset creation (synthetic audio + transcripts — no downloads needed)
-  3. ASRDataset: __getitem__, shapes, lengths
-  4. DataLoader: batch collation, what the model will actually receive
+Builds a toy dataset (synthetic audio, no download) unless a corpus is given.
 
 Usage:
-    # Full demo with auto-generated toy dataset (no files needed):
     python scripts/demos/tokenizer_pipeline.py
-
-    # With a real LibriSpeech directory:
     python scripts/demos/tokenizer_pipeline.py --librispeech data/LibriSpeech --split test-clean
-
-    # With a custom TSV manifest:
-    python scripts/demos/tokenizer_pipeline.py --manifest path/to/my_manifest.tsv
+    python scripts/demos/tokenizer_pipeline.py --manifest path/to/manifest.tsv
 """
 
 from __future__ import annotations
@@ -40,7 +30,7 @@ from speech_engine.dataset import (
 from speech_engine.features import HOP_LENGTH, SAMPLE_RATE
 from speech_engine.tokenizer import CharTokenizer, normalize_text, BLANK_ID
 
-# ── ANSI colours ──────────────────────────────────────────────────────────────
+# ANSI colours
 _G = "\033[92m"  # green
 _B = "\033[94m"  # blue
 _Y = "\033[93m"  # yellow
@@ -58,7 +48,7 @@ def _ok(label: str, value: str) -> None:
     print(f"  {_B}{label:<22}{_R} {value}")
 
 
-# ── Toy dataset ───────────────────────────────────────────────────────────────
+# Toy dataset
 
 TOY_SENTENCES = [
     "hello world",
@@ -81,7 +71,7 @@ def make_toy_dataset(out_dir: Path, n: int = 10) -> list[tuple[str, str]]:
     frequencies and durations) so the spectrograms look different from each
     other. The transcript is a realistic English sentence.
 
-    This lets us test the entire Phase 2 pipeline with zero downloads.
+    No downloads needed.
     The audio won't match the transcript — this is synthetic — but every
     shape, padding, and collation operation will work identically to real data.
 
@@ -128,7 +118,7 @@ def make_toy_dataset(out_dir: Path, n: int = 10) -> list[tuple[str, str]]:
     return examples
 
 
-# ── Section 1: Tokenizer ──────────────────────────────────────────────────────
+# Section 1: Tokenizer
 
 
 def demo_tokenizer(transcripts: list[str]) -> CharTokenizer:
@@ -167,7 +157,7 @@ def demo_tokenizer(transcripts: list[str]) -> CharTokenizer:
     _ok("  Decoded text:", repr(reconstructed))
     _ok("  Round-trip ok:", str(reconstructed == sample))
 
-    # BOS/EOS for seq2seq (Phase 4 preview)
+    # BOS/EOS for the seq2seq decoder
     ids_with_eos = tok.encode_with_eos(sample)
     _ok("  With BOS/EOS:", str(ids_with_eos))
 
@@ -214,7 +204,7 @@ def demo_tokenizer(transcripts: list[str]) -> CharTokenizer:
     return tok
 
 
-# ── Section 2: Dataset ────────────────────────────────────────────────────────
+# Section 2: Dataset
 
 
 def demo_dataset(examples: list[tuple[str, str]], tok: CharTokenizer) -> ASRDataset:
@@ -270,7 +260,7 @@ def demo_dataset(examples: list[tuple[str, str]], tok: CharTokenizer) -> ASRData
     return dataset
 
 
-# ── Section 3: DataLoader and batch ──────────────────────────────────────────
+# Section 3: DataLoader and batch
 
 
 def demo_dataloader(examples: list[tuple[str, str]], tok: CharTokenizer) -> None:
@@ -346,11 +336,11 @@ def demo_dataloader(examples: list[tuple[str, str]], tok: CharTokenizer) -> None
     """)
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# Main
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="LinguaForge Phase 2: Tokenizer and Dataset Demo")
+    parser = argparse.ArgumentParser(description="LinguaForge Tokenizer and Dataset Demo")
     parser.add_argument(
         "--librispeech",
         default=None,
@@ -375,12 +365,12 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    # ── Header ────────────────────────────────────────────────────────────────
+    # Header
     print(f"\n{_W}{'═' * 62}{_R}")
-    print(f"{_W}  LinguaForge — Phase 2: Tokenizer and Dataset Pipeline{_R}")
+    print(f"{_W}  LinguaForge — Tokenizer and Dataset Pipeline{_R}")
     print(f"{_W}{'═' * 62}{_R}")
 
-    # ── Load or generate examples ─────────────────────────────────────────────
+    # Load or generate examples
     _sec("Dataset Source")
 
     if args.manifest:
@@ -406,23 +396,12 @@ def main() -> None:
 
     transcripts = [t for _, t in examples]
 
-    # ── Run demo sections ─────────────────────────────────────────────────────
+    # Run demo sections
     tok = demo_tokenizer(transcripts)
     demo_dataset(examples, tok)
     demo_dataloader(examples, tok)
 
-    # ── Summary ───────────────────────────────────────────────────────────────
-    print(f"\n{_W}{'─' * 62}{_R}")
-    print(f"{_G}Phase 2 complete.{_R}  Tokenizer and DataLoader working correctly.")
-    print(f"""
-Next step: Phase 3 — build and train the CTC ASR model.
-  Files to create:
-    speech_engine/model_ctc.py  — CNN + BiLSTM + CTC loss
-    speech_engine/train.py      — training loop with checkpointing
-    speech_engine/decode.py     — greedy CTC decoder
-    speech_engine/evaluate.py   — CER/WER with jiwer
-  Recommended dataset: LibriSpeech test-clean (see below)
-""")
+    print("\nDone.")
 
 
 if __name__ == "__main__":

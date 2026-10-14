@@ -1,46 +1,10 @@
-"""
-speech_engine/bleu.py — BLEU score, implemented from scratch.
+"""Corpus and sentence BLEU (Papineni et al., 2002).
 
-BLEU (Bilingual Evaluation Understudy, Papineni et al. 2002) is the
-standard automatic metric for machine translation quality. It measures
-how much a machine translation overlaps with one or more human reference
-translations, using modified n-gram precision with a brevity penalty.
+    BLEU = BP · exp(Σₙ wₙ log pₙ)
 
-Why implement it ourselves?
-    This project builds everything from scratch. The BLEU formula is
-    well-defined (20 lines of math) and understanding it tells you how
-    to interpret the number. sacrebleu is also easy to install and
-    preferred for paper-comparable scores — see the note at the bottom.
-
-Formula:
-    BLEU = BP × exp( Σ_n  w_n × log p_n )
-
-    p_n  = modified n-gram precision for order n
-         = Σ_sentences  clipped_matches(n) / candidate_ngrams(n)
-
-    BP   = brevity penalty
-         = 1.0                if len(cand) > len(ref)
-         = exp(1 - r/c)       otherwise  (c = cand tokens, r = ref tokens)
-
-    w_n  = 1/N for n = 1..N  (uniform, N=4 is standard)
-
-Modified precision "clips" each hypothesis n-gram count by the maximum
-number of times it appears in the reference — this prevents the model
-gaming BLEU by repeating a common word many times.
-
-Reference:
-    Papineni, Roukos, Ward, Zhu (2002). "BLEU: a Method for Automatic
-    Evaluation of Machine Translation." ACL 2002.
-
-Note on sacreBLEU:
-    For results that can be compared across papers, install sacrebleu:
-        pip install sacrebleu
-    and use:
-        import sacrebleu
-        bleu = sacrebleu.corpus_bleu(hypotheses, [references]).score
-    SacreBLEU standardizes tokenization so scores from different systems
-    are directly comparable. Our implementation is consistent with the
-    original paper but may differ slightly from sacreBLEU in edge cases.
+with clipped n-gram precision pₙ, uniform weights up to 4-grams and the standard
+brevity penalty. Tokenisation is lowercase whitespace splitting, so scores are
+consistent within this project but not directly comparable with sacreBLEU.
 """
 
 from __future__ import annotations
@@ -49,7 +13,7 @@ import math
 from collections import Counter
 
 
-# ── Tokenizer ─────────────────────────────────────────────────────────────────
+# Tokenizer
 
 
 def _tokenize(text: str) -> list[str]:
@@ -57,7 +21,7 @@ def _tokenize(text: str) -> list[str]:
     return text.lower().split()
 
 
-# ── N-gram helpers ────────────────────────────────────────────────────────────
+# N-gram helpers
 
 
 def _ngram_counts(tokens: list[str], n: int) -> Counter[tuple[str, ...]]:
@@ -66,29 +30,17 @@ def _ngram_counts(tokens: list[str], n: int) -> Counter[tuple[str, ...]]:
 
 
 def _clipped_matches(hyp: list[str], ref: list[str], n: int) -> int:
-    """
-    Clipped n-gram matches between hypothesis and reference.
-
-    For each n-gram in hyp, its count is clipped to the number of times
-    it appears in ref. This prevents repetition gaming.
-    """
+    """n-gram matches with each hypothesis count clipped to its count in the reference."""
     hyp_counts = _ngram_counts(hyp, n)
     ref_counts = _ngram_counts(ref, n)
     return sum(min(c, ref_counts[g]) for g, c in hyp_counts.items())
 
 
-# ── Sentence-level BLEU ───────────────────────────────────────────────────────
+# Sentence-level BLEU
 
 
 def sentence_bleu(hypothesis: str, reference: str, max_n: int = 4) -> float:
-    """
-    Sentence-level BLEU with +1 smoothing (Lin & Och 2004).
-
-    Smoothing prevents log(0) for short sentences that have no n-gram
-    matches beyond unigrams. Added to both numerator and denominator.
-
-    Returns a float in [0.0, 1.0].
-    """
+    """Sentence BLEU with add-one smoothing (Lin & Och, 2004), in [0, 1]."""
     hyp = _tokenize(hypothesis)
     ref = _tokenize(reference)
 
@@ -112,7 +64,7 @@ def sentence_bleu(hypothesis: str, reference: str, max_n: int = 4) -> float:
     return bp * math.exp(log_precision_sum / max_n)
 
 
-# ── Corpus-level BLEU ─────────────────────────────────────────────────────────
+# Corpus-level BLEU
 
 
 def corpus_bleu(
@@ -120,20 +72,14 @@ def corpus_bleu(
     references: list[str],
     max_n: int = 4,
 ) -> float:
-    """
-    Corpus-level BLEU score.
+    """Corpus BLEU on a 0–100 scale.
 
-    Aggregates n-gram statistics across all sentence pairs before
-    computing precision — this is the correct way to compute BLEU
-    (per-sentence then average gives different and less stable results).
+    n-gram statistics are summed over all sentences before computing precision.
 
     Args:
-        hypotheses: list of model output strings (one per sentence)
-        references: list of reference strings (one per sentence)
-        max_n:      highest n-gram order to include (default 4)
-
-    Returns:
-        BLEU score as a float in [0.0, 100.0]  (×100 so "BLEU 25" means 0.25)
+        hypotheses: model outputs, one per sentence
+        references: references, one per sentence
+        max_n:      highest n-gram order (default 4)
     """
     if len(hypotheses) != len(references):
         raise ValueError(
@@ -178,7 +124,7 @@ def corpus_bleu(
     return 100.0 * bp * math.exp(log_avg)
 
 
-# ── Detailed result ───────────────────────────────────────────────────────────
+# Detailed result
 
 
 def bleu_detail(

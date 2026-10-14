@@ -1,6 +1,7 @@
-"""Explicit corpus identities for shared, multilingual speech supervision.
+"""Corpus and speaker identities for mixed speech training data.
 
-Never infer a new corpus's speaker from a LibriSpeech filename convention.
+Each corpus declares how to read a speaker ID, so a new corpus is never parsed
+with LibriSpeech's filename convention by accident.
 """
 
 import hashlib
@@ -91,10 +92,10 @@ def metadata_digest(path):
 
 
 def balanced_weights(examples, metadata):
-    """Equal corpus → language → dialect → speaker mass, then equal recordings.
+    """Sampling weights that split mass equally by corpus, then language, dialect and speaker.
 
-    An explicit experiment policy, not a claim that equal weights are universally
-    optimal. It keeps small language/voice groups from vanishing in pooled data.
+    Recordings within a speaker get equal weight. This keeps small groups from
+    disappearing in pooled data; it's an experimental choice, not a tuned one.
     """
     keys = []
     languages = defaultdict(set)

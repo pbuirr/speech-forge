@@ -1,4 +1,4 @@
-"""Reproducible real-bitext training using LinguaForge's existing NMT architecture/loop."""
+"""Train the NMT model on real bitext with reproducible train/dev/test splits that share no source or target sentence."""
 
 from __future__ import annotations
 import argparse

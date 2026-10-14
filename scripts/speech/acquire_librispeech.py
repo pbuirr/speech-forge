@@ -1,4 +1,4 @@
-"""Acquire official CC BY 4.0 labeled audio, retaining publisher checksums."""
+"""Download a LibriSpeech split from OpenSLR and verify it against the published MD5 checksums."""
 
 import hashlib
 import argparse

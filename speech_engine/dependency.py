@@ -1,4 +1,4 @@
-"""Original locally trained arc-standard parser; dependencies remain predictions."""
+"""Arc-standard transition dependency parser trained on Universal Dependencies."""
 
 from collections import Counter, defaultdict
 from dataclasses import dataclass

@@ -1,46 +1,17 @@
-"""
-scripts/translation/filter_corpus.py — Corpus quality filtering for NMT training data.
+"""Filter noisy pairs out of a parallel TSV corpus.
 
-Removes noisy, misaligned, or low-quality sentence pairs from a TSV corpus
-using a combination of:
-
-  1. Length-ratio filter — rejects pairs where src/tgt token count ratio is
-     extreme (> 3× or < 1/3×). Highly mismatched lengths usually indicate
-     misalignment or padding errors.
-
-  2. Character n-gram language overlap — rejects pairs that share too many
-     character 3-grams with their source, which catches untranslated copies,
-     language ID errors, or code-mixed inputs that aren't real translations.
-
-  3. Deduplication — removes exact duplicate source sentences.
-
-  4. Model perplexity scoring (optional, --checkpoint) — if a trained NMT
-     checkpoint is provided, scores every pair by teacher-forced loss and
-     removes the top-p% highest-loss pairs (likely misalignments) and the
-     bottom-p% lowest-loss pairs (trivial / repeated patterns that can
-     cause overfitting).  This is the simplified OPUS-MT / Junczys-Dowmunt
-     et al. (2018) "dual cross-entropy" approach using only the forward model.
+Filters: source/target length ratio outside 1/3–3, near-copies of the source
+(character 3-gram overlap), duplicate sources, and optionally the highest- and
+lowest-loss pairs under a trained checkpoint (a forward-only version of
+Junczys-Dowmunt's dual cross-entropy filtering, 2018).
 
 Usage:
-    # Heuristic-only filtering of a corpus:
-    .venv/bin/python3 scripts/translation/filter_corpus.py \\
-        --input data/corpora/es_en_real.tsv \\
-        --output data/corpora/es_en_filtered.tsv
+    python scripts/translation/filter_corpus.py \
+        --input data/corpora/es_en_real.tsv --output data/corpora/es_en_filtered.tsv
 
-    # With model-perplexity scoring (uses a trained checkpoint):
-    .venv/bin/python3 scripts/translation/filter_corpus.py \\
-        --input data/corpora/es_en_real.tsv \\
-        --output data/corpora/es_en_filtered.tsv \\
-        --checkpoint data/models/nmt_es_en_ep125.pt \\
-        --remove_high_loss 0.10 \\
-        --remove_low_loss 0.03
-
-    # Multilingual: filter each language corpus separately
-    for lang in es fr de; do
-        .venv/bin/python3 scripts/translation/filter_corpus.py \\
-            --input data/corpora/${lang}_en_real.tsv \\
-            --output data/corpora/${lang}_en_filtered.tsv
-    done
+    python scripts/translation/filter_corpus.py \
+        --input data/corpora/es_en_real.tsv --output data/corpora/es_en_filtered.tsv \
+        --checkpoint data/models/nmt_es_en_ep125.pt --remove_high_loss 0.10 --remove_low_loss 0.03
 """
 
 from __future__ import annotations
@@ -55,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 
-# ── Heuristic filters ─────────────────────────────────────────────────────────
+# Heuristic filters
 
 
 def _char_trigrams(text: str) -> set[str]:
@@ -97,7 +68,7 @@ def heuristic_ok(
     return True
 
 
-# ── Model perplexity scoring ──────────────────────────────────────────────────
+# Model perplexity scoring
 
 
 def score_pairs_by_loss(
@@ -171,7 +142,7 @@ def score_pairs_by_loss(
     return losses
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# Main
 
 
 def main() -> None:

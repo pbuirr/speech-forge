@@ -1,4 +1,4 @@
-"""Compare local parser latency on identical cached production evidence."""
+"""Time the dependency parser on the same cached inputs, for latency comparisons."""
 
 import argparse
 from hashlib import sha256

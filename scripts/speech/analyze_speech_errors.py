@@ -1,4 +1,4 @@
-"""Transparent error breakdowns; English lexical probes are opt-in, not semantics."""
+"""Break a saved speech evaluation down into error types and per-speaker results, with a speaker bootstrap for paired comparisons."""
 
 import argparse
 from collections import Counter, defaultdict

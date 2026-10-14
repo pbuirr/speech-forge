@@ -1,4 +1,4 @@
-"""Bounded local WAV inference using the existing CTC training checkpoint format."""
+"""Transcribe a local WAV file with an installed CTC checkpoint."""
 
 from __future__ import annotations
 

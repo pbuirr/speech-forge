@@ -1,18 +1,8 @@
-"""
-speech_engine/vad.py — LinguaForge Phase 8: Voice Activity Detection
+"""Voice activity detection from short-time energy, zero-crossing rate and spectral flatness.
 
-Hand-rolled VAD using three complementary features:
-  1. Short-time energy (RMS per frame) — loud frames are likely speech
-  2. Zero-crossing rate (ZCR) — voiced speech crosses zero 50–300×/sec;
-     silence and broadband noise cross much more often
-  3. Spectral flatness (Wiener entropy) — tonal/harmonic signals (speech)
-     are less flat than white noise
-
-A 4-state machine (SILENCE → ONSET → SPEECH → HANGOVER) merges these
-features into segment boundaries.  The noise floor is estimated adaptively
-from the quietest frames so the detector works in different room conditions.
-
-No external libraries.  Requires only numpy.
+A four-state machine (silence → onset → speech → hangover) turns the frame
+features into segments, with the noise floor estimated from the quietest
+frames. Uses only NumPy.
 """
 
 from __future__ import annotations
@@ -24,7 +14,7 @@ from enum import Enum, auto
 import numpy as np
 
 
-# ── Public types ──────────────────────────────────────────────────────────────
+# Public types
 
 
 @dataclass
@@ -47,7 +37,7 @@ class VADState(Enum):
     HANGOVER = auto()  # possible speech end — waiting to see if it resumes
 
 
-# ── Feature extraction ────────────────────────────────────────────────────────
+# Feature extraction
 
 
 def _frame_audio(audio: np.ndarray, frame_len: int, hop_len: int) -> np.ndarray:
@@ -94,7 +84,7 @@ def _spectral_flatness(frames: np.ndarray) -> np.ndarray:
     return geo / (arith + eps)
 
 
-# ── Noise-floor estimator ─────────────────────────────────────────────────────
+# Noise-floor estimator
 
 
 class _NoiseFloor:
@@ -115,7 +105,7 @@ class _NoiseFloor:
         return min(self._buf)
 
 
-# ── State machine ─────────────────────────────────────────────────────────────
+# State machine
 
 
 @dataclass
@@ -187,7 +177,7 @@ class _StateMachine:
         return self._state
 
 
-# ── Main detector ─────────────────────────────────────────────────────────────
+# Main detector
 
 
 class VoiceActivityDetector:
@@ -241,7 +231,7 @@ class VoiceActivityDetector:
             min_speech_frames=min_speech_frames,
         )
 
-    # ── Batch detect ──────────────────────────────────────────────────────────
+    # Batch detect
 
     def detect(self, audio: np.ndarray) -> list[SpeechSegment]:
         """
@@ -289,7 +279,7 @@ class VoiceActivityDetector:
             "flatness": _spectral_flatness(frames),
         }
 
-    # ── Streaming API ─────────────────────────────────────────────────────────
+    # Streaming API
 
     def stream(self) -> "VADStream":
         """
@@ -302,7 +292,7 @@ class VoiceActivityDetector:
         """
         return VADStream(self)
 
-    # ── Internal ──────────────────────────────────────────────────────────────
+    # Internal
 
     def _frames_to_seg(self, start_frame: int, end_frame: int) -> SpeechSegment:
         start_sec = start_frame * self.hop_len / self.sr
@@ -310,7 +300,7 @@ class VoiceActivityDetector:
         return SpeechSegment(start=start_sec, end=end_sec)
 
 
-# ── Streaming wrapper ─────────────────────────────────────────────────────────
+# Streaming wrapper
 
 
 class VADStream:
@@ -383,7 +373,7 @@ class VADStream:
         return self._sm.current_state
 
 
-# ── Convenience functions ─────────────────────────────────────────────────────
+# Convenience functions
 
 
 def detect_speech(audio: np.ndarray, sr: int = 16_000, **kwargs) -> list[SpeechSegment]:

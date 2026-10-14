@@ -1,4 +1,4 @@
-"""Compare original CTC decoding and training-only shared n-gram fusion on cached logits."""
+"""Compare greedy, beam and LM-fused CTC decoding on cached model outputs."""
 
 from __future__ import annotations
 import argparse, hashlib, json, re, sys, time

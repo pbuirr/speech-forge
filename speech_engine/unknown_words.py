@@ -1,4 +1,4 @@
-"""Locally learned spelling likelihoods; suffixes are not morpheme claims."""
+"""Spelling-based POS likelihoods for words not in the lexicon, learned from training data."""
 
 import math
 from collections import Counter, defaultdict
@@ -6,13 +6,12 @@ from speech_engine.linguistic_resources import normalized_form
 
 
 class UnknownWordModel:
-    """Smoothed case-variant evidence, then rare-form suffix/case backoff.
+    """POS evidence for words not in the lexicon, from case variants and suffixes.
 
-    Each spelling contributes one unit, shared across its observed tags. This
-    prevents frequent words from dominating the distribution of unseen types.
-    Posterior/prior ratios supply emission evidence to the contextual HMM.
-    Case variants predict POS only: they do not establish lexical identity,
-    lemmas, meanings, or named entities, and never exclude competing tags.
+    Each training spelling counts once, spread over its observed tags, so frequent
+    words don't dominate. Falls back from case variants to suffix and word-shape
+    statistics. The resulting posterior/prior ratios are used as emission scores in
+    the HMM tagger; no tag is ever ruled out.
     """
 
     def __init__(self, emissions, maximum_suffix=5, smoothing=5.0, language=None):

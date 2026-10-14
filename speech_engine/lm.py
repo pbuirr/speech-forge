@@ -1,30 +1,11 @@
-"""
-speech_engine/lm.py — Stupid-backoff n-gram language model.
+"""Stupid-backoff n-gram language model (Brants et al., 2007).
 
-Used to score translation candidates in context: given the words already
-output, pick the word that produces the most natural English sequence
-rather than just the highest-IDF IBM1 translation.
+    score(w | context) = count(context, w) / count(context)    if seen
+                       = α · score(w | shorter context)         otherwise
 
-The classic WSD example: "le monde" → "the world" (not "the everyone").
-IBM1 can't tell them apart since "monde" maps to both. But P("world" | "the")
-is much higher than P("everyone" | "the") in any English corpus, so the LM
-picks correctly.
-
-Algorithm: stupid backoff (Brants et al., 2007 — "Large Language Models
-in Machine Translation"). These unnormalized scores rank hypotheses; they
-are not probabilities of linguistic correctness. Trigrams remain the default
-for compatibility; optional orders four/five support controlled context trials.
-
-  score(w | c2, c1):
-    if trigram (c2,c1,w) seen:   count(c2,c1,w) / count(c2,c1)
-    elif bigram (c1,w) seen:     α × count(c1,w) / count(c1)
-    elif unigram w seen:         α² × count(w) / N
-    else:                        α² / N    (OOV floor)
-
-α = 0.4 (Brants et al. default).
-
-Quality depends on the training corpus, token units and task; compare decoding
-settings on development data rather than assuming one smoothing method suffices.
+with α = 0.4. Scores are unnormalised and only used for ranking. Works on any
+token sequence: words for translation reranking, characters for CTC shallow
+fusion. Order 3 by default, up to 5.
 """
 
 from __future__ import annotations

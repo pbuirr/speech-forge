@@ -1,20 +1,11 @@
-"""
-scripts/demos/audio_preprocessing.py — LinguaForge Phase 1: Audio Preprocessing Demo
+"""Demo: audio preprocessing and log-Mel features.
 
-Demonstrates the full Phase 1 pipeline:
-  load → mono → resample → normalize → log-Mel spectrogram → visualize
+    load → mono → resample → normalise → log-Mel → plot
 
 Usage:
-    # With your own audio file:
+    python scripts/demos/audio_preprocessing.py                  # synthetic test signal
     python scripts/demos/audio_preprocessing.py path/to/audio.wav
-
-    # With the built-in synthetic test signal (no audio file needed):
-    python scripts/demos/audio_preprocessing.py
-
-    # Save spectrogram to a custom path:
-    python scripts/demos/audio_preprocessing.py --output my_spectrogram.png
-
-    # Show spectrogram interactively (requires a display):
+    python scripts/demos/audio_preprocessing.py --output spectrogram.png
     python scripts/demos/audio_preprocessing.py --show
 """
 
@@ -51,7 +42,7 @@ from speech_engine.features import (
     visualize_spectrogram,
 )
 
-# ── ANSI colours for terminal output ──────────────────────────────────────────
+# ANSI colours for terminal output
 _GREEN = "\033[92m"
 _BLUE = "\033[94m"
 _YELLOW = "\033[93m"
@@ -74,7 +65,7 @@ def _ok(detail: str = "") -> None:
     print(f"  {_GREEN}✓{_RESET}{suffix}")
 
 
-# ── Synthetic test signal ──────────────────────────────────────────────────────
+# Synthetic test signal
 
 
 def generate_synthetic_signal(duration_s: float = 3.0, sample_rate: int = 22_050) -> np.ndarray:
@@ -107,7 +98,7 @@ def generate_synthetic_signal(duration_s: float = 3.0, sample_rate: int = 22_050
     return (signal * envelope).astype(np.float32)
 
 
-# ── Main demo ─────────────────────────────────────────────────────────────────
+# Main demo
 
 
 def run_demo(
@@ -117,12 +108,12 @@ def run_demo(
 ) -> None:
     TOTAL_STEPS = 6
 
-    # ── Header ────────────────────────────────────────────────────────────────
+    # Header
     print(f"\n{_BOLD}{'═' * 62}{_RESET}")
-    print(f"{_BOLD}  LinguaForge — Phase 1: Audio Preprocessing{_RESET}")
+    print(f"{_BOLD}  LinguaForge — Audio Preprocessing{_RESET}")
     print(f"{_BOLD}{'═' * 62}{_RESET}")
 
-    # ── Input: real file or synthetic signal ──────────────────────────────────
+    # Input: real file or synthetic signal
     _section("Input")
 
     if audio_path is None:
@@ -143,7 +134,7 @@ def run_demo(
         audio_path = str(Path(audio_path).resolve())
         print(f"  File: {audio_path}")
 
-    # ── Step 1: Metadata ───────────────────────────────────────────────────────
+    # Step 1: Metadata
     _section("Metadata")
     t0 = time.perf_counter()
     meta = get_metadata(audio_path)
@@ -151,7 +142,7 @@ def run_demo(
     print(meta)
     print(f"  {_DIM}(read in {elapsed * 1000:.1f} ms — no audio loaded){_RESET}")
 
-    # ── Steps 2–5: Full pipeline, step by step ────────────────────────────────
+    # Steps 2–5: Full pipeline, step by step
     _section("Pipeline")
 
     # Step 2: Load
@@ -206,7 +197,7 @@ def run_demo(
         f"shape {spec_padded.shape}  ({MAX_FRAMES} × 10 ms = {MAX_FRAMES * 10 / 1000:.0f}s context)"
     )
 
-    # ── Spectrogram detail ────────────────────────────────────────────────────
+    # Spectrogram detail
     _section("Spectrogram Info")
     n_mels, n_frames = spec.shape
     duration_s = n_frames * HOP_LENGTH / SAMPLE_RATE
@@ -218,7 +209,7 @@ def run_demo(
     print(f"  hop        {HOP_LENGTH}  ({HOP_LENGTH / SAMPLE_RATE * 1000:.0f} ms step)")
     print(f"  Value range   min={spec.min():.4f}  max={spec.max():.4f}  mean={spec.mean():.4f}")
 
-    # ── Pipeline: what the model will actually receive ─────────────────────────
+    # Pipeline: what the model will actually receive
     _section("What the Model Sees")
     print(f"  Input tensor shape: ({N_MELS}, {MAX_FRAMES})")
     print(f"  dtype: float32")
@@ -226,11 +217,11 @@ def run_demo(
     print(f"  Each column = 10 ms of audio  ·  Each row = one Mel frequency band")
     print(f"  The model reads this like an image: time across, frequency up")
 
-    # ── Save spectrogram ───────────────────────────────────────────────────────
+    # Save spectrogram
     _section("Output")
     out = Path(output_path)
     print(f"  Generating spectrogram figure...")
-    title = f"LinguaForge Phase 1 — Log-Mel Spectrogram"
+    title = f"Log-Mel spectrogram"
     fig = visualize_spectrogram(
         spec,
         sample_rate=SAMPLE_RATE,
@@ -246,12 +237,7 @@ def run_demo(
 
     plt_close(fig)
 
-    # ── Summary ───────────────────────────────────────────────────────────────
-    print(f"\n{_BOLD}{'─' * 62}{_RESET}")
-    print(f"{_GREEN}Phase 1 complete.{_RESET}  All functions working correctly.")
-    print(f"\nNext step: Phase 2 — build the dataset loader and tokenizer.")
-    print(f"  Files to create: speech_engine/dataset.py, speech_engine/tokenizer.py")
-    print()
+    print("\nDone.")
 
 
 def plt_close(fig) -> None:
@@ -261,12 +247,12 @@ def plt_close(fig) -> None:
     plt.close(fig)
 
 
-# ── CLI ───────────────────────────────────────────────────────────────────────
+# CLI
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="LinguaForge Phase 1: Audio Preprocessing Demo",
+        description="LinguaForge Audio Preprocessing Demo",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(

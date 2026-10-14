@@ -1,35 +1,9 @@
-"""
-speech_engine/decode.py — CTC decoders, implemented from scratch.
+"""CTC decoding: greedy and prefix beam search.
 
-Two decoders are provided. Both are written by hand — no ctcdecode library,
-no external beam search package.
-
-Greedy decode:
-    At each time step, pick the token with the highest log-probability.
-    Apply CTC collapse (merge consecutive duplicates, remove blanks).
-    Fast (O(T * B)) but suboptimal — it can't recover from a bad local decision.
-
-Prefix beam search:
-    Maintain the top-k most probable prefixes across the whole sequence.
-    At each time step, extend each beam with every possible next token and
-    re-score. This allows the decoder to consider multiple transcription
-    hypotheses simultaneously and pick the globally best one.
-
-    Implemented in log-space for numerical stability (we sum log-probabilities
-    instead of multiplying raw probabilities, which would underflow to 0.0
-    for long sequences).
-
-Why beam search gives lower WER:
-    Greedy decode commits to the locally best token at every frame. If the
-    model is momentarily uncertain and picks the wrong character, it's stuck.
-    Beam search keeps k alternative hypotheses alive, so a wrong local decision
-    can be overruled later when the surrounding context makes the right answer
-    clearer.
-
-    Example: the model might output 'h' at frame t with log-prob -0.3, and
-    'n' with log-prob -0.4. Greedy picks 'h'. But if the next 10 frames
-    strongly support "new" and not "hew", beam search (with k≥2) would
-    have kept the 'n' hypothesis alive and ultimately produce the right word.
+Greedy decoding takes the best token per frame, then removes repeats and
+blanks. Prefix beam search keeps the k best prefixes in log space and can add
+a character n-gram language model score (shallow fusion) with a per-token
+reward.
 """
 
 from __future__ import annotations
@@ -40,25 +14,21 @@ import torch
 import numpy as np
 
 
-# ── Greedy CTC decode ─────────────────────────────────────────────────────────
+# Greedy CTC decode
 
 
 def greedy_decode(
     log_probs: torch.Tensor,
     tokenizer,
 ) -> list[str]:
-    """Greedy CTC decode: argmax at every frame, then apply CTC collapse.
+    """Greedy CTC decoding: argmax per frame, then collapse.
 
     Args:
-        log_probs: (T, B, vocab_size) — model output, time-first
-        tokenizer: CharTokenizer for converting IDs to text
+        log_probs: (T, B, vocab_size) model output, time-first
+        tokenizer: CharTokenizer
 
     Returns:
-        list of decoded strings, one per batch element
-
-    Argmax and collapse are deterministic. The quality gap to beam search
-    depends on the trained acoustic model, language and evaluation distribution;
-    measure it on development data rather than assuming a fixed WER difference.
+        one decoded string per batch element
     """
     if log_probs.ndim == 2:
         log_probs = log_probs.unsqueeze(1)  # (T, 1, V) — single example
@@ -76,19 +46,11 @@ def greedy_decode(
     return results
 
 
-# ── CTC prefix beam search ────────────────────────────────────────────────────
+# CTC prefix beam search
 
 
 def _logsumexp(a: float, b: float) -> float:
-    """Numerically stable log(exp(a) + exp(b)).
-
-    Working in log-space: instead of multiplying probabilities (which
-    underflow to 0.0 for long sequences), we add log-probabilities.
-    But adding two log-probabilities means computing log(exp(a) + exp(b))
-    — which can overflow if a and b are large. The trick is:
-        log(exp(a) + exp(b)) = max(a,b) + log(1 + exp(min-max))
-    The subtraction exp(min-max) is always ≤ 1.0, so no overflow.
-    """
+    """Stable log(exp(a) + exp(b))."""
     if a == float("-inf"):
         return b
     if b == float("-inf"):
@@ -189,10 +151,10 @@ def prefix_beam_search(
         for (prefix, last_c), (log_pb, log_pn) in beam.items():
             log_p_total = _logsumexp(log_pb, log_pn)
 
-            # ── Case 1: output blank ──────────────────────────────────────────
+            # Case 1: output blank
             _update((prefix, last_c), log_p_total + lp[BLANK], NEG_INF)
 
-            # ── Case 2 & 3: output non-blank character ────────────────────────
+            # Case 2 & 3: output non-blank character
             for c in range(V):
                 if c == BLANK or c in SKIP:
                     continue
@@ -236,19 +198,15 @@ def beam_decode(
     lm_weight: float = 0.0,
     token_reward: float = 0.0,
 ) -> list[str]:
-    """Batch wrapper for prefix_beam_search.
-
-    Runs prefix_beam_search independently on each element in the batch.
-    Beam search is sequential per example — parallelism happens across
-    the batch (could be run with multiprocessing.Pool for large batches).
+    """Run ``prefix_beam_search`` on each element of a batch.
 
     Args:
-        log_probs:  (T, B, vocab_size) — model output, time-first
+        log_probs:  (T, B, vocab_size) model output, time-first
         tokenizer:  CharTokenizer
-        beam_width: number of beams per example
+        beam_width: beams per example
 
     Returns:
-        list of decoded strings, one per batch element
+        one decoded string per batch element
     """
     if log_probs.ndim == 2:
         log_probs = log_probs.unsqueeze(1)

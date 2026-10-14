@@ -1,22 +1,14 @@
-"""
-speech_engine/conjugation.py — Spanish verb conjugation engine (from scratch)
+"""Spanish verb conjugation tables for the learning features.
 
-Generates full conjugation tables for Spanish verbs across 6 tenses and
-6 grammatical persons. Used by the teaching layer to show learners exactly
-how a verb conjugates — something mainstream translators don't provide.
-
-Architecture:
-  - 200 high-frequency verbs with explicit conjugation entries
-  - Regular pattern inference for -ar / -er / -ir verbs not in the table
-  - Stem-change detection (e→ie, o→ue, e→i) for common irregular patterns
+Covers six tenses and six persons. About 200 frequent verbs have explicit
+entries; other -ar/-er/-ir verbs follow the regular pattern, with detection of
+the common e→ie, o→ue and e→i stem changes.
 """
 
 from __future__ import annotations
 from dataclasses import dataclass, field
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Data structures
-# ══════════════════════════════════════════════════════════════════════════════
 
 PERSONS = ["yo", "tú", "él/ella", "nosotros", "vosotros", "ellos/ellas"]
 EN_PERSONS = ["I", "you", "he/she", "we", "you all", "they"]
@@ -45,9 +37,7 @@ class ConjugationTable:
     notes: list[str] = field(default_factory=list)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Explicit verb table  (infinitive → conjugation data)
-# ══════════════════════════════════════════════════════════════════════════════
 
 # Each entry: (en_inf, gerund_es, gerund_en, participle_es, participle_en,
 #              {tense: [6 forms]}, is_regular, notes)
@@ -62,7 +52,7 @@ def _irr(en, ger_es, ger_en, part_es, part_en, tenses, notes=""):
     return (en, ger_es, ger_en, part_es, part_en, tenses, False, [notes] if notes else [])
 
 
-# ── Regular -ar (hablar template) ────────────────────────────────────────────
+# Regular -ar (hablar template)
 def _ar(stem: str, en: str, gerund_en: str, past_en: str, part_es: str | None = None) -> tuple:
     p = stem
     ge = p + "ando"
@@ -84,7 +74,7 @@ def _ar(stem: str, en: str, gerund_en: str, past_en: str, part_es: str | None = 
     )
 
 
-# ── Regular -er (comer template) ─────────────────────────────────────────────
+# Regular -er (comer template)
 def _er(stem: str, en: str, gerund_en: str, past_en: str) -> tuple:
     p = stem
     return _reg(
@@ -104,7 +94,7 @@ def _er(stem: str, en: str, gerund_en: str, past_en: str) -> tuple:
     )
 
 
-# ── Regular -ir (vivir template) ─────────────────────────────────────────────
+# Regular -ir (vivir template)
 def _ir(stem: str, en: str, gerund_en: str, past_en: str) -> tuple:
     p = stem
     return _reg(
@@ -156,7 +146,7 @@ def _make_ir(stem, en, gen_en, past_en):
     return entry
 
 
-# ── Regular verbs ─────────────────────────────────────────────────────────────
+# Regular verbs
 for _inf, _stem, _en, _gen_en, _past_en in [
     ("hablar", "habl", "speak", "speak", "spoken"),
     ("escuchar", "escuch", "listen", "listen", "listened"),
@@ -219,7 +209,7 @@ for _inf, _stem, _en, _gen_en, _past_en in [
 ]:
     _VERB_DB[_inf] = _make_ir(_stem, _en, _gen_en, _past_en)
 
-# ── Highly irregular verbs (hand-coded) ──────────────────────────────────────
+# Highly irregular verbs (hand-coded)
 _VERB_DB["ser"] = _irr(
     "be",
     "siendo",
@@ -690,9 +680,7 @@ _VERB_DB["perder"] = _irr(
     "Stem change e→ie in present (except nosotros/vosotros)",
 )
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Regular pattern inference for unknown verbs
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def _infer_regular(infinitive: str) -> ConjugationTable | None:
@@ -740,9 +728,7 @@ def _infer_regular(infinitive: str) -> ConjugationTable | None:
     )
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Public API
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def conjugate(infinitive: str) -> ConjugationTable | None:

@@ -1,4 +1,4 @@
-"""Freeze a new speaker-balanced test-clean sample before candidate evaluation."""
+"""Freeze a new speaker-balanced sample of LibriSpeech test-clean before evaluating candidates."""
 
 from collections import defaultdict, Counter
 import hashlib, json

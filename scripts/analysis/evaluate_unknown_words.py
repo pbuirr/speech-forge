@@ -1,4 +1,4 @@
-"""Compare learned spelling with the previous flat OOV lattice, without fitting."""
+"""Compare the learned unknown-word model with the old flat fallback on held-out words."""
 
 import argparse
 from collections import Counter

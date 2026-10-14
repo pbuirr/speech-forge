@@ -1,4 +1,4 @@
-"""Shared source-preserving sentence boundaries; decisions remain heuristics."""
+"""Sentence splitting that keeps exact character offsets into the original text."""
 
 TERMINALS = frozenset(".!?。！？؟।॥")
 CLOSERS = frozenset("\"'”’»)]}")

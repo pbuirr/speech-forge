@@ -1,26 +1,12 @@
-"""
-scripts/demos/ctc_training.py — LinguaForge Phase 3: CTC Model + Training Demo
+"""Demo: train the CTC model on toy data and decode it.
 
-Demonstrates:
-  1. CTCModel architecture — our own CNN + BiLSTM + CTC design
-  2. A forward pass — shapes from input to output
-  3. CTC loss computation — what the model optimises
-  4. A real training loop — loss should decrease on toy data
-  5. Greedy decode — convert model output to text
-  6. Prefix beam search — better decode with k hypotheses
-  7. CER and WER — our own edit-distance metrics
+Shows the model's tensor shapes, CTC loss, a short training run, greedy and
+beam decoding, and CER/WER.
 
 Usage:
-    # Quick demo (tiny model, 5 epochs):
     python scripts/demos/ctc_training.py
-
-    # Longer training on toy data:
     python scripts/demos/ctc_training.py --epochs 30
-
-    # Train on the official LibriSpeech training split (download first):
     python scripts/demos/ctc_training.py --librispeech data/LibriSpeech --split train-clean-100 --epochs 50
-
-    # Resume from checkpoint:
     python scripts/demos/ctc_training.py --resume checkpoints/latest.pt
 """
 
@@ -53,7 +39,7 @@ from speech_engine.train import TrainConfig, resolve_device, train
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from tokenizer_pipeline import make_toy_dataset
 
-# ── ANSI colours ──────────────────────────────────────────────────────────────
+# ANSI colours
 _G = "\033[92m"
 _B = "\033[94m"
 _C = "\033[96m"
@@ -71,7 +57,7 @@ def _ok(label: str, value: str) -> None:
     print(f"  {_B}{label:<26}{_R} {value}")
 
 
-# ── Section 1: Model architecture ────────────────────────────────────────────
+# Section 1: Model architecture
 
 
 def demo_model(vocab_size: int, quick: bool = True) -> CTCModel:
@@ -104,7 +90,7 @@ def demo_model(vocab_size: int, quick: bool = True) -> CTCModel:
     return model
 
 
-# ── Section 2: Forward pass inspection ───────────────────────────────────────
+# Section 2: Forward pass inspection
 
 
 def demo_forward_pass(model: CTCModel, device: torch.device) -> None:
@@ -143,7 +129,7 @@ def demo_forward_pass(model: CTCModel, device: torch.device) -> None:
     _ok("  target_lengths:", f"[L_1, L_2, ..., L_B]  (chars per transcript)")
 
 
-# ── Section 3: CTC loss demonstration ────────────────────────────────────────
+# Section 3: CTC loss demonstration
 
 
 def demo_ctc_loss(model: CTCModel, tokenizer: CharTokenizer, device: torch.device) -> None:
@@ -185,11 +171,11 @@ def demo_ctc_loss(model: CTCModel, tokenizer: CharTokenizer, device: torch.devic
     print(f"    Watch for the loss to DECREASE during training — that's the signal.")
 
 
-# ── Section 4: Edit distance and metrics demo ─────────────────────────────────
+# Section 4: Edit distance and metrics demo
 
 
 def demo_metrics() -> None:
-    _sec("Edit Distance, CER, and WER — all from scratch")
+    _sec("Edit Distance, CER, and WER")
 
     pairs = [
         ("hello world", "helo world"),  # one deletion
@@ -217,7 +203,7 @@ def demo_metrics() -> None:
     print(f"    CER: {dist}/{len(ref)} = {dist / len(ref):.3f}")
 
 
-# ── Section 5: Full training loop ─────────────────────────────────────────────
+# Section 5: Full training loop
 
 
 def demo_training(
@@ -268,7 +254,7 @@ def demo_training(
             print(f"  Epoch {i + 1:>3}  {loss:.4f}  {_G}{bar}{_R}")
 
 
-# ── Section 6: Decode demo ────────────────────────────────────────────────────
+# Section 6: Decode demo
 
 
 def demo_decode(
@@ -313,11 +299,11 @@ def demo_decode(
     print(f"  This is expected — the model needs real paired speech data to learn.{_R}")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# Main
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="LinguaForge Phase 3: CTC ASR Demo")
+    parser = argparse.ArgumentParser(description="LinguaForge CTC ASR Demo")
     parser.add_argument("--epochs", type=int, default=5, help="Training epochs (default 5)")
     parser.add_argument("--quick", action="store_true", help="Use tiny model (fast on CPU)")
     parser.add_argument("--librispeech", default=None, help="LibriSpeech root directory")
@@ -332,10 +318,10 @@ def main() -> None:
     args = parser.parse_args()
 
     print(f"\n{_W}{'═' * 62}{_R}")
-    print(f"{_W}  LinguaForge — Phase 3: CTC Model, Training, Decode, Eval{_R}")
+    print(f"{_W}  LinguaForge — CTC Model, Training, Decode, Eval{_R}")
     print(f"{_W}{'═' * 62}{_R}")
 
-    # ── Device ────────────────────────────────────────────────────────────────
+    # Device
     device = resolve_device(args.device)
     _sec("Device")
     _ok("Selected device:", str(device))
@@ -343,7 +329,7 @@ def main() -> None:
         print(f"  {_D}(Training on CPU is fine for the demo and toy dataset.)")
         print(f"   For LibriSpeech, CUDA or Apple MPS greatly speeds up training.){_R}")
 
-    # ── Dataset ───────────────────────────────────────────────────────────────
+    # Dataset
     _sec("Dataset")
     if args.manifest:
         from speech_engine.dataset import load_manifest
@@ -366,7 +352,7 @@ def main() -> None:
             f"  {_D}For real training: python scripts/demos/ctc_training.py --librispeech data/LibriSpeech{_R}"
         )
 
-    # ── Tokenizer ─────────────────────────────────────────────────────────────
+    # Tokenizer
     tok_path = PROJECT_ROOT / "data" / "tokenizer.json"
     if tok_path.exists():
         tokenizer = CharTokenizer.load(tok_path)
@@ -376,20 +362,20 @@ def main() -> None:
         tokenizer.save(tok_path)
     _ok("Tokenizer:", repr(tokenizer))
 
-    # ── Model ─────────────────────────────────────────────────────────────────
+    # Model
     quick = args.quick or (not args.librispeech and not args.manifest)
     model = demo_model(tokenizer.vocab_size, quick=quick)
 
-    # ── Forward pass ──────────────────────────────────────────────────────────
+    # Forward pass
     demo_forward_pass(model, device)
 
-    # ── CTC loss ──────────────────────────────────────────────────────────────
+    # CTC loss
     demo_ctc_loss(model, tokenizer, device)
 
-    # ── Metrics ───────────────────────────────────────────────────────────────
+    # Metrics
     demo_metrics()
 
-    # ── Training ──────────────────────────────────────────────────────────────
+    # Training
     config = TrainConfig(
         max_epochs=args.epochs,
         batch_size=4,
@@ -403,30 +389,10 @@ def main() -> None:
     resume = Path(args.resume) if args.resume else None
     demo_training(model, tokenizer, examples, config, device, resume)
 
-    # ── Decode ────────────────────────────────────────────────────────────────
+    # Decode
     demo_decode(model, tokenizer, examples, device)
 
-    # ── Summary ───────────────────────────────────────────────────────────────
-    print(f"\n{_W}{'─' * 62}{_R}")
-    print(f"{_G}Phase 3 complete.{_R}  Model, training loop, decoder, and metrics working.")
-    print(f"""
-What you built:
-  • CTCModel: CNN encoder + BiLSTM stack + linear classifier   (model_ctc.py)
-  • Training loop with cosine LR warmup + gradient clipping    (train.py)
-  • Greedy CTC decoder                                         (decode.py)
-  • Prefix beam search decoder (from scratch, in log space)    (decode.py)
-  • Levenshtein edit distance, CER, WER                        (evaluate.py)
-
-What uses external libraries:
-  • nn.Conv2d, nn.LSTM, nn.Linear, nn.CTCLoss — PyTorch primitives
-  • Everything else (architecture, training, decoding, metrics) is ours.
-
-Next step: Phase 4 — Transformer encoder-decoder (mini-Whisper architecture)
-  Files to create:
-    speech_engine/model_transformer.py — Transformer Enc-Dec with cross-attention
-    speech_engine/positional_encoding.py — sinusoidal + learned PE
-    speech_engine/attention.py — multi-head self-attention from scratch
-""")
+    print("\nDone.")
 
 
 if __name__ == "__main__":

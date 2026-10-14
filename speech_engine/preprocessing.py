@@ -1,15 +1,8 @@
-"""
-speech_engine/preprocessing.py — Linguistic preprocessing for NMT input.
+"""Text normalisation before translation.
 
-Rather than passing raw text straight to BPE, we normalize constructs the
-neural model has never seen: currency symbols ($20 → "20 dólares"), percentages,
-abbreviations, and mixed-language tokens. We also extract *linguistic anchors*
-— numbers, amounts, dates — so the translation layer can verify the output
-actually covers what the source said.
-
-This is the gap between a neural lookup table (memorize training pairs) and a
-language-aware system (understand structure and route unknown constructs
-intelligently).
+Rewrites constructs that are rare in the training data (currency symbols,
+percentages, abbreviations) and extracts anchors (numbers, amounts, dates) so
+the output can be checked against the source.
 """
 
 from __future__ import annotations
@@ -17,7 +10,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-# ── Linguistic constants ──────────────────────────────────────────────────────
+# Linguistic constants
 
 _CURRENCY_ES = {
     "$": "dólares",
@@ -62,7 +55,7 @@ _ORDINAL_ES = {
     "5º": "quinto",
 }
 
-# ── Data structures ────────────────────────────────────────────────────────────
+# Data structures
 
 
 @dataclass
@@ -113,7 +106,7 @@ class PrepResult:
         return f"{translation} ({extras})"
 
 
-# ── Core normalizer ────────────────────────────────────────────────────────────
+# Core normalizer
 
 # Currency pattern: $20, $1,000.50, 20€, 30$
 # Commas only allowed as thousands separators (,\d+ not ,\s or ,end)
@@ -222,7 +215,7 @@ def normalize_es_input(text: str) -> PrepResult:
     return PrepResult(normalized=result, anchors=anchors, original=text)
 
 
-# ── Post-processing ────────────────────────────────────────────────────────────
+# Post-processing
 
 
 def postprocess_en_output(text: str) -> str:

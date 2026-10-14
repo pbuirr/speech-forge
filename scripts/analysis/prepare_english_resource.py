@@ -1,7 +1,8 @@
-"""Reproduce the pinned UD English EWT resource and held-out evaluation.
+"""Rebuild the UD English-EWT lexicon and its held-out evaluation.
 
-Downloads public data, trains original count-based models, and runs locally.
-No pretrained weights or external inference services are used.
+Downloads the pinned treebank files (checked against stored checksums), builds
+the lexicon and POS model from the training split, and with ``--calibrate``
+also fits the POS calibration on the dev split.
 """
 
 import argparse

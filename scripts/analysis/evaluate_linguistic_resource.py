@@ -1,4 +1,4 @@
-"""Measure lexical coverage and exact analysis agreement on a held-out corpus."""
+"""Measure lexicon coverage and exact analysis agreement on a held-out CoNLL-U file."""
 
 import argparse
 import json

@@ -1,4 +1,4 @@
-"""Prepare article-disjoint OPUS adaptation data without consuming existing tests."""
+"""Build article-disjoint news adaptation data from OPUS without touching the existing test sets."""
 
 from __future__ import annotations
 import argparse

@@ -1,27 +1,12 @@
-"""
-scripts/translation/evaluate_nmt.py — Standalone BLEU evaluation for LinguaForge NMT models.
-
-Loads a trained checkpoint, translates the held-out test set (created once
-at training time with a fixed seed), computes corpus BLEU, saves a detailed
-JSON report, and optionally renders an attention heatmap.
+"""Evaluate an NMT checkpoint on its held-out split and write a JSON report.
 
 Usage:
-    # Basic evaluation (uses auto-detected test split)
     python scripts/translation/evaluate_nmt.py --src es --tgt en --checkpoint data/models/nmt_es_en.pt
+    python scripts/translation/evaluate_nmt.py ... --attention "el gato curioso exploró la casa vieja"
+    python scripts/translation/evaluate_nmt.py ... --test data/splits/es_en_test_seed42.tsv
+    python scripts/translation/evaluate_nmt.py ... --protect-entities
 
-    # With attention heatmap for a specific sentence
-    python scripts/translation/evaluate_nmt.py --src es --tgt en --checkpoint data/models/nmt_es_en.pt \\
-        --attention "el gato curioso exploró la casa vieja"
-
-    # Evaluate on a custom test file (TSV: source\\treference)
-    python scripts/translation/evaluate_nmt.py --src es --tgt en --checkpoint data/models/nmt_es_en.pt \\
-        --test data/splits/es_en_test_seed42.tsv
-
-    # Evaluate with named-entity protection enabled
-    python scripts/translation/evaluate_nmt.py --src es --tgt en --checkpoint data/models/nmt_es_en.pt \\
-        --protect-entities
-
-Report saved to: results/eval_<src>_<tgt>.json
+The report is written to results/eval_<src>_<tgt>.json.
 """
 
 from __future__ import annotations
@@ -43,7 +28,7 @@ from speech_engine.nmt import load_checkpoint
 from speech_engine.ner import EntityProtector
 
 
-# ── Defaults ──────────────────────────────────────────────────────────────────
+# Defaults
 
 DEFAULT_BEAM = 4
 DEFAULT_MAX_LEN = 100
@@ -51,7 +36,7 @@ DEFAULT_N_SAMPLES = 40  # sample translations saved to JSON
 DEFAULT_SPLIT_SEED = 42
 
 
-# ── Test-set loader ────────────────────────────────────────────────────────────
+# Test-set loader
 
 
 def load_test_set(path: Path) -> list[tuple[str, str]]:
@@ -79,7 +64,7 @@ def find_test_split(src: str, tgt: str, seed: int = DEFAULT_SPLIT_SEED) -> Path 
     return None
 
 
-# ── Translation ────────────────────────────────────────────────────────────────
+# Translation
 
 
 def translate_batch(
@@ -119,7 +104,7 @@ def translate_batch(
     return results
 
 
-# ── Attention visualization ────────────────────────────────────────────────────
+# Attention visualization
 
 
 def visualize_attention(
@@ -195,11 +180,11 @@ def visualize_attention(
     print(f"  Attention heatmap → {out_path}")
 
 
-# ── Main evaluation ────────────────────────────────────────────────────────────
+# Main evaluation
 
 
 def evaluate(args: argparse.Namespace) -> None:
-    # ── Device ────────────────────────────────────────────────────────────────
+    # Device
     if not args.no_mps and torch.backends.mps.is_available():
         device = torch.device("mps")
         print("Device: MPS (Apple Silicon GPU)")
@@ -207,7 +192,7 @@ def evaluate(args: argparse.Namespace) -> None:
         device = torch.device("cpu")
         print("Device: CPU")
 
-    # ── Load checkpoint ────────────────────────────────────────────────────────
+    # Load checkpoint
     ckpt_path = Path(args.checkpoint)
     if not ckpt_path.exists():
         print(f"\n[error] Checkpoint not found: {ckpt_path}")
@@ -222,7 +207,7 @@ def evaluate(args: argparse.Namespace) -> None:
     if meta:
         print(f"  Meta: {meta}")
 
-    # ── Attention visualization (optional, before eval loop) ──────────────────
+    # Attention visualization (optional, before eval loop)
     if args.attention:
         attn_path = ROOT / "results" / f"attention_{args.src}_{args.tgt}.png"
         print(f'\nRendering attention heatmap for: "{args.attention}"')
@@ -236,7 +221,7 @@ def evaluate(args: argparse.Namespace) -> None:
             beam=args.beam,
         )
 
-    # ── Load test set ──────────────────────────────────────────────────────────
+    # Load test set
     test_path = Path(args.test) if args.test else find_test_split(args.src, args.tgt)
 
     if test_path is None or not test_path.exists():
@@ -285,7 +270,7 @@ def evaluate(args: argparse.Namespace) -> None:
         f"({elapsed / len(hypotheses) * 1000:.0f}ms/sent)"
     )
 
-    # ── BLEU ──────────────────────────────────────────────────────────────────
+    # BLEU
     detail = bleu_detail(hypotheses, references)
     bleu = detail["bleu"]
 
@@ -298,7 +283,7 @@ def evaluate(args: argparse.Namespace) -> None:
     print(f"  Test examples: {detail['n_sentences']:,}")
     print(f"{'=' * 50}")
 
-    # ── Sample translations ────────────────────────────────────────────────────
+    # Sample translations
     import random
 
     rng = random.Random(DEFAULT_SPLIT_SEED)
@@ -323,7 +308,7 @@ def evaluate(args: argparse.Namespace) -> None:
         print(f"  HYP: {ex['hypothesis']}  [sent-BLEU: {ex['sentence_bleu']:.1f}]")
         print()
 
-    # ── Save JSON report ───────────────────────────────────────────────────────
+    # Save JSON report
     report = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "src_lang": args.src,
@@ -348,7 +333,7 @@ def evaluate(args: argparse.Namespace) -> None:
     print(f"Saved report → {report_path}")
 
 
-# ── CLI ────────────────────────────────────────────────────────────────────────
+# CLI
 
 
 def parse_args() -> argparse.Namespace:

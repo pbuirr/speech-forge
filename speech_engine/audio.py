@@ -1,25 +1,8 @@
-"""
-speech_engine/audio.py — Audio I/O and preprocessing pipeline.
+"""Audio loading and preprocessing.
 
-Responsibilities:
-  - Load audio files (WAV, FLAC, OGG; MP3/MP4 via torchaudio+ffmpeg backend)
-  - Convert multi-channel audio to mono
-  - Resample to 16 kHz (the universal standard for ASR)
-  - Peak-normalize amplitude
-  - Save processed audio
-  - Extract file metadata without loading the full waveform
-
-Why 16 kHz?
-  Human speech occupies 80 Hz – 8 kHz. The Nyquist theorem requires a sample
-  rate at least twice the highest frequency of interest, so 16 kHz is the
-  minimum that captures all speech content without redundancy. Whisper, wav2vec2,
-  and every modern ASR system uses this rate.
-
-Why peak normalization?
-  Raw recordings vary wildly in volume (microphone gain, distance, environment).
-  Normalizing to a fixed peak level makes the model see consistent amplitude
-  regardless of recording conditions, which speeds up training and reduces
-  the model's need to learn volume invariance from data.
+Loads WAV/FLAC/OGG (MP3/MP4 through torchaudio's ffmpeg backend), downmixes to
+mono, resamples to 16 kHz and peak-normalises. ``get_metadata`` reads duration
+and format without decoding the whole file.
 """
 
 from __future__ import annotations
@@ -66,14 +49,14 @@ class AudioMetadata:
 
 
 def load_audio(path: str | Path) -> tuple[np.ndarray, int]:
-    """Load an audio file into a float32 NumPy array.
+    """Load an audio file as float32.
+
+    Uses soundfile for WAV/FLAC/OGG and falls back to torchaudio for formats that
+    need ffmpeg (MP3, MP4, M4A).
 
     Returns:
-        waveform: shape (num_channels, num_samples), dtype float32, values in [-1, 1]
-        sample_rate: original sample rate of the file
-
-    soundfile is the primary loader (handles WAV, FLAC, OGG natively and is fast).
-    torchaudio is the fallback for formats that require an ffmpeg backend (MP3, MP4, M4A).
+        waveform:    (channels, samples) float32 in [-1, 1]
+        sample_rate: the file's sample rate
     """
     path = Path(path)
     if not path.exists():
@@ -92,15 +75,13 @@ def load_audio(path: str | Path) -> tuple[np.ndarray, int]:
 
 
 def to_mono(waveform: np.ndarray) -> np.ndarray:
-    """Average all channels into a single mono channel.
+    """Average all channels into one.
 
     Args:
         waveform: (C, N) or (N,)
+
     Returns:
         (N,) float32 array
-
-    Averaging is preferred over selecting channel 0 because it preserves
-    energy from both channels and reduces noise from either channel alone.
     """
     if waveform.ndim == 1:
         return waveform
@@ -110,18 +91,15 @@ def to_mono(waveform: np.ndarray) -> np.ndarray:
 
 
 def resample(waveform: np.ndarray, orig_sr: int, target_sr: int = TARGET_SR) -> np.ndarray:
-    """Resample a mono waveform to target_sr using a sinc filter.
+    """Resample a mono waveform with torchaudio's windowed-sinc resampler.
 
     Args:
-        waveform: (N,) float32 array
-        orig_sr:  original sample rate
-        target_sr: desired output sample rate (default: 16000)
-    Returns:
-        (M,) float32 array where M = len(waveform) * target_sr / orig_sr
+        waveform:  (N,) float32 array
+        orig_sr:   original sample rate
+        target_sr: output sample rate (default 16000)
 
-    torchaudio.functional.resample uses a Kaiser-windowed sinc filter, which
-    is significantly higher quality than scipy.signal.resample for speech
-    (it has better stopband attenuation and avoids aliasing artifacts).
+    Returns:
+        (M,) float32 array, M ≈ N · target_sr / orig_sr
     """
     if orig_sr == target_sr:
         return waveform
@@ -138,17 +116,16 @@ def resample(waveform: np.ndarray, orig_sr: int, target_sr: int = TARGET_SR) -> 
 
 
 def normalize_amplitude(waveform: np.ndarray, target_peak: float = 0.95) -> np.ndarray:
-    """Peak-normalize so the loudest sample reaches target_peak.
+    """Scale so the loudest sample equals ``target_peak`` (default 0.95).
+
+    Near-silent input (peak < 1e-6) is returned unchanged.
 
     Args:
         waveform:    (N,) float32 array
-        target_peak: 0.95 leaves slight headroom to avoid clipping on re-encode
+        target_peak: peak value after scaling
 
     Returns:
-        (N,) float32 array with peak == target_peak
-
-    Silent recordings (peak < 1e-6) are returned unchanged to avoid
-    amplifying background noise into the signal range.
+        (N,) float32 array
     """
     peak = float(np.abs(waveform).max())
     if peak < 1e-6:
@@ -167,11 +144,7 @@ def save_audio(waveform: np.ndarray, path: str | Path, sample_rate: int = TARGET
 
 
 def get_metadata(path: str | Path) -> AudioMetadata:
-    """Read file metadata without loading the full audio into memory.
-
-    Uses soundfile's info() call which reads only the file header.
-    For large files (hours of audio) this is much faster than load_audio().
-    """
+    """Read duration, sample rate and channels from the file header without decoding the audio."""
     path = Path(path)
     if not path.exists():
         raise FileNotFoundError(f"Audio file not found: {path}")
@@ -216,19 +189,11 @@ def preprocess(
     path: str | Path,
     target_sr: int = TARGET_SR,
 ) -> tuple[np.ndarray, AudioMetadata]:
-    """Full preprocessing pipeline for a single audio file.
-
-    Pipeline:
-        load → mono → resample → normalize
+    """Load, downmix, resample and peak-normalise one file.
 
     Returns:
-        waveform: (N,) float32 array, peak ≈ 0.95, sample rate = target_sr
-        metadata: AudioMetadata reflecting the post-processing state
-
-    This is the function that dataset.py and the inference API will call.
-    All four steps are intentionally separate functions so they can be tested
-    independently and composed differently in specialized contexts (e.g.,
-    streaming audio doesn't use load_audio at all).
+        waveform: (N,) float32 at ``target_sr``
+        metadata: AudioMetadata describing the processed audio
     """
     raw_meta = get_metadata(path)
     waveform, sr = load_audio(path)

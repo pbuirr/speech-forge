@@ -1,23 +1,14 @@
-"""
-scripts/translation/generate_corpus.py — Programmatic Spanish→English corpus generator v2
+"""Generate templated Spanish→English sentence pairs.
 
-Generates 150k–200k grammatically correct, semantically valid sentence pairs by:
-  - 80 verbs with full conjugation tables (present / preterite / imperfect / future)
-  - Semantic object grouping — each verb only combines with plausible object types
-  - 200+ nouns across 8 semantic categories
-  - 6 grammatical persons × 4 tenses
-  - Templates: simple, negation, question (yes/no, qué, dónde, cuándo), modal,
-    periphrastic future (ir a + inf), ser/estar, tener, subordinate clauses,
-    animate subjects, time + location combos
-
-This gives the NMT model genuine grammatical generalization: it learns that
-hablo/hablas/habla/hablamos/hablan all map to the "speak" paradigm, so it
-handles novel conjugations of known verbs without hallucinating.
+About 80 verbs with conjugation tables (present, preterite, imperfect,
+future), 200+ nouns in semantic groups so verbs only take plausible objects,
+six persons, and templates for negation, questions, modals, ir a + infinitive,
+ser/estar, tener and subordinate clauses.
 
 Usage:
-    .venv/bin/python3 scripts/translation/generate_corpus.py
-    .venv/bin/python3 scripts/translation/generate_corpus.py --out data/corpora/es_en_generated.tsv
-    .venv/bin/python3 scripts/translation/generate_corpus.py --count
+    python scripts/translation/generate_corpus.py
+    python scripts/translation/generate_corpus.py --out data/corpora/es_en_generated.tsv
+    python scripts/translation/generate_corpus.py --count
 """
 
 from __future__ import annotations
@@ -26,9 +17,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Semantic noun categories  (es, en)
-# ══════════════════════════════════════════════════════════════════════════════
 
 FOOD = [
     ("la manzana", "the apple"),
@@ -222,10 +211,8 @@ ADJECTIVES = [
     ("ocupado", "busy", "ocupada"),
 ]
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Verb conjugation tables
 #  person_idx: yo=0, tú=1, él/ella=2, nosotros=3, ellos=4
-# ══════════════════════════════════════════════════════════════════════════════
 
 PERSONS = [
     # (pidx, es_subj, en_subj, is_3sg)
@@ -286,7 +273,7 @@ def _v(es_inf, en_inf, en_past, en_ger, pres, pret, imp, fut, groups=()):
 
 
 VERBS = [
-    # ── Communication ──────────────────────────────────────────────────────────
+    # Communication
     _v(
         "hablar",
         "speak",
@@ -386,7 +373,7 @@ VERBS = [
         ["leeré", "leerás", "leerá", "leeremos", "leerán"],
         ("DOCUMENTS",),
     ),
-    # ── Cognitive ──────────────────────────────────────────────────────────────
+    # Cognitive
     _v(
         "saber",
         "know",
@@ -464,7 +451,7 @@ VERBS = [
         ["olvidaré", "olvidarás", "olvidará", "olvidaremos", "olvidarán"],
         ("OBJECTS", "CONCEPTS", "DOCUMENTS"),
     ),
-    # ── Consumption ────────────────────────────────────────────────────────────
+    # Consumption
     _v(
         "comer",
         "eat",
@@ -520,7 +507,7 @@ VERBS = [
         ["probaré", "probarás", "probará", "probaremos", "probarán"],
         ("FOOD", "OBJECTS"),
     ),
-    # ── Work / production ──────────────────────────────────────────────────────
+    # Work / production
     _v(
         "trabajar",
         "work",
@@ -598,7 +585,7 @@ VERBS = [
         ["necesitaré", "necesitarás", "necesitará", "necesitaremos", "necesitarán"],
         ("OBJECTS", "DOCUMENTS", "CONCEPTS"),
     ),
-    # ── Commerce ───────────────────────────────────────────────────────────────
+    # Commerce
     _v(
         "comprar",
         "buy",
@@ -632,7 +619,7 @@ VERBS = [
         ["pagaré", "pagarás", "pagará", "pagaremos", "pagarán"],
         ("OBJECTS", "FOOD"),
     ),
-    # ── Motion ─────────────────────────────────────────────────────────────────
+    # Motion
     _v(
         "llevar",
         "take",
@@ -743,7 +730,7 @@ VERBS = [
         ["visitaré", "visitarás", "visitará", "visitaremos", "visitarán"],
         ("PLACES", "PEOPLE"),
     ),
-    # ── Find / get / give ──────────────────────────────────────────────────────
+    # Find / get / give
     _v(
         "buscar",
         "look for",
@@ -799,7 +786,7 @@ VERBS = [
         ["pediré", "pedirás", "pedirá", "pediremos", "pedirán"],
         ("OBJECTS", "FOOD", "CONCEPTS"),
     ),
-    # ── State / open / close ───────────────────────────────────────────────────
+    # State / open / close
     _v(
         "abrir",
         "open",
@@ -887,9 +874,7 @@ def _objects_for(v: dict) -> list:
     return result or OBJECTS  # fallback
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Modals
-# ══════════════════════════════════════════════════════════════════════════════
 
 MODAL_TABLES = {
     "can": {
@@ -962,9 +947,7 @@ def _modal_en(modal_key: str, is_3sg: bool) -> tuple[str, bool]:
     return base, m.get("en_to", False)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Generators
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def gen_simple(pairs: set) -> None:
@@ -1303,9 +1286,7 @@ def gen_comparatives(pairs: set) -> None:
             pairs.add((f"es el más {es_a}", f"it is the most {en_a}"))
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Main
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def generate_all() -> list[tuple[str, str]]:

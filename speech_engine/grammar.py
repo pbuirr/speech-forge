@@ -1,32 +1,12 @@
-"""
-speech_engine/grammar.py — Grammar checking and sentence structure analysis.
+"""Rule-based grammar checks.
 
-Built from scratch: no language tool libraries, no grammarly APIs.
+English rules cover subject–verb agreement, a/an, common confusions
+(their/there, then/than, should of, ...), redundant and wordy phrases and
+punctuation. Spanish and French have a few rules each. Passive voice, sentence
+length and similar notes are STYLE hints and don't affect the score. Rules are
+checked for false alarms against published text; see RESULTS.md.
 
-Architecture:
-  - Language-agnostic rule framework (add rules per language)
-  - English rule set: 25+ rules covering the most common error categories
-  - Extensible: subclass GrammarRule for any language
-  - Sentence structure labelling (basic phrase chunking)
-
-Rule categories for English:
-  - Subject-verb agreement (he run → he runs)
-  - Article usage (a apple → an apple, a/the ambiguity)
-  - Double negation (I don't have nothing → I don't have anything)
-  - Common confusions (their/there/they're, your/you're, its/it's,
-                       affect/effect, then/than, to/too/two)
-  - Comma splices and run-on detection
-  - Redundant phrases (end result → result, past history → history)
-  - Wordy constructions (in order to → to, due to the fact that → because)
-  - Spelling patterns (common misspellings)
-  - Punctuation (missing period, multiple exclamation marks)
-
-Usage::
-
-    checker = GrammarChecker()
-    result = checker.check("He don't have nothing to eat.", lang="en")
-    for err in result.errors:
-        print(err.message, "→", err.suggestion)
+    result = GrammarChecker().check("He don't like it.", lang="en")
 """
 
 from __future__ import annotations
@@ -37,9 +17,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Error severity levels
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class Severity:
@@ -48,9 +26,7 @@ class Severity:
     STYLE = "style"  # not incorrect, but could be clearer/shorter
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Data classes
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 @dataclass
@@ -94,9 +70,7 @@ class GrammarResult:
         return "\n".join(lines)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Abstract rule base
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class GrammarRule(ABC):
@@ -140,9 +114,7 @@ class GrammarRule(ABC):
         )
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  English grammar rules
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class ArticleChoiceRule(GrammarRule):
@@ -723,7 +695,7 @@ class SentenceLengthRule(GrammarRule):
         return errors
 
 
-# ── Spanish rules ─────────────────────────────────────────────────────────────
+# Spanish rules
 
 
 class SpanishAccentRule(GrammarRule):
@@ -780,7 +752,7 @@ class SpanishAccentRule(GrammarRule):
         return errors
 
 
-# ── French rules ──────────────────────────────────────────────────────────────
+# French rules
 
 
 class FrenchNegationRule(GrammarRule):
@@ -811,9 +783,7 @@ class FrenchNegationRule(GrammarRule):
         return errors
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  GrammarChecker — applies all applicable rules
-# ══════════════════════════════════════════════════════════════════════════════
 
 # Default rules registered at module load
 _DEFAULT_RULES: list[GrammarRule] = [

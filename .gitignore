@@ -76,3 +76,7 @@ data/speech_challenge/LibriSpeech/
 results/**/*_clean.tsv
 *.tar.gz
 *.tgz
+
+# Created by the demos
+data/toy_dataset/
+.ruff_cache/

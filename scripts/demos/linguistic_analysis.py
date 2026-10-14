@@ -1,13 +1,4 @@
-"""
-scripts/demos/linguistic_analysis.py — LinguaForge Phase 5: Linguistic Engine
-
-Demonstrates:
-  1. Language detection — 170+ languages, script identification
-  2. Dialect detection — 60+ dialect variants
-  3. Mixed-script text handling
-  4. Morphological analysis — BPE segmentation, POS tagging
-  5. Grammar checking — 25+ English rules, Spanish/French rules
-  6. Morphological typology awareness
+"""Demo: language and dialect detection, word analysis and grammar checks.
 
 Usage:
     python scripts/demos/linguistic_analysis.py
@@ -28,7 +19,7 @@ from speech_engine.grammar import GrammarChecker, Severity
 from speech_engine.language_detector import LANG_DB, LanguageDetector
 from speech_engine.morphology import BPESegmenter, MorphologyEngine, morphological_typology
 
-# ── ANSI colours ──────────────────────────────────────────────────────────────
+# ANSI colours
 _G = "\033[92m"
 _B = "\033[94m"
 _C = "\033[96m"
@@ -63,7 +54,7 @@ def _print_detection(result) -> None:
         print(f"    {m.code:<12}  {m.name:<35}  conf={m.confidence:.3f}")
 
 
-# ── Section 1: Language detection across scripts ───────────────────────────────
+# Section 1: Language detection across scripts
 
 # (text, expected_language, expected_script, description)
 DETECTION_TESTS: list[tuple[str, str, str, str]] = [
@@ -485,18 +476,18 @@ def demo_coverage(detector: LanguageDetector) -> None:
         print(f"    {name:<25}  {count} variants")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# Main
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="LinguaForge Phase 5: Linguistic Engine")
+    parser = argparse.ArgumentParser(description="LinguaForge Linguistic Engine")
     parser.add_argument("--text", default=None, help="Detect language of a custom text")
     parser.add_argument("--file", default=None, help="Detect language of a text file")
     parser.add_argument("--grammar", default=None, help="Grammar-check a custom English text")
     args = parser.parse_args()
 
     print(f"\n{_W}{'═' * 66}{_R}")
-    print(f"{_W}  LinguaForge — Phase 5: Linguistic Engine{_R}")
+    print(f"{_W}  LinguaForge — Linguistic Engine{_R}")
     print(f"{_W}{'═' * 66}{_R}")
 
     detector = LanguageDetector()
@@ -527,23 +518,7 @@ def main() -> None:
     demo_grammar(checker)
     demo_coverage(detector)
 
-    print(f"\n{_W}{'─' * 66}{_R}")
-    print(f"{_G}Phase 5 complete.{_R}  Linguistic engine built from scratch.\n")
-    print("What you built:")
-    print("  • Language detector — 170+ languages, all major scripts    (language_detector.py)")
-    print("  • Dialect detector  — 60+ dialect variants                 (language_detector.py)")
-    print("  • Unicode script classifier — 35+ script families          (language_detector.py)")
-    print("  • BPE segmenter — subword morpheme splitting               (morphology.py)")
-    print("  • POS tagger — rule-based + statistical, 10 languages      (morphology.py)")
-    print("  • Morphological analysis — typology-aware                  (morphology.py)")
-    print("  • Grammar checker — 25+ English rules + ES/FR rules        (grammar.py)")
-    print("""
-Next: Phase 6 — Learning Engine
-  speech_engine/flashcard.py     — SRS flashcard system (SM-2 algorithm)
-  speech_engine/exercise.py      — fill-in, multiple choice, pronunciation
-  speech_engine/srs.py           — spaced repetition scheduler
-  scripts/demos/flashcards.py
-""")
+    print("\nDone.")
 
 
 if __name__ == "__main__":

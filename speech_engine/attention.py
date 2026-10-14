@@ -1,31 +1,9 @@
-"""
-speech_engine/attention.py — Multi-head scaled dot-product attention, from scratch.
+"""Multi-head scaled dot-product attention.
 
-No external attention libraries. The entire mechanism is implemented here using
-only torch.matmul, torch.softmax, and nn.Linear.
+    Attention(Q, K, V) = softmax(Q Kᵀ / √d_k) V
 
-How attention works:
-    Given a query matrix Q, key matrix K, and value matrix V:
-
-        Attention(Q, K, V) = softmax(Q·Kᵀ / √d_k) · V
-
-    The dot product Q·Kᵀ measures how much each query "attends to" each key.
-    Dividing by √d_k prevents the dot products from growing too large, which
-    would push softmax into regions with near-zero gradients.
-
-    Multi-head attention runs h parallel attention heads, each with their own
-    Q/K/V projections but sharing a final output projection. Each head can
-    learn to attend to different types of relationships in the sequence.
-
-Self-attention vs cross-attention:
-    Self-attention:   Q = K = V = x  (sequence attends to itself)
-    Cross-attention:  Q = decoder state,  K = V = encoder output
-                     (decoder queries which encoder positions are relevant)
-
-Causal masking:
-    In the decoder, each position must only attend to earlier positions
-    (we can't look at future tokens when generating auto-regressively).
-    We implement this with a causal (lower-triangular) boolean mask.
+Used for encoder self-attention, causal decoder self-attention and
+decoder-to-encoder cross-attention in the Transformer models.
 """
 
 from __future__ import annotations
@@ -42,14 +20,11 @@ def scaled_dot_product_attention(
     mask: torch.Tensor | None = None,  # (B, 1, T_q, T_k) bool — True = attend
     dropout: nn.Dropout | None = None,
 ) -> tuple[torch.Tensor, torch.Tensor]:
-    """Core scaled dot-product attention.
-
-    Factored out so it's easy to read, test, and reason about independently
-    from the multi-head machinery.
+    """softmax(Q Kᵀ / √d_k) V with an optional boolean mask (True = attend).
 
     Returns:
         output:       (B, H, T_q, d_v)
-        attn_weights: (B, H, T_q, T_k)  — for inspection/visualisation
+        attn_weights: (B, H, T_q, T_k)
     """
     d_k = Q.size(-1)
     scale = math.sqrt(d_k)
@@ -109,7 +84,7 @@ class MultiHeadAttention(nn.Module):
         self.n_heads = n_heads
         self.d_k = d_model // n_heads
 
-        # No bias in Q/K/V projections (standard; Whisper also omits bias here)
+        # No bias in Q/K/V projections (a common choice)
         self.w_q = nn.Linear(d_model, d_model, bias=False)
         self.w_k = nn.Linear(d_model, d_model, bias=False)
         self.w_v = nn.Linear(d_model, d_model, bias=False)

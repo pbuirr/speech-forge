@@ -1,4 +1,4 @@
-"""Evidence-derived form comparisons; not dependency or semantic parsing."""
+"""Links tokens in a sentence that share a lemma and POS, and notes which features differ."""
 
 from speech_engine.linguistic_resources import normalized_form
 
@@ -18,10 +18,10 @@ FEATURE_NOTES = {
 
 
 def form_relationships(tokens):
-    """Link successive tokens in each evidenced lemma/POS group in O(n).
+    """Link each token to the previous token with the same lemma and POS, in O(n).
 
-    Equal lemmas do not establish equal senses. Missing features never count as
-    contrasts. Selected corpus alternatives remain accessible on original tokens.
+    Features that differ between the two are listed; a feature missing on either
+    side isn't counted as a difference.
     """
     previous = {}
     links = []

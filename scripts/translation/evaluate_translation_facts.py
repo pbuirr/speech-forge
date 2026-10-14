@@ -1,4 +1,4 @@
-"""Report challenge translations and lexical anchors without claiming semantic accuracy."""
+"""Translate a fixed challenge set and check that names, numbers and key words survive."""
 
 from __future__ import annotations
 import argparse, hashlib, json, re, sys

@@ -1,36 +1,12 @@
-"""
-scripts/translation/train_multilingual.py — LinguaForge Phase 8 Multilingual NMT
+"""Train one ES/FR/DE→EN Transformer with a shared BPE vocabulary.
 
-Trains a single ES/FR/DE → EN Transformer on all three OPUS corpora at once.
-Architecture is identical to Phase 7 (Seq2SeqNMT); the only additions are:
-
-  1. A shared BPE vocabulary trained on all source languages + English together.
-     Latin-script languages share most subwords, so the shared vocab is only
-     ~10-15% larger than a monolingual one for the same coverage.
-
-  2. Three language tokens — <ES>, <FR>, <DE> — added as special tokens and
-     prepended to every source sentence before encoding.  The decoder always
-     targets English; the language token tells the encoder what it's reading.
-
-     ES: <ES> el gato exploró la casa  →  the cat explored the house
-     FR: <FR> le chat a exploré la maison  →  the cat explored the house
-     DE: <DE> die Katze erkundete das Haus  →  the cat explored the house
-
-  The model learns shared cross-lingual representations — knowledge of French
-  grammar generalises to Spanish, German word-order patterns inform English
-  clause structure.  This is the Johnson et al. (2017) "one model, many
-  languages" approach used in production at Google Translate and M2M-100.
+Each source sentence starts with a language token (<ES>, <FR>, <DE>), as in
+Johnson et al. (2017); the decoder always produces English.
 
 Usage:
-    # Train from scratch
-    .venv/bin/python3 scripts/translation/train_multilingual.py
-
-    # Resume from an existing checkpoint
-    .venv/bin/python3 scripts/translation/train_multilingual.py \\
-        --load data/models/nmt_multilingual.pt
-
-    # Quick smoke-test
-    .venv/bin/python3 scripts/translation/train_multilingual.py --fast
+    python scripts/translation/train_multilingual.py
+    python scripts/translation/train_multilingual.py --load data/models/nmt_multilingual.pt
+    python scripts/translation/train_multilingual.py --fast
 """
 
 from __future__ import annotations
@@ -52,11 +28,11 @@ sys.path.insert(0, str(ROOT))
 from speech_engine.bpe import BPEVocab, PAD_ID
 from speech_engine.nmt import Seq2SeqNMT, collate_pairs, nmt_loss, save_checkpoint, load_checkpoint
 
-# ── Language token constants ──────────────────────────────────────────────────
+# Language token constants
 
 LANG_TOKENS = {"es": "<ES>", "fr": "<FR>", "de": "<DE>"}
 
-# ── Corpus paths ───────────────────────────────────────────────────────────────
+# Corpus paths
 
 
 def _corpus_path(lang: str) -> Path:
@@ -69,7 +45,7 @@ def _corpus_path(lang: str) -> Path:
 CORPORA: dict[str, Path] = {lang: _corpus_path(lang) for lang in ("es", "fr", "de")}
 
 
-# ── Data loading ───────────────────────────────────────────────────────────────
+# Data loading
 
 
 def load_corpus(path: Path) -> list[tuple[str, str]]:
@@ -102,7 +78,7 @@ def load_all_pairs(
     return triples
 
 
-# ── Vocabulary ─────────────────────────────────────────────────────────────────
+# Vocabulary
 
 
 def build_shared_vocab(
@@ -149,7 +125,7 @@ def encode_pair(
     return src_ids, tgt_ids
 
 
-# ── Training ───────────────────────────────────────────────────────────────────
+# Training
 
 
 def train(
@@ -282,7 +258,7 @@ def train(
             print(f"  [checkpoint] saved → {ckpt}")
 
 
-# ── Quick evaluation ───────────────────────────────────────────────────────────
+# Quick evaluation
 
 
 def quick_eval(
@@ -313,7 +289,7 @@ def quick_eval(
     model.train()
 
 
-# ── CLI ────────────────────────────────────────────────────────────────────────
+# CLI
 
 
 def parse_args() -> argparse.Namespace:
@@ -354,7 +330,7 @@ def main() -> None:
         args.vocab = 2_000
         args.save_every = 0
 
-    # ── Device ──────────────────────────────────────────────────────────────
+    # Device
     if not args.no_mps and torch.backends.mps.is_available():
         device = torch.device("mps")
         print("Using MPS (Apple Silicon GPU)")
@@ -365,12 +341,12 @@ def main() -> None:
         device = torch.device("cpu")
         print("Using CPU")
 
-    # ── Load corpora ────────────────────────────────────────────────────────
+    # Load corpora
     print("\nLoading corpora…")
     triples = load_all_pairs(max_per_lang=args.max_per_lang)
     print(f"  Total: {len(triples):,} pairs across {len(CORPORA)} languages")
 
-    # ── Build / load vocabulary ─────────────────────────────────────────────
+    # Build / load vocabulary
     vocab_path = ROOT / "data" / "models" / "multilingual_vocab.json"
     if vocab_path.exists() and args.load:
         print(f"\nLoading shared vocab from {vocab_path}…")
@@ -387,7 +363,7 @@ def main() -> None:
         tid = vocab._token_to_id.get(tok, "MISSING")
         print(f"  {tok} → id {tid}")
 
-    # ── Encode all pairs ────────────────────────────────────────────────────
+    # Encode all pairs
     print("\nEncoding pairs…")
     encoded: list[tuple[list[int], list[int]]] = []
     for lang, src, tgt in triples:
@@ -404,7 +380,7 @@ def main() -> None:
     eval_triples = triples[:split]
     print(f"  {len(train_data):,} train / {split:,} held-out for eval samples")
 
-    # ── Model ────────────────────────────────────────────────────────────────
+    # Model
     V = vocab.vocab_size
     start_epoch = 1
 
@@ -433,7 +409,7 @@ def main() -> None:
     print(f"  {n_params:,} parameters")
     print(f"  Training for {args.epochs} epochs")
 
-    # ── Train ────────────────────────────────────────────────────────────────
+    # Train
     print(f"\nTraining…")
     train(
         model,
@@ -451,7 +427,7 @@ def main() -> None:
         bpe_dropout=args.bpe_dropout,
     )
 
-    # ── Save final model ────────────────────────────────────────────────────
+    # Save final model
     save_checkpoint(
         model,
         vocab,
@@ -465,7 +441,7 @@ def main() -> None:
     )
     print(f"\nSaved → {args.out}")
 
-    # ── Quick eval ───────────────────────────────────────────────────────────
+    # Quick eval
     quick_eval(model, eval_triples, vocab, device, n=9)
 
 

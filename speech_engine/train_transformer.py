@@ -1,21 +1,8 @@
-"""
-speech_engine/train_transformer.py — Seq2seq training loop for TransformerASR.
+"""Training loop for the Transformer speech recognizer.
 
-Key difference from train.py (CTC):
-    CTC:        loss = nn.CTCLoss(log_probs, targets, input_lengths, target_lengths)
-                targets have NO BOS or EOS; alignment is implicit via CTC
-    Seq2seq:    loss = nn.CrossEntropyLoss(logits, shifted_targets)
-                decoder input  = [BOS, c1, c2, ..., cn]
-                decoder target = [c1, c2, ..., cn, EOS]
-                The model predicts target[t] given decoder_input[0..t].
-
-Batch preparation:
-    The dataset returns tokens WITHOUT BOS/EOS (CTC-compatible).
-    prepare_seq2seq_batch() wraps each transcript with BOS+EOS and
-    splits into decoder_input/target before passing to the model.
-
-Learning rate schedule:
-    Same cosine warmup as train.py — re-imported here for convenience.
+Same learning-rate schedule as ``train.py``. ``prepare_seq2seq_batch`` adds
+BOS/EOS to the CTC-style token batches and shifts them into decoder input and
+target.
 """
 
 from __future__ import annotations
@@ -32,7 +19,7 @@ from speech_engine.tokenizer import BOS_ID, EOS_ID, PAD_ID
 from speech_engine.train import cosine_lr, save_checkpoint, set_lr
 
 
-# ── Batch preparation ─────────────────────────────────────────────────────────
+# Batch preparation
 
 
 def prepare_seq2seq_batch(
@@ -83,7 +70,7 @@ def prepare_seq2seq_batch(
     return mel, mel_lengths, dec_inputs.to(device), targets.to(device), t_lengths
 
 
-# ── Training / eval steps ─────────────────────────────────────────────────────
+# Training / eval steps
 
 
 def train_seq2seq_epoch(
@@ -157,7 +144,7 @@ def eval_seq2seq_epoch(
     return total_loss / max(1, n_batches)
 
 
-# ── Main training function ────────────────────────────────────────────────────
+# Main training function
 
 
 def train_transformer(
@@ -168,10 +155,7 @@ def train_transformer(
     device: torch.device,
     resume_from: Optional[Path] = None,
 ) -> dict:
-    """Full seq2seq training loop.
-
-    Mirrors train.train() from Phase 3 but uses CrossEntropyLoss
-    instead of CTCLoss.
+    """Training loop for ``TransformerASR``; same structure as ``train.train`` with cross-entropy loss.
 
     Returns:
         dict with "train_losses", "val_losses", "best_val_loss", "total_steps"

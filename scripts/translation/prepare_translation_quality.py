@@ -1,7 +1,7 @@
-"""Training-only alignment ranking with original local NMT; no verified-quality claim.
-Compare paired source conditional loss against a deterministic mismatched source.
-A positive margin means the paired source helps predict its target. Ranking remains
-model dependent; preserve replay and compare against a matched random removal.
+"""Rank training pairs by how much the paired source helps the model predict the target.
+
+Compares each pair's loss with the loss under a fixed mismatched source; a
+positive margin means the source is informative. Training data only.
 """
 
 from __future__ import annotations

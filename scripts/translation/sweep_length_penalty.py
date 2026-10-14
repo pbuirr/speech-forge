@@ -1,14 +1,8 @@
-"""
-scripts/translation/sweep_length_penalty.py — Find the optimal beam-search length penalty α.
-
-Wu et al. (2016) length penalty: score /= (n_tokens ^ α)
-  α = 0.0 → no penalty (raw log-prob, favours short outputs)
-  α = 0.6 → default (balanced)
-  α = 1.0 → strong penalty (favours outputs matching source length)
+"""Sweep the beam-search length penalty α (Wu et al., 2016) on a dev sample.
 
 Usage:
-    .venv/bin/python3 scripts/translation/sweep_length_penalty.py
-    .venv/bin/python3 scripts/translation/sweep_length_penalty.py --n 100 --checkpoint data/models/nmt_multilingual_16k_ep100.pt
+    python scripts/translation/sweep_length_penalty.py
+    python scripts/translation/sweep_length_penalty.py --n 100 --checkpoint data/models/nmt_multilingual_16k_ep100.pt
 """
 
 from __future__ import annotations

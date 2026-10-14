@@ -1,41 +1,13 @@
-"""
-scripts/translation/backtranslate.py — Generate synthetic parallel data via back-translation.
+"""Create synthetic parallel data by back-translation (Sennrich et al., 2016).
 
-Back-translation (Sennrich et al. 2016) is one of the most effective ways
-to improve NMT quality with no new human-labeled data:
-
-  1. Take a large monolingual corpus in the TARGET language (e.g. English)
-  2. Translate it into the SOURCE language using a REVERSE model (EN→ES)
-  3. Treat the resulting (synthetic_source, real_target) pairs as training data
-
-Why it works: the model sees many more target-side sentences in natural
-language, improving fluency. The synthetic source is noisy (the reverse model
-isn't perfect) but that noise acts as a form of regularization. Google saw
-+2-4 BLEU from back-translation on WMT tasks.
+Translates target-language text into the source language with a reverse model
+and writes (synthetic source, real target) pairs. The output starts with a
+``# SYNTHETIC`` comment so it can't be mistaken for human translations.
 
 Usage:
-    # Translate English text into synthetic Spanish (requires EN→ES model)
-    python scripts/translation/backtranslate.py \\
-        --src en --tgt es \\
-        --input data/monolingual_en.txt \\
-        --output data/synthetic_en_es.tsv \\
-        --checkpoint data/models/nmt_en_es.pt \\
-        --limit 100000
-
-    # To use the synthetic data in training, merge with the real corpus:
-    #   cat data/corpora/es_en_real.tsv data/synthetic_en_es.tsv > data/combined.tsv
-    # Then train with: python scripts/translation/train_nmt.py --corpus data/combined.tsv
-
-Output format (TSV):
-    # SYNTHETIC — back-translated from EN using checkpoint nmt_en_es.pt
-    synthetic_spanish_sentence<TAB>original_english_sentence
-
-The SYNTHETIC comment marks synthetic pairs so you can always distinguish
-them from real human-translated data.
-
-Reference:
-    Sennrich, Haddow, Birch (2016). "Improving Neural Machine Translation
-    Models with Monolingual Data." ACL 2016.
+    python scripts/translation/backtranslate.py --src en --tgt es \
+        --input data/monolingual_en.txt --output data/synthetic_en_es.tsv \
+        --checkpoint data/models/nmt_en_es.pt --limit 100000
 """
 
 from __future__ import annotations
@@ -53,7 +25,7 @@ sys.path.insert(0, str(ROOT))
 from speech_engine.nmt import load_checkpoint
 
 
-# ── Monolingual corpus loader ─────────────────────────────────────────────────
+# Monolingual corpus loader
 
 
 def load_monolingual(path: Path, limit: int | None = None) -> list[str]:
@@ -72,7 +44,7 @@ def load_monolingual(path: Path, limit: int | None = None) -> list[str]:
     return sentences
 
 
-# ── Batch translation ─────────────────────────────────────────────────────────
+# Batch translation
 
 
 def translate_sentences(
@@ -112,13 +84,13 @@ def translate_sentences(
     return results
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# Main
 
 
 def main() -> None:
     args = parse_args()
 
-    # ── Device ────────────────────────────────────────────────────────────────
+    # Device
     if not args.no_mps and torch.backends.mps.is_available():
         device = torch.device("mps")
         print("Device: MPS (Apple Silicon GPU)")
@@ -126,7 +98,7 @@ def main() -> None:
         device = torch.device("cpu")
         print("Device: CPU")
 
-    # ── Load checkpoint ────────────────────────────────────────────────────────
+    # Load checkpoint
     ckpt_path = Path(args.checkpoint)
     if not ckpt_path.exists():
         print(f"\n[error] Checkpoint not found: {ckpt_path}")
@@ -146,7 +118,7 @@ def main() -> None:
     model = model.to(device)
     print(f"  {model.param_count():,} parameters  |  direction: {meta.get('direction', '?')}")
 
-    # ── Load monolingual input ─────────────────────────────────────────────────
+    # Load monolingual input
     input_path = Path(args.input)
     if not input_path.exists():
         print(f"\n[error] Input file not found: {input_path}")
@@ -162,7 +134,7 @@ def main() -> None:
     sentences = load_monolingual(input_path, limit=args.limit)
     print(f"  {len(sentences):,} sentences to translate")
 
-    # ── Translate ──────────────────────────────────────────────────────────────
+    # Translate
     print(f"\nTranslating {args.src}→{args.tgt} with beam={args.beam}…")
     t0 = time.time()
     translations = translate_sentences(
@@ -177,7 +149,7 @@ def main() -> None:
     elapsed = time.time() - t0
     print(f"Done in {elapsed:.0f}s ({len(sentences) / elapsed:.1f} sent/s)")
 
-    # ── Write output ───────────────────────────────────────────────────────────
+    # Write output
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -212,7 +184,7 @@ def main() -> None:
     )
 
 
-# ── CLI ────────────────────────────────────────────────────────────────────────
+# CLI
 
 
 def parse_args() -> argparse.Namespace:

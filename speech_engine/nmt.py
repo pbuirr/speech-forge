@@ -1,25 +1,10 @@
-"""
-speech_engine/nmt.py — Sequence-to-sequence Neural Machine Translation (Phase 7).
+"""Transformer encoder–decoder for text translation.
 
-Repurposes the Transformer encoder-decoder built in Phase 4 for text→text
-translation. The core change from the ASR model is the encoder front-end:
-instead of a CNN mel-spectrogram encoder, source sentences enter through a
-token embedding + sinusoidal positional encoding. The TransformerEncoder and
-TransformerDecoder stacks (attention, layer norm, FFN) are identical.
-
-This is the standard "Attention Is All You Need" architecture (Vaswani et al.
-2017), implemented entirely from the Phase 4 primitives — no pretrained
-weights, no Hugging Face, no fairseq.
-
-Training:
-    Standard cross-entropy with teacher forcing on (source, target) sentence pairs.
-    Decoder input  = [BOS, t1, …, tn]
-    Decoder target = [t1, …, tn, EOS]
-    Loss = CrossEntropyLoss(logits, target, ignore_index=PAD_ID) averaged over tokens.
-
-Inference:
-    Greedy: argmax at each decoder step (default, fast).
-    Beam: retains the top-k partial sequences, returns the highest-scoring one.
+Shares the attention, feed-forward and decoder blocks with the speech
+Transformer; the encoder takes token embeddings with sinusoidal positions
+instead of spectrograms. Trained with teacher forcing and label-smoothed
+cross-entropy; decodes with greedy or beam search (length penalty, EOS boost
+and length limits).
 """
 
 from __future__ import annotations
@@ -41,24 +26,21 @@ from speech_engine.model_transformer import (
 
 
 class Seq2SeqNMT(nn.Module):
-    """Transformer-based neural machine translation model.
+    """Transformer encoder–decoder for translation.
 
-    Source sentences enter through a token embedding and sinusoidal positional
-    encoding, then pass through a `TransformerEncoder` stack.  The decoder is
-    the same `TransformerDecoder` from Phase 4 (with its own embedding and
-    learned positional encoding), cross-attending to the encoder's output.
-    A final linear projection maps decoder states to target-vocabulary logits.
+    The encoder takes token embeddings with sinusoidal positions; the decoder is
+    the shared ``TransformerDecoder`` with learned positions and cross-attention.
 
     Args:
-        src_vocab_size:  number of source BPE tokens
-        tgt_vocab_size:  number of target BPE tokens
-        d_model:         Transformer hidden dimension (default 256)
-        n_heads:         attention heads — must divide d_model (default 4)
-        n_layers:        depth of both encoder and decoder stacks (default 3)
-        d_ff:            FFN inner dimension (default 512)
-        max_src_len:     max source sequence length for positional encoding
-        max_tgt_len:     max target sequence length for positional encoding
-        dropout:         dropout rate throughout (default 0.1)
+        src_vocab_size:  source BPE vocabulary size
+        tgt_vocab_size:  target BPE vocabulary size
+        d_model:         hidden size (default 256)
+        n_heads:         attention heads, must divide d_model (default 4)
+        n_layers:        encoder and decoder depth (default 3)
+        d_ff:            feed-forward inner size (default 512)
+        max_src_len:     maximum source length
+        max_tgt_len:     maximum target length
+        dropout:         dropout probability (default 0.1)
     """
 
     def __init__(
@@ -127,7 +109,7 @@ class Seq2SeqNMT(nn.Module):
             "tie_embeddings": tie_embeddings,
         }
 
-    # ── Forward (teacher-forced training) ────────────────────────────────────
+    # Forward (teacher-forced training)
 
     def forward(
         self,
@@ -161,7 +143,7 @@ class Seq2SeqNMT(nn.Module):
         dec_out = self.decoder(tgt_ids, memory, tgt_mask=tgt_mask, memory_mask=src_mask)
         return self.output_proj(dec_out)  # (B, T, V_tgt)
 
-    # ── Inference ─────────────────────────────────────────────────────────────
+    # Inference
 
     @torch.no_grad()
     def translate_greedy(
@@ -523,13 +505,13 @@ class Seq2SeqNMT(nn.Module):
             "entropy": entropy,
         }
 
-    # ── Parameter count helper ────────────────────────────────────────────────
+    # Parameter count helper
 
     def param_count(self) -> int:
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
 
-# ── Training helpers ──────────────────────────────────────────────────────────
+# Training helpers
 
 
 def nmt_loss(
@@ -599,7 +581,7 @@ def collate_pairs(
     return src, src_lens, tgt_in, tgt_out, tgt_lens
 
 
-# ── Checkpoint helpers ────────────────────────────────────────────────────────
+# Checkpoint helpers
 
 
 def save_checkpoint(

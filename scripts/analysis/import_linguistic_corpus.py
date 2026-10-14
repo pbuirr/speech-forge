@@ -1,4 +1,4 @@
-"""Compile a local CoNLL-U corpus into an auditable LinguaForge resource."""
+"""Compile a CoNLL-U corpus into a LinguaForge lexical resource with provenance."""
 
 import argparse
 import json

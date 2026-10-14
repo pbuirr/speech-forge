@@ -1,27 +1,10 @@
-"""
-speech_engine/bpe.py — Byte-Pair Encoding tokenizer, built from scratch.
+"""Byte-pair encoding (Sennrich et al., 2016) for the translation models.
 
-Implements the BPE algorithm from Sennrich et al. (2016) "Neural Machine
-Translation of Rare Words with Subword Units" — no tokenizers library, no
-sentencepiece, no subword-nmt. A clean, readable re-implementation that
-matches what those libraries do internally without importing them.
+Words are split into characters with an end-of-word marker, and the most
+frequent adjacent pair is merged until the target vocabulary size is reached.
+Encoding applies the learned merges in rank order.
 
-Algorithm overview:
-  1. Pre-tokenize text into words (whitespace split).
-  2. Represent each word as a tuple of characters; the final character carries
-     an end-of-word marker ("</w>") so "un" (prefix) is distinct from "un"
-     at word boundary.
-  3. Count all adjacent symbol-pair frequencies across the weighted vocabulary.
-  4. Merge the most frequent pair everywhere, add the merged token to the vocab.
-  5. Repeat until the target vocabulary size is reached.
-  6. At encode time, apply the learned merges in priority order to new text.
-
-Vocabulary layout:
-    ID 0  <pad>   padding (batch alignment)
-    ID 1  <bos>   begin of sequence
-    ID 2  <eos>   end of sequence
-    ID 3  <unk>   unknown / out-of-vocabulary symbol
-    ID 4+ …       BPE tokens (single chars first, then merged subwords)
+Special IDs: 0 <pad>, 1 <bos>, 2 <eos>, 3 <unk>; subword tokens start at 4.
 """
 
 from __future__ import annotations
@@ -40,7 +23,7 @@ _SPECIAL: dict[str, int] = {"<pad>": PAD_ID, "<bos>": BOS_ID, "<eos>": EOS_ID, "
 _EOW = "</w>"  # end-of-word marker fused onto the last character of each word
 
 
-# ── Internal helpers ──────────────────────────────────────────────────────────
+# Internal helpers
 
 
 def _word_to_chars(word: str) -> tuple[str, ...]:
@@ -81,7 +64,7 @@ def _apply_merge(
     return new_vocab
 
 
-# ── Public class ──────────────────────────────────────────────────────────────
+# Public class
 
 
 class BPEVocab:
@@ -101,7 +84,7 @@ class BPEVocab:
         self._merges: list[tuple[str, str]] = []
         self._merge_rank: dict[tuple[str, str], int] = {}  # pair → merge index (lower = earlier)
 
-    # ── Training ──────────────────────────────────────────────────────────────
+    # Training
 
     def train(self, corpus: list[str], vocab_size: int = 4000) -> "BPEVocab":
         """Learn BPE merges from a list of sentences (or lines of text).
@@ -150,7 +133,7 @@ class BPEVocab:
 
         return self
 
-    # ── Encoding ──────────────────────────────────────────────────────────────
+    # Encoding
 
     def _encode_word(self, word: str, bpe_dropout: float = 0.0) -> list[int]:
         """BPE-encode one word (lowercase) to a list of token IDs.
@@ -225,7 +208,7 @@ class BPEVocab:
             ids.append(EOS_ID)
         return ids
 
-    # ── Decoding ──────────────────────────────────────────────────────────────
+    # Decoding
 
     def decode(self, ids: list[int], skip_special: bool = True) -> str:
         """Decode a list of BPE token IDs back to a string."""
@@ -238,7 +221,7 @@ class BPEVocab:
         # Tokens ending with </w> mark word boundaries
         return "".join(tokens).replace(_EOW, " ").strip()
 
-    # ── Persistence ───────────────────────────────────────────────────────────
+    # Persistence
 
     def save(self, path: Path | str) -> None:
         path = Path(path)
@@ -262,7 +245,7 @@ class BPEVocab:
         vocab._merge_rank = {tuple(m): i for i, m in enumerate(vocab._merges)}
         return vocab
 
-    # ── Properties ────────────────────────────────────────────────────────────
+    # Properties
 
     def __len__(self) -> int:
         return len(self._token_to_id)

@@ -1,40 +1,13 @@
-"""
-speech_engine/model_ctc.py — CTC ASR model built from PyTorch primitives.
+"""CNN + BiLSTM acoustic model trained with CTC.
 
-This is our own architecture. It is NOT a copy of Whisper, Deep Speech, or any
-other published model. It is influenced by established ideas (CNN frontend,
-bidirectional LSTM, CTC loss) but every layer, size, and connection is chosen
-and written by us.
+    mel (B, 80, T)
+      → ConvEncoder: 3 conv blocks, mel 80→10, time ÷2 (or ÷4)
+      → BiLSTMStack: bidirectional LSTMs with residual connections and LayerNorm
+      → Linear + log_softmax
+      → (T', B, vocab), time-first for nn.CTCLoss
 
-What "from scratch" means here:
-    We use PyTorch's nn.Conv2d, nn.LSTM, nn.Linear as primitives — the same
-    way you'd use numpy for matrix math. We do NOT load pretrained weights,
-    we do NOT import any model from HuggingFace or elsewhere. The architecture
-    is designed and implemented here.
-
-Architecture overview:
-    mel: (B, 80, T)
-      ↓  unsqueeze → (B, 1, 80, T)
-      ↓  ConvEncoder  [3 conv blocks, mel: 80→10, time: T→T//2]
-      → (B, T//2, hidden_size)
-      ↓  BiLSTMStack  [3 bidirectional LSTM layers with residual + LayerNorm]
-      → (B, T//2, hidden_size*2)
-      ↓  Linear classifier + log_softmax
-      → (T//2, B, vocab_size)   ← time-first for nn.CTCLoss
-
-Time reduction:
-    Only the third conv block has a time stride of 2. Total: T → T//2.
-    This downsampling factor determines input_lengths for CTCLoss:
-        input_lengths = ceil(mel_lengths / 2)
-    It also sets the lower bound on audio length relative to transcript length:
-        CTCLoss requires input_length >= target_length + adjacent token repeats.
-        At 10ms/frame after 2x reduction, each output frame covers 20ms.
-        A 1-second clip yields 50 encoder frames → can transcribe ≤50 characters.
-
-The default configuration is about 4.8M parameters (vocabulary-dependent).
-The compact installed configuration is about 0.81M. Optional fourfold temporal
-subsampling reduces recurrent sequence length; accuracy and cost require evaluation.
-Legacy checkpoints retain twofold subsampling.
+The default configuration has about 4.8M parameters and the compact one about
+0.81M. Older checkpoints use twofold time reduction.
 """
 
 from __future__ import annotations
@@ -43,20 +16,11 @@ import torch
 import torch.nn as nn
 
 
-# ── Building blocks ───────────────────────────────────────────────────────────
+# Building blocks
 
 
 class ConvBlock(nn.Module):
-    """One 2D convolutional block: Conv2d → BatchNorm2d → GELU → Dropout2d.
-
-    BatchNorm2d normalises each feature map over the spatial dimensions,
-    making training much more stable — without it, deep CNNs suffer from
-    internal covariate shift (each layer's input distribution shifts as
-    earlier layers update, making later layers' jobs harder).
-
-    GELU (Gaussian Error Linear Unit) is smoother than ReLU near zero,
-    which produces better gradients for small activations.
-    """
+    """Conv2d → BatchNorm2d → GELU → Dropout2d."""
 
     def __init__(
         self,
@@ -110,26 +74,12 @@ class ConvBlock(nn.Module):
 
 
 class ConvEncoder(nn.Module):
-    """CNN frontend: converts (B, 1, n_mels, T) → (B, T//2, hidden_size).
+    """CNN frontend: (B, 1, n_mels, T) → (B, T', hidden_size).
 
-    Three ConvBlocks with strides that systematically compress the mel
-    frequency dimension and downsample time by exactly 2×:
-
-        Input:   (B,  1, 80, T)
-        Block 1: (B, c0, 40, T)   ← stride (2,1): halve mel, keep time
-        Block 2: (B, c1, 20, T)   ← stride (2,1): halve mel, keep time
-        Block 3: (B, c2, 10, T//2) ← stride (2,2): halve mel, halve time
-        Flatten: (B, T//2, c2*10)
-        Project: (B, T//2, hidden_size)
-
-    Why compress mel and not time?
-        CTC needs many output frames to align over. Aggressive time reduction
-        (e.g. 8x) leaves too few frames for long transcripts. We reduce mel
-        heavily (8x: 80→10) and time lightly (2x) to preserve alignment quality.
-
-    The output_length() static method computes the exact number of output
-    frames for a given number of input frames. Call it to produce input_lengths
-    for nn.CTCLoss.
+    Each block halves the Mel axis (80 → 40 → 20 → 10). Block 3 always halves
+    time; with ``time_reduction=4`` block 2 halves it too. The flattened
+    channels × Mel features are projected to ``hidden_size``. Use
+    ``output_length`` to get CTC input lengths.
     """
 
     def __init__(
@@ -206,21 +156,6 @@ class ConvEncoder(nn.Module):
 class BiLSTMStack(nn.Module):
     """Stack of bidirectional LSTM layers with residual connections + LayerNorm.
 
-    Why bidirectional?
-        Each output frame can "see" the full audio in both directions.
-        A forward LSTM at position t has seen frames 0..t.
-        A backward LSTM at position t has seen frames t..T.
-        Concatenating both gives full context at every frame — crucial for
-        accurate CTC alignment (the model needs context to decide where to
-        emit each character).
-
-    Why residual connections?
-        Deep RNNs (3+ layers) suffer from vanishing gradients in early layers.
-        A residual connection adds the layer's input to its output:
-            output = LayerNorm(LSTM(x) + project(x))
-        This creates a gradient highway that lets the loss signal reach
-        early layers without vanishing through the LSTM's tanh gates.
-
     Layer structure:
         Layer 0: input_size → hidden_size*2  (first layer may change dimension)
         Layer k: hidden_size*2 → hidden_size*2  (residual, same dimension)
@@ -272,36 +207,26 @@ class BiLSTMStack(nn.Module):
         return x  # (B, T, hidden_size*2)
 
 
-# ── Full CTC model ────────────────────────────────────────────────────────────
+# Full CTC model
 
 
 class CTCModel(nn.Module):
-    """LinguaForge CTC ASR model.
-
-    A complete speech recognition model built from first principles:
-        ConvEncoder → BiLSTMStack → Linear → LogSoftmax
-
-    The project also implements Transformer speech models. Architecture changes
-    require matched evaluation; their existence does not establish higher accuracy.
+    """CTC speech recognizer: ConvEncoder → BiLSTMStack → Linear → log_softmax.
 
     Args:
-        vocab_size:      number of output classes (from CharTokenizer.vocab_size)
-        n_mels:          mel frequency bins (must match features.py N_MELS)
-        cnn_channels:    output channels for each of the 3 conv blocks
-        hidden_size:     LSTM hidden dimension per direction
-        num_lstm_layers: number of stacked BiLSTM layers
-        dropout:         dropout probability throughout the model
-
-    Forward pass:
-        mel: (B, n_mels, T) → (T//2, B, vocab_size) log-probabilities
+        vocab_size:      number of output classes (CharTokenizer.vocab_size)
+        n_mels:          Mel bins (must match features.N_MELS)
+        cnn_channels:    output channels of the 3 conv blocks
+        hidden_size:     LSTM hidden size per direction
+        num_lstm_layers: number of BiLSTM layers
+        dropout:         dropout probability
 
     Usage::
 
         model = CTCModel(vocab_size=33)
-        log_probs = model(batch["mel"])          # (T//2, B, 33)
+        log_probs = model(batch["mel"])
         input_lens = model.encoder_output_length(batch["mel_lengths"])
-        loss = nn.CTCLoss()(log_probs, batch["tokens"],
-                            input_lens, batch["token_lengths"])
+        loss = nn.CTCLoss()(log_probs, batch["tokens"], input_lens, batch["token_lengths"])
     """
 
     def __init__(
@@ -338,13 +263,8 @@ class CTCModel(nn.Module):
         self._init_weights()
 
     def _init_weights(self) -> None:
-        """Weight initialisation for stable early-phase training.
-
-        Conv2d:  Kaiming He initialisation — correct for GELU (near-ReLU)
-        Linear:  Xavier uniform — keeps gradient variance stable across layers
-        LSTM ih: Xavier uniform  (input → hidden weights)
-        LSTM hh: Orthogonal     (hidden → hidden weights, preserves gradient norm)
-        Biases:  zero
+        """Kaiming init for conv, Xavier for linear and LSTM input weights, orthogonal
+        for LSTM recurrent weights, zero biases.
         """
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -365,14 +285,11 @@ class CTCModel(nn.Module):
                         nn.init.zeros_(p)
 
     def forward(self, mel: torch.Tensor, mel_lengths: torch.Tensor | None = None) -> torch.Tensor:
-        """Run the full model.
-
-        Args:
-            mel: (B, n_mels, T) — batch of log-Mel spectrograms
+        """Args:
+            mel: (B, n_mels, T) log-Mel spectrograms
 
         Returns:
-            (T_out, B, vocab_size) — log-probabilities, time-first for CTCLoss
-            where T_out = ceil(T / 2)
+            (T', B, vocab_size) log-probabilities, time-first for nn.CTCLoss.
         """
         x = mel.unsqueeze(1)  # (B, 1, n_mels, T)
         x = self.encoder(x, mel_lengths)
@@ -383,16 +300,13 @@ class CTCModel(nn.Module):
         return x.permute(1, 0, 2)  # (T//2, B, vocab_size) — time-first
 
     def encoder_output_length(self, mel_lengths: torch.Tensor) -> torch.Tensor:
-        """Compute encoder output lengths from input mel frame counts.
-
-        Required by nn.CTCLoss as `input_lengths`. The CTCLoss uses these
-        to ignore padded frames and compute valid CTC alignments.
+        """Encoder output frames for each input length (the ``input_lengths`` for nn.CTCLoss).
 
         Args:
-            mel_lengths: (B,) int64 — number of real frames per example
+            mel_lengths: (B,) int64, real frames per example
 
         Returns:
-            (B,) int64 — number of encoder output frames per example
+            (B,) int64, encoder frames per example
         """
         return (mel_lengths.to(dtype=torch.long) + self.time_reduction - 1) // self.time_reduction
 

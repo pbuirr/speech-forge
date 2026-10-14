@@ -1,24 +1,9 @@
-"""
-speech_engine/srs.py — LinguaForge Phase 6: Spaced Repetition Scheduler
+"""SM-2 spaced-repetition scheduler (Wozniak, 1987).
 
-Implements the SM-2 algorithm (Piotr Wozniak / SuperMemo, 1987 — the same
-core scheduling rule Anki and most modern SRS apps still use under the hood).
-No external scheduling library — this is ~60 lines of arithmetic, written
-from scratch.
-
-Algorithm summary
-------------------
-Each card carries three numbers:
-  - `ease_factor`  (EF) — how "easy" this card is, starts at 2.5, floor 1.3
-  - `repetitions`  (n)  — consecutive correct recalls in a row
-  - `interval`     (I)  — days until the card is due again
-
-After every review the learner grades their recall on a 0-5 scale
-(`Grade`). A grade < 3 means "I didn't really remember this" and resets
-the card to the start of the learning curve. A grade >= 3 grows the
-interval — slowly at first (1 day, then 6 days), then geometrically by
-the ease factor (I_new = round(I_old * EF)) — and nudges the ease factor
-up or down depending on how easy the recall felt.
+Each card has an ease factor (starts at 2.5, minimum 1.3), a repetition count
+and an interval in days. A grade below 3 resets the card; otherwise the
+interval goes 1 day, 6 days, then multiplies by the ease factor, and the ease
+factor moves up or down with the grade.
 """
 
 from __future__ import annotations
@@ -28,9 +13,7 @@ from datetime import date, timedelta
 from typing import Optional
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Grades
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class Grade:
@@ -64,9 +47,7 @@ class Grade:
             raise ValueError(f"Unknown button {button!r}; expected one of {list(cls._BUTTON_MAP)}")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Card scheduling state
-# ══════════════════════════════════════════════════════════════════════════════
 
 MIN_EASE_FACTOR = 1.3
 INITIAL_EASE_FACTOR = 2.5
@@ -162,9 +143,7 @@ def sm2_update(state: CardState, grade: int, today: Optional[date] = None) -> Ca
     )
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Scheduler — convenience wrapper over a collection of (id -> CardState)
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class SRSScheduler:

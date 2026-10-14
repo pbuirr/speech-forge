@@ -1,8 +1,7 @@
-"""Freeze a small gold-transcribed parliamentary challenge without downloading a year.
+"""Freeze a small accented-speech test set from VoxPopuli parliamentary recordings.
 
-Own data adapter; no publisher code or model weights are imported. HTTP ranges
-read an uncompressed tar index and only selected session audio. Selection uses
-annotations, never ASR hypotheses or the publisher's decoded/quality columns.
+Reads the tar index with HTTP range requests and downloads only the selected
+sessions. Selection uses the gold transcripts only.
 """
 
 import argparse

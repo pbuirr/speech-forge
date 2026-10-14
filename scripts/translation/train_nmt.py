@@ -1,19 +1,9 @@
-"""
-scripts/translation/train_nmt.py — LinguaForge Phase 7 NMT trainer
-
-Trains a Spanish→English Seq2Seq Transformer on the curated corpus at
-data/corpora/es_en.tsv.  Everything is from scratch: BPE tokenisation,
-Transformer architecture, beam search — no pretrained weights, no HuggingFace.
+"""Train the Spanish→English Transformer (BPE, beam search) on data/corpora/es_en.tsv.
 
 Usage:
-    # Full train (saves to data/models/nmt_es_en.pt)
-    .venv/bin/python3 scripts/translation/train_nmt.py
-
-    # Quick smoke-test (100 epochs, small model)
-    .venv/bin/python3 scripts/translation/train_nmt.py --fast
-
-    # Translate after training
-    .venv/bin/python3 scripts/translation/train_nmt.py --translate "el gato curioso exploró la casa vieja"
+    python scripts/translation/train_nmt.py
+    python scripts/translation/train_nmt.py --fast
+    python scripts/translation/train_nmt.py --translate "el gato curioso exploró la casa vieja"
 """
 
 from __future__ import annotations
@@ -34,7 +24,7 @@ sys.path.insert(0, str(ROOT))
 from speech_engine.bpe import BPEVocab
 from speech_engine.nmt import Seq2SeqNMT, collate_pairs, load_checkpoint, nmt_loss, save_checkpoint
 
-# ── Corpus ────────────────────────────────────────────────────────────────────
+# Corpus
 
 CORPUS_PATH = ROOT / "data" / "corpora" / "es_en.tsv"
 GENERATED_CORPUS_PATH = ROOT / "data" / "corpora" / "es_en_generated.tsv"
@@ -88,7 +78,7 @@ def load_all_corpora() -> list[tuple[str, str]]:
     return combined
 
 
-# ── Train/test split ──────────────────────────────────────────────────────────
+# Train/test split
 
 SPLIT_SEED = 42
 TEST_RATIO = 0.10
@@ -152,7 +142,7 @@ def make_or_load_split(
     return train_pairs, test_pairs
 
 
-# ── BLEU evaluation ───────────────────────────────────────────────────────────
+# BLEU evaluation
 
 
 def run_bleu_eval(
@@ -217,7 +207,7 @@ def augment(pairs: list[tuple[str, str]], factor: int = 3) -> list[tuple[str, st
     return augmented
 
 
-# ── Vocab ─────────────────────────────────────────────────────────────────────
+# Vocab
 
 
 def build_vocabs(pairs: list[tuple[str, str]], vocab_size: int) -> tuple[BPEVocab, BPEVocab]:
@@ -230,7 +220,7 @@ def build_vocabs(pairs: list[tuple[str, str]], vocab_size: int) -> tuple[BPEVoca
     return src_vocab, tgt_vocab
 
 
-# ── Training ──────────────────────────────────────────────────────────────────
+# Training
 
 
 def train(
@@ -400,7 +390,7 @@ def train(
             model.train()
 
 
-# ── Evaluation ────────────────────────────────────────────────────────────────
+# Evaluation
 
 
 def evaluate(
@@ -426,7 +416,7 @@ def evaluate(
     return exact / len(subset)
 
 
-# ── CLI ───────────────────────────────────────────────────────────────────────
+# CLI
 
 
 def parse_args() -> argparse.Namespace:
@@ -480,7 +470,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    # ── Device selection: CUDA (NVIDIA GPU) > MPS (Apple Silicon GPU) > CPU ──
+    # Device selection: CUDA (NVIDIA GPU) > MPS (Apple Silicon GPU) > CPU
     if torch.cuda.is_available():
         device = torch.device("cuda")
         print(f"Using CUDA ({torch.cuda.get_device_name(0)})")
@@ -502,7 +492,7 @@ def main() -> None:
         args.max_pairs = 10_000
         args.save_every = 0
 
-    # ── Load-only / translate mode ────────────────────────────────────────────
+    # Load-only / translate mode
     if args.translate and args.load:
         model, sv, tv, meta = load_checkpoint(args.load)
         model = model.to(device)
@@ -517,14 +507,14 @@ def main() -> None:
         print(f"→ {tv.decode(out)}")
         return
 
-    # ── Load corpora (curated + generated) ───────────────────────────────────
+    # Load corpora (curated + generated)
     print("Loading corpora…")
     raw_pairs = (
         load_corpus(Path(args.corpus)) if Path(args.corpus) != CORPUS_PATH else load_all_corpora()
     )
     print(f"  {len(raw_pairs)} unique sentence pairs loaded")
 
-    # ── Train/test split (MUST happen before augmentation) ───────────────────
+    # Train/test split (MUST happen before augmentation)
     print("\nCreating/loading train-test split…")
     train_raw, test_pairs = make_or_load_split(raw_pairs, src="es", tgt="en")
     train_raw_set = set(train_raw)
@@ -550,7 +540,7 @@ def main() -> None:
     pairs = list(dict.fromkeys(pairs))  # dedup preserving order
     print(f"  {len(pairs):,} pairs after augmentation (test set strictly excluded)")
 
-    # ── Build vocabularies ────────────────────────────────────────────────────
+    # Build vocabularies
     # When resuming, load the checkpoint's vocab BEFORE encoding so token IDs
     # align with the loaded model's embedding table. Building a fresh vocab and
     # then overwriting it (old behaviour) caused a mismatch: pairs were encoded
@@ -567,7 +557,7 @@ def main() -> None:
         src_vocab, tgt_vocab = build_vocabs(pairs, args.vocab)
         print(f"  src vocab: {src_vocab.vocab_size}  tgt vocab: {tgt_vocab.vocab_size}")
 
-    # ── Encode all pairs ──────────────────────────────────────────────────────
+    # Encode all pairs
     PAD, BOS, EOS = 0, 1, 2
     print("Encoding pairs…")
     encoded = [
@@ -579,7 +569,7 @@ def main() -> None:
     ]
     print(f"  {len(encoded):,} pairs encoded")
 
-    # ── Build model (fresh-train path only) ───────────────────────────────────
+    # Build model (fresh-train path only)
     if not (args.load and Path(args.load).exists()):
         model = Seq2SeqNMT(
             src_vocab_size=src_vocab.vocab_size,
@@ -594,7 +584,7 @@ def main() -> None:
     n_params = sum(p.numel() for p in model.parameters())
     print(f"  {n_params:,} parameters")
 
-    # ── Train ─────────────────────────────────────────────────────────────────
+    # Train
     eff_batch = args.batch  # micro_size = batch // accum, effective batch = batch
     print(
         f"\nTraining for {args.epochs} epochs  batch={eff_batch}  accum={args.accum}  lr={args.lr}…"
@@ -616,11 +606,11 @@ def main() -> None:
         bpe_dropout=args.bpe_dropout,
     )
 
-    # ── Evaluate (on a random sample — full eval on 35k takes too long) ───────
+    # Evaluate (on a random sample — full eval on 35k takes too long)
     acc = evaluate(model, encoded, tgt_vocab, beam=args.beam, sample=500)
     print(f"\nTraining-set exact-match on up to 500 pairs (not generalization): {acc * 100:.1f}%")
 
-    # ── Test sentences ────────────────────────────────────────────────────────
+    # Test sentences
     model.eval()
     print("\nTest translations:")
     with torch.no_grad():
@@ -634,7 +624,7 @@ def main() -> None:
             print(f"  [{sent}]")
             print(f"   → {pred}")
 
-    # ── Save ─────────────────────────────────────────────────────────────────
+    # Save
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     save_checkpoint(
@@ -646,7 +636,7 @@ def main() -> None:
     )
     print(f"\nSaved → {out_path}")
 
-    # ── BLEU evaluation on held-out test set ─────────────────────────────────
+    # BLEU evaluation on held-out test set
     if not args.fast and test_pairs:
         import json
         from datetime import datetime, timezone
@@ -687,7 +677,7 @@ def main() -> None:
         report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
         print(f"Saved report → {report_path}")
 
-    # ── Translate CLI arg if given ────────────────────────────────────────────
+    # Translate CLI arg if given
     if args.translate:
         src_ids = src_vocab.encode(args.translate.lower())
         src_t = torch.tensor([src_ids], device=device)

@@ -1,20 +1,9 @@
-"""
-speech_engine/flashcard.py — LinguaForge Phase 6: Flashcard System
+"""Flashcards and decks with SM-2 scheduling (see ``srs.py``).
 
-A flashcard is just a (front, back) pair plus metadata, wired up to an
-SM-2 scheduling state (see srs.py). The interesting bit isn't the data
-structure — it's `FlashcardDeck.extract_from_text`, which builds cards
-*automatically* from real sentences using the Phase 5 morphology engine:
-content words (nouns/verbs/adjectives/adverbs) become cards, function
-words (the/a/and/in/...) are skipped, and each card keeps the original
-sentence as a usage example.
-
-Honest limitation: without a trained translation model (a later phase —
-see ROADMAP.md), there's no way to auto-generate a real L1 gloss for the
-`back` of an auto-extracted card. Auto-extraction fills `back` with the
-surface + predicted POS and heuristic analysis instead, which is useful for
-grammar/morphology drilling but is *not* a substitute for a translation.
-Pass an explicit `back=` to `deck.add(...)` for real vocabulary cards.
+``FlashcardDeck.extract_from_text`` creates cards from content words in a real
+sentence and keeps that sentence as the example. Without a translation the
+back of an extracted card shows the word's analysis rather than a gloss; pass
+``back=`` to ``deck.add`` for real vocabulary cards.
 """
 
 from __future__ import annotations
@@ -88,7 +77,7 @@ class FlashcardDeck:
         self._cards: dict[str, Flashcard] = {}
         self._next_id = 1
 
-    # ── Card management ─────────────────────────────────────────────────────
+    # Card management
 
     def add(
         self,
@@ -127,7 +116,7 @@ class FlashcardDeck:
     def __len__(self) -> int:
         return len(self._cards)
 
-    # ── Auto-extraction from real text (uses Phase 5 morphology) ───────────
+    # Card extraction from analysed text
 
     def extract_from_text(
         self, text: str, lang: str, morph_engine, tags: Optional[list[str]] = None
@@ -214,10 +203,9 @@ class FlashcardDeck:
         return new_cards
 
     def extract_from_understanding(self, result, morph_engine, grammar_checker, tags=None):
-        """Connect draft learning items to the shared source and rule findings.
+        """Build draft cards from an ``UnderstandingResult``, linked to its source text and grammar findings.
 
-        Findings remain heuristics; links do not establish sentence correctness,
-        word senses, or dependency structure. No component is run a second time.
+        Reuses the existing analysis instead of running the components again.
         """
         from hashlib import sha256
 
@@ -290,7 +278,7 @@ class FlashcardDeck:
                 card.tags.append("source-grammar-finding")
         return cards
 
-    # ── Review (SM-2) ───────────────────────────────────────────────────────
+    # Review (SM-2)
 
     def due(self, today: Optional[date] = None) -> list[Flashcard]:
         today = today or date.today()
@@ -322,7 +310,7 @@ class FlashcardDeck:
             "lapses": sum(c.srs.lapses for c in cards),
         }
 
-    # ── Persistence ──────────────────────────────────────────────────────────
+    # Persistence
 
     def save(self, path: str | Path) -> None:
         data = {

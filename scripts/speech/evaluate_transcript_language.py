@@ -1,4 +1,4 @@
-"""Measure text-language confusion caused by ASR, not acoustic language ID."""
+"""Measure how often recognition errors change the detected language of a transcript."""
 
 import argparse
 from collections import Counter

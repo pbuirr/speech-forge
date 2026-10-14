@@ -1,7 +1,7 @@
-"""Coordinate existing linguistic components around one original-text record.
+"""Runs language ID, word analysis and grammar checks over one shared text record.
 
-This shares language choice, offsets, annotations, and evidence. It does not
-train a multilingual representation or turn grammar heuristics into facts.
+All components see the same text, offsets and language choice, so their
+results line up.
 """
 
 from dataclasses import dataclass

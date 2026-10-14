@@ -1,23 +1,8 @@
-"""
-scripts/demos/transformer_asr.py — LinguaForge Phase 4: Transformer Enc-Dec ASR
-
-Demonstrates:
-  1. Multi-head attention — shapes, weights, causal mask
-  2. Sinusoidal vs learned positional encodings
-  3. TransformerASR architecture — enc+dec forward pass
-  4. Cross-entropy (seq2seq) loss vs CTC loss from Phase 3
-  5. Teacher-forcing training loop
-  6. Auto-regressive greedy inference (generate)
-  7. CER / WER on generated output
+"""Demo: attention, positional encodings and the Transformer speech model on toy data.
 
 Usage:
-    # Quick demo (tiny model, 5 epochs):
     python scripts/demos/transformer_asr.py
-
-    # More epochs, larger model:
     python scripts/demos/transformer_asr.py --epochs 30 --d-model 256
-
-    # Train on LibriSpeech:
     python scripts/demos/transformer_asr.py --librispeech data/LibriSpeech --epochs 50
 """
 
@@ -49,7 +34,7 @@ from speech_engine.train_transformer import train_transformer
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from tokenizer_pipeline import make_toy_dataset
 
-# ── ANSI colours ──────────────────────────────────────────────────────────────
+# ANSI colours
 _G = "\033[92m"
 _B = "\033[94m"
 _C = "\033[96m"
@@ -67,7 +52,7 @@ def _ok(label: str, value: str) -> None:
     print(f"  {_B}{label:<28}{_R} {value}")
 
 
-# ── Section 1: Attention mechanics ───────────────────────────────────────────
+# Section 1: Attention mechanics
 
 
 def demo_attention(d_model: int, n_heads: int, device: torch.device) -> None:
@@ -105,7 +90,7 @@ def demo_attention(d_model: int, n_heads: int, device: torch.device) -> None:
     _ok("  Total (this layer):", f"{sum(p.numel() for p in attn.parameters()):,}")
 
 
-# ── Section 2: Positional encodings ──────────────────────────────────────────
+# Section 2: Positional encodings
 
 
 def demo_positional_encodings(d_model: int) -> None:
@@ -130,7 +115,7 @@ def demo_positional_encodings(d_model: int) -> None:
     _ok("  Sinusoidal params:", "0  (fixed, registered as buffer)")
 
 
-# ── Section 3: TransformerASR architecture ────────────────────────────────────
+# Section 3: TransformerASR architecture
 
 
 def demo_model(vocab_size: int, d_model: int, quick: bool, device: torch.device) -> TransformerASR:
@@ -199,11 +184,11 @@ def demo_forward_pass(
     print(f"    Cross-entropy averages over all L positions (PAD ignored).")
 
 
-# ── Section 4: Loss comparison CTC vs seq2seq ─────────────────────────────────
+# Section 4: Loss comparison CTC vs seq2seq
 
 
 def demo_loss(model: TransformerASR, tokenizer: CharTokenizer, device: torch.device) -> None:
-    _sec("Loss — Cross-Entropy (seq2seq) vs CTC (Phase 3)")
+    _sec("Loss — Cross-Entropy (seq2seq) vs CTC")
 
     model.eval()
     ce_loss = nn.CrossEntropyLoss(ignore_index=PAD_ID)
@@ -238,7 +223,7 @@ def demo_loss(model: TransformerASR, tokenizer: CharTokenizer, device: torch.dev
     print(f"              explicit left-to-right language model in the decoder")
 
 
-# ── Section 5: Training loop ──────────────────────────────────────────────────
+# Section 5: Training loop
 
 
 def demo_training(
@@ -261,7 +246,7 @@ def demo_training(
     return train_transformer(model, train_loader, val_loader, config, device)
 
 
-# ── Section 6: Inference ──────────────────────────────────────────────────────
+# Section 6: Inference
 
 
 def demo_inference(
@@ -307,11 +292,11 @@ def demo_inference(
     print(f"  coherent text.{_R}")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# Main
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="LinguaForge Phase 4: Transformer ASR")
+    parser = argparse.ArgumentParser(description="LinguaForge Transformer ASR")
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--d-model", type=int, default=128, dest="d_model")
     parser.add_argument("--librispeech", default=None)
@@ -322,14 +307,14 @@ def main() -> None:
     args = parser.parse_args()
 
     print(f"\n{_W}{'═' * 64}{_R}")
-    print(f"{_W}  LinguaForge — Phase 4: Transformer Encoder-Decoder ASR{_R}")
+    print(f"{_W}  LinguaForge — Transformer Encoder-Decoder ASR{_R}")
     print(f"{_W}{'═' * 64}{_R}")
 
     device = resolve_device(args.device)
     _sec("Device")
     _ok("Selected:", str(device))
 
-    # ── Dataset ───────────────────────────────────────────────────────────────
+    # Dataset
     _sec("Dataset")
     if args.manifest:
         from speech_engine.dataset import load_manifest
@@ -348,7 +333,7 @@ def main() -> None:
         print(f"  Toy dataset ({len(examples)} synthetic examples)")
         print(f"  {_D}For real training: --librispeech data/LibriSpeech{_R}")
 
-    # ── Tokenizer ─────────────────────────────────────────────────────────────
+    # Tokenizer
     tok_path = PROJECT_ROOT / "data" / "tokenizer.json"
     tokenizer = CharTokenizer.load(tok_path) if tok_path.exists() else CharTokenizer()
     if not tok_path.exists():
@@ -358,14 +343,14 @@ def main() -> None:
 
     quick = not args.librispeech and not args.manifest
 
-    # ── Sections ──────────────────────────────────────────────────────────────
+    # Sections
     demo_attention(d_model=args.d_model, n_heads=4, device=device)
     demo_positional_encodings(d_model=args.d_model)
     model = demo_model(tokenizer.vocab_size, args.d_model, quick, device)
     demo_forward_pass(model, tokenizer, device)
     demo_loss(model, tokenizer, device)
 
-    # ── Training ──────────────────────────────────────────────────────────────
+    # Training
     config = TrainConfig(
         max_epochs=args.epochs,
         batch_size=4,
@@ -388,32 +373,10 @@ def main() -> None:
             bar = "█" * int((hi - loss) / rng * 50)
             print(f"  Epoch {i + 1:>3}  {loss:.4f}  {_G}{bar}{_R}")
 
-    # ── Inference ─────────────────────────────────────────────────────────────
+    # Inference
     demo_inference(model, tokenizer, examples, device)
 
-    # ── Summary ───────────────────────────────────────────────────────────────
-    print(f"\n{_W}{'─' * 64}{_R}")
-    print(f"{_G}Phase 4 complete.{_R}  Transformer encoder-decoder built from scratch.\n")
-    print(f"What you built:")
-    print(f"  • Multi-head scaled dot-product attention          (attention.py)")
-    print(f"  • Sinusoidal + learned positional encodings        (positional_encoding.py)")
-    print(f"  • Transformer encoder (pre-norm, N layers)         (model_transformer.py)")
-    print(f"  • Transformer decoder (causal + cross-attention)   (model_transformer.py)")
-    print(f"  • Weight-tied output projection (Whisper trick)    (model_transformer.py)")
-    print(f"  • Seq2seq training loop (CrossEntropyLoss)         (train_transformer.py)")
-    print(f"  • Auto-regressive greedy decoding                  (model_transformer.py)")
-    print(f"\nWhat uses external libraries:")
-    print(f"  • nn.MultiheadAttention — NOT used (ours is faster to understand)")
-    print(f"  • nn.Transformer        — NOT used (ours has causal mask + cross-attn)")
-    print(f"  • nn.Linear, nn.LayerNorm, nn.Embedding — PyTorch primitives only")
-    print(f"""
-Next step: Phase 5 — Linguistic Engine
-  Files to create:
-    speech_engine/language_detector.py — char n-gram language ID
-    speech_engine/translator.py        — sequence-to-sequence translation
-    speech_engine/morphology.py        — morpheme segmentation + POS tagging
-    speech_engine/grammar.py           — grammar rule checker
-""")
+    print("\nDone.")
 
 
 if __name__ == "__main__":

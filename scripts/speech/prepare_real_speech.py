@@ -1,4 +1,4 @@
-"""Download official CC BY 4.0 Mini LibriSpeech and create speaker-disjoint manifests."""
+"""Download Mini LibriSpeech and write speaker-disjoint manifests."""
 
 from __future__ import annotations
 import argparse

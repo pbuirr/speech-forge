@@ -1,12 +1,4 @@
-"""
-scripts/demos/flashcards.py — LinguaForge Phase 6: Learning Engine
-
-Demonstrates:
-  1. SM-2 spaced-repetition scheduling — interval/ease progression over time
-  2. Flashcard decks — manual cards + auto-extraction from real text
-  3. Exercise generation — fill-in-blank, multiple-choice, word-order
-  4. A simulated multi-day review session
-  5. JSON persistence round-trip
+"""Demo: SM-2 scheduling, flashcard decks and exercises.
 
 Usage:
     python scripts/demos/flashcards.py
@@ -34,7 +26,7 @@ from speech_engine.flashcard import FlashcardDeck
 from speech_engine.morphology import MorphologyEngine
 from speech_engine.srs import CardState, Grade, sm2_update
 
-# ── ANSI colours (matches phase5_demo.py) ───────────────────────────────────
+# ANSI colours (matches phase5_demo.py)
 _G = "\033[92m"
 _B = "\033[94m"
 _C = "\033[96m"
@@ -55,9 +47,7 @@ def _ok(label: str, value: str) -> None:
 DEFAULT_DECK_PATH = PROJECT_ROOT / "data" / "decks" / "default.json"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Section 1: SM-2 scheduling
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def demo_sm2(today: date) -> None:
@@ -99,9 +89,7 @@ def demo_sm2(today: date) -> None:
     )
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Section 2: Decks + auto-extraction from text
-# ══════════════════════════════════════════════════════════════════════════════
 
 SAMPLE_SENTENCES = {
     "en": "The curious cat quietly explored the old, abandoned house.",
@@ -131,9 +119,7 @@ def demo_extraction(engine: MorphologyEngine) -> FlashcardDeck:
     return deck
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Section 3: Exercise generation
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def demo_exercises(deck: FlashcardDeck) -> None:
@@ -164,9 +150,7 @@ def demo_exercises(deck: FlashcardDeck) -> None:
         print(f"    {_D}answer: {word_order.answer}{_R}")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Section 4: Simulated multi-day review session
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def demo_review_session(deck: FlashcardDeck, today: date) -> None:
@@ -199,9 +183,7 @@ def demo_review_session(deck: FlashcardDeck, today: date) -> None:
     )
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Section 5: Persistence round-trip
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def demo_persistence(deck: FlashcardDeck) -> None:
@@ -220,9 +202,7 @@ def demo_persistence(deck: FlashcardDeck) -> None:
         _ok("Round-trip OK:", f"{_G}yes{_R}" if ok else f"{_Y}no{_R}")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  CLI
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def _load_or_new_deck(path: Path) -> FlashcardDeck:
@@ -232,7 +212,7 @@ def _load_or_new_deck(path: Path) -> FlashcardDeck:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="LinguaForge Phase 6: Learning Engine")
+    parser = argparse.ArgumentParser(description="LinguaForge Learning Engine")
     parser.add_argument("--add", default=None, help='Add a card: "front=back"')
     parser.add_argument("--lang", default="en", help="Language code for --add")
     parser.add_argument("--deck", default=str(DEFAULT_DECK_PATH), help="Deck JSON file path")
@@ -292,9 +272,9 @@ def main() -> None:
         print(f"  Session saved to {deck_path}")
         return
 
-    # ── Full demo ────────────────────────────────────────────────────────────
+    # Full demo
     print(f"\n{_W}{'═' * 66}{_R}")
-    print(f"{_W}  LinguaForge — Phase 6: Learning Engine{_R}")
+    print(f"{_W}  LinguaForge — Learning Engine{_R}")
     print(f"{_W}{'═' * 66}{_R}")
 
     today = date.today()
@@ -306,20 +286,7 @@ def main() -> None:
     demo_review_session(deck, today)
     demo_persistence(deck)
 
-    print(f"\n{_W}{'─' * 66}{_R}")
-    print(f"{_G}Phase 6 complete.{_R}  Learning engine built from scratch.\n")
-    print("What you built:")
-    print("  • SM-2 spaced repetition scheduler                          (srs.py)")
-    print("  • Flashcard decks + JSON persistence                        (flashcard.py)")
-    print("  • Auto-extraction of vocabulary cards from real text        (flashcard.py)")
-    print("  • Fill-in-blank / multiple-choice / word-order exercises    (exercise.py)")
-    print("""
-Next: Phase 7 — Machine Translation
-  Trains the Phase 4 Transformer encoder-decoder as a from-scratch NMT
-  model (own data, no NLLB/Marian weights) — needed before auto-extracted
-  flashcards can get a real translated `back` instead of a morphological
-  gloss. See ROADMAP.md for the full plan.
-""")
+    print("\nDone.")
 
 
 if __name__ == "__main__":

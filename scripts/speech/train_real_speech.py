@@ -1,4 +1,4 @@
-"""Bounded real-audio CTC experiment using original model, frontend and training loop."""
+"""Train the CTC model on real speech manifests, with resumable checkpoints and a JSON report."""
 
 from __future__ import annotations
 import argparse

@@ -1,23 +1,9 @@
-"""
-speech_engine/exercise.py — LinguaForge Phase 6: Exercise Generation
+"""Exercise generation from flashcards.
 
-Generates drill exercises from Flashcards. Three kinds, all rule-based
-(no generative model needed — these are template transforms over data
-you already have):
-
-  - FillInBlank   — blank out the target word in its example sentence
-  - MultipleChoice — target word + distractors pulled from the same deck,
-                      preferring same-POS distractors (so "cat" isn't
-                      trivially distinguishable from "ran")
-  - WordOrder     — reconstruct one reference sentence's space-delimited
-                      units; this does not judge all grammatical word orders
-
-Pronunciation-style exercises (compare spoken attempt vs. target) are
-intentionally not implemented here — that needs the ASR decoder
-(speech_engine/decode.py) wired to a trained checkpoint, which is a
-runtime/integration concern, not exercise *generation*. The interface
-below (`Exercise` / `ExerciseResult`) is shaped so a future
-`PronunciationExercise` slots in the same way once that's wired up.
+Three template-based exercise types: fill-in-the-blank on the card's example
+sentence, multiple choice with same-POS distractors from the deck, and word
+order. Word order checks against the one reference sentence, so other valid
+orders are marked wrong.
 """
 
 from __future__ import annotations
@@ -87,9 +73,7 @@ def _normalize_sentence(s: str, lang: str = "en") -> str:
     return " ".join(answer_key(s, lang).rstrip(".!?。！？؟।").split())
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Generators
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 def generate_fill_in_blank(card: Flashcard, morph_engine=None) -> FillInBlankExercise:

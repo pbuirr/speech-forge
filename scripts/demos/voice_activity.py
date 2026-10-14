@@ -1,15 +1,9 @@
-"""
-scripts/demos/voice_activity.py — LinguaForge Phase 8: VAD demo
-
-Generates synthetic audio (silence + voiced-speech analogs + silence),
-runs the hand-rolled VAD, and prints an ASCII timeline and feature report.
-
-No external audio files needed.  Requires only numpy.
+"""Demo: voice activity detection on synthetic audio or a WAV file.
 
 Usage:
-    .venv/bin/python3 scripts/demos/voice_activity.py
-    .venv/bin/python3 scripts/demos/voice_activity.py --wav path/to/audio.wav
-    .venv/bin/python3 scripts/demos/voice_activity.py --stream
+    python scripts/demos/voice_activity.py
+    python scripts/demos/voice_activity.py --wav path/to/audio.wav
+    python scripts/demos/voice_activity.py --stream
 """
 
 from __future__ import annotations
@@ -27,7 +21,7 @@ sys.path.insert(0, str(ROOT))
 from speech_engine.vad import VADState, VoiceActivityDetector
 
 
-# ── Synthetic audio generator ─────────────────────────────────────────────────
+# Synthetic audio generator
 
 
 def _voiced(sr: int, dur: float, f0: float = 120.0, n_harmonics: int = 12) -> np.ndarray:
@@ -100,7 +94,7 @@ def build_test_signal(sr: int = 16_000) -> tuple[np.ndarray, list[tuple[float, f
     return np.concatenate(parts), segments_gt
 
 
-# ── ASCII visualiser ──────────────────────────────────────────────────────────
+# ASCII visualiser
 
 
 def _ascii_timeline(
@@ -182,7 +176,7 @@ def _feature_plot(features: dict, width: int = 80) -> str:
     return "\n".join(lines)
 
 
-# ── Streaming demo ────────────────────────────────────────────────────────────
+# Streaming demo
 
 
 def run_streaming_demo(audio: np.ndarray, sr: int, vad: VoiceActivityDetector) -> None:
@@ -208,7 +202,7 @@ def run_streaming_demo(audio: np.ndarray, sr: int, vad: VoiceActivityDetector) -
     print("─" * 60)
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# Main
 
 
 def main() -> None:
@@ -219,7 +213,7 @@ def main() -> None:
     args = p.parse_args()
 
     print("=" * 80)
-    print("LinguaForge  Phase 8 — Voice Activity Detection")
+    print("LinguaForge — Voice Activity Detection")
     print("Hand-rolled: energy + ZCR + spectral flatness + 4-state machine")
     print("=" * 80)
 
@@ -247,7 +241,7 @@ def main() -> None:
         print("\nUsing synthetic test signal (7s)…")
         audio, ground_truth = build_test_signal(sr)
 
-    # ── Batch detect ──────────────────────────────────────────────────────────
+    # Batch detect
     vad = VoiceActivityDetector(sr=sr)
     detected = vad.detect(audio)
     features = vad.frame_features(audio)
@@ -283,7 +277,7 @@ def main() -> None:
     if args.stream:
         run_streaming_demo(audio, sr, vad)
 
-    print("\nPhase 8 complete.")
+    print("\nDone.")
 
 
 if __name__ == "__main__":

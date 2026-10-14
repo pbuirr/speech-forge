@@ -1,4 +1,4 @@
-"""Acquire an attributed, bounded SLR83 subset; audio/data only, no model weights."""
+"""Download a bounded subset of the SLR83 UK and Ireland English dialect corpus, with attribution."""
 
 from concurrent.futures import ThreadPoolExecutor
 import hashlib

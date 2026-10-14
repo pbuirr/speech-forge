@@ -1,7 +1,7 @@
-"""Reproduce exercise correctness on authored multilingual reference cases.
+"""Check exercise generation and answer checking against hand-written multilingual cases.
 
-This measures software behavior, not student learning or general linguistic
-accuracy. An optional trusted baseline Python module enables before/after runs.
+This tests the software, not learning outcomes. ``--baseline-module`` runs an older
+module on the same cases for a before/after comparison.
 """
 
 import argparse

@@ -1,24 +1,16 @@
-"""Audit evaluation bitext for overlap with a training corpus before comparing models.
+"""Check test sets for overlap with training bitext before comparing models.
 
-Read-only with respect to its inputs. Standard library only.
+Reports exact source/target matches (NFC, casefold, letters and digits only)
+and near-duplicates (sentences where at least --near-threshold of their word
+n-grams appear in training), then writes a clean copy of each test set without
+the flagged pairs. Standard library only; inputs are never modified.
 
-For each test set it reports:
-  * exact source / exact target overlap, using the project's `canonical` form
-    (NFC, casefold, letters and digits only), the same rule the current
-    evaluators and split checks use;
-  * near-duplicates: test sentences of >= N words where at least --near-threshold
-    of their word N-grams also occur in the training corpus (source vs source,
-    target vs target);
-and writes, per test set, a "clean" TSV that excludes every flagged pair, so
-models can be compared on identical, uncontaminated sentences.
-
-Example (PowerShell, from the repository root):
+Example (PowerShell):
 
   python -X utf8 scripts/translation/check_bitext_overlap.py `
-    --training C:/Users/user/speech-forge/data/corpora/es_en_filtered.tsv `
+    --training data/corpora/es_en_filtered.tsv `
     --test news=data/training/es_en_news/test.tsv `
     --test newscommentary=data/corpora/es_en_newscommentary_independent.tsv `
-    --test tatoeba=data/training/es_en_local/test.tsv `
     --output-dir results/legacy_nmt_overlap
 """
 

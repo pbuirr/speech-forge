@@ -1,4 +1,4 @@
-"""Evaluate syntax with gold and production POS/features on held-out words."""
+"""Evaluate the dependency parser (UAS/LAS) with gold and predicted POS and features."""
 
 import argparse
 from collections import Counter

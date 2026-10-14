@@ -1,4 +1,8 @@
-"""Carry generated-input uncertainty across analysis, translation and learning."""
+"""Marks text that came from a model (ASR transcript or translation).
+
+The marker travels through analysis, translation and learning, so generated
+text is never used as an answer key.
+"""
 
 from speech_engine.linguistic_resources import language_code
 

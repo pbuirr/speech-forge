@@ -1,4 +1,4 @@
-"""Local uncertainty algorithms; model marginals are not correctness rates."""
+"""Uncertainty estimates for POS tags: HMM posterior marginals and calibration."""
 
 import math
 import json
@@ -71,10 +71,10 @@ def forward_backward(lattice, transitions):
 
 
 class POSCalibration:
-    """Binned isotonic top-label calibration fitted locally on development data.
+    """Binned isotonic calibration of top-tag POS scores, fitted on development data.
 
-    Seen/unseen forms have separate reliability curves. These empirical estimates
-    apply to POS only and do not establish calibration on another domain.
+    Seen and unseen word forms get separate curves. Estimates only hold for the
+    domain they were fitted on.
     """
 
     def __init__(self, language, training_sha256, development_sha256, model_sha256, bins):

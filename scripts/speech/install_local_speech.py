@@ -1,4 +1,4 @@
-"""Package our evaluated original CTC weights and training-only decoder for local use."""
+"""Install an evaluated CTC checkpoint and tokenizer (plus the character LM for LM decoding modes) for the web app."""
 
 import argparse, hashlib, json, sys
 from pathlib import Path

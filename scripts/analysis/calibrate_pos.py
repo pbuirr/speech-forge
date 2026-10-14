@@ -1,4 +1,4 @@
-"""Fit the project's local POS reliability model on development data only."""
+"""Fit the POS confidence calibration on development data."""
 
 import argparse
 import json

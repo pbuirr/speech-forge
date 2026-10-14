@@ -1,4 +1,4 @@
-"""Raw-text sentence/root/attachment comparison with exact source spans."""
+"""Evaluate sentence splitting, roots and attachments on raw text, with exact source spans."""
 
 import argparse
 from hashlib import sha256

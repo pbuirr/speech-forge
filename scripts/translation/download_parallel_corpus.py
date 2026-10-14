@@ -1,30 +1,13 @@
-"""
-scripts/translation/download_parallel_corpus.py — Language-agnostic parallel corpus downloader.
+"""Download parallel corpora from OPUS for any language pair.
 
-Downloads from OPUS (https://opus.nlpl.eu/), the largest open collection of
-translated texts, covering 500+ language pairs across multiple domains:
-
-  - OpenSubtitles  — movie & TV dialogue  (colloquial, spoken registers)
-  - Tatoeba        — community sentences   (broad everyday coverage)
-  - Europarl       — EU Parliament         (formal, high-quality)
-  - GlobalVoices   — multilingual news     (journalism register)
-
-Language-pair agnostic: the same script downloads ES↔EN, FR↔EN, DE↔EN,
-ZH↔EN, or any other pair available on OPUS. All quality filters and format
-handling are language-independent.
+Sources: OpenSubtitles (dialogue), Tatoeba (everyday sentences), Europarl
+(parliament) and GlobalVoices (news).
 
 Usage:
-    # Spanish → English (default)
-    python3 scripts/translation/download_parallel_corpus.py
-
-    # French → English
-    python3 scripts/translation/download_parallel_corpus.py --src fr --tgt en
-
-    # German → English, only Tatoeba
-    python3 scripts/translation/download_parallel_corpus.py --src de --tgt en --corpora tatoeba
-
-    # List available corpus sources
-    python3 scripts/translation/download_parallel_corpus.py --list
+    python scripts/translation/download_parallel_corpus.py                  # es→en
+    python scripts/translation/download_parallel_corpus.py --src fr --tgt en
+    python scripts/translation/download_parallel_corpus.py --src de --tgt en --corpora tatoeba
+    python scripts/translation/download_parallel_corpus.py --list
 """
 
 from __future__ import annotations
@@ -47,7 +30,7 @@ CACHE_DIR = CORPORA_DIR / ".cache"
 OPUS_API = "https://opus.nlpl.eu/opusapi/"
 
 
-# ── Corpus source registry ────────────────────────────────────────────────────
+# Corpus source registry
 # Each entry describes a corpus source available on OPUS.
 # The actual language pair is injected at runtime — these are domain descriptors,
 # not language-specific configurations.
@@ -91,7 +74,7 @@ SOURCES: dict[str, dict] = {
 }
 
 
-# ── Quality filters (language-agnostic) ───────────────────────────────────────
+# Quality filters (language-agnostic)
 
 
 def _is_good_pair(src: str, tgt: str) -> bool:
@@ -134,7 +117,7 @@ def _normalize(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
-# ── OPUS API helpers ──────────────────────────────────────────────────────────
+# OPUS API helpers
 
 
 def _resolve_url(corpus_id: str, version: str, src_lang: str, tgt_lang: str) -> str:
@@ -260,7 +243,7 @@ def _extract_pairs(
     return pairs
 
 
-# ── Main downloader ───────────────────────────────────────────────────────────
+# Main downloader
 
 
 def download(

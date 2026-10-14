@@ -1,4 +1,4 @@
-"""Compare cached matched translations; strict numeric mentions are not semantic accuracy."""
+"""Compare two models' saved translations on how well they preserve numbers."""
 
 from __future__ import annotations
 import argparse, hashlib, json, re

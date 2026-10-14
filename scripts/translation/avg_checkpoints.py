@@ -1,20 +1,11 @@
-"""
-scripts/translation/avg_checkpoints.py — Checkpoint averaging for free BLEU gains.
-
-Averages the weights of N checkpoints (Vaswani et al. 2017 appendix).
-The averaged model generalises better than any single checkpoint because
-oscillations in the loss landscape cancel out across epochs.
+"""Average the weights of several checkpoints of the same model.
 
 Usage:
-    # Average ep75, ep100, ep125 into a new checkpoint
-    .venv/bin/python3 scripts/translation/avg_checkpoints.py \\
-        data/models/nmt_es_en_ep75.pt \\
-        data/models/nmt_es_en_ep100.pt \\
-        data/models/nmt_es_en_ep125.pt \\
-        --out data/models/nmt_es_en_avg.pt
+    python scripts/translation/avg_checkpoints.py \
+        data/models/nmt_es_en_ep75.pt data/models/nmt_es_en_ep100.pt \
+        data/models/nmt_es_en_ep125.pt --out data/models/nmt_es_en_avg.pt
 
-    # Average all ep* checkpoints for a model prefix
-    .venv/bin/python3 scripts/translation/avg_checkpoints.py --glob "data/models/nmt_es_en_ep*.pt"
+    python scripts/translation/avg_checkpoints.py --glob "data/models/nmt_es_en_ep*.pt"
 """
 
 from __future__ import annotations

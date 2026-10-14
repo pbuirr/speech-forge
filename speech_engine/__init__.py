@@ -1,9 +1,7 @@
-"""
-speech_engine — LinguaForge Phase 1-4
+"""Speech, translation, linguistic analysis and learning components for LinguaForge.
 
-Public API for audio preprocessing and feature extraction.
-All other modules (model_ctc, model_transformer, train, decode, evaluate)
-will be added in later phases.
+Only the audio and feature helpers are re-exported here; import the other
+modules directly (e.g. ``speech_engine.model_ctc``).
 """
 
 from speech_engine.audio import (

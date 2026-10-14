@@ -1,15 +1,10 @@
-"""
-Corpus-backed and contextual word analysis with independent BPE subwords.
+"""Word analysis: lemmas, features and POS tags from corpus resources, plus BPE subwords.
 
-English affix stripping proposes stems and morphemes; it is not validated
-lemmatization. Loaded CoNLL-U resources provide attested alternatives and train
-a language-specific bigram POS model. Context choices remain predictions.
-Without resources, other languages have heuristic POS rules but no morphology
-analyzer. Missing analyses stay unavailable, with the surface retained as a
-compatibility fallback in root. Confidence is uncalibrated (None).
-
-BPE merges frequent character pairs. Its pieces do not establish linguistic
-morpheme boundaries and are exposed separately in subwords.
+With CoNLL-U resources loaded, analyses come from attested forms and a bigram
+HMM tagger chooses POS in context. Without them, English falls back to affix
+stripping and other languages to simple POS rules. BPE subwords are reported
+separately and are not treated as morphemes. Confidence is None unless
+calibrated.
 """
 
 from __future__ import annotations
@@ -34,9 +29,7 @@ from speech_engine.pos_uncertainty import (
 )
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  POS tag set (Universal Dependencies style, language-agnostic)
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class POS:
@@ -59,9 +52,7 @@ class POS:
     X = "X"  # other / unknown
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Morphological feature tags
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 @dataclass
@@ -163,9 +154,7 @@ class TokenAnalysis:
     sentence_boundary_method: str = "supplied_token_boundaries"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Closed-class word lists per language (POS: DET / PREP / CONJ / PRON)
-# ══════════════════════════════════════════════════════════════════════════════
 
 CLOSED_CLASS: dict[str, dict[str, list[str]]] = {
     "en": {
@@ -854,9 +843,7 @@ CLOSED_CLASS: dict[str, dict[str, list[str]]] = {
 }
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Suffix rules for rule-based POS tagging
-# ══════════════════════════════════════════════════════════════════════════════
 
 # Format: (pattern, pos_tag, features_dict, language_filter)
 # language_filter=None means applies to all Latin-script languages
@@ -999,7 +986,6 @@ PREFIX_RULES: list[tuple[re.Pattern, str, dict, Optional[str]]] = [
 ]
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Inflection suffix tables — for lexicon lookup recovery
 #
 #  Each entry is (inflected_suffix, [infinitive_endings_to_try]).
@@ -1014,10 +1000,9 @@ PREFIX_RULES: list[tuple[re.Pattern, str, dict, Optional[str]]] = [
 #
 #  This table is the canonical source of truth — lexical_fallback.py reads
 #  from here rather than maintaining its own language-specific copy.
-# ══════════════════════════════════════════════════════════════════════════════
 
 INFLECTION_SUFFIXES: dict[str, tuple[tuple[str, list[str]], ...]] = {
-    # ── Spanish ──────────────────────────────────────────────────────────────
+    # Spanish
     # Conditional (hablaría, comerías, viviríamos) and past subjunctive
     # (hablara/hablase, comieras/comieses) all map back to -ar/-er/-ir infinitive.
     # Unaccented variants are included for users who type without diacritics.
@@ -1059,7 +1044,7 @@ INFLECTION_SUFFIXES: dict[str, tuple[tuple[str, list[str]], ...]] = {
         ("ias", ["ar", "er", "ir", ""]),
         ("ia", ["ar", "er", "ir", ""]),
     ),
-    # ── French ───────────────────────────────────────────────────────────────
+    # French
     # Conditional (parlerais, finirais, prendrais) and imperfect (parlais, finissais).
     # Strip suffix → stem + infinitive ending recovers the infinitive.
     "fr": (
@@ -1081,7 +1066,7 @@ INFLECTION_SUFFIXES: dict[str, tuple[tuple[str, list[str]], ...]] = {
         ("ais", ["er", "ir", "re"]),
         ("ait", ["er", "ir", "re"]),
     ),
-    # ── German ───────────────────────────────────────────────────────────────
+    # German
     # Konjunktiv II (hätte, wäre, käme) — these are suppletive/irregular so
     # coverage is limited; regular verbs use würde + infinitive in practice.
     # Konjunktiv I (gehe, komme) maps cleanly to infinitive stem.
@@ -1091,7 +1076,7 @@ INFLECTION_SUFFIXES: dict[str, tuple[tuple[str, list[str]], ...]] = {
         ("te", ["ten", "t"]),  # liebte  → lieben
         ("st", ["en"]),  # gehst   → gehen (2nd sg present)
     ),
-    # ── Portuguese ───────────────────────────────────────────────────────────
+    # Portuguese
     "pt": (
         ("aríamos", ["ar"]),
         ("eríamos", ["er"]),
@@ -1110,7 +1095,7 @@ INFLECTION_SUFFIXES: dict[str, tuple[tuple[str, list[str]], ...]] = {
         ("ias", ["ar", "er", "ir"]),
         ("ia", ["ar", "er", "ir"]),
     ),
-    # ── Italian ──────────────────────────────────────────────────────────────
+    # Italian
     "it": (
         ("eremmo", ["ere"]),
         ("iremmo", ["ire"]),
@@ -1135,9 +1120,7 @@ INFLECTION_SUFFIXES: dict[str, tuple[tuple[str, list[str]], ...]] = {
 }
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  BPE Segmenter
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class BPESegmenter:
@@ -1241,9 +1224,7 @@ class BPESegmenter:
         return new_vocab
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  POS Tagger
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class POSTagger:
@@ -1514,9 +1495,7 @@ class POSTagger:
         return None
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Morpheme extraction (English-focused, extensible)
-# ══════════════════════════════════════════════════════════════════════════════
 
 # English prefix → (stripped_length, derivation_label)
 EN_PREFIXES: list[tuple[str, str]] = [
@@ -1752,9 +1731,7 @@ def _restore_stem(stem: str) -> str:
     return stem
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  Language-type classifiers
-# ══════════════════════════════════════════════════════════════════════════════
 
 # Languages by morphological typology
 AGGLUTINATIVE = {
@@ -1827,9 +1804,7 @@ def morphological_typology(lang: str) -> str:
     return "unknown"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  MorphologyEngine
-# ══════════════════════════════════════════════════════════════════════════════
 
 
 class MorphologyEngine:
@@ -1969,7 +1944,7 @@ class MorphologyEngine:
         }
 
     def capabilities(self, lang: str) -> dict:
-        """Report available methods, without claiming validated linguistic coverage."""
+        """Report which analysis methods are available for each loaded language."""
         base_lang = lang.lower().split("-")[0]
         return {
             "morphology": (
@@ -2001,7 +1976,7 @@ class MorphologyEngine:
             else "heuristic",
         }
 
-    # ── Internal ─────────────────────────────────────────────────────────────
+    # Internal
 
     def _tokenize(self, text: str, lang: str) -> list[str]:
         return [surface for surface, _ in self._tokenize_with_spans(text, lang)]
@@ -2165,7 +2140,7 @@ class MorphologyEngine:
                 model_source=model_source,
             )
 
-        # Lack of an analyzer does not establish a word's morpheme boundaries.
+        # No analyzer for this language, so no morpheme boundaries are reported.
         return MorphAnalysis(
             surface=surface,
             root=surface,

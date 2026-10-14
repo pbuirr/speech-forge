@@ -1,4 +1,4 @@
-"""Fixed evaluation-only sample of licensed LibriSpeech test-other speakers."""
+"""Freeze an evaluation-only sample of LibriSpeech test-other speakers."""
 
 import hashlib
 import json
