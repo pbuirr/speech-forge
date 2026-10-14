@@ -63,8 +63,9 @@ model, src_vocab, tgt_vocab, _ = load_checkpoint("data/models/nmt_es_en.pt")
 src = src_vocab.encode("el gato exploró la casa", add_bos=True, add_eos=True)
 
 import torch
+
 src_t = torch.tensor([src])
-ids   = model.translate_beam(src_t, beam_size=4)
+ids = model.translate_beam(src_t, beam_size=4)
 print(tgt_vocab.decode(ids))
 # → "the cat explored the house"
 ```
@@ -77,9 +78,9 @@ print(tgt_vocab.decode(ids))
 from speech_engine.language_detector import LanguageDetector
 
 ld = LanguageDetector()
-print(ld.detect("el gato exploró la casa"))   # → ('es', 0.998)
-print(ld.detect("le chat a exploré la maison")) # → ('fr', 0.997)
-print(ld.detect("die Katze erkundete das Haus")) # → ('de', 0.995)
+print(ld.detect("el gato exploró la casa"))  # → ('es', 0.998)
+print(ld.detect("le chat a exploré la maison"))  # → ('fr', 0.997)
+print(ld.detect("die Katze erkundete das Haus"))  # → ('de', 0.995)
 ```
 
 ---

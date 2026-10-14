@@ -35,13 +35,13 @@ Why beam search gives lower WER:
 from __future__ import annotations
 
 import math
-from typing import Optional
 
 import torch
 import numpy as np
 
 
 # ── Greedy CTC decode ─────────────────────────────────────────────────────────
+
 
 def greedy_decode(
     log_probs: torch.Tensor,
@@ -77,6 +77,7 @@ def greedy_decode(
 
 
 # ── CTC prefix beam search ────────────────────────────────────────────────────
+
 
 def _logsumexp(a: float, b: float) -> float:
     """Numerically stable log(exp(a) + exp(b)).
@@ -140,23 +141,28 @@ def prefix_beam_search(
 
     After each time step, prune beam to top beam_width by log(Pb + Pn).
     """
-    if beam_width<1 or lm_weight<0:
-        raise ValueError('Beam width must be positive and LM weight nonnegative')
+    if beam_width < 1 or lm_weight < 0:
+        raise ValueError("Beam width must be positive and LM weight nonnegative")
     # Optional training-only character n-gram shallow fusion. Backoff scores
     # are ranking scores, not calibrated probabilities or verified corrections.
-    lm_scores={():0.0}
+    lm_scores = {(): 0.0}
+
     def rank(key, probabilities):
-        prefix=key[0]
+        prefix = key[0]
         if lm is not None and lm_weight:
             if prefix not in lm_scores:
-                parent=prefix[:-1]
-                context_size=getattr(lm,'context_size',2)
-                context=[tokenizer._id_to_char.get(i,'<unk>') for i in parent[-context_size:]]
-                context=['<s>']*(context_size-len(context))+context
-                lm_scores[prefix]=lm_scores[parent]+lm.score(tokenizer._id_to_char.get(prefix[-1],'<unk>'),context)
-            bonus=lm_weight*lm_scores[prefix]
-        else:bonus=0.0
-        return _logsumexp(*probabilities)+bonus+token_reward*len(prefix)
+                parent = prefix[:-1]
+                context_size = getattr(lm, "context_size", 2)
+                context = [tokenizer._id_to_char.get(i, "<unk>") for i in parent[-context_size:]]
+                context = ["<s>"] * (context_size - len(context)) + context
+                lm_scores[prefix] = lm_scores[parent] + lm.score(
+                    tokenizer._id_to_char.get(prefix[-1], "<unk>"), context
+                )
+            bonus = lm_weight * lm_scores[prefix]
+        else:
+            bonus = 0.0
+        return _logsumexp(*probabilities) + bonus + token_reward * len(prefix)
+
     BLANK = tokenizer.blank_id
     # Skip tokens that should never appear in CTC output
     SKIP = {tokenizer.pad_id, tokenizer.bos_id, tokenizer.eos_id}
@@ -170,7 +176,7 @@ def prefix_beam_search(
     beam: dict[tuple, tuple[float, float]] = {((), None): (0.0, NEG_INF)}
 
     for t in range(log_probs_1d.shape[0]):
-        lp = log_probs_1d[t]           # (V,) log-probabilities at frame t
+        lp = log_probs_1d[t]  # (V,) log-probabilities at frame t
         new_beam: dict[tuple, tuple[float, float]] = {}
 
         def _update(key: tuple, add_log_pb: float, add_log_pn: float) -> None:
@@ -208,7 +214,7 @@ def prefix_beam_search(
         beam = dict(
             sorted(
                 new_beam.items(),
-                key=lambda kv: rank(kv[0],kv[1]),
+                key=lambda kv: rank(kv[0], kv[1]),
                 reverse=True,
             )[:beam_width]
         )
@@ -217,7 +223,7 @@ def prefix_beam_search(
             lm_scores = {key[0]: lm_scores[key[0]] for key in beam}
 
     # Return the best prefix (highest total log-probability)
-    best_key = max(beam, key=lambda k: rank(k,beam[k]))
+    best_key = max(beam, key=lambda k: rank(k, beam[k]))
     best_prefix_ids = list(best_key[0])
     return tokenizer.decode(best_prefix_ids, skip_special=True)
 
@@ -253,7 +259,14 @@ def beam_decode(
     results = []
     for b in range(B):
         # lp_np[:, b, :] has shape (T, V) — exactly what prefix_beam_search expects
-        text = prefix_beam_search(lp_np[:, b, :], tokenizer, beam_width,lm=lm,lm_weight=lm_weight,token_reward=token_reward)
+        text = prefix_beam_search(
+            lp_np[:, b, :],
+            tokenizer,
+            beam_width,
+            lm=lm,
+            lm_weight=lm_weight,
+            token_reward=token_reward,
+        )
         results.append(text)
 
     return results

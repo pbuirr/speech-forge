@@ -1,4 +1,5 @@
 """Held-out POS reliability evaluation without changing the analyzer's decisions."""
+
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -14,7 +15,7 @@ def sentence_fingerprint(sentence):
 def sentence_fingerprints(path):
     fingerprints = set()
     words = []
-    for word in read_conllu(Path(path).read_text(encoding='utf-8')):
+    for word in read_conllu(Path(path).read_text(encoding="utf-8")):
         if word.token_id == 1 and words:
             fingerprints.add(sentence_fingerprint(words))
             words = []
@@ -27,8 +28,8 @@ def sentence_fingerprints(path):
 def collect_pos_scores(lexicon, path, excluded_sentences=None):
     raw = Path(path).read_bytes()
     checksum = sha256(raw).hexdigest()
-    if checksum == lexicon.source['sha256']:
-        raise ValueError('Use held-out data, not the training source')
+    if checksum == lexicon.source["sha256"]:
+        raise ValueError("Use held-out data, not the training source")
     engine = MorphologyEngine()
     engine.add_lexicon(lexicon)
     rows = []
@@ -50,51 +51,81 @@ def collect_pos_scores(lexicon, path, excluded_sentences=None):
                 foreign += 1
                 continue
             evidence = analysis.pos_uncertainty
-            if evidence is None or not evidence['applies_to_returned_pos']:
+            if evidence is None or not evidence["applies_to_returned_pos"]:
                 unscored += 1
                 continue
-            rows.append({'score': evidence['model_probability'], 'known': evidence['known_form'],
-                         'correct': analysis.pos == word.pos})
-    for word in read_conllu(raw.decode('utf-8')):
+            rows.append(
+                {
+                    "score": evidence["model_probability"],
+                    "known": evidence["known_form"],
+                    "correct": analysis.pos == word.pos,
+                }
+            )
+
+    for word in read_conllu(raw.decode("utf-8")):
         if word.token_id == 1 and words:
             consume(words)
             words = []
         words.append(word)
     if words:
         consume(words)
-    return rows, fingerprints, {'sha256': checksum, 'sentences': sentences,
-                                'excluded_overlap_sentences': excluded,
-                                'unscored_tokens': unscored, 'foreign_tokens': foreign}
+    return (
+        rows,
+        fingerprints,
+        {
+            "sha256": checksum,
+            "sentences": sentences,
+            "excluded_overlap_sentences": excluded,
+            "unscored_tokens": unscored,
+            "foreign_tokens": foreign,
+        },
+    )
 
 
 def reliability_metrics(rows, calibration=None):
     scored = []
     for row in rows:
         if calibration:
-            estimate = calibration.estimate(row['score'], row['known'])
+            estimate = calibration.estimate(row["score"], row["known"])
             if estimate is None:
                 continue
-            score = estimate['accuracy_estimate']
+            score = estimate["accuracy_estimate"]
         else:
-            score = row['score']
-        scored.append((score, row['correct']))
+            score = row["score"]
+        scored.append((score, row["correct"]))
     if not scored:
-        return {'tokens': 0}
+        return {"tokens": 0}
     count = len(scored)
     bins = []
     for index in range(10):
         members = [(p, correct) for p, correct in scored if min(9, int(p * 10)) == index]
         if members:
-            bins.append({'bin': index, 'tokens': len(members),
-                         'mean_score': sum(p for p, _ in members) / len(members),
-                         'accuracy': sum(correct for _, correct in members) / len(members)})
+            bins.append(
+                {
+                    "bin": index,
+                    "tokens": len(members),
+                    "mean_score": sum(p for p, _ in members) / len(members),
+                    "accuracy": sum(correct for _, correct in members) / len(members),
+                }
+            )
     selective = []
     for threshold in (0.0, 0.5, 0.8, 0.9, 0.95, 0.98):
         kept = [correct for score, correct in scored if score >= threshold]
-        selective.append({'threshold': threshold, 'tokens': len(kept), 'coverage': len(kept) / count,
-                          'accuracy': sum(kept) / len(kept) if kept else None})
-    return {'tokens': count, 'accuracy': sum(correct for _, correct in scored) / count,
-            'mean_score': sum(p for p, _ in scored) / count,
-            'binary_brier': sum((p - correct) ** 2 for p, correct in scored) / count,
-            'ece_10_bins': sum(b['tokens'] * abs(b['mean_score'] - b['accuracy']) for b in bins) / count,
-            'bins': bins, 'selective_accuracy': selective}
+        selective.append(
+            {
+                "threshold": threshold,
+                "tokens": len(kept),
+                "coverage": len(kept) / count,
+                "accuracy": sum(kept) / len(kept) if kept else None,
+            }
+        )
+    return {
+        "tokens": count,
+        "accuracy": sum(correct for _, correct in scored) / count,
+        "mean_score": sum(p for p, _ in scored) / count,
+        "binary_brier": sum((p - correct) ** 2 for p, correct in scored) / count,
+        "ece_10_bins": sum(b["tokens"] * abs(b["mean_score"] - b["accuracy"]) for b in bins)
+        / count,
+        "bins": bins,
+        "selective_accuracy": selective,
+    }

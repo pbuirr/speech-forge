@@ -37,9 +37,11 @@ LANG_TOKENS = {"es": "<ES>", "fr": "<FR>", "de": "<DE>"}
 
 CORPORA: dict[str, Path] = {
     lang: next(
-        (ROOT / "data" / "corpora" / f"{lang}_en_{suffix}.tsv"
-         for suffix in ("filtered", "real")
-         if (ROOT / "data" / "corpora" / f"{lang}_en_{suffix}.tsv").exists()),
+        (
+            ROOT / "data" / "corpora" / f"{lang}_en_{suffix}.tsv"
+            for suffix in ("filtered", "real")
+            if (ROOT / "data" / "corpora" / f"{lang}_en_{suffix}.tsv").exists()
+        ),
         ROOT / "data" / "corpora" / f"{lang}_en_real.tsv",
     )
     for lang in LANG_TOKENS
@@ -49,6 +51,7 @@ EVAL_SEED = 99
 
 
 # ── Data-fusion audit ─────────────────────────────────────────────────────────
+
 
 def audit_corpus(path: Path) -> dict:
     """Scan a corpus TSV for malformed rows and return a summary."""
@@ -93,13 +96,15 @@ def audit_corpus(path: Path) -> dict:
 
 # ── Encoding ──────────────────────────────────────────────────────────────────
 
+
 def encode_src(lang: str, src: str, vocab: BPEVocab) -> list[int]:
     lang_tok = LANG_TOKENS[lang]
-    lang_id  = vocab._token_to_id[lang_tok]
+    lang_id = vocab._token_to_id[lang_tok]
     return [lang_id] + vocab.encode(src, add_bos=True, add_eos=True)
 
 
 # ── Corpus loading ────────────────────────────────────────────────────────────
+
 
 def load_test_pairs(
     lang: str,
@@ -127,6 +132,7 @@ def load_test_pairs(
 
 # ── Per-language BLEU eval ────────────────────────────────────────────────────
 
+
 def eval_language(
     lang: str,
     model: Seq2SeqNMT,
@@ -140,7 +146,7 @@ def eval_language(
     if not pairs:
         return {"lang": lang, "error": "no data", "hypotheses": [], "references": []}
 
-    sources    = [s for s, _ in pairs]
+    sources = [s for s, _ in pairs]
     references = [r for _, r in pairs]
 
     print(f"  [{lang.upper()}→EN] translating {len(pairs):,} sentences…", flush=True)
@@ -151,23 +157,23 @@ def eval_language(
     with torch.no_grad():
         for i, src_str in enumerate(sources):
             src_ids = encode_src(lang, src_str, vocab)
-            src_t   = torch.tensor([src_ids], dtype=torch.long, device=device)
+            src_t = torch.tensor([src_ids], dtype=torch.long, device=device)
             out_ids = model.translate_beam(src_t, beam_size=beam)
             hypotheses.append(vocab.decode(out_ids).strip())
             if (i + 1) % 100 == 0:
-                print(f"    {i+1}/{len(pairs)}…", flush=True)
+                print(f"    {i + 1}/{len(pairs)}…", flush=True)
 
     elapsed = time.time() - t0
-    detail  = bleu_detail(hypotheses, references)
+    detail = bleu_detail(hypotheses, references)
 
     # Sample translations
     rng = random.Random(EVAL_SEED + ord(lang[0]))
     idx = sorted(rng.sample(range(len(pairs)), min(n_samples, len(pairs))))
     samples = [
         {
-            "source":        sources[i],
-            "reference":     references[i],
-            "hypothesis":    hypotheses[i],
+            "source": sources[i],
+            "reference": references[i],
+            "hypothesis": hypotheses[i],
             "sentence_bleu": round(sentence_bleu(hypotheses[i], references[i]) * 100, 2),
         }
         for i in idx
@@ -175,27 +181,34 @@ def eval_language(
 
     print(f"    BLEU: {detail['bleu']:.2f}  ({elapsed:.0f}s)", flush=True)
     return {
-        "lang":        lang,
-        "n_pairs":     len(pairs),
-        "elapsed_s":   round(elapsed, 1),
-        "hypotheses":  hypotheses,   # kept for combined BLEU, not written to JSON
-        "references":  references,
+        "lang": lang,
+        "n_pairs": len(pairs),
+        "elapsed_s": round(elapsed, 1),
+        "hypotheses": hypotheses,  # kept for combined BLEU, not written to JSON
+        "references": references,
         **detail,
-        "samples":     samples,
+        "samples": samples,
     }
 
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
-    p.add_argument("--checkpoint", default=str(ROOT / "data" / "models" / "nmt_multilingual_16k_ep100.pt"))
-    p.add_argument("--n",          type=int, default=500,  help="Test pairs per language")
-    p.add_argument("--beam",       type=int, default=4,    help="Beam size")
-    p.add_argument("--n_samples",  type=int, default=20,   help="Sample translations per language in report")
-    p.add_argument("--out",        default=str(ROOT / "results" / "eval_multilingual.json"))
-    p.add_argument("--no_mps",     action="store_true")
-    p.add_argument("--audit_only", action="store_true", help="Only run corpus audit, skip translation")
+    p.add_argument(
+        "--checkpoint", default=str(ROOT / "data" / "models" / "nmt_multilingual_16k_ep100.pt")
+    )
+    p.add_argument("--n", type=int, default=500, help="Test pairs per language")
+    p.add_argument("--beam", type=int, default=4, help="Beam size")
+    p.add_argument(
+        "--n_samples", type=int, default=20, help="Sample translations per language in report"
+    )
+    p.add_argument("--out", default=str(ROOT / "results" / "eval_multilingual.json"))
+    p.add_argument("--no_mps", action="store_true")
+    p.add_argument(
+        "--audit_only", action="store_true", help="Only run corpus audit, skip translation"
+    )
     return p.parse_args()
 
 
@@ -208,7 +221,11 @@ def main() -> None:
     for lang, path in CORPORA.items():
         result = audit_corpus(path)
         audit_results[lang] = result
-        status = "✓ clean" if result.get("total_bad", 0) == 0 else f"⚠ {result['total_bad']:,} bad rows ({result['bad_pct']}%)"
+        status = (
+            "✓ clean"
+            if result.get("total_bad", 0) == 0
+            else f"⚠ {result['total_bad']:,} bad rows ({result['bad_pct']}%)"
+        )
         print(f"  {lang.upper()}: {path.name}  →  {result.get('total_rows', '?'):,} rows  {status}")
         if result.get("no_tab_rows", 0):
             print(f"    no-tab examples:")
@@ -254,7 +271,7 @@ def main() -> None:
         lang_results[lang] = result
         if "samples" in result:
             all_hyps.extend(h["hypothesis"] for h in result["samples"])
-            all_refs.extend(h["reference"]  for h in result["samples"])
+            all_refs.extend(h["reference"] for h in result["samples"])
 
     # Combined BLEU over all hypotheses/references we collected
     # (uses the full hyp/ref lists, not just samples)
@@ -270,7 +287,9 @@ def main() -> None:
 
     print("\n── Summary ───────────────────────────────────────────────────────────")
     for lang, r in lang_results.items():
-        print(f"  {lang.upper()}→EN:  BLEU {r.get('bleu', 0):5.2f}  ({r.get('n_pairs', 0):,} sentences)")
+        print(
+            f"  {lang.upper()}→EN:  BLEU {r.get('bleu', 0):5.2f}  ({r.get('n_pairs', 0):,} sentences)"
+        )
     print(f"  Combined:     BLEU {combined['bleu']:5.2f}  ({len(all_hyps):,} sentences)")
 
     # ── Save report ───────────────────────────────────────────────────────────
@@ -282,13 +301,13 @@ def main() -> None:
         r.pop("references", None)
 
     report = {
-        "timestamp":    datetime.now(timezone.utc).isoformat(),
-        "checkpoint":   args.checkpoint,
-        "beam_size":    args.beam,
-        "n_per_lang":   args.n,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "checkpoint": args.checkpoint,
+        "beam_size": args.beam,
+        "n_per_lang": args.n,
         "combined_bleu": round(combined["bleu"], 4),
-        "languages":    lang_results,
-        "audit":        audit_results,
+        "languages": lang_results,
+        "audit": audit_results,
     }
     out_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\nReport saved → {out_path}")

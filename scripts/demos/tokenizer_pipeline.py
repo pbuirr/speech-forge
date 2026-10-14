@@ -36,22 +36,23 @@ from speech_engine.dataset import (
     build_dataloader,
     load_librispeech,
     load_manifest,
-    collate_fn,
 )
-from speech_engine.features import N_MELS, HOP_LENGTH, SAMPLE_RATE
-from speech_engine.tokenizer import CharTokenizer, normalize_text, BLANK_ID, PAD_ID
+from speech_engine.features import HOP_LENGTH, SAMPLE_RATE
+from speech_engine.tokenizer import CharTokenizer, normalize_text, BLANK_ID
 
 # ── ANSI colours ──────────────────────────────────────────────────────────────
-_G = "\033[92m"   # green
-_B = "\033[94m"   # blue
-_Y = "\033[93m"   # yellow
-_C = "\033[96m"   # cyan
-_D = "\033[2m"    # dim
-_W = "\033[1m"    # bold
-_R = "\033[0m"    # reset
+_G = "\033[92m"  # green
+_B = "\033[94m"  # blue
+_Y = "\033[93m"  # yellow
+_C = "\033[96m"  # cyan
+_D = "\033[2m"  # dim
+_W = "\033[1m"  # bold
+_R = "\033[0m"  # reset
+
 
 def _sec(title: str) -> None:
     print(f"\n{_C}── {title} {'─' * max(0, 54 - len(title))}{_R}")
+
 
 def _ok(label: str, value: str) -> None:
     print(f"  {_B}{label:<22}{_R} {value}")
@@ -100,9 +101,9 @@ def make_toy_dataset(out_dir: Path, n: int = 10) -> list[tuple[str, str]]:
         sentence = TOY_SENTENCES[i]
         # Vary duration (1.5 – 4.5s) and formants so spectrograms differ
         duration = 1.5 + i * 0.35
-        f0 = 120 + i * 20          # fundamental: 120–300 Hz
-        f1 = 600 + i * 50          # first formant: 600–1050 Hz
-        f2 = 1800 + i * 100        # second formant: 1800–2700 Hz
+        f0 = 120 + i * 20  # fundamental: 120–300 Hz
+        f1 = 600 + i * 50  # first formant: 600–1050 Hz
+        f2 = 1800 + i * 100  # second formant: 1800–2700 Hz
         sr = TARGET_SR
         t = np.linspace(0, duration, int(duration * sr), dtype=np.float32)
 
@@ -129,6 +130,7 @@ def make_toy_dataset(out_dir: Path, n: int = 10) -> list[tuple[str, str]]:
 
 # ── Section 1: Tokenizer ──────────────────────────────────────────────────────
 
+
 def demo_tokenizer(transcripts: list[str]) -> CharTokenizer:
     _sec("Tokenizer")
 
@@ -138,13 +140,14 @@ def demo_tokenizer(transcripts: list[str]) -> CharTokenizer:
 
     # Show the full character mapping
     char_ids = {
-        k: v for k, v in sorted(tok._char_to_id.items(), key=lambda x: x[1])
+        k: v
+        for k, v in sorted(tok._char_to_id.items(), key=lambda x: x[1])
         if not k.startswith("<")
     }
     print(f"\n  Character → ID mapping (first 15 shown):")
     items = list(char_ids.items())
     for i in range(0, min(15, len(items)), 5):
-        row = "  " + "   ".join(f"'{k}'→{v}" for k, v in items[i:i+5])
+        row = "  " + "   ".join(f"'{k}'→{v}" for k, v in items[i : i + 5])
         print(f"  {_D}{row}{_R}")
     if len(items) > 15:
         print(f"  {_D}  ... ({len(items)} chars total){_R}")
@@ -170,16 +173,19 @@ def demo_tokenizer(transcripts: list[str]) -> CharTokenizer:
 
     # CTC collapse (greedy decoding simulation)
     print(f"\n  CTC collapse simulation:")
-    print(f"  {'─'*50}")
+    print(f"  {'─' * 50}")
     # Simulate what CTC output looks like before collapse
     raw_ctc = [
-        tok._char_to_id.get('h', 0), tok._char_to_id.get('h', 0),   # h h
+        tok._char_to_id.get("h", 0),
+        tok._char_to_id.get("h", 0),  # h h
         BLANK_ID,
-        tok._char_to_id.get('e', 0),                                  # e
-        tok._char_to_id.get('l', 0), tok._char_to_id.get('l', 0),   # l l
+        tok._char_to_id.get("e", 0),  # e
+        tok._char_to_id.get("l", 0),
+        tok._char_to_id.get("l", 0),  # l l
         BLANK_ID,
-        tok._char_to_id.get('l', 0),                                  # l
-        tok._char_to_id.get('o', 0), tok._char_to_id.get('o', 0),   # o o
+        tok._char_to_id.get("l", 0),  # l
+        tok._char_to_id.get("o", 0),
+        tok._char_to_id.get("o", 0),  # o o
     ]
     collapsed = tok.ctc_collapse(raw_ctc)
     raw_chars = [tok._id_to_char.get(i, f"<{i}>") for i in raw_ctc]
@@ -210,6 +216,7 @@ def demo_tokenizer(transcripts: list[str]) -> CharTokenizer:
 
 # ── Section 2: Dataset ────────────────────────────────────────────────────────
 
+
 def demo_dataset(examples: list[tuple[str, str]], tok: CharTokenizer) -> ASRDataset:
     _sec("ASRDataset — single example inspection")
 
@@ -220,7 +227,7 @@ def demo_dataset(examples: list[tuple[str, str]], tok: CharTokenizer) -> ASRData
     # Inspect 3 individual examples
     print(f"\n  Per-example shapes (first 3):")
     print(f"  {'idx':>4}  {'mel shape':>14}  {'tokens':>8}  {'transcript'}")
-    print(f"  {'─'*60}")
+    print(f"  {'─' * 60}")
 
     for i in range(min(3, len(dataset))):
         t0 = time.perf_counter()
@@ -254,9 +261,7 @@ def demo_dataset(examples: list[tuple[str, str]], tok: CharTokenizer) -> ASRData
     _ok("  std:", f"{mel0.std().item():.4f}")
 
     frames = mel0.shape[1]
-    real_frames_before_pad = len(
-        [x for x in mel0[0].numpy() if x != 0.0]
-    )
+    real_frames_before_pad = len([x for x in mel0[0].numpy() if x != 0.0])
     duration_s = frames * HOP_LENGTH / SAMPLE_RATE
     print(f"\n  Padding info (example 0):")
     _ok("  Padded to:", f"{frames} frames ({duration_s:.1f}s)")
@@ -266,6 +271,7 @@ def demo_dataset(examples: list[tuple[str, str]], tok: CharTokenizer) -> ASRData
 
 
 # ── Section 3: DataLoader and batch ──────────────────────────────────────────
+
 
 def demo_dataloader(examples: list[tuple[str, str]], tok: CharTokenizer) -> None:
     _sec("DataLoader — batch collation")
@@ -290,7 +296,7 @@ def demo_dataloader(examples: list[tuple[str, str]], tok: CharTokenizer) -> None
     elapsed = (time.perf_counter() - t0) * 1000
 
     print(f"\n  Batch tensor shapes (this is what the model receives):")
-    print(f"  {'─'*56}")
+    print(f"  {'─' * 56}")
     for key, tensor in batch.items():
         val_range = f"  [{tensor.float().min():.3f}, {tensor.float().max():.3f}]"
         print(
@@ -314,9 +320,9 @@ def demo_dataloader(examples: list[tuple[str, str]], tok: CharTokenizer) -> None
 
     # Show what CTCLoss will see
     _sec("What nn.CTCLoss will receive")
-    mel = batch["mel"]          # (B, 80, T_max)
-    mel_lengths = batch["mel_lengths"]      # (B,)
-    tokens = batch["tokens"]    # (B, L_max)
+    mel = batch["mel"]  # (B, 80, T_max)
+    mel_lengths = batch["mel_lengths"]  # (B,)
+    tokens = batch["tokens"]  # (B, L_max)
     token_lengths = batch["token_lengths"]  # (B,)
 
     print(f"""
@@ -342,15 +348,14 @@ def demo_dataloader(examples: list[tuple[str, str]], tok: CharTokenizer) -> None
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="LinguaForge Phase 2: Tokenizer and Dataset Demo"
-    )
+    parser = argparse.ArgumentParser(description="LinguaForge Phase 2: Tokenizer and Dataset Demo")
     parser.add_argument(
         "--librispeech",
         default=None,
         help="Path to LibriSpeech root (e.g. data/LibriSpeech). "
-             "If omitted, a synthetic toy dataset is generated.",
+        "If omitted, a synthetic toy dataset is generated.",
     )
     parser.add_argument(
         "--split",
@@ -393,7 +398,9 @@ def main() -> None:
     else:
         toy_dir = PROJECT_ROOT / "data" / "toy_dataset"
         print(f"  No source provided — generating toy dataset in {toy_dir}/")
-        print(f"  {_D}(real LibriSpeech: python scripts/demos/tokenizer_pipeline.py --librispeech data/LibriSpeech){_R}")
+        print(
+            f"  {_D}(real LibriSpeech: python scripts/demos/tokenizer_pipeline.py --librispeech data/LibriSpeech){_R}"
+        )
         examples = make_toy_dataset(toy_dir, n=args.n)
         print(f"  Generated {len(examples)} synthetic audio files + manifest.tsv")
 

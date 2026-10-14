@@ -29,7 +29,6 @@ from __future__ import annotations
 import argparse
 import math
 import sys
-import time
 from pathlib import Path
 from typing import Optional
 
@@ -39,11 +38,10 @@ import torch.nn as nn
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from speech_engine.dataset import build_dataloader, load_librispeech, load_manifest
+from speech_engine.dataset import build_dataloader
 from speech_engine.decode import beam_decode, greedy_decode
 from speech_engine.evaluate import (
     char_error_rate,
-    evaluate_dataset,
     levenshtein,
     word_error_rate,
 )
@@ -53,20 +51,28 @@ from speech_engine.train import TrainConfig, resolve_device, train
 
 # Reuse toy dataset generator from phase2_demo
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from tokenizer_pipeline import make_toy_dataset, TOY_SENTENCES
+from tokenizer_pipeline import make_toy_dataset
 
 # ── ANSI colours ──────────────────────────────────────────────────────────────
-_G = "\033[92m"; _B = "\033[94m"; _C = "\033[96m"
-_Y = "\033[93m"; _D = "\033[2m";  _W = "\033[1m"; _R = "\033[0m"
+_G = "\033[92m"
+_B = "\033[94m"
+_C = "\033[96m"
+_Y = "\033[93m"
+_D = "\033[2m"
+_W = "\033[1m"
+_R = "\033[0m"
+
 
 def _sec(title: str) -> None:
     print(f"\n{_C}── {title} {'─' * max(0, 54 - len(title))}{_R}")
+
 
 def _ok(label: str, value: str) -> None:
     print(f"  {_B}{label:<26}{_R} {value}")
 
 
 # ── Section 1: Model architecture ────────────────────────────────────────────
+
 
 def demo_model(vocab_size: int, quick: bool = True) -> CTCModel:
     _sec("CTCModel Architecture")
@@ -100,13 +106,14 @@ def demo_model(vocab_size: int, quick: bool = True) -> CTCModel:
 
 # ── Section 2: Forward pass inspection ───────────────────────────────────────
 
+
 def demo_forward_pass(model: CTCModel, device: torch.device) -> None:
     _sec("Forward Pass — Shapes")
 
     model.to(device)
     model.eval()
 
-    B, N_MELS, T = 4, 80, 300   # 4 examples, 80 mel bins, 300 frames (3s)
+    B, N_MELS, T = 4, 80, 300  # 4 examples, 80 mel bins, 300 frames (3s)
     mel = torch.randn(B, N_MELS, T).to(device)
     mel_lengths = torch.full((B,), T, dtype=torch.long).to(device)
 
@@ -114,8 +121,8 @@ def demo_forward_pass(model: CTCModel, device: torch.device) -> None:
     print()
 
     with torch.no_grad():
-        log_probs = model(mel)                                    # (T_out, B, V)
-        enc_lengths = model.encoder_output_length(mel_lengths)   # (B,)
+        log_probs = model(mel)  # (T_out, B, V)
+        enc_lengths = model.encoder_output_length(mel_lengths)  # (B,)
 
     T_out = log_probs.shape[0]
     _ok("mel (input):", f"({B}, {N_MELS}, {T})")
@@ -137,6 +144,7 @@ def demo_forward_pass(model: CTCModel, device: torch.device) -> None:
 
 
 # ── Section 3: CTC loss demonstration ────────────────────────────────────────
+
 
 def demo_ctc_loss(model: CTCModel, tokenizer: CharTokenizer, device: torch.device) -> None:
     _sec("CTC Loss")
@@ -162,32 +170,36 @@ def demo_ctc_loss(model: CTCModel, tokenizer: CharTokenizer, device: torch.devic
     print(f"  Sentence:        {repr(sentence)}")
     print(f"  Token IDs:       {token_ids}  (len={len(token_ids)})")
     print(f"  Input frames:    {T}  → encoder output: {input_lengths[0].item()}")
-    print(f"  CTC constraint:  input_length ({input_lengths[0].item()}) >= target_length ({len(token_ids)})  ✓")
+    print(
+        f"  CTC constraint:  input_length ({input_lengths[0].item()}) >= target_length ({len(token_ids)})  ✓"
+    )
     print(f"  CTC loss:        {loss.item():.4f}")
     print(f"\n  Interpretation:")
     expected_per_char = -math.log(1.0 / tokenizer.vocab_size)
     print(f"    CTC sums over ALL valid alignments (not just one path),")
     print(f"    so the expected initial loss (~50–150) is much higher than")
     print(f"    the per-frame -log(1/{tokenizer.vocab_size}) = {expected_per_char:.2f}.")
-    print(f"    Our initial loss: {loss.item():.2f}  — normal for untrained CTC on {tokenizer.vocab_size} classes.")
+    print(
+        f"    Our initial loss: {loss.item():.2f}  — normal for untrained CTC on {tokenizer.vocab_size} classes."
+    )
     print(f"    Watch for the loss to DECREASE during training — that's the signal.")
 
 
 # ── Section 4: Edit distance and metrics demo ─────────────────────────────────
 
+
 def demo_metrics() -> None:
     _sec("Edit Distance, CER, and WER — all from scratch")
 
     pairs = [
-        ("hello world",  "helo world"),       # one deletion
-        ("the cat sat",  "the sat"),           # word deletion
-        ("i want water", "i want water"),      # perfect
-        ("mister quilter is the apostle",
-         "mister quiltar is the apostal"),     # two substitutions
+        ("hello world", "helo world"),  # one deletion
+        ("the cat sat", "the sat"),  # word deletion
+        ("i want water", "i want water"),  # perfect
+        ("mister quilter is the apostle", "mister quiltar is the apostal"),  # two substitutions
     ]
 
     print(f"  {'Reference':<35}  {'Hypothesis':<35}  CER     WER")
-    print(f"  {'─'*35}  {'─'*35}  {'─'*6}  {'─'*6}")
+    print(f"  {'─' * 35}  {'─' * 35}  {'─' * 6}  {'─' * 6}")
 
     for ref, hyp in pairs:
         cer = char_error_rate([ref], [hyp])
@@ -202,10 +214,11 @@ def demo_metrics() -> None:
     print(f"    ref: {ref}")
     print(f"    hyp: {hyp}")
     print(f"    edit distance: {dist}  (1 deletion of the second 'l')")
-    print(f"    CER: {dist}/{len(ref)} = {dist/len(ref):.3f}")
+    print(f"    CER: {dist}/{len(ref)} = {dist / len(ref):.3f}")
 
 
 # ── Section 5: Full training loop ─────────────────────────────────────────────
+
 
 def demo_training(
     model: CTCModel,
@@ -220,16 +233,24 @@ def demo_training(
     # Split: 80% train, 20% val
     n_train = max(1, int(len(examples) * 0.8))
     train_examples = examples[:n_train]
-    val_examples   = examples[n_train:]
+    val_examples = examples[n_train:]
 
     train_loader = build_dataloader(
-        train_examples, tokenizer,
-        batch_size=config.batch_size, shuffle=True,
+        train_examples,
+        tokenizer,
+        batch_size=config.batch_size,
+        shuffle=True,
     )
-    val_loader = build_dataloader(
-        val_examples, tokenizer,
-        batch_size=config.batch_size, shuffle=False,
-    ) if val_examples else None
+    val_loader = (
+        build_dataloader(
+            val_examples,
+            tokenizer,
+            batch_size=config.batch_size,
+            shuffle=False,
+        )
+        if val_examples
+        else None
+    )
 
     model.to(device)
     results = train(model, train_loader, val_loader, config, device, resume_from)
@@ -244,10 +265,11 @@ def demo_training(
         for i, loss in enumerate(losses):
             bar_len = int((hi - loss) / rng * width)
             bar = "█" * bar_len
-            print(f"  Epoch {i+1:>3}  {loss:.4f}  {_G}{bar}{_R}")
+            print(f"  Epoch {i + 1:>3}  {loss:.4f}  {_G}{bar}{_R}")
 
 
 # ── Section 6: Decode demo ────────────────────────────────────────────────────
+
 
 def demo_decode(
     model: CTCModel,
@@ -261,7 +283,7 @@ def demo_decode(
     model.to(device)
 
     print(f"  {'Reference':<40}  {'Greedy':<30}  {'Beam (k=5)':<30}")
-    print(f"  {'─'*40}  {'─'*30}  {'─'*30}")
+    print(f"  {'─' * 40}  {'─' * 30}  {'─' * 30}")
 
     for audio_path, ref_text in examples[:5]:
         # Load and process audio
@@ -272,17 +294,17 @@ def demo_decode(
         waveform, _ = preprocess(audio_path)
         spec = log_mel_spectrogram(waveform)
         spec = pad_or_truncate(spec, MAX_FRAMES)
-        mel = torch.from_numpy(spec).unsqueeze(0).to(device)   # (1, 80, T)
+        mel = torch.from_numpy(spec).unsqueeze(0).to(device)  # (1, 80, T)
 
         with torch.no_grad():
-            log_probs = model(mel)   # (T_out, 1, V)
+            log_probs = model(mel)  # (T_out, 1, V)
 
         greedy_text = greedy_decode(log_probs, tokenizer)[0]
-        beam_text   = beam_decode(log_probs, tokenizer, beam_width=5)[0]
+        beam_text = beam_decode(log_probs, tokenizer, beam_width=5)[0]
 
-        ref_str    = repr(ref_text[:38])
+        ref_str = repr(ref_text[:38])
         greedy_str = repr(greedy_text[:28]) if greedy_text else repr("")
-        beam_str   = repr(beam_text[:28])   if beam_text   else repr("")
+        beam_str = repr(beam_text[:28]) if beam_text else repr("")
 
         print(f"  {ref_str:<40}  {greedy_str:<30}  {beam_str:<30}")
 
@@ -293,15 +315,20 @@ def demo_decode(
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="LinguaForge Phase 3: CTC ASR Demo")
-    parser.add_argument("--epochs",      type=int,  default=5,   help="Training epochs (default 5)")
-    parser.add_argument("--quick",       action="store_true",     help="Use tiny model (fast on CPU)")
-    parser.add_argument("--librispeech", default=None,            help="LibriSpeech root directory")
-    parser.add_argument("--split",       default="train-clean-100", help="LibriSpeech training split; never report training-on-test as independent quality")
-    parser.add_argument("--manifest",    default=None,            help="TSV manifest file")
-    parser.add_argument("--resume",      default=None,            help="Resume from checkpoint path")
-    parser.add_argument("--device",      default="auto",          help="cpu / cuda / mps / auto")
+    parser.add_argument("--epochs", type=int, default=5, help="Training epochs (default 5)")
+    parser.add_argument("--quick", action="store_true", help="Use tiny model (fast on CPU)")
+    parser.add_argument("--librispeech", default=None, help="LibriSpeech root directory")
+    parser.add_argument(
+        "--split",
+        default="train-clean-100",
+        help="LibriSpeech training split; never report training-on-test as independent quality",
+    )
+    parser.add_argument("--manifest", default=None, help="TSV manifest file")
+    parser.add_argument("--resume", default=None, help="Resume from checkpoint path")
+    parser.add_argument("--device", default="auto", help="cpu / cuda / mps / auto")
     args = parser.parse_args()
 
     print(f"\n{_W}{'═' * 62}{_R}")
@@ -320,20 +347,24 @@ def main() -> None:
     _sec("Dataset")
     if args.manifest:
         from speech_engine.dataset import load_manifest
+
         examples = load_manifest(args.manifest)
         print(f"  Loaded {len(examples)} examples from {args.manifest}")
     elif args.librispeech:
         from speech_engine.dataset import load_librispeech
+
         examples = load_librispeech(args.librispeech, args.split)
         print(f"  Loaded {len(examples)} LibriSpeech ({args.split}) examples")
         if len(examples) > 200:
             examples = examples[:200]
             print(f"  (capped at 200 for demo)")
     else:
-        toy_dir  = PROJECT_ROOT / "data" / "toy_dataset"
+        toy_dir = PROJECT_ROOT / "data" / "toy_dataset"
         examples = make_toy_dataset(toy_dir, n=10)
         print(f"  Using toy dataset ({len(examples)} synthetic examples)")
-        print(f"  {_D}For real training: python scripts/demos/ctc_training.py --librispeech data/LibriSpeech{_R}")
+        print(
+            f"  {_D}For real training: python scripts/demos/ctc_training.py --librispeech data/LibriSpeech{_R}"
+        )
 
     # ── Tokenizer ─────────────────────────────────────────────────────────────
     tok_path = PROJECT_ROOT / "data" / "tokenizer.json"
@@ -360,13 +391,13 @@ def main() -> None:
 
     # ── Training ──────────────────────────────────────────────────────────────
     config = TrainConfig(
-        max_epochs    = args.epochs,
-        batch_size    = 4,
-        peak_lr       = 1e-3,
-        warmup_steps  = max(10, len(examples) // 4),
-        log_every     = max(1, len(examples) // (4 * 5)),  # ~5 logs per epoch
-        checkpoint_dir= str(PROJECT_ROOT / "checkpoints"),
-        device        = args.device,
+        max_epochs=args.epochs,
+        batch_size=4,
+        peak_lr=1e-3,
+        warmup_steps=max(10, len(examples) // 4),
+        log_every=max(1, len(examples) // (4 * 5)),  # ~5 logs per epoch
+        checkpoint_dir=str(PROJECT_ROOT / "checkpoints"),
+        device=args.device,
     )
 
     resume = Path(args.resume) if args.resume else None

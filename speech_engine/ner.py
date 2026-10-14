@@ -40,28 +40,80 @@ model and does not require any ML model or training data.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 # ── Patterns ──────────────────────────────────────────────────────────────────
 
-_URL_RE      = re.compile(r'https?://\S+|www\.\S+', re.IGNORECASE)
-_EMAIL_RE    = re.compile(r'\S+@\S+\.\S+')
-_HANDLE_RE   = re.compile(r'[@#]\w+')
-_DIGIT_RE    = re.compile(r'\S*\d\S*')  # any token containing a digit
-_ALLCAPS_RE  = re.compile(r'^[A-Z][A-Z0-9\-]{1,}$')  # ≥2 uppercase (acronym)
+_URL_RE = re.compile(r"https?://\S+|www\.\S+", re.IGNORECASE)
+_EMAIL_RE = re.compile(r"\S+@\S+\.\S+")
+_HANDLE_RE = re.compile(r"[@#]\w+")
+_DIGIT_RE = re.compile(r"\S*\d\S*")  # any token containing a digit
+_ALLCAPS_RE = re.compile(r"^[A-Z][A-Z0-9\-]{1,}$")  # ≥2 uppercase (acronym)
 
 # High-frequency German common nouns that should NOT be protected as NEs.
 # Without this, NER would protect "Ich", "Das", "Die" etc. in German text.
-_DE_COMMON_CAPS = frozenset({
-    "Ich", "Er", "Sie", "Es", "Wir", "Ihr", "Der", "Die", "Das", "Den",
-    "Dem", "Des", "Ein", "Eine", "Einen", "Einem", "Einer", "Eines",
-    "Kein", "Keine", "Nicht", "Und", "Oder", "Aber", "Auch", "Noch",
-    "Sehr", "Dann", "Wenn", "Weil", "Dass", "Mit", "Von", "Aus", "Bei",
-    "Auf", "Für", "Durch", "Nach", "Über", "Unter", "Vor", "Hinter",
-    "Kann", "Muss", "Soll", "Will", "Mag", "Darf", "Haben", "Sein",
-    "Werden", "Werden", "Gehen", "Kommen", "Sehen", "Wissen",
-})
+_DE_COMMON_CAPS = frozenset(
+    {
+        "Ich",
+        "Er",
+        "Sie",
+        "Es",
+        "Wir",
+        "Ihr",
+        "Der",
+        "Die",
+        "Das",
+        "Den",
+        "Dem",
+        "Des",
+        "Ein",
+        "Eine",
+        "Einen",
+        "Einem",
+        "Einer",
+        "Eines",
+        "Kein",
+        "Keine",
+        "Nicht",
+        "Und",
+        "Oder",
+        "Aber",
+        "Auch",
+        "Noch",
+        "Sehr",
+        "Dann",
+        "Wenn",
+        "Weil",
+        "Dass",
+        "Mit",
+        "Von",
+        "Aus",
+        "Bei",
+        "Auf",
+        "Für",
+        "Durch",
+        "Nach",
+        "Über",
+        "Unter",
+        "Vor",
+        "Hinter",
+        "Kann",
+        "Muss",
+        "Soll",
+        "Will",
+        "Mag",
+        "Darf",
+        "Haben",
+        "Sein",
+        "Werden",
+        "Werden",
+        "Gehen",
+        "Kommen",
+        "Sehen",
+        "Wissen",
+    }
+)
 
 
 @dataclass
@@ -133,10 +185,10 @@ class EntityProtector:
         placeholder_to_entity: dict[str, str] = {}
 
         for i, tok in enumerate(tokens):
-            is_start = (i == 0)
+            is_start = i == 0
             # Strip trailing punctuation for the check but keep it in output
             clean = tok.rstrip(".,;:!?\"'")
-            suffix = tok[len(clean):]
+            suffix = tok[len(clean) :]
 
             if clean and self._is_entity(clean, position=i, is_sentence_start=is_start):
                 # Reuse placeholder if same entity seen before
@@ -169,6 +221,7 @@ class EntityProtector:
 
 
 # ── Convenience function ──────────────────────────────────────────────────────
+
 
 def protect_and_translate(
     text: str,

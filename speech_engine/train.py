@@ -33,7 +33,7 @@ from __future__ import annotations
 import math
 import random
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
@@ -46,6 +46,7 @@ from speech_engine.tokenizer import BLANK_ID
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 
+
 @dataclass
 class TrainConfig:
     """All hyperparameters for one training run.
@@ -55,36 +56,36 @@ class TrainConfig:
     """
 
     # ── Data ──────────────────────────────────────────────────────────────────
-    data_dir: str          = "data/toy_dataset"
-    manifest: Optional[str] = None              # TSV manifest (overrides data_dir)
-    librispeech_root: Optional[str] = None      # LibriSpeech root dir
+    data_dir: str = "data/toy_dataset"
+    manifest: Optional[str] = None  # TSV manifest (overrides data_dir)
+    librispeech_root: Optional[str] = None  # LibriSpeech root dir
     librispeech_split: str = "train-clean-100"
 
     # ── Model ─────────────────────────────────────────────────────────────────
-    cnn_channels: tuple    = (32, 64, 128)      # conv output channels per block
-    hidden_size: int       = 256                # LSTM hidden units per direction
-    num_lstm_layers: int   = 3
+    cnn_channels: tuple = (32, 64, 128)  # conv output channels per block
+    hidden_size: int = 256  # LSTM hidden units per direction
+    num_lstm_layers: int = 3
 
     # ── Training ──────────────────────────────────────────────────────────────
-    batch_size: int        = 4
-    max_epochs: int        = 50
-    peak_lr: float         = 3e-4               # Adam peak learning rate
-    min_lr: float          = 1e-6               # floor LR after cosine decay
-    warmup_steps: int      = 500               # steps before cosine decay begins
-    grad_clip: float       = 5.0               # global gradient norm clip
+    batch_size: int = 4
+    max_epochs: int = 50
+    peak_lr: float = 3e-4  # Adam peak learning rate
+    min_lr: float = 1e-6  # floor LR after cosine decay
+    warmup_steps: int = 500  # steps before cosine decay begins
+    grad_clip: float = 5.0  # global gradient norm clip
     feature_masking: bool = False
-    spec_augment: bool = False                 # stronger multi-mask policy (augment.spec_augment)
-    amp: bool = False                          # CUDA mixed precision; CTC loss stays float32
+    spec_augment: bool = False  # stronger multi-mask policy (augment.spec_augment)
+    amp: bool = False  # CUDA mixed precision; CTC loss stays float32
     augmentation_seed: int = 839
 
     # ── Output ────────────────────────────────────────────────────────────────
-    checkpoint_dir: str    = "checkpoints"
-    tokenizer_path: str    = "data/tokenizer.json"
-    save_every: int        = 5                 # save checkpoint every N epochs
-    log_every: int         = 10               # print loss every N steps
+    checkpoint_dir: str = "checkpoints"
+    tokenizer_path: str = "data/tokenizer.json"
+    save_every: int = 5  # save checkpoint every N epochs
+    log_every: int = 10  # print loss every N steps
 
     # ── Device ────────────────────────────────────────────────────────────────
-    device: str            = "auto"            # "cpu", "cuda", "mps", or "auto"
+    device: str = "auto"  # "cpu", "cuda", "mps", or "auto"
 
 
 def resolve_device(spec: str) -> torch.device:
@@ -106,6 +107,7 @@ def resolve_device(spec: str) -> torch.device:
 
 
 # ── Learning rate schedule ────────────────────────────────────────────────────
+
 
 def cosine_lr(
     step: int,
@@ -138,7 +140,7 @@ def cosine_lr(
         return min_lr
     # Cosine decay: peak_lr → min_lr
     progress = (step - warmup_steps) / max(1, total_steps - warmup_steps)
-    cosine   = 0.5 * (1.0 + math.cos(math.pi * progress))
+    cosine = 0.5 * (1.0 + math.cos(math.pi * progress))
     return min_lr + (peak_lr - min_lr) * cosine
 
 
@@ -148,6 +150,7 @@ def set_lr(optimizer: torch.optim.Optimizer, lr: float) -> None:
 
 
 # ── Checkpointing ─────────────────────────────────────────────────────────────
+
 
 def save_checkpoint(
     path: Path,
@@ -164,13 +167,13 @@ def save_checkpoint(
     path.parent.mkdir(parents=True, exist_ok=True)
     torch.save(
         {
-            "epoch":      epoch,
-            "step":       step,
-            "best_loss":  best_loss,
-            "model":      model.state_dict(),
-            "optimizer":  optimizer.state_dict(),
-            "config":     config.__dict__,
-            "rng_state":  rng_state,
+            "epoch": epoch,
+            "step": step,
+            "best_loss": best_loss,
+            "model": model.state_dict(),
+            "optimizer": optimizer.state_dict(),
+            "config": config.__dict__,
+            "rng_state": rng_state,
             **({"scaler": scaler.state_dict()} if scaler is not None else {}),
         },
         str(path),
@@ -185,8 +188,10 @@ def load_checkpoint(
 ) -> dict:
     """Load a checkpoint. Returns the metadata dict (epoch, step, best_loss)."""
     ckpt = torch.load(str(path), map_location=device, weights_only=True)
-    if hasattr(model,'time_reduction') and model.time_reduction!=ckpt.get('config',{}).get('time_reduction',2):
-        raise ValueError('Checkpoint encoder stride differs from the constructed model')
+    if hasattr(model, "time_reduction") and model.time_reduction != ckpt.get("config", {}).get(
+        "time_reduction", 2
+    ):
+        raise ValueError("Checkpoint encoder stride differs from the constructed model")
     model.load_state_dict(ckpt["model"])
     if optimizer is not None and "optimizer" in ckpt:
         optimizer.load_state_dict(ckpt["optimizer"])
@@ -195,11 +200,17 @@ def load_checkpoint(
 
 # ── Training and evaluation steps ────────────────────────────────────────────
 
+
 def validate_ctc_alignment(tokens, token_lengths, input_lengths):
-    positions = torch.arange(max(0,tokens.shape[1]-1),device=tokens.device)[None,:]
-    repeats = ((tokens[:,1:] == tokens[:,:-1]) & (positions < token_lengths[:,None]-1)).sum(dim=1)
+    positions = torch.arange(max(0, tokens.shape[1] - 1), device=tokens.device)[None, :]
+    repeats = ((tokens[:, 1:] == tokens[:, :-1]) & (positions < token_lengths[:, None] - 1)).sum(
+        dim=1
+    )
     if torch.any(input_lengths < token_lengths + repeats):
-        raise ValueError('CTC output frames cannot align the complete transcript, including repeated characters')
+        raise ValueError(
+            "CTC output frames cannot align the complete transcript, including repeated characters"
+        )
+
 
 def train_epoch(
     model: nn.Module,
@@ -227,7 +238,7 @@ def train_epoch(
     """
     model.train()
     total_loss = 0.0
-    n_batches  = 0
+    n_batches = 0
 
     # Epoch/step-derived separate RNG preserves the control's shuffle/dropout RNG.
     augmentation_rng = random.Random(config.augmentation_seed + step)
@@ -238,22 +249,26 @@ def train_epoch(
         set_lr(optimizer, lr)
 
         # ── 2. Move batch to device ───────────────────────────────────────────
-        mel           = batch["mel"].to(device)            # (B, 80, T)
-        tokens        = batch["tokens"].to(device)          # (B, L_max)
+        mel = batch["mel"].to(device)  # (B, 80, T)
+        tokens = batch["tokens"].to(device)  # (B, L_max)
         token_lengths = batch["token_lengths"].to(device)  # (B,)
-        mel_lengths   = batch["mel_lengths"].to(device)    # (B,)
+        mel_lengths = batch["mel_lengths"].to(device)  # (B,)
 
-        if getattr(config, 'spec_augment', False):
+        if getattr(config, "spec_augment", False):
             from speech_engine.augment import spec_augment
+
             mel = spec_augment(mel, mel_lengths, augmentation_rng)
         elif config.feature_masking:
             from speech_engine.augment import mask_features
+
             mel = mask_features(mel, mel_lengths, augmentation_rng)
 
         # ── 3. Forward pass ───────────────────────────────────────────────────
-        with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=scaler is not None):
-            log_probs = model(mel, mel_lengths)              # (T_out, B, vocab_size)
-        log_probs     = log_probs.float()                    # CTC is computed in float32
+        with torch.autocast(
+            device_type=device.type, dtype=torch.float16, enabled=scaler is not None
+        ):
+            log_probs = model(mel, mel_lengths)  # (T_out, B, vocab_size)
+        log_probs = log_probs.float()  # CTC is computed in float32
         input_lengths = model.encoder_output_length(mel_lengths)  # (B,)
         validate_ctc_alignment(tokens, token_lengths, input_lengths)
 
@@ -261,13 +276,15 @@ def train_epoch(
         # zero_infinity=True handles edge cases silently
         loss = ctc_loss_fn(log_probs, tokens, input_lengths, token_lengths)
         if not torch.isfinite(loss):
-            raise ValueError('Non-finite CTC loss; check audio, transcripts and training configuration')
+            raise ValueError(
+                "Non-finite CTC loss; check audio, transcripts and training configuration"
+            )
 
         # ── 4. Backward pass ──────────────────────────────────────────────────
         optimizer.zero_grad()
         if scaler is not None:
             scaler.scale(loss).backward()
-            scaler.unscale_(optimizer)   # clip true gradients, not scaled ones
+            scaler.unscale_(optimizer)  # clip true gradients, not scaled ones
         else:
             loss.backward()
 
@@ -278,14 +295,14 @@ def train_epoch(
 
         # ── 6. Weight update ──────────────────────────────────────────────────
         if scaler is not None:
-            scaler.step(optimizer)       # skips the step if gradients overflowed
+            scaler.step(optimizer)  # skips the step if gradients overflowed
             scaler.update()
         else:
             optimizer.step()
 
         total_loss += loss.item()
-        n_batches  += 1
-        step       += 1
+        n_batches += 1
+        step += 1
 
         if step % config.log_every == 0:
             print(
@@ -307,26 +324,27 @@ def eval_epoch(
     """Run one evaluation epoch. Returns mean CTC loss (no gradients)."""
     model.eval()
     total_loss = 0.0
-    n_batches  = 0
+    n_batches = 0
 
     for batch in loader:
-        mel           = batch["mel"].to(device)
-        tokens        = batch["tokens"].to(device)
+        mel = batch["mel"].to(device)
+        tokens = batch["tokens"].to(device)
         token_lengths = batch["token_lengths"].to(device)
-        mel_lengths   = batch["mel_lengths"].to(device)
+        mel_lengths = batch["mel_lengths"].to(device)
 
-        log_probs     = model(mel, mel_lengths)
+        log_probs = model(mel, mel_lengths)
         input_lengths = model.encoder_output_length(mel_lengths)
         validate_ctc_alignment(tokens, token_lengths, input_lengths)
-        loss          = ctc_loss_fn(log_probs, tokens, input_lengths, token_lengths)
+        loss = ctc_loss_fn(log_probs, tokens, input_lengths, token_lengths)
 
         total_loss += loss.item()
-        n_batches  += 1
+        n_batches += 1
 
     return total_loss / max(1, n_batches)
 
 
 # ── Main training function ─────────────────────────────────────────────────────
+
 
 def train(
     model: nn.Module,
@@ -350,12 +368,12 @@ def train(
         dict with "train_losses", "val_losses", "best_val_loss", "total_steps"
     """
     # ── Setup ─────────────────────────────────────────────────────────────────
-    ckpt_dir   = Path(config.checkpoint_dir)
-    optimizer  = torch.optim.Adam(model.parameters(), lr=config.peak_lr)
-    ctc_loss   = nn.CTCLoss(blank=BLANK_ID, zero_infinity=True, reduction="mean")
-    if getattr(config, 'amp', False) and device.type != 'cuda':
-        raise ValueError('Mixed precision (amp) requires CUDA')
-    scaler = torch.amp.GradScaler('cuda') if getattr(config, 'amp', False) else None
+    ckpt_dir = Path(config.checkpoint_dir)
+    optimizer = torch.optim.Adam(model.parameters(), lr=config.peak_lr)
+    ctc_loss = nn.CTCLoss(blank=BLANK_ID, zero_infinity=True, reduction="mean")
+    if getattr(config, "amp", False) and device.type != "cuda":
+        raise ValueError("Mixed precision (amp) requires CUDA")
+    scaler = torch.amp.GradScaler("cuda") if getattr(config, "amp", False) else None
 
     start_epoch = 0
     global_step = 0
@@ -369,33 +387,41 @@ def train(
         start_epoch = ckpt.get("epoch", 0) + 1
         global_step = ckpt.get("step", 0)
         best_val_loss = ckpt.get("best_loss", float("inf"))
-        saved_rng = ckpt.get('rng_state')
+        saved_rng = ckpt.get("rng_state")
         if saved_rng:
-            torch.set_rng_state(saved_rng['torch'].cpu())
-            random.setstate(saved_rng['python'])
-            if device.type == 'cuda' and saved_rng.get('cuda') is not None:
-                torch.cuda.set_rng_state(saved_rng['cuda'].cpu(), device)
-            for name, generator in [('sampler', getattr(train_loader.sampler, 'generator', None)),
-                                    ('batch_sampler', getattr(train_loader.batch_sampler, 'generator', None)),
-                                    ('loader', getattr(train_loader, 'generator', None))]:
+            torch.set_rng_state(saved_rng["torch"].cpu())
+            random.setstate(saved_rng["python"])
+            if device.type == "cuda" and saved_rng.get("cuda") is not None:
+                torch.cuda.set_rng_state(saved_rng["cuda"].cpu(), device)
+            for name, generator in [
+                ("sampler", getattr(train_loader.sampler, "generator", None)),
+                ("batch_sampler", getattr(train_loader.batch_sampler, "generator", None)),
+                ("loader", getattr(train_loader, "generator", None)),
+            ]:
                 if generator is not None and saved_rng.get(name) is not None:
                     generator.set_state(saved_rng[name].cpu())
-            if scaler is not None and ckpt.get('scaler'):
-                scaler.load_state_dict(ckpt['scaler'])
+            if scaler is not None and ckpt.get("scaler"):
+                scaler.load_state_dict(ckpt["scaler"])
         else:
-            print('  Legacy checkpoint has no sampling/RNG state; restoring weights and optimizer only')
+            print(
+                "  Legacy checkpoint has no sampling/RNG state; restoring weights and optimizer only"
+            )
         print(f"  Resumed from {resume_from} (epoch {start_epoch}, step {global_step})")
 
     model.to(device)
 
     # ── History ───────────────────────────────────────────────────────────────
     train_losses: list[float] = []
-    val_losses:   list[float] = []
+    val_losses: list[float] = []
     epoch_elapsed_s: list[float] = []
 
     print(f"\n  Training for {config.max_epochs} epochs")
-    print(f"  {steps_per_epoch} steps/epoch × {config.max_epochs} epochs = {total_steps} total steps")
-    print(f"  LR: 0 → {config.peak_lr:.0e} (warmup {config.warmup_steps} steps) → {config.min_lr:.0e}")
+    print(
+        f"  {steps_per_epoch} steps/epoch × {config.max_epochs} epochs = {total_steps} total steps"
+    )
+    print(
+        f"  LR: 0 → {config.peak_lr:.0e} (warmup {config.warmup_steps} steps) → {config.min_lr:.0e}"
+    )
     print(f"  Device: {device}  ·  Batch size: {config.batch_size}")
     print()
 
@@ -405,8 +431,15 @@ def train(
 
         # ── Train ─────────────────────────────────────────────────────────────
         train_loss, global_step = train_epoch(
-            model, train_loader, optimizer, ctc_loss, config,
-            device, global_step, total_steps, scaler=scaler,
+            model,
+            train_loader,
+            optimizer,
+            ctc_loss,
+            config,
+            device,
+            global_step,
+            total_steps,
+            scaler=scaler,
         )
         train_losses.append(train_loss)
 
@@ -423,33 +456,52 @@ def train(
 
         # ── Checkpoint ────────────────────────────────────────────────────────
         monitor_loss = val_loss if val_loss is not None else train_loss
-        rng_state = {'torch': torch.get_rng_state(), 'python': random.getstate(),
-                     'cuda': torch.cuda.get_rng_state(device) if device.type == 'cuda' else None}
-        for name, generator in [('sampler', getattr(train_loader.sampler, 'generator', None)),
-                                ('batch_sampler', getattr(train_loader.batch_sampler, 'generator', None)),
-                                ('loader', getattr(train_loader, 'generator', None))]:
+        rng_state = {
+            "torch": torch.get_rng_state(),
+            "python": random.getstate(),
+            "cuda": torch.cuda.get_rng_state(device) if device.type == "cuda" else None,
+        }
+        for name, generator in [
+            ("sampler", getattr(train_loader.sampler, "generator", None)),
+            ("batch_sampler", getattr(train_loader.batch_sampler, "generator", None)),
+            ("loader", getattr(train_loader, "generator", None)),
+        ]:
             if generator is not None:
                 rng_state[name] = generator.get_state()
 
         if monitor_loss < best_val_loss:
             best_val_loss = monitor_loss
             save_checkpoint(
-                ckpt_dir / "best.pt", model, optimizer,
-                epoch, global_step, best_val_loss, config, rng_state=rng_state, scaler=scaler,
+                ckpt_dir / "best.pt",
+                model,
+                optimizer,
+                epoch,
+                global_step,
+                best_val_loss,
+                config,
+                rng_state=rng_state,
+                scaler=scaler,
             )
             print(f"  ✓ New best loss: {best_val_loss:.4f} → saved to {ckpt_dir}/best.pt")
 
         if (epoch + 1) % config.save_every == 0:
             save_checkpoint(
-                ckpt_dir / "latest.pt", model, optimizer,
-                epoch, global_step, best_val_loss, config, rng_state=rng_state, scaler=scaler,
+                ckpt_dir / "latest.pt",
+                model,
+                optimizer,
+                epoch,
+                global_step,
+                best_val_loss,
+                config,
+                rng_state=rng_state,
+                scaler=scaler,
             )
             print(f"  Checkpoint saved → {ckpt_dir}/latest.pt")
 
     return {
-        "train_losses":  train_losses,
-        "val_losses":    val_losses,
+        "train_losses": train_losses,
+        "val_losses": val_losses,
         "best_val_loss": best_val_loss,
-        "total_steps":   global_step,
+        "total_steps": global_step,
         "epoch_elapsed_s": epoch_elapsed_s,
     }

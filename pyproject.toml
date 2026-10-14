@@ -22,7 +22,7 @@ dependencies = [
 
 [project.optional-dependencies]
 record = ["sounddevice>=0.4.6"]
-dev    = ["pytest>=8.0", "jupyter>=1.0", "ipykernel>=6.0"]
+dev    = ["pytest>=8.0", "ruff>=0.6", "jupyter>=1.0", "ipykernel>=6.0"]
 
 [tool.setuptools.packages.find]
 where = ["."]
@@ -30,3 +30,7 @@ include = ["speech_engine*", "linguistic_engine*", "learning_engine*", "tts_engi
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

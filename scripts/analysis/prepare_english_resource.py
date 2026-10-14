@@ -3,6 +3,7 @@
 Downloads public data, trains original count-based models, and runs locally.
 No pretrained weights or external inference services are used.
 """
+
 import argparse
 from hashlib import sha256
 from pathlib import Path
@@ -29,10 +30,18 @@ def main():
     parser.add_argument("--download-dir", type=Path, default=Path("data/corpora/ud-ewt"))
     parser.add_argument("--output", type=Path, default=Path("data/linguistics/en.json"))
     parser.add_argument("--report", type=Path, default=Path("results/linguistic_eval_ewt.json"))
-    parser.add_argument("--calibrate", action="store_true", help="Also fit local POS reliability on development data and evaluate on test")
+    parser.add_argument(
+        "--calibrate",
+        action="store_true",
+        help="Also fit local POS reliability on development data and evaluate on test",
+    )
     args = parser.parse_args()
     args.download_dir.mkdir(parents=True, exist_ok=True)
-    for name in ["README.md", "LICENSE.txt", *(name for name in CHECKSUMS if args.calibrate or '-dev.' not in name)]:
+    for name in [
+        "README.md",
+        "LICENSE.txt",
+        *(name for name in CHECKSUMS if args.calibrate or "-dev." not in name),
+    ]:
         path = args.download_dir / name
         if not path.exists():
             with urlopen(RAW + name, timeout=60) as response:
@@ -42,25 +51,59 @@ def main():
             path.write_bytes(raw)
         if name in CHECKSUMS and sha256(path.read_bytes()).hexdigest() != CHECKSUMS[name]:
             raise ValueError(f"Cached {name} does not match the pinned dataset")
-    lexicon = CorpusLexicon.from_conllu(args.download_dir / "en_ewt-ud-train.conllu", "en",
-                                      source_url=SOURCE, license="CC-BY-SA-4.0")
+    lexicon = CorpusLexicon.from_conllu(
+        args.download_dir / "en_ewt-ud-train.conllu",
+        "en",
+        source_url=SOURCE,
+        license="CC-BY-SA-4.0",
+    )
     lexicon.save(args.output)
-    for original, saved in [("README.md", "UD_English-EWT.README.md"), ("LICENSE.txt", "UD_English-EWT.LICENSE.txt")]:
+    for original, saved in [
+        ("README.md", "UD_English-EWT.README.md"),
+        ("LICENSE.txt", "UD_English-EWT.LICENSE.txt"),
+    ]:
         (args.output.parent / saved).write_bytes((args.download_dir / original).read_bytes())
     report = evaluate_lexicon(lexicon, args.download_dir / "en_ewt-ud-test.conllu")
-    report["contextual_comparison"] = evaluate_context(lexicon, args.download_dir / "en_ewt-ud-test.conllu")
+    report["contextual_comparison"] = evaluate_context(
+        lexicon, args.download_dir / "en_ewt-ud-test.conllu"
+    )
     args.report.parent.mkdir(parents=True, exist_ok=True)
-    args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"resource": str(args.output), "forms": lexicon.summary["forms"],
-                      "report": str(args.report), **report["contextual_comparison"]}, indent=2))
+    args.report.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print(
+        json.dumps(
+            {
+                "resource": str(args.output),
+                "forms": lexicon.summary["forms"],
+                "report": str(args.report),
+                **report["contextual_comparison"],
+            },
+            indent=2,
+        )
+    )
     if args.calibrate:
         import subprocess
-        subprocess.run([sys.executable, str(Path(__file__).with_name('calibrate_pos.py')),
-                        '--resource', str(args.output), '--training-corpus', str(args.download_dir / 'en_ewt-ud-train.conllu'),
-                        '--development', str(args.download_dir / 'en_ewt-ud-dev.conllu'),
-                        '--test', str(args.download_dir / 'en_ewt-ud-test.conllu'),
-                        '--output', str(args.output.parent / 'calibration' / 'en.json'),
-                        '--report', str(args.report.parent / 'pos_calibration_ewt.json')], check=True)
+
+        subprocess.run(
+            [
+                sys.executable,
+                str(Path(__file__).with_name("calibrate_pos.py")),
+                "--resource",
+                str(args.output),
+                "--training-corpus",
+                str(args.download_dir / "en_ewt-ud-train.conllu"),
+                "--development",
+                str(args.download_dir / "en_ewt-ud-dev.conllu"),
+                "--test",
+                str(args.download_dir / "en_ewt-ud-test.conllu"),
+                "--output",
+                str(args.output.parent / "calibration" / "en.json"),
+                "--report",
+                str(args.report.parent / "pos_calibration_ewt.json"),
+            ],
+            check=True,
+        )
 
 
 if __name__ == "__main__":

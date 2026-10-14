@@ -30,9 +30,11 @@ from speech_engine.nmt import load_checkpoint
 LANG_TOKENS = {"es": "<ES>", "fr": "<FR>", "de": "<DE>"}
 CORPORA = {
     lang: next(
-        (ROOT / "data" / "corpora" / f"{lang}_en_{s}.tsv"
-         for s in ("filtered", "real")
-         if (ROOT / "data" / "corpora" / f"{lang}_en_{s}.tsv").exists()),
+        (
+            ROOT / "data" / "corpora" / f"{lang}_en_{s}.tsv"
+            for s in ("filtered", "real")
+            if (ROOT / "data" / "corpora" / f"{lang}_en_{s}.tsv").exists()
+        ),
         ROOT / "data" / "corpora" / f"{lang}_en_real.tsv",
     )
     for lang in LANG_TOKENS
@@ -62,8 +64,10 @@ def encode_src(lang: str, src: str, vocab: BPEVocab) -> list[int]:
     return [lang_id] + vocab.encode(src, add_bos=True, add_eos=True)
 
 
-def sweep(model, vocab, device, lang: str, pairs: list[tuple[str, str]], alphas: list[float]) -> dict[float, float]:
-    sources    = [s for s, _ in pairs]
+def sweep(
+    model, vocab, device, lang: str, pairs: list[tuple[str, str]], alphas: list[float]
+) -> dict[float, float]:
+    sources = [s for s, _ in pairs]
     references = [r for _, r in pairs]
     results: dict[float, float] = {}
 
@@ -73,8 +77,8 @@ def sweep(model, vocab, device, lang: str, pairs: list[tuple[str, str]], alphas:
             hyps = []
             for src in sources:
                 src_ids = encode_src(lang, src, vocab)
-                src_t   = torch.tensor([src_ids], dtype=torch.long, device=device)
-                out     = model.translate_beam(src_t, beam_size=4, length_penalty=alpha)
+                src_t = torch.tensor([src_ids], dtype=torch.long, device=device)
+                out = model.translate_beam(src_t, beam_size=4, length_penalty=alpha)
                 hyps.append(vocab.decode(out).strip())
             bleu = bleu_detail(hyps, references)["bleu"]
             results[alpha] = bleu
@@ -85,8 +89,10 @@ def sweep(model, vocab, device, lang: str, pairs: list[tuple[str, str]], alphas:
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--checkpoint", default=str(ROOT / "data" / "models" / "nmt_multilingual_16k_ep100.pt"))
-    p.add_argument("--n",    type=int,   default=150,  help="Sentences per language")
+    p.add_argument(
+        "--checkpoint", default=str(ROOT / "data" / "models" / "nmt_multilingual_16k_ep100.pt")
+    )
+    p.add_argument("--n", type=int, default=150, help="Sentences per language")
     p.add_argument("--langs", nargs="+", default=["es", "fr", "de"])
     p.add_argument("--no_mps", action="store_true")
     args = p.parse_args()

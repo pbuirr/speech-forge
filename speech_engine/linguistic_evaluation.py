@@ -1,4 +1,5 @@
 """Held-out evaluation of corpus lookup, separating coverage from correctness."""
+
 from __future__ import annotations
 
 from hashlib import sha256
@@ -19,57 +20,79 @@ def evaluate_raw_text(lexicon: CorpusLexicon, test_path: str | Path) -> dict:
     from speech_engine.morphology import MorphologyEngine
 
     raw = Path(test_path).read_bytes()
-    if sha256(raw).hexdigest() == lexicon.source['sha256']:
-        raise ValueError('Evaluation file is the training source; use a held-out split')
+    if sha256(raw).hexdigest() == lexicon.source["sha256"]:
+        raise ValueError("Evaluation file is the training source; use a held-out split")
     engine = MorphologyEngine()
     engine.add_lexicon(lexicon)
-    totals = dict(sentences=0, aligned_sentences=0, excluded_sentences=0,
-                  gold_tokens=0, predicted_tokens=0, matched_tokens=0,
-                  pos_correct=0, exact_tokenization_sentences=0)
+    totals = dict(
+        sentences=0,
+        aligned_sentences=0,
+        excluded_sentences=0,
+        gold_tokens=0,
+        predicted_tokens=0,
+        matched_tokens=0,
+        pos_correct=0,
+        exact_tokenization_sentences=0,
+    )
     failures = []
-    for block in re.split(r'\r?\n\s*\r?\n', raw.decode('utf-8').lstrip('\ufeff')):
+    for block in re.split(r"\r?\n\s*\r?\n", raw.decode("utf-8").lstrip("\ufeff")):
         words = list(read_conllu(block))
         if not words:
             continue
-        totals['sentences'] += 1
-        text_match = re.search(r'^# text = (.*)$', block, re.MULTILINE)
-        sentence_text = text_match.group(1).rstrip('\r') if text_match else None
-        compact = lambda value: ''.join(c for c in unicodedata.normalize('NFC', value) if not c.isspace())
-        if sentence_text is None or compact(sentence_text) != ''.join(compact(w.form) for w in words):
-            totals['excluded_sentences'] += 1
+        totals["sentences"] += 1
+        text_match = re.search(r"^# text = (.*)$", block, re.MULTILINE)
+        sentence_text = text_match.group(1).rstrip("\r") if text_match else None
+        compact = lambda value: "".join(
+            c for c in unicodedata.normalize("NFC", value) if not c.isspace()
+        )
+        if sentence_text is None or compact(sentence_text) != "".join(
+            compact(w.form) for w in words
+        ):
+            totals["excluded_sentences"] += 1
             continue
+
         # Positions in the whitespace-free NFC stream permit fair comparison
         # even when surface offsets differ under Unicode normalization.
         def spans(forms):
             position = 0
             result = {}
             for item in forms:
-                form = compact(item.form if hasattr(item, 'form') else item.surface)
+                form = compact(item.form if hasattr(item, "form") else item.surface)
                 end = position + len(form)
                 result[(position, end, form)] = item
                 position = end
             return result
+
         gold = spans(words)
         predicted = spans(engine.analyze(sentence_text, lexicon.lang).analyses)
         shared = gold.keys() & predicted.keys()
-        totals['aligned_sentences'] += 1
-        totals['gold_tokens'] += len(gold)
-        totals['predicted_tokens'] += len(predicted)
-        totals['matched_tokens'] += len(shared)
-        totals['pos_correct'] += sum(gold[k].pos == predicted[k].pos for k in shared)
-        totals['exact_tokenization_sentences'] += gold.keys() == predicted.keys()
+        totals["aligned_sentences"] += 1
+        totals["gold_tokens"] += len(gold)
+        totals["predicted_tokens"] += len(predicted)
+        totals["matched_tokens"] += len(shared)
+        totals["pos_correct"] += sum(gold[k].pos == predicted[k].pos for k in shared)
+        totals["exact_tokenization_sentences"] += gold.keys() == predicted.keys()
         if gold.keys() != predicted.keys() and len(failures) < 20:
-            failures.append({'sentence_id': words[0].sentence_id, 'text': sentence_text,
-                             'gold': [w.form for w in words],
-                             'predicted': [a.surface for a in predicted.values()]})
+            failures.append(
+                {
+                    "sentence_id": words[0].sentence_id,
+                    "text": sentence_text,
+                    "gold": [w.form for w in words],
+                    "predicted": [a.surface for a in predicted.values()],
+                }
+            )
     ratio = lambda n, d: n / d if d else None
-    return {**totals,
-            'token_precision': ratio(totals['matched_tokens'], totals['predicted_tokens']),
-            'token_recall': ratio(totals['matched_tokens'], totals['gold_tokens']),
-            'token_f1': ratio(2 * totals['matched_tokens'], totals['gold_tokens'] + totals['predicted_tokens']),
-            'pos_accuracy_all_gold_tokens': ratio(totals['pos_correct'], totals['gold_tokens']),
-            'sample_tokenization_failures': failures,
-            'limits': 'Gold sentence boundaries, actual raw sentence text. Exact token spans and UPOS; unmatched gold tokens count as errors. Missing text or non-concatenative annotations excluded explicitly. No sentence splitting evaluation.'}
+    return {
+        **totals,
+        "token_precision": ratio(totals["matched_tokens"], totals["predicted_tokens"]),
+        "token_recall": ratio(totals["matched_tokens"], totals["gold_tokens"]),
+        "token_f1": ratio(
+            2 * totals["matched_tokens"], totals["gold_tokens"] + totals["predicted_tokens"]
+        ),
+        "pos_accuracy_all_gold_tokens": ratio(totals["pos_correct"], totals["gold_tokens"]),
+        "sample_tokenization_failures": failures,
+        "limits": "Gold sentence boundaries, actual raw sentence text. Exact token spans and UPOS; unmatched gold tokens count as errors. Missing text or non-concatenative annotations excluded explicitly. No sentence splitting evaluation.",
+    }
 
 
 def evaluate_lexicon(lexicon: CorpusLexicon, test_path: str | Path) -> dict:
@@ -102,19 +125,33 @@ def evaluate_lexicon(lexicon: CorpusLexicon, test_path: str | Path) -> dict:
         hit = len(candidates) == 1 and matches[0]
         correct += hit
         if not hit and len(failures) < 20:
-            failures.append({"form": word.form, "sentence_id": word.sentence_id,
-                             "token_id": word.token_id,
-                             "reason": "unknown" if not candidates else "ambiguous" if len(candidates) > 1 else "annotation_mismatch"})
+            failures.append(
+                {
+                    "form": word.form,
+                    "sentence_id": word.sentence_id,
+                    "token_id": word.token_id,
+                    "reason": "unknown"
+                    if not candidates
+                    else "ambiguous"
+                    if len(candidates) > 1
+                    else "annotation_mismatch",
+                }
+            )
 
     def ratio(numerator, denominator):
         return numerator / denominator if denominator else None
 
     return {
-        "language": lexicon.lang, "training_source": lexicon.source,
-        "test_file": Path(test_path).name, "test_sha256": checksum,
-        "eligible_tokens": eligible, "excluded_tokens": excluded,
-        "covered_tokens": covered, "decided_tokens": decided,
-        "ambiguous_tokens": ambiguous, "correct_decisions": correct,
+        "language": lexicon.lang,
+        "training_source": lexicon.source,
+        "test_file": Path(test_path).name,
+        "test_sha256": checksum,
+        "eligible_tokens": eligible,
+        "excluded_tokens": excluded,
+        "covered_tokens": covered,
+        "decided_tokens": decided,
+        "ambiguous_tokens": ambiguous,
+        "correct_decisions": correct,
         "coverage": ratio(covered, eligible),
         "decision_coverage": ratio(decided, eligible),
         "accuracy_on_decisions": ratio(correct, decided),
@@ -144,9 +181,15 @@ def evaluate_context(lexicon: CorpusLexicon, test_path: str | Path) -> dict:
     baseline = MorphologyEngine()
     engine = MorphologyEngine()
     engine.add_lexicon(lexicon)
-    totals = {"tokens": 0, "baseline_pos_correct": 0, "context_pos_correct": 0,
-              "lemma_decisions": 0, "baseline_lemma_correct_on_same_tokens": 0,
-              "context_lemma_correct": 0, "context_predictions": 0}
+    totals = {
+        "tokens": 0,
+        "baseline_pos_correct": 0,
+        "context_pos_correct": 0,
+        "lemma_decisions": 0,
+        "baseline_lemma_correct_on_same_tokens": 0,
+        "context_lemma_correct": 0,
+        "context_predictions": 0,
+    }
 
     def evaluate_sentence(sentence):
         tokens = [word.form for word in sentence]
@@ -177,10 +220,16 @@ def evaluate_context(lexicon: CorpusLexicon, test_path: str | Path) -> dict:
     def ratio(numerator, denominator):
         return numerator / denominator if denominator else None
 
-    return {**totals,
-            "baseline_pos_accuracy": ratio(totals["baseline_pos_correct"], totals["tokens"]),
-            "context_pos_accuracy": ratio(totals["context_pos_correct"], totals["tokens"]),
-            "lemma_decision_coverage": ratio(totals["lemma_decisions"], totals["tokens"]),
-            "baseline_lemma_accuracy_on_same_tokens": ratio(totals["baseline_lemma_correct_on_same_tokens"], totals["lemma_decisions"]),
-            "context_lemma_accuracy_on_decisions": ratio(totals["context_lemma_correct"], totals["lemma_decisions"]),
-            "limits": "Gold sentence/word boundaries. POS predictions use only training counts; lemma selection uses only candidate POS and field consensus. Features or senses sharing a POS may remain unresolved. This is not general semantic understanding."}
+    return {
+        **totals,
+        "baseline_pos_accuracy": ratio(totals["baseline_pos_correct"], totals["tokens"]),
+        "context_pos_accuracy": ratio(totals["context_pos_correct"], totals["tokens"]),
+        "lemma_decision_coverage": ratio(totals["lemma_decisions"], totals["tokens"]),
+        "baseline_lemma_accuracy_on_same_tokens": ratio(
+            totals["baseline_lemma_correct_on_same_tokens"], totals["lemma_decisions"]
+        ),
+        "context_lemma_accuracy_on_decisions": ratio(
+            totals["context_lemma_correct"], totals["lemma_decisions"]
+        ),
+        "limits": "Gold sentence/word boundaries. POS predictions use only training counts; lemma selection uses only candidate POS and field consensus. Features or senses sharing a POS may remain unresolved. This is not general semantic understanding.",
+    }

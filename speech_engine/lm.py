@@ -44,14 +44,14 @@ class NgramLM:
 
     def __init__(self, alpha: float = 0.4, min_count: int = 2, order: int = 3) -> None:
         if order not in (3, 4, 5):
-            raise ValueError('Backoff order must be three, four or five')
+            raise ValueError("Backoff order must be three, four or five")
         self.order = order
         self.context_size = order - 1
         self._higher = {n: {} for n in range(4, order + 1)}
         self._higher_ctx = {n: {} for n in range(4, order + 1)}
         self.alpha = alpha
-        self.min_count = min_count          # prune n-grams seen < min_count times
-        self._log_alpha  = math.log(alpha)
+        self.min_count = min_count  # prune n-grams seen < min_count times
+        self._log_alpha = math.log(alpha)
         self._log_alpha2 = 2 * self._log_alpha
 
         # Unigram: word → count
@@ -79,7 +79,7 @@ class NgramLM:
             extended = ["<s>"] * self.context_size + tokens
             for n, counts in self._higher.items():
                 for i in range(self.context_size, len(extended)):
-                    context = tuple(extended[i - n + 1:i])
+                    context = tuple(extended[i - n + 1 : i])
                     inner = counts.setdefault(context, {})
                     token = extended[i]
                     inner[token] = inner.get(token, 0) + 1
@@ -151,7 +151,7 @@ class NgramLM:
         offset = 0.0
         padded = ["<s>"] * max(0, self.context_size - len(context)) + list(context)
         for n in range(self.order, 3, -1):
-            key = tuple(padded[-(n - 1):])
+            key = tuple(padded[-(n - 1) :])
             count = self._higher[n].get(key, {}).get(word, 0)
             if count:
                 return offset + math.log(count / self._higher_ctx[n][key])
@@ -167,7 +167,7 @@ class NgramLM:
         if not self._finalized:
             self.finalize()
 
-        c1 = context[-1] if context else "<s>"        # immediately preceding word
+        c1 = context[-1] if context else "<s>"  # immediately preceding word
         c2 = context[-2] if len(context) >= 2 else "<s>"  # two words back
 
         # Try trigram: P(word | c2, c1)

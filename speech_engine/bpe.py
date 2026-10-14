@@ -42,6 +42,7 @@ _EOW = "</w>"  # end-of-word marker fused onto the last character of each word
 
 # ── Internal helpers ──────────────────────────────────────────────────────────
 
+
 def _word_to_chars(word: str) -> tuple[str, ...]:
     """Split a word into characters, marking the last one with </w>."""
     if len(word) == 1:
@@ -81,6 +82,7 @@ def _apply_merge(
 
 
 # ── Public class ──────────────────────────────────────────────────────────────
+
 
 class BPEVocab:
     """Byte-Pair Encoding vocabulary — learn, encode, decode, save, load.
@@ -159,6 +161,7 @@ class BPEVocab:
         robustness to rare / OOV words. Set p=0.0 (default) at inference.
         """
         import random
+
         symbols: list[str] = list(_word_to_chars(word))
         if not symbols:
             return []

@@ -39,13 +39,12 @@ Legacy checkpoints retain twofold subsampling.
 
 from __future__ import annotations
 
-import math
 import torch
 import torch.nn as nn
-from typing import Optional
 
 
 # ── Building blocks ───────────────────────────────────────────────────────────
+
 
 class ConvBlock(nn.Module):
     """One 2D convolutional block: Conv2d → BatchNorm2d → GELU → Dropout2d.
@@ -70,13 +69,14 @@ class ConvBlock(nn.Module):
     ) -> None:
         super().__init__()
         self.conv = nn.Conv2d(
-            in_channels, out_channels,
+            in_channels,
+            out_channels,
             kernel_size=kernel_size,
             stride=stride,
             padding=padding,
         )
-        self.bn   = nn.BatchNorm2d(out_channels)
-        self.act  = nn.GELU()
+        self.bn = nn.BatchNorm2d(out_channels)
+        self.act = nn.GELU()
         self.drop = nn.Dropout2d(dropout)
 
     def forward(self, x: torch.Tensor, lengths: torch.Tensor | None = None) -> torch.Tensor:
@@ -85,19 +85,27 @@ class ConvBlock(nn.Module):
             x = self.bn(x)
         else:
             # Real time/frequency cells only: batch padding is not acoustic data.
-            keep = torch.arange(x.shape[-1],device=x.device)[None,:] < lengths[:,None]
-            keep = keep[:,None,None,:]
+            keep = torch.arange(x.shape[-1], device=x.device)[None, :] < lengths[:, None]
+            keep = keep[:, None, None, :]
             count = keep.sum() * x.shape[2]
-            mean = (x * keep).sum((0,2,3)) / count
-            variance = ((x - mean[None,:,None,None]).square() * keep).sum((0,2,3)) / count
+            mean = (x * keep).sum((0, 2, 3)) / count
+            variance = ((x - mean[None, :, None, None]).square() * keep).sum((0, 2, 3)) / count
             if self.bn.track_running_stats:
                 with torch.no_grad():
                     self.bn.num_batches_tracked.add_(1)
-                    momentum = self.bn.momentum if self.bn.momentum is not None else 1 / self.bn.num_batches_tracked.item()
-                    self.bn.running_mean.lerp_(mean.detach(),momentum)
-                    self.bn.running_var.lerp_((variance * count / (count-1).clamp_min(1)).detach(),momentum)
-            x = (x - mean[None,:,None,None]) * torch.rsqrt(variance[None,:,None,None] + self.bn.eps)
-            x = x * self.bn.weight[None,:,None,None] + self.bn.bias[None,:,None,None]
+                    momentum = (
+                        self.bn.momentum
+                        if self.bn.momentum is not None
+                        else 1 / self.bn.num_batches_tracked.item()
+                    )
+                    self.bn.running_mean.lerp_(mean.detach(), momentum)
+                    self.bn.running_var.lerp_(
+                        (variance * count / (count - 1).clamp_min(1)).detach(), momentum
+                    )
+            x = (x - mean[None, :, None, None]) * torch.rsqrt(
+                variance[None, :, None, None] + self.bn.eps
+            )
+            x = x * self.bn.weight[None, :, None, None] + self.bn.bias[None, :, None, None]
         return self.drop(self.act(x))
 
 
@@ -133,14 +141,22 @@ class ConvEncoder(nn.Module):
         time_reduction: int = 2,
     ) -> None:
         super().__init__()
-        if time_reduction not in (2,4):raise ValueError('Time reduction must be 2 or 4')
-        self.time_reduction=time_reduction
+        if time_reduction not in (2, 4):
+            raise ValueError("Time reduction must be 2 or 4")
+        self.time_reduction = time_reduction
         c0, c1, c2 = channels
 
         # Block 1: mel stride 2, time stride 1 → (B, c0, n_mels//2, T)
-        self.block1 = ConvBlock(1,  c0, (3, 3), stride=(2, 1), padding=(1, 1), dropout=dropout)
+        self.block1 = ConvBlock(1, c0, (3, 3), stride=(2, 1), padding=(1, 1), dropout=dropout)
         # Block 2: mel stride 2, time stride 1 → (B, c1, n_mels//4, T)
-        self.block2 = ConvBlock(c0, c1, (3, 3), stride=(2, 2 if time_reduction==4 else 1), padding=(1, 1), dropout=dropout)
+        self.block2 = ConvBlock(
+            c0,
+            c1,
+            (3, 3),
+            stride=(2, 2 if time_reduction == 4 else 1),
+            padding=(1, 1),
+            dropout=dropout,
+        )
         # Block 3: mel stride 2, time stride 2 → (B, c2, n_mels//8, T//2)
         self.block3 = ConvBlock(c1, c2, (3, 3), stride=(2, 2), padding=(1, 1), dropout=dropout)
 
@@ -152,21 +168,25 @@ class ConvEncoder(nn.Module):
     def forward(self, x: torch.Tensor, lengths: torch.Tensor | None = None) -> torch.Tensor:
         # x: (B, 1, n_mels, T)
         def mask_padding(value, valid):
-            if valid is None: return value
-            keep = torch.arange(value.shape[-1],device=value.device)[None,:] < valid[:,None]
-            return value * keep[:,None,None,:]
+            if valid is None:
+                return value
+            keep = torch.arange(value.shape[-1], device=value.device)[None, :] < valid[:, None]
+            return value * keep[:, None, None, :]
+
         x = self.block1(x, lengths if self.masked_batch_norm else None)
         x = mask_padding(x, lengths)
-        second_lengths=(lengths+1)//2 if lengths is not None and self.time_reduction==4 else lengths
+        second_lengths = (
+            (lengths + 1) // 2 if lengths is not None and self.time_reduction == 4 else lengths
+        )
         x = self.block2(x, second_lengths if self.masked_batch_norm else None)
         x = mask_padding(x, second_lengths)
-        final_lengths=(second_lengths+1)//2 if second_lengths is not None else None
+        final_lengths = (second_lengths + 1) // 2 if second_lengths is not None else None
         x = self.block3(x, final_lengths if self.masked_batch_norm else None)
         x = mask_padding(x, final_lengths)
 
         B, C, M, T_out = x.shape
         x = x.permute(0, 3, 1, 2).reshape(B, T_out, C * M)  # (B, T//2, C*M)
-        return self.proj(x)                                    # (B, T//2, hidden_size)
+        return self.proj(x)  # (B, T//2, hidden_size)
 
     @staticmethod
     def output_length(input_length: int, time_reduction: int = 2) -> int:
@@ -225,8 +245,7 @@ class BiLSTMStack(nn.Module):
         for i in range(num_layers):
             in_size = input_size if i == 0 else out_size
             self.lstms.append(
-                nn.LSTM(in_size, hidden_size, num_layers=1,
-                        bidirectional=True, batch_first=True)
+                nn.LSTM(in_size, hidden_size, num_layers=1, bidirectional=True, batch_first=True)
             )
             self.norms.append(nn.LayerNorm(out_size))
             self.drops.append(nn.Dropout(dropout))
@@ -238,18 +257,23 @@ class BiLSTMStack(nn.Module):
     def forward(self, x: torch.Tensor, lengths: torch.Tensor | None = None) -> torch.Tensor:
         # x: (B, T, input_size)
         for lstm, norm, drop, proj in zip(self.lstms, self.norms, self.drops, self.projs):
-            residual = proj(x)             # (B, T, out_size) — same dim as LSTM output
+            residual = proj(x)  # (B, T, out_size) — same dim as LSTM output
             if lengths is None:
                 out, _ = lstm(x)
             else:
-                packed = nn.utils.rnn.pack_padded_sequence(x,lengths.cpu(),batch_first=True,enforce_sorted=False)
+                packed = nn.utils.rnn.pack_padded_sequence(
+                    x, lengths.cpu(), batch_first=True, enforce_sorted=False
+                )
                 encoded, _ = lstm(packed)
-                out, _ = nn.utils.rnn.pad_packed_sequence(encoded,batch_first=True,total_length=x.shape[1])
-            x = norm(drop(out) + residual) # residual + normalise
+                out, _ = nn.utils.rnn.pad_packed_sequence(
+                    encoded, batch_first=True, total_length=x.shape[1]
+                )
+            x = norm(drop(out) + residual)  # residual + normalise
         return x  # (B, T, hidden_size*2)
 
 
 # ── Full CTC model ────────────────────────────────────────────────────────────
+
 
 class CTCModel(nn.Module):
     """LinguaForge CTC ASR model.
@@ -350,13 +374,13 @@ class CTCModel(nn.Module):
             (T_out, B, vocab_size) — log-probabilities, time-first for CTCLoss
             where T_out = ceil(T / 2)
         """
-        x = mel.unsqueeze(1)            # (B, 1, n_mels, T)
+        x = mel.unsqueeze(1)  # (B, 1, n_mels, T)
         x = self.encoder(x, mel_lengths)
         lengths = self.encoder_output_length(mel_lengths) if mel_lengths is not None else None
         x = self.rnn(x, lengths)
-        x = self.classifier(x)          # (B, T//2, vocab_size)
+        x = self.classifier(x)  # (B, T//2, vocab_size)
         x = torch.log_softmax(x, dim=-1)
-        return x.permute(1, 0, 2)       # (T//2, B, vocab_size) — time-first
+        return x.permute(1, 0, 2)  # (T//2, B, vocab_size) — time-first
 
     def encoder_output_length(self, mel_lengths: torch.Tensor) -> torch.Tensor:
         """Compute encoder output lengths from input mel frame counts.
@@ -382,17 +406,17 @@ class CTCModel(nn.Module):
         cls_p = sum(p.numel() for p in self.classifier.parameters()) / 1e6
         return (
             f"CTCModel\n"
-            f"{'─'*44}\n"
+            f"{'─' * 44}\n"
             f"  Architecture:  ConvEncoder → BiLSTMStack → Linear\n"
             f"  n_mels:        {self.n_mels}\n"
             f"  hidden_size:   {self.hidden_size}\n"
             f"  vocab_size:    {self.vocab_size}\n"
             f"  time_reduce:   {self.time_reduction}×  "
             f"(T mel frames → ceil(T/{self.time_reduction}) encoder frames)\n"
-            f"{'─'*44}\n"
+            f"{'─' * 44}\n"
             f"  ConvEncoder    {enc_p:.3f}M parameters\n"
             f"  BiLSTMStack    {rnn_p:.3f}M parameters\n"
             f"  Classifier     {cls_p:.3f}M parameters\n"
             f"  TOTAL          {param_m:.3f}M parameters\n"
-            f"{'─'*44}"
+            f"{'─' * 44}"
         )

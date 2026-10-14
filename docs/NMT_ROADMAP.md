@@ -83,6 +83,7 @@ Attention heatmap: `results/attention_es_en.png`
 Or from Python:
 ```python
 from speech_engine.nmt import load_checkpoint
+
 model, src_vocab, tgt_vocab, _ = load_checkpoint("data/models/nmt_es_en.pt")
 src_ids = src_vocab.encode("me gusta el mundo")
 out_ids = model.translate(torch.tensor([src_ids]), beam_size=4)
@@ -120,7 +121,7 @@ inference time — no retraining needed:
 out_ids = model.translate_beam(
     src_ids,
     beam_size=4,
-    coverage_penalty=0.2,   # β in [0.1, 0.4] is typical
+    coverage_penalty=0.2,  # β in [0.1, 0.4] is typical
 )
 ```
 

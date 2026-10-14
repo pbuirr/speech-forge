@@ -49,8 +49,7 @@ import torch.nn as nn
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from speech_engine.bleu import bleu_detail
-from speech_engine.bpe import BPEVocab, BOS_ID, EOS_ID, PAD_ID
+from speech_engine.bpe import BPEVocab, PAD_ID
 from speech_engine.nmt import Seq2SeqNMT, collate_pairs, nmt_loss, save_checkpoint, load_checkpoint
 
 # ── Language token constants ──────────────────────────────────────────────────
@@ -59,16 +58,19 @@ LANG_TOKENS = {"es": "<ES>", "fr": "<FR>", "de": "<DE>"}
 
 # ── Corpus paths ───────────────────────────────────────────────────────────────
 
+
 def _corpus_path(lang: str) -> Path:
     filtered = ROOT / "data" / "corpora" / f"{lang}_en_filtered.tsv"
     if filtered.exists():
         return filtered
     return ROOT / "data" / "corpora" / f"{lang}_en_real.tsv"
 
+
 CORPORA: dict[str, Path] = {lang: _corpus_path(lang) for lang in ("es", "fr", "de")}
 
 
 # ── Data loading ───────────────────────────────────────────────────────────────
+
 
 def load_corpus(path: Path) -> list[tuple[str, str]]:
     pairs = []
@@ -101,6 +103,7 @@ def load_all_pairs(
 
 
 # ── Vocabulary ─────────────────────────────────────────────────────────────────
+
 
 def build_shared_vocab(
     triples: list[tuple[str, str, str]],
@@ -137,7 +140,7 @@ def encode_pair(
 ) -> tuple[list[int], list[int]]:
     """Encode one (src, tgt) pair with language token prepended to source."""
     lang_tok = LANG_TOKENS[lang]
-    lang_id  = vocab._token_to_id[lang_tok]
+    lang_id = vocab._token_to_id[lang_tok]
 
     # Source: [lang_id, BOS, t1, …, tn, EOS]
     # The lang token sits before BOS so the encoder sees it first.
@@ -147,6 +150,7 @@ def encode_pair(
 
 
 # ── Training ───────────────────────────────────────────────────────────────────
+
 
 def train(
     model: Seq2SeqNMT,
@@ -174,13 +178,17 @@ def train(
         else:
             decay_params.append(p)
     optimizer = torch.optim.AdamW(
-        [{"params": decay_params, "weight_decay": 0.01},
-         {"params": no_decay_params, "weight_decay": 0.0}],
-        lr=lr, betas=(0.9, 0.98), eps=1e-9,
+        [
+            {"params": decay_params, "weight_decay": 0.01},
+            {"params": no_decay_params, "weight_decay": 0.0},
+        ],
+        lr=lr,
+        betas=(0.9, 0.98),
+        eps=1e-9,
     )
     scaler = GradScaler()
 
-    total_steps  = epochs * math.ceil(len(data) / batch_size)
+    total_steps = epochs * math.ceil(len(data) / batch_size)
     warmup_steps = max(1, total_steps // 10)
 
     def lr_lambda(step: int) -> float:
@@ -219,7 +227,7 @@ def train(
             random.shuffle(epoch_data)
 
         total_loss = 0.0
-        n_batches  = 0
+        n_batches = 0
 
         for i in range(0, len(epoch_data), batch_size):
             batch = epoch_data[i : i + batch_size]
@@ -232,13 +240,13 @@ def train(
                     continue
                 src_tensor, _, tgt_in, tgt_out, _ = collate_pairs(micro, pad_id=PAD_ID)
                 src_tensor = src_tensor.to(device)
-                tgt_in     = tgt_in.to(device)
-                tgt_out    = tgt_out.to(device)
+                tgt_in = tgt_in.to(device)
+                tgt_out = tgt_out.to(device)
 
                 with autocast():
                     logits = model(src_tensor, tgt_in)
                     n_micro = math.ceil(len(batch) / micro_size)
-                    loss    = nmt_loss(logits, tgt_out, pad_id=PAD_ID) / n_micro
+                    loss = nmt_loss(logits, tgt_out, pad_id=PAD_ID) / n_micro
                 scaler.scale(loss).backward()
                 accum_loss += loss.item()
 
@@ -249,23 +257,33 @@ def train(
             scheduler.step()
 
             total_loss += accum_loss
-            n_batches  += 1
+            n_batches += 1
 
         avg_loss = total_loss / max(1, n_batches)
 
-        if epoch % max(1, (start_epoch + epochs - 1) // 20) == 0 or epoch == start_epoch + epochs - 1:
+        if (
+            epoch % max(1, (start_epoch + epochs - 1) // 20) == 0
+            or epoch == start_epoch + epochs - 1
+        ):
             elapsed = time.time() - t0
-            print(f"  epoch {epoch:4d}  loss={avg_loss:.4f}  lr={scheduler.get_last_lr()[0]:.2e}  {elapsed:.0f}s")
+            print(
+                f"  epoch {epoch:4d}  loss={avg_loss:.4f}  lr={scheduler.get_last_lr()[0]:.2e}  {elapsed:.0f}s"
+            )
 
         if save_every > 0 and save_path and epoch % save_every == 0:
             ckpt = save_path.replace(".pt", f"_ep{epoch}.pt")
-            save_checkpoint(model, vocab, vocab, ckpt,
-                            meta={"direction": "multi→en", "epoch": epoch,
-                                  "langs": list(LANG_TOKENS.keys())})
+            save_checkpoint(
+                model,
+                vocab,
+                vocab,
+                ckpt,
+                meta={"direction": "multi→en", "epoch": epoch, "langs": list(LANG_TOKENS.keys())},
+            )
             print(f"  [checkpoint] saved → {ckpt}")
 
 
 # ── Quick evaluation ───────────────────────────────────────────────────────────
+
 
 def quick_eval(
     model: Seq2SeqNMT,
@@ -283,12 +301,12 @@ def quick_eval(
 
     with torch.no_grad():
         for lang in LANG_TOKENS:
-            pairs = by_lang[lang][:n // len(LANG_TOKENS)]
+            pairs = by_lang[lang][: n // len(LANG_TOKENS)]
             for src, ref in pairs:
                 src_ids, _ = encode_pair(lang, src, ref, vocab)
                 src_t = torch.tensor([src_ids], dtype=torch.long, device=device)
-                out   = model.translate_beam(src_t, beam_size=4)
-                hyp   = vocab.decode(out)
+                out = model.translate_beam(src_t, beam_size=4)
+                hyp = vocab.decode(out)
                 print(f"  [{lang.upper()}] {src[:60]}")
                 print(f"        REF: {ref[:80]}")
                 print(f"        HYP: {hyp[:80]}")
@@ -297,26 +315,33 @@ def quick_eval(
 
 # ── CLI ────────────────────────────────────────────────────────────────────────
 
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
-    p.add_argument("--epochs",      type=int,   default=200)
-    p.add_argument("--vocab",       type=int,   default=6000)
-    p.add_argument("--batch",       type=int,   default=128)
-    p.add_argument("--lr",          type=float, default=5e-4)
-    p.add_argument("--d_model",     type=int,   default=256)
-    p.add_argument("--n_layers",    type=int,   default=4)
-    p.add_argument("--d_ff",        type=int,   default=512)
-    p.add_argument("--n_heads",     type=int,   default=4)
-    p.add_argument("--accum",       type=int,   default=4)
-    p.add_argument("--max_per_lang",type=int,   default=100_000)
-    p.add_argument("--save_every",  type=int,   default=25)
-    p.add_argument("--load",        default=None, help="Resume from checkpoint")
-    p.add_argument("--out",         default=str(ROOT / "data" / "models" / "nmt_multilingual.pt"))
-    p.add_argument("--no_mps",      action="store_true")
-    p.add_argument("--fast",        action="store_true", help="Smoke-test: 2k pairs/lang, 20 epochs")
-    p.add_argument("--dropout",        type=float, default=0.1,  help="Model dropout rate")
-    p.add_argument("--bpe_dropout",    type=float, default=0.1,  help="BPE dropout p during training (0 = off)")
-    p.add_argument("--tie_embeddings", action="store_true",       help="Tie src/tgt/output embeddings (shared vocab only)")
+    p.add_argument("--epochs", type=int, default=200)
+    p.add_argument("--vocab", type=int, default=6000)
+    p.add_argument("--batch", type=int, default=128)
+    p.add_argument("--lr", type=float, default=5e-4)
+    p.add_argument("--d_model", type=int, default=256)
+    p.add_argument("--n_layers", type=int, default=4)
+    p.add_argument("--d_ff", type=int, default=512)
+    p.add_argument("--n_heads", type=int, default=4)
+    p.add_argument("--accum", type=int, default=4)
+    p.add_argument("--max_per_lang", type=int, default=100_000)
+    p.add_argument("--save_every", type=int, default=25)
+    p.add_argument("--load", default=None, help="Resume from checkpoint")
+    p.add_argument("--out", default=str(ROOT / "data" / "models" / "nmt_multilingual.pt"))
+    p.add_argument("--no_mps", action="store_true")
+    p.add_argument("--fast", action="store_true", help="Smoke-test: 2k pairs/lang, 20 epochs")
+    p.add_argument("--dropout", type=float, default=0.1, help="Model dropout rate")
+    p.add_argument(
+        "--bpe_dropout", type=float, default=0.1, help="BPE dropout p during training (0 = off)"
+    )
+    p.add_argument(
+        "--tie_embeddings",
+        action="store_true",
+        help="Tie src/tgt/output embeddings (shared vocab only)",
+    )
     return p.parse_args()
 
 
@@ -325,9 +350,9 @@ def main() -> None:
 
     if args.fast:
         args.max_per_lang = 2_000
-        args.epochs       = 20
-        args.vocab        = 2_000
-        args.save_every   = 0
+        args.epochs = 20
+        args.vocab = 2_000
+        args.save_every = 0
 
     # ── Device ──────────────────────────────────────────────────────────────
     if not args.no_mps and torch.backends.mps.is_available():
@@ -390,7 +415,9 @@ def main() -> None:
         start_epoch = meta.get("epoch", 0) + 1
         print(f"  Resuming from epoch {start_epoch}")
     else:
-        print(f"\nBuilding model: d_model={args.d_model}, layers={args.n_layers}, heads={args.n_heads}")
+        print(
+            f"\nBuilding model: d_model={args.d_model}, layers={args.n_layers}, heads={args.n_heads}"
+        )
         model = Seq2SeqNMT(
             src_vocab_size=V,
             tgt_vocab_size=V,
@@ -409,7 +436,9 @@ def main() -> None:
     # ── Train ────────────────────────────────────────────────────────────────
     print(f"\nTraining…")
     train(
-        model, train_data, vocab,
+        model,
+        train_data,
+        vocab,
         epochs=args.epochs,
         batch_size=args.batch,
         accum_steps=args.accum,
@@ -423,9 +452,17 @@ def main() -> None:
     )
 
     # ── Save final model ────────────────────────────────────────────────────
-    save_checkpoint(model, vocab, vocab, args.out,
-                    meta={"direction": "multi→en", "epoch": start_epoch + args.epochs - 1,
-                          "langs": list(LANG_TOKENS.keys())})
+    save_checkpoint(
+        model,
+        vocab,
+        vocab,
+        args.out,
+        meta={
+            "direction": "multi→en",
+            "epoch": start_epoch + args.epochs - 1,
+            "langs": list(LANG_TOKENS.keys()),
+        },
+    )
     print(f"\nSaved → {args.out}")
 
     # ── Quick eval ───────────────────────────────────────────────────────────

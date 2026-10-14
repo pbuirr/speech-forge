@@ -33,11 +33,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from speech_engine.audio import (
-    AudioMetadata,
     get_metadata,
     load_audio,
     normalize_amplitude,
-    preprocess,
     resample,
     save_audio,
     to_mono,
@@ -54,19 +52,22 @@ from speech_engine.features import (
 )
 
 # ── ANSI colours for terminal output ──────────────────────────────────────────
-_GREEN  = "\033[92m"
-_BLUE   = "\033[94m"
+_GREEN = "\033[92m"
+_BLUE = "\033[94m"
 _YELLOW = "\033[93m"
-_CYAN   = "\033[96m"
-_DIM    = "\033[2m"
-_BOLD   = "\033[1m"
-_RESET  = "\033[0m"
+_CYAN = "\033[96m"
+_DIM = "\033[2m"
+_BOLD = "\033[1m"
+_RESET = "\033[0m"
+
 
 def _section(title: str) -> None:
     print(f"\n{_CYAN}── {title} {'─' * max(0, 52 - len(title))}{_RESET}")
 
+
 def _step(n: int, total: int, label: str) -> None:
     print(f"  {_BLUE}[{n}/{total}]{_RESET} {label}", end="", flush=True)
+
 
 def _ok(detail: str = "") -> None:
     suffix = f"  {_DIM}{detail}{_RESET}" if detail else ""
@@ -74,6 +75,7 @@ def _ok(detail: str = "") -> None:
 
 
 # ── Synthetic test signal ──────────────────────────────────────────────────────
+
 
 def generate_synthetic_signal(duration_s: float = 3.0, sample_rate: int = 22_050) -> np.ndarray:
     """Generate a multi-formant test signal that loosely resembles a vowel sound.
@@ -94,10 +96,10 @@ def generate_synthetic_signal(duration_s: float = 3.0, sample_rate: int = 22_050
     t = np.linspace(0, duration_s, int(duration_s * sample_rate), dtype=np.float32)
 
     signal = (
-        0.50 * np.sin(2 * np.pi * 200  * t) +  # fundamental
-        0.30 * np.sin(2 * np.pi * 800  * t) +  # F1
-        0.20 * np.sin(2 * np.pi * 2400 * t) +  # F2
-        0.10 * np.sin(2 * np.pi * 3600 * t)    # F3
+        0.50 * np.sin(2 * np.pi * 200 * t)  # fundamental
+        + 0.30 * np.sin(2 * np.pi * 800 * t)  # F1
+        + 0.20 * np.sin(2 * np.pi * 2400 * t)  # F2
+        + 0.10 * np.sin(2 * np.pi * 3600 * t)  # F3
     )
 
     # Amplitude modulation: creates 4 Hz "syllable" beats
@@ -106,6 +108,7 @@ def generate_synthetic_signal(duration_s: float = 3.0, sample_rate: int = 22_050
 
 
 # ── Main demo ─────────────────────────────────────────────────────────────────
+
 
 def run_demo(
     audio_path: str | None,
@@ -146,7 +149,7 @@ def run_demo(
     meta = get_metadata(audio_path)
     elapsed = time.perf_counter() - t0
     print(meta)
-    print(f"  {_DIM}(read in {elapsed*1000:.1f} ms — no audio loaded){_RESET}")
+    print(f"  {_DIM}(read in {elapsed * 1000:.1f} ms — no audio loaded){_RESET}")
 
     # ── Steps 2–5: Full pipeline, step by step ────────────────────────────────
     _section("Pipeline")
@@ -155,8 +158,10 @@ def run_demo(
     _step(1, TOTAL_STEPS, "Load audio ")
     t0 = time.perf_counter()
     waveform, sr = load_audio(audio_path)
-    _ok(f"{sr:,} Hz  ·  {waveform.shape[0]} ch  ·  {waveform.shape[-1]:,} samples  "
-        f"·  {(time.perf_counter()-t0)*1000:.1f} ms")
+    _ok(
+        f"{sr:,} Hz  ·  {waveform.shape[0]} ch  ·  {waveform.shape[-1]:,} samples  "
+        f"·  {(time.perf_counter() - t0) * 1000:.1f} ms"
+    )
 
     # Step 3: Mono
     _step(2, TOTAL_STEPS, "Convert to mono ")
@@ -169,8 +174,10 @@ def run_demo(
     t0 = time.perf_counter()
     peak_before = float(np.abs(waveform).max())
     waveform = resample(waveform, sr, SAMPLE_RATE)
-    _ok(f"{len(waveform):,} samples  ·  {len(waveform)/SAMPLE_RATE:.3f} s  "
-        f"·  {(time.perf_counter()-t0)*1000:.1f} ms")
+    _ok(
+        f"{len(waveform):,} samples  ·  {len(waveform) / SAMPLE_RATE:.3f} s  "
+        f"·  {(time.perf_counter() - t0) * 1000:.1f} ms"
+    )
 
     # Step 5: Normalize
     _step(4, TOTAL_STEPS, "Normalize amplitude ")
@@ -195,7 +202,9 @@ def run_demo(
     # Step 6: Pad/truncate (show what the model will see)
     _step(6, TOTAL_STEPS, f"Pad/truncate to {MAX_FRAMES} frames ")
     spec_padded = pad_or_truncate(spec, max_frames=MAX_FRAMES)
-    _ok(f"shape {spec_padded.shape}  ({MAX_FRAMES} × 10 ms = {MAX_FRAMES*10/1000:.0f}s context)")
+    _ok(
+        f"shape {spec_padded.shape}  ({MAX_FRAMES} × 10 ms = {MAX_FRAMES * 10 / 1000:.0f}s context)"
+    )
 
     # ── Spectrogram detail ────────────────────────────────────────────────────
     _section("Spectrogram Info")
@@ -204,9 +213,9 @@ def run_demo(
     ms_per_frame = HOP_LENGTH / SAMPLE_RATE * 1000
     print(f"  Shape      {spec.shape}   (n_mels × frames)")
     print(f"  Duration   {duration_s:.3f} s  ({n_frames} frames × {ms_per_frame:.0f} ms/frame)")
-    print(f"  Mel bins   {n_mels}  covering 0 – {int(SAMPLE_RATE/2):,} Hz")
-    print(f"  n_fft      {N_FFT}  ({N_FFT/SAMPLE_RATE*1000:.0f} ms window)")
-    print(f"  hop        {HOP_LENGTH}  ({HOP_LENGTH/SAMPLE_RATE*1000:.0f} ms step)")
+    print(f"  Mel bins   {n_mels}  covering 0 – {int(SAMPLE_RATE / 2):,} Hz")
+    print(f"  n_fft      {N_FFT}  ({N_FFT / SAMPLE_RATE * 1000:.0f} ms window)")
+    print(f"  hop        {HOP_LENGTH}  ({HOP_LENGTH / SAMPLE_RATE * 1000:.0f} ms step)")
     print(f"  Value range   min={spec.min():.4f}  max={spec.max():.4f}  mean={spec.mean():.4f}")
 
     # ── Pipeline: what the model will actually receive ─────────────────────────
@@ -248,10 +257,12 @@ def run_demo(
 def plt_close(fig) -> None:
     """Close figure to free memory — matplotlib keeps figures in memory by default."""
     import matplotlib.pyplot as plt
+
     plt.close(fig)
 
 
 # ── CLI ───────────────────────────────────────────────────────────────────────
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -263,10 +274,11 @@ def main() -> None:
         nargs="?",
         default=None,
         help="Path to an audio file (WAV, FLAC, OGG). "
-             "If omitted, a synthetic test signal is generated.",
+        "If omitted, a synthetic test signal is generated.",
     )
     parser.add_argument(
-        "--output", "-o",
+        "--output",
+        "-o",
         default=str(PROJECT_ROOT / "data" / "samples" / "spectrogram.png"),
         help="Where to save the spectrogram PNG (default: data/samples/spectrogram.png)",
     )

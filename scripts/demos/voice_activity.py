@@ -24,10 +24,11 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from speech_engine.vad import VADState, VoiceActivityDetector, detect_speech
+from speech_engine.vad import VADState, VoiceActivityDetector
 
 
 # ── Synthetic audio generator ─────────────────────────────────────────────────
+
 
 def _voiced(sr: int, dur: float, f0: float = 120.0, n_harmonics: int = 12) -> np.ndarray:
     """
@@ -48,16 +49,16 @@ def _unvoiced(sr: int, dur: float, center: float = 4000.0) -> np.ndarray:
     Synthetic unvoiced-speech analog: band-pass filtered noise around
     a centre frequency (simulates fricatives like /s/ /f/ /sh/).
     """
-    t      = np.linspace(0, dur, int(sr * dur), endpoint=False)
-    noise  = np.random.randn(len(t)).astype(np.float32)
+    t = np.linspace(0, dur, int(sr * dur), endpoint=False)
+    noise = np.random.randn(len(t)).astype(np.float32)
     # Simple resonant peak via two-pole IIR
-    bw   = center / 3
-    r    = 1 - math.pi * bw / sr
+    bw = center / 3
+    r = 1 - math.pi * bw / sr
     pole = 2 * math.pi * center / sr
-    a1, a2 = -2 * r * math.cos(pole), r ** 2
+    a1, a2 = -2 * r * math.cos(pole), r**2
     out = np.zeros_like(noise)
     for i in range(2, len(noise)):
-        out[i] = noise[i] - a1 * out[i-1] - a2 * out[i-2]
+        out[i] = noise[i] - a1 * out[i - 1] - a2 * out[i - 2]
     out *= 0.4 / (np.max(np.abs(out)) + 1e-9)
     return out
 
@@ -101,12 +102,13 @@ def build_test_signal(sr: int = 16_000) -> tuple[np.ndarray, list[tuple[float, f
 
 # ── ASCII visualiser ──────────────────────────────────────────────────────────
 
+
 def _ascii_timeline(
-    audio:       np.ndarray,
-    sr:          int,
-    detected:    list,        # list[SpeechSegment]
+    audio: np.ndarray,
+    sr: int,
+    detected: list,  # list[SpeechSegment]
     ground_truth: list[tuple[float, float]],
-    width:        int = 80,
+    width: int = 80,
 ) -> str:
     total = len(audio) / sr
     bar_w = width - 20
@@ -115,7 +117,7 @@ def _ascii_timeline(
         return min(bar_w - 1, int(t / total * bar_w))
 
     lines = []
-    lines.append(f"\n{'─'*width}")
+    lines.append(f"\n{'─' * width}")
     lines.append("VAD TIMELINE  (each char ≈ {:.0f}ms)".format(total / bar_w * 1000))
     lines.append("─" * width)
 
@@ -136,18 +138,22 @@ def _ascii_timeline(
     # Diff
     diff_bar = []
     for g, d in zip(gt_bar, det_bar):
-        if g == d == "▓": diff_bar.append("✓")
-        elif g == "▓" and d != "▓": diff_bar.append("!")   # missed
-        elif g != "▓" and d == "▓": diff_bar.append("?")   # false alarm
-        else: diff_bar.append(" ")
+        if g == d == "▓":
+            diff_bar.append("✓")
+        elif g == "▓" and d != "▓":
+            diff_bar.append("!")  # missed
+        elif g != "▓" and d == "▓":
+            diff_bar.append("?")  # false alarm
+        else:
+            diff_bar.append(" ")
     lines.append(f"  DIFF         │{''.join(diff_bar)}│")
 
     # Time axis
     n_labels = 6
     axis = [" "] * bar_w
     for i in range(n_labels + 1):
-        t   = total * i / n_labels
-        x   = to_x(t)
+        t = total * i / n_labels
+        x = to_x(t)
         lbl = f"{t:.1f}s"
         for j, c in enumerate(lbl):
             if x + j < bar_w:
@@ -162,11 +168,13 @@ def _ascii_timeline(
 def _feature_plot(features: dict, width: int = 80) -> str:
     bar_w = width - 22
     lines = ["\nFEATURE OVERVIEW (per frame)", "─" * width]
-    for name, values in [("energy (RMS)", features["energy"]),
-                          ("ZCR (norm)",  features["zcr"]   / (features["zcr"].max() + 1e-9)),
-                          ("flatness",    features["flatness"])]:
+    for name, values in [
+        ("energy (RMS)", features["energy"]),
+        ("ZCR (norm)", features["zcr"] / (features["zcr"].max() + 1e-9)),
+        ("flatness", features["flatness"]),
+    ]:
         v_norm = values / (values.max() + 1e-9)
-        step   = max(1, len(v_norm) // bar_w)
+        step = max(1, len(v_norm) // bar_w)
         sampled = v_norm[::step][:bar_w]
         bar = "".join("█" if v > 0.5 else ("▄" if v > 0.25 else "·") for v in sampled)
         lines.append(f"  {name:<18}│{bar:<{bar_w}}│")
@@ -176,9 +184,10 @@ def _feature_plot(features: dict, width: int = 80) -> str:
 
 # ── Streaming demo ────────────────────────────────────────────────────────────
 
+
 def run_streaming_demo(audio: np.ndarray, sr: int, vad: VoiceActivityDetector) -> None:
-    stream    = vad.stream()
-    chunk_len = sr // 10   # 100ms chunks
+    stream = vad.stream()
+    chunk_len = sr // 10  # 100ms chunks
     print("\nStreaming demo (100ms chunks):")
     print("─" * 60)
 
@@ -201,10 +210,11 @@ def run_streaming_demo(audio: np.ndarray, sr: int, vad: VoiceActivityDetector) -
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--wav",    default=None, help="Path to a .wav file (optional)")
-    p.add_argument("--sr",     type=int, default=16_000)
+    p.add_argument("--wav", default=None, help="Path to a .wav file (optional)")
+    p.add_argument("--sr", type=int, default=16_000)
     p.add_argument("--stream", action="store_true", help="Also run streaming demo")
     args = p.parse_args()
 
@@ -218,26 +228,27 @@ def main() -> None:
     if args.wav:
         # Load wav file (stdlib struct + wave module only)
         import struct, wave
+
         with wave.open(args.wav, "rb") as wf:
-            sr     = wf.getframerate()
-            n_ch   = wf.getnchannels()
-            width  = wf.getsampwidth()
-            data   = wf.readframes(wf.getnframes())
-        fmt  = {1: "b", 2: "h", 4: "i"}[width]
-        raw  = struct.unpack(f"{len(data)//width}{fmt}", data)
-        sig  = np.array(raw, dtype=np.float32)
+            sr = wf.getframerate()
+            n_ch = wf.getnchannels()
+            width = wf.getsampwidth()
+            data = wf.readframes(wf.getnframes())
+        fmt = {1: "b", 2: "h", 4: "i"}[width]
+        raw = struct.unpack(f"{len(data) // width}{fmt}", data)
+        sig = np.array(raw, dtype=np.float32)
         if n_ch > 1:
-            sig = sig.reshape(-1, n_ch).mean(axis=1)   # downmix to mono
-        sig  /= (2 ** (8 * width - 1))                 # normalise to [-1, 1]
-        audio      = sig
+            sig = sig.reshape(-1, n_ch).mean(axis=1)  # downmix to mono
+        sig /= 2 ** (8 * width - 1)  # normalise to [-1, 1]
+        audio = sig
         ground_truth = []
-        print(f"\nLoaded: {args.wav}  ({sr}Hz, {len(audio)/sr:.2f}s)")
+        print(f"\nLoaded: {args.wav}  ({sr}Hz, {len(audio) / sr:.2f}s)")
     else:
         print("\nUsing synthetic test signal (7s)…")
         audio, ground_truth = build_test_signal(sr)
 
     # ── Batch detect ──────────────────────────────────────────────────────────
-    vad      = VoiceActivityDetector(sr=sr)
+    vad = VoiceActivityDetector(sr=sr)
     detected = vad.detect(audio)
     features = vad.frame_features(audio)
 
@@ -248,22 +259,22 @@ def main() -> None:
     if ground_truth:
         # Compute simple recall / precision over detected frames
         total_secs = len(audio) / sr
-        step       = 0.01
-        ts         = np.arange(0, total_secs, step)
+        step = 0.01
+        ts = np.arange(0, total_secs, step)
 
-        gt_mask  = np.zeros(len(ts), bool)
+        gt_mask = np.zeros(len(ts), bool)
         det_mask = np.zeros(len(ts), bool)
         for s, e in ground_truth:
-            gt_mask  |= (ts >= s) & (ts < e)
+            gt_mask |= (ts >= s) & (ts < e)
         for seg in detected:
             det_mask |= (ts >= seg.start) & (ts < seg.end)
 
-        tp      = np.sum(gt_mask  & det_mask)
-        fn      = np.sum(gt_mask  & ~det_mask)
-        fp      = np.sum(~gt_mask & det_mask)
-        recall  = tp / (tp + fn + 1e-9)
-        prec    = tp / (tp + fp + 1e-9)
-        f1      = 2 * recall * prec / (recall + prec + 1e-9)
+        tp = np.sum(gt_mask & det_mask)
+        fn = np.sum(gt_mask & ~det_mask)
+        fp = np.sum(~gt_mask & det_mask)
+        recall = tp / (tp + fn + 1e-9)
+        prec = tp / (tp + fp + 1e-9)
+        f1 = 2 * recall * prec / (recall + prec + 1e-9)
         print(f"\nVs. ground truth:  precision={prec:.2f}  recall={recall:.2f}  F1={f1:.2f}")
 
     print(_ascii_timeline(audio, sr, detected, ground_truth))

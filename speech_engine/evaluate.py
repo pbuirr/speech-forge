@@ -39,6 +39,7 @@ from typing import Callable
 
 # ── Edit distance (Levenshtein) ───────────────────────────────────────────────
 
+
 def levenshtein(ref: list, hyp: list) -> int:
     """Compute Levenshtein edit distance between two sequences.
 
@@ -60,22 +61,22 @@ def levenshtein(ref: list, hyp: list) -> int:
     R, H = len(ref), len(hyp)
 
     if R == 0:
-        return H   # all insertions
+        return H  # all insertions
     if H == 0:
-        return R   # all deletions
+        return R  # all deletions
 
     # dp[j] = edit distance between ref[:i] and hyp[:j]
     # We only keep the current and previous rows (space optimisation)
     prev = list(range(H + 1))  # prev[j] = dp[0][j] = j insertions
 
     for i in range(1, R + 1):
-        curr = [i] + [0] * H   # curr[0] = i deletions
+        curr = [i] + [0] * H  # curr[0] = i deletions
         for j in range(1, H + 1):
             if ref[i - 1] == hyp[j - 1]:
-                curr[j] = prev[j - 1]   # characters match — no edit needed
+                curr[j] = prev[j - 1]  # characters match — no edit needed
             else:
                 curr[j] = 1 + min(
-                    prev[j],      # deletion:     remove ref[i-1]
+                    prev[j],  # deletion:     remove ref[i-1]
                     curr[j - 1],  # insertion:    insert hyp[j-1]
                     prev[j - 1],  # substitution: replace ref[i-1] with hyp[j-1]
                 )
@@ -86,29 +87,40 @@ def levenshtein(ref: list, hyp: list) -> int:
 
 # ── CER and WER ───────────────────────────────────────────────────────────────
 
+
 def align_units(reference: list, hypothesis: list) -> list:
     """Return one minimum-edit alignment as (reference, hypothesis) pairs.
 
     None denotes an inserted/deleted unit. Substitution-first tie handling is
     deterministic; ambiguous alignments are not verified linguistic relations.
     """
-    table=[[0]*(len(hypothesis)+1) for _ in range(len(reference)+1)]
-    for i in range(len(reference)+1): table[i][0]=i
-    for j in range(len(hypothesis)+1): table[0][j]=j
-    for i,r in enumerate(reference,1):
-        for j,h in enumerate(hypothesis,1):
-            table[i][j]=min(table[i-1][j]+1,table[i][j-1]+1,table[i-1][j-1]+(r!=h))
-    pairs=[]
-    i,j=len(reference),len(hypothesis)
+    table = [[0] * (len(hypothesis) + 1) for _ in range(len(reference) + 1)]
+    for i in range(len(reference) + 1):
+        table[i][0] = i
+    for j in range(len(hypothesis) + 1):
+        table[0][j] = j
+    for i, r in enumerate(reference, 1):
+        for j, h in enumerate(hypothesis, 1):
+            table[i][j] = min(
+                table[i - 1][j] + 1, table[i][j - 1] + 1, table[i - 1][j - 1] + (r != h)
+            )
+    pairs = []
+    i, j = len(reference), len(hypothesis)
     while i or j:
-        if i and j and reference[i-1]==hypothesis[j-1] and table[i][j]==table[i-1][j-1]:
-            pairs.append((reference[i-1],hypothesis[j-1])); i-=1; j-=1
-        elif i and j and table[i][j]==table[i-1][j-1]+1:
-            pairs.append((reference[i-1],hypothesis[j-1])); i-=1; j-=1
-        elif i and table[i][j]==table[i-1][j]+1:
-            pairs.append((reference[i-1],None)); i-=1
+        if i and j and reference[i - 1] == hypothesis[j - 1] and table[i][j] == table[i - 1][j - 1]:
+            pairs.append((reference[i - 1], hypothesis[j - 1]))
+            i -= 1
+            j -= 1
+        elif i and j and table[i][j] == table[i - 1][j - 1] + 1:
+            pairs.append((reference[i - 1], hypothesis[j - 1]))
+            i -= 1
+            j -= 1
+        elif i and table[i][j] == table[i - 1][j] + 1:
+            pairs.append((reference[i - 1], None))
+            i -= 1
         else:
-            pairs.append((None,hypothesis[j-1])); j-=1
+            pairs.append((None, hypothesis[j - 1]))
+            j -= 1
     return pairs[::-1]
 
 
@@ -118,10 +130,19 @@ def edit_counts(reference: list, hypothesis: list) -> dict:
     Counts describe one optimal alignment, not the linguistic cause of an error.
     Works with words, characters or language-specific token units supplied by caller.
     """
-    counts={'substitutions':0,'deletions':0,'insertions':0,'matches':0}
-    for r,h in align_units(reference,hypothesis):
-        counts['insertions' if r is None else 'deletions' if h is None else 'matches' if r==h else 'substitutions']+=1
+    counts = {"substitutions": 0, "deletions": 0, "insertions": 0, "matches": 0}
+    for r, h in align_units(reference, hypothesis):
+        counts[
+            "insertions"
+            if r is None
+            else "deletions"
+            if h is None
+            else "matches"
+            if r == h
+            else "substitutions"
+        ] += 1
     return counts
+
 
 def char_error_rate(
     references: list[str],
@@ -211,6 +232,7 @@ def word_error_rate(
 
 # ── Dataset-level evaluation ──────────────────────────────────────────────────
 
+
 def evaluate_dataset(
     model: torch.nn.Module,
     loader: DataLoader,
@@ -249,20 +271,20 @@ def evaluate_dataset(
             if max_batches is not None and batch_idx >= max_batches:
                 break
 
-            mel          = batch["mel"].to(device)
-            mel_lengths  = batch["mel_lengths"].to(device)
-            token_seqs   = batch["tokens"]
+            mel = batch["mel"].to(device)
+            mel_lengths = batch["mel_lengths"].to(device)
+            token_seqs = batch["tokens"]
             token_lengths = batch["token_lengths"]
 
             # Forward pass
-            log_probs = model(mel, mel_lengths)                # (T_out, B, V)
+            log_probs = model(mel, mel_lengths)  # (T_out, B, V)
 
             # Decode hypotheses
             # Padded frames must never contribute characters to the hypothesis.
             output_lengths = model.encoder_output_length(mel_lengths)
             hyps = []
             for i, length in enumerate(output_lengths):
-                hyps.extend(decoder_fn(log_probs[:int(length), i:i+1], tokenizer))
+                hyps.extend(decoder_fn(log_probs[: int(length), i : i + 1], tokenizer))
 
             # Decode references from token IDs
             refs = []

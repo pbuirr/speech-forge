@@ -55,6 +55,7 @@ from speech_engine.nmt import load_checkpoint
 
 # ── Monolingual corpus loader ─────────────────────────────────────────────────
 
+
 def load_monolingual(path: Path, limit: int | None = None) -> list[str]:
     """
     Load one sentence per line from a plain-text monolingual file.
@@ -72,6 +73,7 @@ def load_monolingual(path: Path, limit: int | None = None) -> list[str]:
 
 
 # ── Batch translation ─────────────────────────────────────────────────────────
+
 
 def translate_sentences(
     model,
@@ -102,13 +104,16 @@ def translate_sentences(
                 elapsed = time.time() - t0
                 rate = (i + 1) / elapsed
                 remaining = (len(sentences) - i - 1) / max(rate, 1e-9)
-                print(f"  {i+1:,}/{len(sentences):,}  "
-                      f"({rate:.1f} sent/s, ~{remaining/60:.1f}min remaining)")
+                print(
+                    f"  {i + 1:,}/{len(sentences):,}  "
+                    f"({rate:.1f} sent/s, ~{remaining / 60:.1f}min remaining)"
+                )
 
     return results
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
+
 
 def main() -> None:
     args = parse_args()
@@ -139,7 +144,7 @@ def main() -> None:
     print(f"Loading checkpoint: {ckpt_path}")
     model, src_vocab, tgt_vocab, meta = load_checkpoint(ckpt_path)
     model = model.to(device)
-    print(f"  {model.param_count():,} parameters  |  direction: {meta.get('direction','?')}")
+    print(f"  {model.param_count():,} parameters  |  direction: {meta.get('direction', '?')}")
 
     # ── Load monolingual input ─────────────────────────────────────────────────
     input_path = Path(args.input)
@@ -161,18 +166,23 @@ def main() -> None:
     print(f"\nTranslating {args.src}→{args.tgt} with beam={args.beam}…")
     t0 = time.time()
     translations = translate_sentences(
-        model, src_vocab, tgt_vocab, sentences, device,
-        beam=args.beam, max_len=args.max_len,
+        model,
+        src_vocab,
+        tgt_vocab,
+        sentences,
+        device,
+        beam=args.beam,
+        max_len=args.max_len,
     )
     elapsed = time.time() - t0
-    print(f"Done in {elapsed:.0f}s ({len(sentences)/elapsed:.1f} sent/s)")
+    print(f"Done in {elapsed:.0f}s ({len(sentences) / elapsed:.1f} sent/s)")
 
     # ── Write output ───────────────────────────────────────────────────────────
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     n_written = 0
-    n_empty   = 0
+    n_empty = 0
     with output_path.open("w", encoding="utf-8") as f:
         # Header marks synthetic data
         f.write(f"# SYNTHETIC — back-translated from {args.src} using {ckpt_path.name}\n")
@@ -194,11 +204,16 @@ def main() -> None:
         print(f"  ({n_empty} empty translations skipped)")
 
     print(f"\nTo merge with real training data:")
-    print(f"  cat data/corpora/{args.tgt}_{args.src}_real.tsv {output_path} > data/combined_{args.tgt}_{args.src}.tsv")
-    print(f"  python scripts/translation/train_nmt.py  # (update REAL_CORPUS_PATH to point to combined file)")
+    print(
+        f"  cat data/corpora/{args.tgt}_{args.src}_real.tsv {output_path} > data/combined_{args.tgt}_{args.src}.tsv"
+    )
+    print(
+        f"  python scripts/translation/train_nmt.py  # (update REAL_CORPUS_PATH to point to combined file)"
+    )
 
 
 # ── CLI ────────────────────────────────────────────────────────────────────────
+
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
@@ -206,19 +221,31 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
-    p.add_argument("--src",        default="en", help="Language of the input (monolingual) file")
-    p.add_argument("--tgt",        default="es", help="Language to translate INTO (the reverse model's output)")
-    p.add_argument("--input",      default="data/monolingual_en.txt",
-                   help="Plain-text monolingual corpus (one sentence per line)")
-    p.add_argument("--output",     default="data/synthetic_en_es.tsv",
-                   help="Output TSV: synthetic_tgt<TAB>real_src")
-    p.add_argument("--checkpoint", default="data/models/nmt_en_es.pt",
-                   help="Reverse model checkpoint (e.g. EN→ES for back-translating into ES)")
-    p.add_argument("--limit",      type=int, default=100_000,
-                   help="Max sentences to translate (default 100k)")
-    p.add_argument("--beam",       type=int, default=4)
-    p.add_argument("--max-len",    type=int, default=100, dest="max_len")
-    p.add_argument("--no-mps",     action="store_true", dest="no_mps")
+    p.add_argument("--src", default="en", help="Language of the input (monolingual) file")
+    p.add_argument(
+        "--tgt", default="es", help="Language to translate INTO (the reverse model's output)"
+    )
+    p.add_argument(
+        "--input",
+        default="data/monolingual_en.txt",
+        help="Plain-text monolingual corpus (one sentence per line)",
+    )
+    p.add_argument(
+        "--output",
+        default="data/synthetic_en_es.tsv",
+        help="Output TSV: synthetic_tgt<TAB>real_src",
+    )
+    p.add_argument(
+        "--checkpoint",
+        default="data/models/nmt_en_es.pt",
+        help="Reverse model checkpoint (e.g. EN→ES for back-translating into ES)",
+    )
+    p.add_argument(
+        "--limit", type=int, default=100_000, help="Max sentences to translate (default 100k)"
+    )
+    p.add_argument("--beam", type=int, default=4)
+    p.add_argument("--max-len", type=int, default=100, dest="max_len")
+    p.add_argument("--no-mps", action="store_true", dest="no_mps")
     return p.parse_args()
 
 

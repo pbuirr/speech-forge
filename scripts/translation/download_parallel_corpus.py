@@ -32,7 +32,6 @@ from __future__ import annotations
 import argparse
 import io
 import json
-import os
 import random
 import re
 import sys
@@ -42,8 +41,8 @@ import zipfile
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-CORPORA_DIR  = PROJECT_ROOT / "data" / "corpora"
-CACHE_DIR    = CORPORA_DIR / ".cache"
+CORPORA_DIR = PROJECT_ROOT / "data" / "corpora"
+CACHE_DIR = CORPORA_DIR / ".cache"
 
 OPUS_API = "https://opus.nlpl.eu/opusapi/"
 
@@ -55,44 +54,45 @@ OPUS_API = "https://opus.nlpl.eu/opusapi/"
 
 SOURCES: dict[str, dict] = {
     "tatoeba": {
-        "id":        "Tatoeba",
-        "version":   "v2023-04-12",
-        "desc":      "Community-contributed sentences — broad everyday coverage",
+        "id": "Tatoeba",
+        "version": "v2023-04-12",
+        "desc": "Community-contributed sentences — broad everyday coverage",
         "size_hint": "~300k pairs per language pair",
-        "sample":    None,  # take all — Tatoeba is high quality
+        "sample": None,  # take all — Tatoeba is high quality
     },
     "europarl": {
-        "id":        "Europarl",
-        "version":   "v8",
-        "desc":      "EU Parliament proceedings — formal, high-quality translations",
+        "id": "Europarl",
+        "version": "v8",
+        "desc": "EU Parliament proceedings — formal, high-quality translations",
         "size_hint": "~2M pairs (we sample 150k)",
-        "sample":    150_000,
+        "sample": 150_000,
     },
     "opensubs": {
-        "id":        "OpenSubtitles",
-        "version":   "v2018",
-        "desc":      "Movie & TV subtitles — natural spoken-language register",
+        "id": "OpenSubtitles",
+        "version": "v2018",
+        "desc": "Movie & TV subtitles — natural spoken-language register",
         "size_hint": "62M pairs (we sample 200k)",
-        "sample":    200_000,
+        "sample": 200_000,
     },
     "globalvoices": {
-        "id":        "GlobalVoices",
-        "version":   "v2018q4",
-        "desc":      "Multilingual news articles — journalism register",
+        "id": "GlobalVoices",
+        "version": "v2018q4",
+        "desc": "Multilingual news articles — journalism register",
         "size_hint": "~400k pairs (we sample 100k)",
-        "sample":    100_000,
+        "sample": 100_000,
     },
     "wikimedia": {
-        "id":        "wikimedia",
-        "version":   "v20230407",
-        "desc":      "Wikipedia + other Wikimedia translations",
+        "id": "wikimedia",
+        "version": "v20230407",
+        "desc": "Wikipedia + other Wikimedia translations",
         "size_hint": "varies by language",
-        "sample":    100_000,
+        "sample": 100_000,
     },
 }
 
 
 # ── Quality filters (language-agnostic) ───────────────────────────────────────
+
 
 def _is_good_pair(src: str, tgt: str) -> bool:
     """
@@ -119,10 +119,7 @@ def _is_good_pair(src: str, tgt: str) -> bool:
     if alpha_frac < 0.50:
         return False
 
-    upper_frac = (
-        sum(1 for c in src if c.isupper())
-        / max(sum(1 for c in src if c.isalpha()), 1)
-    )
+    upper_frac = sum(1 for c in src if c.isupper()) / max(sum(1 for c in src if c.isalpha()), 1)
     if upper_frac > 0.60:
         return False
 
@@ -138,6 +135,7 @@ def _normalize(s: str) -> str:
 
 
 # ── OPUS API helpers ──────────────────────────────────────────────────────────
+
 
 def _resolve_url(corpus_id: str, version: str, src_lang: str, tgt_lang: str) -> str:
     """
@@ -161,10 +159,7 @@ def _resolve_url(corpus_id: str, version: str, src_lang: str, tgt_lang: str) -> 
     except Exception as e:
         print(f"  [warn] OPUS API unreachable ({e}); using canonical URL")
 
-    return (
-        f"https://object.pouta.csc.fi"
-        f"/OPUS-{corpus_id}/{version}/moses/{pair}.txt.zip"
-    )
+    return f"https://object.pouta.csc.fi/OPUS-{corpus_id}/{version}/moses/{pair}.txt.zip"
 
 
 def _download_zip(url: str, label: str) -> bytes | None:
@@ -191,9 +186,10 @@ def _download_zip(url: str, label: str) -> bytes | None:
                 downloaded += len(chunk)
                 if total:
                     print(
-                        f"\r  {downloaded/1e6:.1f} MB / {total/1e6:.1f} MB"
-                        f"  ({downloaded/total*100:.0f}%)",
-                        end="", flush=True,
+                        f"\r  {downloaded / 1e6:.1f} MB / {total / 1e6:.1f} MB"
+                        f"  ({downloaded / total * 100:.0f}%)",
+                        end="",
+                        flush=True,
                     )
             print()
             data = b"".join(chunks)
@@ -266,6 +262,7 @@ def _extract_pairs(
 
 # ── Main downloader ───────────────────────────────────────────────────────────
 
+
 def download(
     src_lang: str,
     tgt_lang: str,
@@ -284,7 +281,7 @@ def download(
         cfg = SOURCES[key]
         sample = max_per_source or cfg["sample"]
 
-        print(f"\n{'─'*60}")
+        print(f"\n{'─' * 60}")
         print(f"  {key.upper()}  |  {cfg['desc']}")
         print(f"  Language pair: {src_lang}→{tgt_lang}  |  {cfg['size_hint']}")
 
@@ -317,7 +314,7 @@ def download(
         for s, t in all_pairs:
             f.write(f"{s}\t{t}\n")
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"Saved {len(all_pairs):,} pairs → {out_path}")
     print(f"Next: python3 scripts/translation/train_nmt.py  (will auto-load this file)")
 
@@ -331,13 +328,16 @@ def main() -> None:
     parser.add_argument("--src", default="es", help="Source language ISO code (default: es)")
     parser.add_argument("--tgt", default="en", help="Target language ISO code (default: en)")
     parser.add_argument(
-        "--corpora", nargs="+",
+        "--corpora",
+        nargs="+",
         default=["tatoeba", "europarl", "opensubs"],
         choices=list(SOURCES.keys()),
         help="Which corpus sources to download",
     )
     parser.add_argument("--max", type=int, default=None, help="Max pairs per source")
-    parser.add_argument('--output', type=Path, help='Separate output for independent evaluation corpora')
+    parser.add_argument(
+        "--output", type=Path, help="Separate output for independent evaluation corpora"
+    )
     parser.add_argument("--list", action="store_true", help="List available sources and exit")
     args = parser.parse_args()
 

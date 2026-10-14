@@ -40,8 +40,6 @@ import math
 import torch
 import torch.nn as nn
 
-from speech_engine.tokenizer import PAD_ID
-
 
 def sinusoidal_encoding(max_len: int, d_model: int) -> torch.Tensor:
     """Build the sinusoidal encoding table.
@@ -64,8 +62,8 @@ def sinusoidal_encoding(max_len: int, d_model: int) -> torch.Tensor:
         torch.arange(0, half_d, dtype=torch.float32) * (-math.log(10000.0) / d_model)
     )
 
-    pe[:, 0::2] = torch.sin(position * div_term)   # even dims: sin
-    pe[:, 1::2] = torch.cos(position * div_term)   # odd  dims: cos
+    pe[:, 0::2] = torch.sin(position * div_term)  # even dims: sin
+    pe[:, 1::2] = torch.cos(position * div_term)  # odd  dims: cos
 
     return pe.unsqueeze(0)  # (1, max_len, d_model)
 

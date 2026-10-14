@@ -29,7 +29,7 @@ import torch
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from speech_engine.nmt import load_checkpoint, save_checkpoint
+from speech_engine.nmt import load_checkpoint
 
 
 def average_checkpoints(paths: list[Path], out: Path) -> None:
@@ -63,21 +63,23 @@ def average_checkpoints(paths: list[Path], out: Path) -> None:
     # Quick sanity: load and print param count
     model, src_vocab, tgt_vocab, meta = load_checkpoint(out)
     n = sum(p.numel() for p in model.parameters())
-    print(f"  {n:,} parameters, averaged from ep {[r['meta'].get('epoch','?') for r in raw]}")
+    print(f"  {n:,} parameters, averaged from ep {[r['meta'].get('epoch', '?') for r in raw]}")
 
 
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("checkpoints", nargs="*", help="Checkpoint paths to average")
-    p.add_argument("--glob",      default=None, help="Glob pattern instead of explicit paths")
-    p.add_argument("--out",       required=True, help="Output path for averaged checkpoint")
-    p.add_argument("--last",      type=int, default=None, help="When using --glob, keep only the last N checkpoints")
+    p.add_argument("--glob", default=None, help="Glob pattern instead of explicit paths")
+    p.add_argument("--out", required=True, help="Output path for averaged checkpoint")
+    p.add_argument(
+        "--last", type=int, default=None, help="When using --glob, keep only the last N checkpoints"
+    )
     args = p.parse_args()
 
     if args.glob:
         paths = sorted(glob_module.glob(args.glob))
         if args.last:
-            paths = paths[-args.last:]
+            paths = paths[-args.last :]
         paths = [Path(p) for p in paths]
     else:
         paths = [Path(c) for c in args.checkpoints]

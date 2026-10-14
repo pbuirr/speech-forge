@@ -37,7 +37,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 import torch
 import torch.optim as optim
 
-from speech_engine.bpe import BPEVocab, BOS_ID, EOS_ID, PAD_ID
+from speech_engine.bpe import BPEVocab
 from speech_engine.nmt import Seq2SeqNMT, collate_pairs, load_checkpoint, nmt_loss, save_checkpoint
 
 CHECKPOINT_PATH = PROJECT_ROOT / "data" / "models" / "nmt_es_en.pt"
@@ -141,6 +141,7 @@ _CORPUS: list[tuple[str, str]] = [
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+
 def _load_corpus(path: str | None) -> list[tuple[str, str]]:
     if path is None:
         return list(_CORPUS)
@@ -155,9 +156,7 @@ def _load_corpus(path: str | None) -> list[tuple[str, str]]:
     return pairs
 
 
-def _build_vocabs(
-    pairs: list[tuple[str, str]], vocab_size: int = 800
-) -> tuple[BPEVocab, BPEVocab]:
+def _build_vocabs(pairs: list[tuple[str, str]], vocab_size: int = 800) -> tuple[BPEVocab, BPEVocab]:
     src_sents = [s for s, _ in pairs]
     tgt_sents = [t for _, t in pairs]
     src_vocab = BPEVocab().train(src_sents, vocab_size=vocab_size)
@@ -226,7 +225,9 @@ def _train(
 
         if epoch % 25 == 0 or epoch == 1 or epoch == epochs:
             avg = epoch_loss / max(1, n_batches)
-            print(f"  epoch {epoch:>4d}/{epochs}  loss {avg:.4f}  lr {scheduler.get_last_lr()[0]:.2e}")
+            print(
+                f"  epoch {epoch:>4d}/{epochs}  loss {avg:.4f}  lr {scheduler.get_last_lr()[0]:.2e}"
+            )
 
 
 def _translate(
@@ -248,27 +249,30 @@ def _translate(
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Phase 7 NMT demo — Spanish → English")
-    parser.add_argument("--corpus",    type=str,   default=None,  help="TSV file: src<TAB>tgt per line")
-    parser.add_argument("--epochs",    type=int,   default=200,   help="training epochs (default 200)")
-    parser.add_argument("--vocab",     type=int,   default=800,   help="BPE vocab size (default 800)")
-    parser.add_argument("--beam",      type=int,   default=4,     help="beam width for decoding (default 4)")
-    parser.add_argument("--load",      action="store_true",       help="load saved checkpoint, skip training")
-    parser.add_argument("--translate", type=str,   default=None,  help="translate a single sentence")
+    parser.add_argument("--corpus", type=str, default=None, help="TSV file: src<TAB>tgt per line")
+    parser.add_argument("--epochs", type=int, default=200, help="training epochs (default 200)")
+    parser.add_argument("--vocab", type=int, default=800, help="BPE vocab size (default 800)")
+    parser.add_argument("--beam", type=int, default=4, help="beam width for decoding (default 4)")
+    parser.add_argument("--load", action="store_true", help="load saved checkpoint, skip training")
+    parser.add_argument("--translate", type=str, default=None, help="translate a single sentence")
     args = parser.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"\n{'─'*60}")
+    print(f"\n{'─' * 60}")
     print("  LinguaForge — Phase 7: Neural Machine Translation")
     print(f"  Spanish → English  |  device: {device}")
-    print(f"{'─'*60}\n")
+    print(f"{'─' * 60}\n")
 
     if args.load and CHECKPOINT_PATH.exists():
         print(f"Loading checkpoint from {CHECKPOINT_PATH} …")
         model, src_vocab, tgt_vocab, meta = load_checkpoint(CHECKPOINT_PATH)
         model.to(device)
-        print(f"  {model.param_count():,} parameters | trained {meta.get('epochs', '?')} epochs | final loss {meta.get('final_loss', '?')}\n")
+        print(
+            f"  {model.param_count():,} parameters | trained {meta.get('epochs', '?')} epochs | final loss {meta.get('final_loss', '?')}\n"
+        )
     else:
         # ── Build corpus and vocabularies ─────────────────────────────────────
         pairs = _load_corpus(args.corpus)
@@ -297,6 +301,7 @@ def main() -> None:
         # ── Training ──────────────────────────────────────────────────────────
         print(f"Training for {args.epochs} epochs …")
         import time
+
         t0 = time.time()
         _train(model, encoded, epochs=args.epochs)
         elapsed = time.time() - t0
@@ -305,25 +310,35 @@ def main() -> None:
         # Quick eval: translate every training sentence, report exact match
         model.eval()
         correct = sum(
-            1 for src, tgt in pairs
+            1
+            for src, tgt in pairs
             if _translate(model, src_vocab, tgt_vocab, src, beam_size=args.beam, device=device)
-               == tgt.lower().strip()
+            == tgt.lower().strip()
         )
-        print(f"Training-set exact match: {correct}/{len(pairs)} ({correct/len(pairs)*100:.0f}%)")
-        print("(Exact match on training data confirms the model has learned the corpus;\n"
-              " generalisation to unseen text requires orders-of-magnitude more data.)\n")
+        print(
+            f"Training-set exact match: {correct}/{len(pairs)} ({correct / len(pairs) * 100:.0f}%)"
+        )
+        print(
+            "(Exact match on training data confirms the model has learned the corpus;\n"
+            " generalisation to unseen text requires orders-of-magnitude more data.)\n"
+        )
 
         # Save checkpoint
         final_loss = None  # already printed per-epoch
         save_checkpoint(
-            model, src_vocab, tgt_vocab, CHECKPOINT_PATH,
+            model,
+            src_vocab,
+            tgt_vocab,
+            CHECKPOINT_PATH,
             meta={"epochs": args.epochs, "corpus_size": len(pairs)},
         )
         print(f"Checkpoint saved → {CHECKPOINT_PATH}\n")
 
     # ── Single-sentence translate mode ────────────────────────────────────────
     if args.translate:
-        result = _translate(model, src_vocab, tgt_vocab, args.translate, beam_size=args.beam, device=device)
+        result = _translate(
+            model, src_vocab, tgt_vocab, args.translate, beam_size=args.beam, device=device
+        )
         print(f"Input:  {args.translate}")
         print(f"Output: {result}\n")
         return
@@ -344,7 +359,7 @@ def main() -> None:
 
     print("Sample translations (greedy):")
     print(f"  {'Spanish':<40}  {'→':1}  {'English'}")
-    print(f"  {'─'*40}     {'─'*30}")
+    print(f"  {'─' * 40}     {'─' * 30}")
     model.eval()
     for src in test_sentences:
         out = _translate(model, src_vocab, tgt_vocab, src, beam_size=1, device=device)
@@ -353,7 +368,7 @@ def main() -> None:
     print()
     print("Sample translations (beam=4):")
     print(f"  {'Spanish':<40}  {'→':1}  {'English'}")
-    print(f"  {'─'*40}     {'─'*30}")
+    print(f"  {'─' * 40}     {'─' * 30}")
     for src in test_sentences[:5]:
         out = _translate(model, src_vocab, tgt_vocab, src, beam_size=args.beam, device=device)
         print(f"  {src:<40}  →  {out}")

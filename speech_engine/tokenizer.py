@@ -38,17 +38,17 @@ import unicodedata
 from pathlib import Path
 
 # ── Special token IDs (never change, regardless of language) ──────────────────
-BLANK_ID      = 0   # CTC blank — must be 0 for nn.CTCLoss default
-PAD_ID        = 1   # padding
-BOS_ID        = 2   # beginning of sequence
-EOS_ID        = 3   # end of sequence
-FIRST_CHAR_ID = 4   # first real character starts here
+BLANK_ID = 0  # CTC blank — must be 0 for nn.CTCLoss default
+PAD_ID = 1  # padding
+BOS_ID = 2  # beginning of sequence
+EOS_ID = 3  # end of sequence
+FIRST_CHAR_ID = 4  # first real character starts here
 
 _SPECIAL_TOKENS: dict[str, int] = {
     "<blank>": BLANK_ID,
-    "<pad>":   PAD_ID,
-    "<bos>":   BOS_ID,
-    "<eos>":   EOS_ID,
+    "<pad>": PAD_ID,
+    "<bos>": BOS_ID,
+    "<eos>": EOS_ID,
 }
 
 # Pre-built English base: 26 lowercase letters + space + apostrophe + hyphen.
@@ -60,7 +60,8 @@ _ENGLISH_CHARS: list[str] = sorted("abcdefghijklmnopqrstuvwxyz '-")
 
 # ── Text normalization ─────────────────────────────────────────────────────────
 
-def normalize_text(text: str, mode: str = 'english') -> str:
+
+def normalize_text(text: str, mode: str = "english") -> str:
     """Normalize a raw transcript into the character set the model uses.
 
     Steps applied in order:
@@ -78,11 +79,13 @@ def normalize_text(text: str, mode: str = 'english') -> str:
     Example:
         "Hello, World! It's 2024." → "hello world it's"
     """
-    if mode not in ('english', 'unicode'):
-        raise ValueError('Unknown transcript normalization policy')
-    text = unicodedata.normalize('NFC', text.lower())
-    if mode == 'unicode':
-        text = ''.join(c if unicodedata.category(c)[0] in 'LMN' or c in " '-" else ' ' for c in text)
+    if mode not in ("english", "unicode"):
+        raise ValueError("Unknown transcript normalization policy")
+    text = unicodedata.normalize("NFC", text.lower())
+    if mode == "unicode":
+        text = "".join(
+            c if unicodedata.category(c)[0] in "LMN" or c in " '-" else " " for c in text
+        )
     else:
         text = re.sub(r"[^a-z '-]", " ", text)
     text = re.sub(r"\s+", " ", text)
@@ -90,6 +93,7 @@ def normalize_text(text: str, mode: str = 'english') -> str:
 
 
 # ── Tokenizer ─────────────────────────────────────────────────────────────────
+
 
 class CharTokenizer:
     """Character-level tokenizer with fixed special tokens and an extensible vocabulary.
@@ -108,8 +112,8 @@ class CharTokenizer:
         tok2 = CharTokenizer.load("data/tokenizer.json")
     """
 
-    def __init__(self, normalization: str = 'english') -> None:
-        normalize_text('', normalization)  # Validate and persist the training policy.
+    def __init__(self, normalization: str = "english") -> None:
+        normalize_text("", normalization)  # Validate and persist the training policy.
         self.normalization = normalization
         self._char_to_id: dict[str, int] = {}
         self._id_to_char: dict[int, str] = {}
@@ -194,11 +198,7 @@ class CharTokenizer:
             str — reconstructed text
         """
         special_ids = set(_SPECIAL_TOKENS.values()) if skip_special else set()
-        return "".join(
-            self._id_to_char.get(i, "?")
-            for i in ids
-            if i not in special_ids
-        )
+        return "".join(self._id_to_char.get(i, "?") for i in ids if i not in special_ids)
 
     def ctc_collapse(self, ids: list[int]) -> str:
         """Greedy CTC decode: collapse consecutive runs, then remove blanks.
@@ -236,7 +236,11 @@ class CharTokenizer:
         """
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
-        payload = {"version": "1.1", "normalization": self.normalization, "char_to_id": self._char_to_id}
+        payload = {
+            "version": "1.1",
+            "normalization": self.normalization,
+            "char_to_id": self._char_to_id,
+        }
         path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     @classmethod
@@ -244,8 +248,8 @@ class CharTokenizer:
         """Load vocabulary from a JSON file written by .save()."""
         data = json.loads(Path(path).read_text(encoding="utf-8"))
         obj = cls.__new__(cls)
-        obj.normalization = data.get('normalization', 'english')
-        normalize_text('', obj.normalization)
+        obj.normalization = data.get("normalization", "english")
+        normalize_text("", obj.normalization)
         obj._char_to_id = data["char_to_id"]
         obj._id_to_char = {int(v): k for k, v in data["char_to_id"].items()}
         return obj

@@ -58,6 +58,7 @@ from speech_engine.tokenizer import BOS_ID, EOS_ID, PAD_ID
 
 # ── Mask helpers ──────────────────────────────────────────────────────────────
 
+
 def make_causal_mask(T: int, device: torch.device) -> torch.Tensor:
     """Lower-triangular causal mask — position i may attend to positions 0..i.
 
@@ -74,10 +75,11 @@ def make_padding_mask(lengths: torch.Tensor, max_len: int) -> torch.Tensor:
     Broadcasting over heads (dim 1) and query positions (dim 2).
     """
     arange = torch.arange(max_len, device=lengths.device).unsqueeze(0)  # (1, max_len)
-    return (arange < lengths.unsqueeze(1)).unsqueeze(1).unsqueeze(2)    # (B, 1, 1, max_len)
+    return (arange < lengths.unsqueeze(1)).unsqueeze(1).unsqueeze(2)  # (B, 1, 1, max_len)
 
 
 # ── Building blocks ───────────────────────────────────────────────────────────
+
 
 class FeedForward(nn.Module):
     """Position-wise FFN: Linear(d_model→d_ff) → GELU → Linear(d_ff→d_model).
@@ -88,10 +90,10 @@ class FeedForward(nn.Module):
 
     def __init__(self, d_model: int, d_ff: int, dropout: float = 0.1) -> None:
         super().__init__()
-        self.fc1  = nn.Linear(d_model, d_ff)
-        self.act  = nn.GELU()
+        self.fc1 = nn.Linear(d_model, d_ff)
+        self.act = nn.GELU()
         self.drop = nn.Dropout(dropout)
-        self.fc2  = nn.Linear(d_ff, d_model)
+        self.fc2 = nn.Linear(d_ff, d_model)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.fc2(self.drop(self.act(self.fc1(x))))
@@ -107,11 +109,11 @@ class TransformerEncoderLayer(nn.Module):
 
     def __init__(self, d_model: int, n_heads: int, d_ff: int, dropout: float = 0.1) -> None:
         super().__init__()
-        self.norm1     = nn.LayerNorm(d_model)
-        self.norm2     = nn.LayerNorm(d_model)
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
         self.self_attn = MultiHeadAttention(d_model, n_heads, dropout)
-        self.ffn       = FeedForward(d_model, d_ff, dropout)
-        self.drop      = nn.Dropout(dropout)
+        self.ffn = FeedForward(d_model, d_ff, dropout)
+        self.drop = nn.Dropout(dropout)
 
     def forward(self, x: torch.Tensor, src_mask: torch.Tensor | None = None) -> torch.Tensor:
         # Self-attention
@@ -133,13 +135,13 @@ class TransformerDecoderLayer(nn.Module):
 
     def __init__(self, d_model: int, n_heads: int, d_ff: int, dropout: float = 0.1) -> None:
         super().__init__()
-        self.norm1      = nn.LayerNorm(d_model)
-        self.norm2      = nn.LayerNorm(d_model)
-        self.norm3      = nn.LayerNorm(d_model)
-        self.self_attn  = MultiHeadAttention(d_model, n_heads, dropout)
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
+        self.norm3 = nn.LayerNorm(d_model)
+        self.self_attn = MultiHeadAttention(d_model, n_heads, dropout)
         self.cross_attn = MultiHeadAttention(d_model, n_heads, dropout)
-        self.ffn        = FeedForward(d_model, d_ff, dropout)
-        self.drop       = nn.Dropout(dropout)
+        self.ffn = FeedForward(d_model, d_ff, dropout)
+        self.drop = nn.Dropout(dropout)
 
     def forward(
         self,
@@ -163,11 +165,12 @@ class TransformerDecoderLayer(nn.Module):
         x = x + self.drop(self.ffn(self.norm3(x)))
 
         if return_cross_attn:
-            return x, xattn_weights   # xattn_weights: (B, H, T_out, T_src)
+            return x, xattn_weights  # xattn_weights: (B, H, T_out, T_src)
         return x
 
 
 # ── Encoder and Decoder stacks ────────────────────────────────────────────────
+
 
 class TransformerEncoder(nn.Module):
     """Stack of N TransformerEncoderLayers with sinusoidal positional encoding."""
@@ -183,10 +186,9 @@ class TransformerEncoder(nn.Module):
     ) -> None:
         super().__init__()
         self.pos_enc = SinusoidalEncoding(d_model, max_len, dropout)
-        self.layers  = nn.ModuleList([
-            TransformerEncoderLayer(d_model, n_heads, d_ff, dropout)
-            for _ in range(n_layers)
-        ])
+        self.layers = nn.ModuleList(
+            [TransformerEncoderLayer(d_model, n_heads, d_ff, dropout) for _ in range(n_layers)]
+        )
         self.norm = nn.LayerNorm(d_model)
 
     def forward(self, x: torch.Tensor, src_mask: torch.Tensor | None = None) -> torch.Tensor:
@@ -210,13 +212,12 @@ class TransformerDecoder(nn.Module):
         max_len: int = 448,
     ) -> None:
         super().__init__()
-        self.d_model   = d_model
+        self.d_model = d_model
         self.token_emb = nn.Embedding(vocab_size, d_model, padding_idx=PAD_ID)
-        self.pos_emb   = LearnedPositionalEmbedding(d_model, max_len, dropout)
-        self.layers    = nn.ModuleList([
-            TransformerDecoderLayer(d_model, n_heads, d_ff, dropout)
-            for _ in range(n_layers)
-        ])
+        self.pos_emb = LearnedPositionalEmbedding(d_model, max_len, dropout)
+        self.layers = nn.ModuleList(
+            [TransformerDecoderLayer(d_model, n_heads, d_ff, dropout) for _ in range(n_layers)]
+        )
         self.norm = nn.LayerNorm(d_model)
         nn.init.normal_(self.token_emb.weight, std=0.02)
 
@@ -239,16 +240,19 @@ class TransformerDecoder(nn.Module):
         x = self.pos_emb(x)
         last_xattn: torch.Tensor | None = None
         for i, layer in enumerate(self.layers):
-            is_last = (i == len(self.layers) - 1)
+            is_last = i == len(self.layers) - 1
             if is_last and return_cross_attn:
                 x, last_xattn = layer(
-                    x, memory, tgt_mask=tgt_mask, memory_mask=memory_mask,
+                    x,
+                    memory,
+                    tgt_mask=tgt_mask,
+                    memory_mask=memory_mask,
                     return_cross_attn=True,
                 )
             else:
                 x = layer(x, memory, tgt_mask=tgt_mask, memory_mask=memory_mask)
 
-        x = self.norm(x)   # (B, L, d_model)
+        x = self.norm(x)  # (B, L, d_model)
         if return_cross_attn and last_xattn is not None:
             # Average over heads → (B, T_out, T_src)
             avg_attn = last_xattn.mean(dim=1)
@@ -257,6 +261,7 @@ class TransformerDecoder(nn.Module):
 
 
 # ── Full model ────────────────────────────────────────────────────────────────
+
 
 class TransformerASR(nn.Module):
     """LinguaForge Phase 4: Transformer encoder-decoder ASR model.
@@ -304,7 +309,7 @@ class TransformerASR(nn.Module):
         super().__init__()
 
         self.vocab_size = vocab_size
-        self.d_model    = d_model
+        self.d_model = d_model
 
         # CNN frontend: mel → (B, T//2, d_model)
         self.conv_encoder = ConvEncoder(
@@ -316,12 +321,23 @@ class TransformerASR(nn.Module):
 
         # Transformer encoder
         self.encoder = TransformerEncoder(
-            d_model, n_heads, d_ff, n_enc_layers, dropout, max_source_len,
+            d_model,
+            n_heads,
+            d_ff,
+            n_enc_layers,
+            dropout,
+            max_source_len,
         )
 
         # Transformer decoder
         self.decoder = TransformerDecoder(
-            vocab_size, d_model, n_heads, d_ff, n_dec_layers, dropout, max_target_len,
+            vocab_size,
+            d_model,
+            n_heads,
+            d_ff,
+            n_dec_layers,
+            dropout,
+            max_target_len,
         )
 
         # Output projection — shared with decoder token embeddings (weight tying).
@@ -358,7 +374,7 @@ class TransformerASR(nn.Module):
             memory:      (B, T//2, d_model) — encoder output
             memory_mask: (B, 1, 1, T//2) bool — True = valid frame (not padding)
         """
-        x = mel.unsqueeze(1)           # (B, 1, n_mels, T)
+        x = mel.unsqueeze(1)  # (B, 1, n_mels, T)
         x = self.conv_encoder(x, mel_lengths)  # shared padding-aware acoustic frontend
 
         memory_mask = None
@@ -434,14 +450,14 @@ class TransformerASR(nn.Module):
         memory, memory_mask = self.encode(mel, mel_lengths)
 
         generated = [[BOS_ID] for _ in range(B)]
-        done      = [False] * B
+        done = [False] * B
 
         for _ in range(max_len):
             if all(done):
                 break
 
             tgt_ids = torch.tensor(generated, dtype=torch.long, device=mel.device)
-            logits  = self.decode(tgt_ids, memory, memory_mask)  # (B, L, V)
+            logits = self.decode(tgt_ids, memory, memory_mask)  # (B, L, V)
             next_id = (logits[:, -1, :] / max(temperature, 1e-8)).argmax(dim=-1)  # (B,)
 
             for b in range(B):
@@ -458,13 +474,14 @@ class TransformerASR(nn.Module):
     def _enc_lengths(self, mel_lengths: torch.Tensor) -> torch.Tensor:
         return torch.tensor(
             [ConvEncoder.output_length(int(l)) for l in mel_lengths],
-            dtype=torch.long, device=mel_lengths.device,
+            dtype=torch.long,
+            device=mel_lengths.device,
         )
 
     def count_parameters(self) -> int:
         # Weight tying means output_proj.weight is shared — don't double-count.
-        seen   = set()
-        total  = 0
+        seen = set()
+        total = 0
         for p in self.parameters():
             if id(p) not in seen:
                 seen.add(id(p))
@@ -472,28 +489,28 @@ class TransformerASR(nn.Module):
         return total
 
     def summary(self) -> str:
-        total   = self.count_parameters() / 1e6
-        conv_p  = sum(p.numel() for p in self.conv_encoder.parameters()) / 1e6
-        enc_p   = sum(p.numel() for p in self.encoder.parameters()) / 1e6
-        dec_p   = sum(p.numel() for p in self.decoder.parameters()) / 1e6
-        n_enc   = len(self.encoder.layers)
-        n_dec   = len(self.decoder.layers)
+        total = self.count_parameters() / 1e6
+        conv_p = sum(p.numel() for p in self.conv_encoder.parameters()) / 1e6
+        enc_p = sum(p.numel() for p in self.encoder.parameters()) / 1e6
+        dec_p = sum(p.numel() for p in self.decoder.parameters()) / 1e6
+        n_enc = len(self.encoder.layers)
+        n_dec = len(self.decoder.layers)
         n_heads = self.encoder.layers[0].self_attn.n_heads
-        d_ff    = self.encoder.layers[0].ffn.fc1.out_features
+        d_ff = self.encoder.layers[0].ffn.fc1.out_features
         return (
             f"TransformerASR\n"
-            f"{'─'*50}\n"
+            f"{'─' * 50}\n"
             f"  Architecture:   ConvEncoder → TransEnc → TransDec\n"
             f"  d_model:        {self.d_model}  "
             f"| n_heads: {n_heads}  | d_ff: {d_ff}\n"
             f"  enc layers:     {n_enc}  "
             f"| dec layers: {n_dec}\n"
             f"  vocab_size:     {self.vocab_size}  (weight-tied output proj)\n"
-            f"{'─'*50}\n"
+            f"{'─' * 50}\n"
             f"  ConvEncoder     {conv_p:.3f}M\n"
             f"  TransEncoder    {enc_p:.3f}M\n"
             f"  TransDecoder    {dec_p:.3f}M  (includes token emb)\n"
             f"  OutputProj      shared with token emb — 0 extra params\n"
             f"  TOTAL           {total:.3f}M\n"
-            f"{'─'*50}"
+            f"{'─' * 50}"
         )

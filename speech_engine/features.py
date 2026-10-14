@@ -49,6 +49,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from typing import Any
+
 import numpy as np
 import torch
 import torchaudio
@@ -56,14 +58,14 @@ import torchaudio.functional
 
 # ── Whisper-compatible constants ───────────────────────────────────────────────
 SAMPLE_RATE = 16_000
-N_MELS      = 80
-N_FFT       = 400       # 25 ms window
-HOP_LENGTH  = 160       # 10 ms hop
-FMAX        = 8_000.0   # Hz
+N_MELS = 80
+N_FFT = 400  # 25 ms window
+HOP_LENGTH = 160  # 10 ms hop
+FMAX = 8_000.0  # Hz
 
 # Maximum number of frames for a fixed-length model input.
 # 3000 frames × 10 ms/frame = 30 seconds (Whisper's context window).
-MAX_FRAMES  = 3_000
+MAX_FRAMES = 3_000
 
 
 def _mel_filterbank(
@@ -74,12 +76,12 @@ def _mel_filterbank(
 ) -> torch.Tensor:
     """Build a (n_mels, n_fft//2+1) Mel filterbank matrix.
 
-    The filterbank is a set of n_mels triangular filters, linearly spaced
-    on the Mel scale between 0 Hz and fmax. Each filter integrates the
-    power spectrum over a small frequency range and produces one Mel bin.
+      The filterbank is a set of n_mels triangular filters, linearly spaced
+      on the Mel scale between 0 Hz and fmax. Each filter integrates the
+      power spectrum over a small frequency range and produces one Mel bin.
 
-    norm="slaney" area-normalizes each filter so that wider filters (at high
-  frequencies) don't dominate just because they cover more frequency bins.
+      norm="slaney" area-normalizes each filter so that wider filters (at high
+    frequencies) don't dominate just because they cover more frequency bins.
     """
     # torchaudio returns (n_freqs, n_mels) — transpose to (n_mels, n_freqs)
     fbanks = torchaudio.functional.melscale_fbanks(
@@ -144,7 +146,7 @@ def log_mel_spectrogram(
         hop_length=hop_length,
         window=window,
         center=True,
-        pad_mode="reflect",     # reflect padding avoids discontinuities at edges
+        pad_mode="reflect",  # reflect padding avoids discontinuities at edges
         normalized=False,
         return_complex=True,
     )
@@ -210,6 +212,7 @@ def visualize_spectrogram(
         matplotlib Figure — you can further customize it before saving.
     """
     import matplotlib.pyplot as plt  # lazy: not needed at import time
+
     n_mels, n_frames = spec.shape
     duration_s = n_frames * hop_length / sample_rate
 
@@ -220,7 +223,7 @@ def visualize_spectrogram(
     img = ax.imshow(
         spec,
         aspect="auto",
-        origin="lower",          # low Mel bin = bottom of image = low frequency
+        origin="lower",  # low Mel bin = bottom of image = low frequency
         extent=[0, duration_s, 0, n_mels],
         cmap="magma",
         interpolation="nearest",
@@ -243,13 +246,17 @@ def visualize_spectrogram(
     # Parameter summary below the figure
     frame_ms = hop_length / sample_rate * 1000
     param_text = (
-        f"n_mels={n_mels}  ·  n_fft={N_FFT} ({N_FFT/sample_rate*1000:.0f}ms window)  ·  "
+        f"n_mels={n_mels}  ·  n_fft={N_FFT} ({N_FFT / sample_rate * 1000:.0f}ms window)  ·  "
         f"hop={hop_length} ({frame_ms:.0f}ms/frame)  ·  "
         f"frames={n_frames}  ·  duration={duration_s:.2f}s  ·  shape={spec.shape}"
     )
     fig.text(
-        0.5, 0.01, param_text,
-        ha="center", fontsize=7.5, color="#555555",
+        0.5,
+        0.01,
+        param_text,
+        ha="center",
+        fontsize=7.5,
+        color="#555555",
         fontfamily="monospace",
     )
 
@@ -258,9 +265,7 @@ def visualize_spectrogram(
     if save_path:
         save_path = Path(save_path)
         save_path.parent.mkdir(parents=True, exist_ok=True)
-        fig.savefig(
-            str(save_path), dpi=150, bbox_inches="tight", facecolor="#0d0d0d"
-        )
+        fig.savefig(str(save_path), dpi=150, bbox_inches="tight", facecolor="#0d0d0d")
 
     if show:
         plt.show()

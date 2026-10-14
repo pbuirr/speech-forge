@@ -20,38 +20,50 @@ from dataclasses import dataclass, field
 # ── Linguistic constants ──────────────────────────────────────────────────────
 
 _CURRENCY_ES = {
-    "$": "dólares", "€": "euros", "£": "libras", "¥": "yenes",
+    "$": "dólares",
+    "€": "euros",
+    "£": "libras",
+    "¥": "yenes",
 }
 _CURRENCY_EN = {
-    "$": "dollars", "€": "euros", "£": "pounds", "¥": "yen",
+    "$": "dollars",
+    "€": "euros",
+    "£": "pounds",
+    "¥": "yen",
 }
 
 _ABBREV_ES: dict[str, str] = {
-    "Sr.":    "señor",
-    "Sra.":   "señora",
-    "Srta.":  "señorita",
-    "Dr.":    "doctor",
-    "Dra.":   "doctora",
-    "Prof.":  "profesor",
+    "Sr.": "señor",
+    "Sra.": "señora",
+    "Srta.": "señorita",
+    "Dr.": "doctor",
+    "Dra.": "doctora",
+    "Prof.": "profesor",
     "aprox.": "aproximadamente",
-    "p.ej.":  "por ejemplo",
-    "i.e.":   "es decir",
-    "e.g.":   "por ejemplo",
-    "Av.":    "avenida",
-    "km.":    "kilómetros",
-    "m.":     "metros",
+    "p.ej.": "por ejemplo",
+    "i.e.": "es decir",
+    "e.g.": "por ejemplo",
+    "Av.": "avenida",
+    "km.": "kilómetros",
+    "m.": "metros",
     "EE.UU.": "estados unidos",
-    "EUA":    "estados unidos",
+    "EUA": "estados unidos",
 }
 
 # Spanish ordinals → cardinal for simpler NMT input
 _ORDINAL_ES = {
-    "1º": "primero", "2º": "segundo", "3º": "tercero",
-    "1ª": "primera", "2ª": "segunda", "3ª": "tercera",
-    "4º": "cuarto",  "5º": "quinto",
+    "1º": "primero",
+    "2º": "segundo",
+    "3º": "tercero",
+    "1ª": "primera",
+    "2ª": "segunda",
+    "3ª": "tercera",
+    "4º": "cuarto",
+    "5º": "quinto",
 }
 
 # ── Data structures ────────────────────────────────────────────────────────────
+
 
 @dataclass
 class LinguisticAnchor:
@@ -60,15 +72,17 @@ class LinguisticAnchor:
     Numbers, amounts, and dates are the most common anchors — a translation
     that drops "$30" is linguistically wrong regardless of fluency.
     """
-    source_str: str    # original text ("$30")
-    numeric_val: str   # the digit string ("30") for verification
-    anchor_type: str   # "CURRENCY" | "NUMBER" | "PERCENT" | "DATE"
-    target_hint: str   # expected English form ("30 dollars")
+
+    source_str: str  # original text ("$30")
+    numeric_val: str  # the digit string ("30") for verification
+    anchor_type: str  # "CURRENCY" | "NUMBER" | "PERCENT" | "DATE"
+    target_hint: str  # expected English form ("30 dollars")
 
 
 @dataclass
 class PrepResult:
     """Output of `normalize_es_input`."""
+
     normalized: str
     anchors: list[LinguisticAnchor] = field(default_factory=list)
     original: str = ""
@@ -77,8 +91,10 @@ class PrepResult:
         """Return anchors whose numeric value does not appear in the translation."""
         failures = []
         digits_in_output = set(re.findall(r"\d+", translation))
-        digits_in_output.update(re.sub(r'[,\.]','',value)
-            for value in re.findall(r'\b\d+(?:[,\.]\d+)*\b',translation))
+        digits_in_output.update(
+            re.sub(r"[,\.]", "", value)
+            for value in re.findall(r"\b\d+(?:[,\.]\d+)*\b", translation)
+        )
         for a in self.anchors:
             if a.numeric_val and a.numeric_val not in digits_in_output:
                 failures.append(a)
@@ -101,7 +117,7 @@ class PrepResult:
 
 # Currency pattern: $20, $1,000.50, 20€, 30$
 # Commas only allowed as thousands separators (,\d+ not ,\s or ,end)
-_RE_CURRENCY_PRE  = re.compile(r"([$€£¥])([\d](?:\d|,(?=\d))*(?:\.\d+)?)")
+_RE_CURRENCY_PRE = re.compile(r"([$€£¥])([\d](?:\d|,(?=\d))*(?:\.\d+)?)")
 _RE_CURRENCY_POST = re.compile(r"([\d](?:\d|,(?=\d))*(?:\.\d+)?)\s*([$€£¥])")
 # Percentage: 50%, 3.5%
 _RE_PERCENT = re.compile(r"([\d]+(?:\.\d+)?)\s*%")
@@ -141,11 +157,14 @@ def normalize_es_input(text: str) -> PrepResult:
         unit_es = _CURRENCY_ES.get(sym, sym)
         unit_en = _CURRENCY_EN.get(sym, "")
         digits = re.sub(r"[,\.]", "", amt.split(".")[0])
-        anchors.append(LinguisticAnchor(
-            source_str=m.group(0), numeric_val=digits,
-            anchor_type="CURRENCY",
-            target_hint=f"{digits} {unit_en}" if unit_en else digits,
-        ))
+        anchors.append(
+            LinguisticAnchor(
+                source_str=m.group(0),
+                numeric_val=digits,
+                anchor_type="CURRENCY",
+                target_hint=f"{digits} {unit_en}" if unit_en else digits,
+            )
+        )
         return f"{amt} {unit_es}"
 
     result = _RE_CURRENCY_PRE.sub(_expand_pre, result)
@@ -156,11 +175,14 @@ def normalize_es_input(text: str) -> PrepResult:
         unit_es = _CURRENCY_ES.get(sym, sym)
         unit_en = _CURRENCY_EN.get(sym, "")
         digits = re.sub(r"[,\.]", "", amt.split(".")[0])
-        anchors.append(LinguisticAnchor(
-            source_str=m.group(0), numeric_val=digits,
-            anchor_type="CURRENCY",
-            target_hint=f"{digits} {unit_en}" if unit_en else digits,
-        ))
+        anchors.append(
+            LinguisticAnchor(
+                source_str=m.group(0),
+                numeric_val=digits,
+                anchor_type="CURRENCY",
+                target_hint=f"{digits} {unit_en}" if unit_en else digits,
+            )
+        )
         return f"{amt} {unit_es}"
 
     result = _RE_CURRENCY_POST.sub(_expand_post, result)
@@ -168,11 +190,14 @@ def normalize_es_input(text: str) -> PrepResult:
     # 3. Percentages: 50% → 50 por ciento
     def _expand_pct(m: re.Match) -> str:
         num = m.group(1)
-        anchors.append(LinguisticAnchor(
-            source_str=m.group(0), numeric_val=num.split(".")[0],
-            anchor_type="PERCENT",
-            target_hint=f"{num} percent",
-        ))
+        anchors.append(
+            LinguisticAnchor(
+                source_str=m.group(0),
+                numeric_val=num.split(".")[0],
+                anchor_type="PERCENT",
+                target_hint=f"{num} percent",
+            )
+        )
         return f"{num} por ciento"
 
     result = _RE_PERCENT.sub(_expand_pct, result)
@@ -181,11 +206,14 @@ def normalize_es_input(text: str) -> PrepResult:
     for m in _RE_NUMBER.finditer(result):
         digits = re.sub(r"[,\.]", "", m.group(0))
         if not any(a.numeric_val == digits for a in anchors):
-            anchors.append(LinguisticAnchor(
-                source_str=m.group(0), numeric_val=digits,
-                anchor_type="NUMBER",
-                target_hint=digits,
-            ))
+            anchors.append(
+                LinguisticAnchor(
+                    source_str=m.group(0),
+                    numeric_val=digits,
+                    anchor_type="NUMBER",
+                    target_hint=digits,
+                )
+            )
 
     # 5. Strip OOV symbols that would become UNK tokens and confuse the encoder
     result = _RE_OOV_SYMBOL.sub(" ", result)
@@ -195,6 +223,7 @@ def normalize_es_input(text: str) -> PrepResult:
 
 
 # ── Post-processing ────────────────────────────────────────────────────────────
+
 
 def postprocess_en_output(text: str) -> str:
     """Clean up raw BPE decoder output for display."""
@@ -206,21 +235,21 @@ def postprocess_en_output(text: str) -> str:
     # generation failures belong in review signals, not destructive cleanup.
 
     # 2. Fix punctuation spacing — no space before . , ! ? ; : )
-    text = re.sub(r'\s+([.,!?;:\)])', r'\1', text)
+    text = re.sub(r"\s+([.,!?;:\)])", r"\1", text)
     # Space after opening paren if missing
-    text = re.sub(r'\(\s*', '(', text)
+    text = re.sub(r"\(\s*", "(", text)
 
     # 3. Standalone "i" → "I"
-    text = re.sub(r'(?<![a-zA-Z])i(?![a-zA-Z])', 'I', text)
+    text = re.sub(r"(?<![a-zA-Z])i(?![a-zA-Z])", "I", text)
 
     # Spelling alone cannot establish truncation: TV, CD, sky and shy are valid.
     # Preserve final words; surface uncertain model output rather than deleting it.
 
     # 5. Ensure sentence ends with punctuation
-    if text and text[-1] not in '.!?':
+    if text and text[-1] not in ".!?":
         # Only add a period for sentence-length output (3+ words)
         if len(text.split()) >= 3:
-            text += '.'
+            text += "."
 
     # 6. Capitalize first letter
     return text[0].upper() + text[1:] if text else text
@@ -262,8 +291,7 @@ def detect_translation_failure(
     # 4. BPE fragmentation — single-char tokens mean OOV words being split
     if src_tokens is not None and len(src_tokens) > 4:
         single_chars = sum(
-            1 for t in src_tokens
-            if len(t.replace("</w>", "")) == 1 and t not in ("<unk>", "<pad>")
+            1 for t in src_tokens if len(t.replace("</w>", "")) == 1 and t not in ("<unk>", "<pad>")
         )
         if single_chars / len(src_tokens) > 0.35:
             return True

@@ -46,7 +46,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import math
 import sys
 from pathlib import Path
 
@@ -58,9 +57,10 @@ sys.path.insert(0, str(ROOT))
 
 # ── Heuristic filters ─────────────────────────────────────────────────────────
 
+
 def _char_trigrams(text: str) -> set[str]:
     t = text.replace(" ", "_")
-    return {t[i:i+3] for i in range(len(t) - 2)} if len(t) >= 3 else set()
+    return {t[i : i + 3] for i in range(len(t) - 2)} if len(t) >= 3 else set()
 
 
 def heuristic_ok(
@@ -99,6 +99,7 @@ def heuristic_ok(
 
 # ── Model perplexity scoring ──────────────────────────────────────────────────
 
+
 def score_pairs_by_loss(
     pairs: list[tuple[str, str]],
     checkpoint: str,
@@ -110,7 +111,7 @@ def score_pairs_by_loss(
     Higher loss = pair is hard/noisy/misaligned.
     """
     from speech_engine.bpe import PAD_ID
-    from speech_engine.nmt import collate_pairs, load_checkpoint, nmt_loss
+    from speech_engine.nmt import collate_pairs, load_checkpoint
 
     print(f"  Loading checkpoint: {checkpoint}")
     model, src_vocab, tgt_vocab, _ = load_checkpoint(checkpoint)
@@ -140,8 +141,8 @@ def score_pairs_by_loss(
         for i in range(0, len(encoded), batch_size):
             batch = encoded[i : i + batch_size]
             src_t, _, tgt_in, tgt_out, _ = collate_pairs(batch, pad_id=PAD_ID)
-            src_t   = src_t.to(device)
-            tgt_in  = tgt_in.to(device)
+            src_t = src_t.to(device)
+            tgt_in = tgt_in.to(device)
             tgt_out = tgt_out.to(device)
 
             logits = model(src_t, tgt_in)
@@ -154,13 +155,17 @@ def score_pairs_by_loss(
                     losses.append(float("inf"))
                     continue
                 import torch.nn.functional as F
+
                 V = logits.size(-1)
                 lp = F.log_softmax(logits[b], dim=-1)  # (T, V)
                 nll = -lp[torch.arange(tgt_out.size(1)), tgt_out[b].clamp(min=0)]
                 losses.append(nll[mask].mean().item())
 
             if (i // batch_size) % 50 == 0:
-                print(f"  Scored {min(i + batch_size, len(encoded)):,}/{len(encoded):,} pairs", end="\r")
+                print(
+                    f"  Scored {min(i + batch_size, len(encoded)):,}/{len(encoded):,} pairs",
+                    end="\r",
+                )
 
     print()
     return losses
@@ -168,21 +173,33 @@ def score_pairs_by_loss(
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--input",            required=True, help="Input TSV corpus (src\\ttgt per line)")
-    p.add_argument("--output",           required=True, help="Output filtered TSV")
-    p.add_argument("--max_len_ratio",    type=float, default=3.0,  help="Max token length ratio src/tgt")
-    p.add_argument("--max_overlap",      type=float, default=0.5,  help="Max character 3-gram overlap fraction")
-    p.add_argument("--min_tokens",       type=int,   default=2,    help="Min tokens per side")
-    p.add_argument("--max_tokens",       type=int,   default=100,  help="Max tokens per side")
-    p.add_argument("--checkpoint",       default=None, help="NMT checkpoint for perplexity scoring")
-    p.add_argument("--remove_high_loss", type=float, default=0.10, help="Remove top-p fraction by loss (noisy)")
-    p.add_argument("--remove_low_loss",  type=float, default=0.03, help="Remove bottom-p fraction by loss (trivial)")
-    p.add_argument("--batch_size",       type=int,   default=64)
+    p.add_argument("--input", required=True, help="Input TSV corpus (src\\ttgt per line)")
+    p.add_argument("--output", required=True, help="Output filtered TSV")
+    p.add_argument(
+        "--max_len_ratio", type=float, default=3.0, help="Max token length ratio src/tgt"
+    )
+    p.add_argument(
+        "--max_overlap", type=float, default=0.5, help="Max character 3-gram overlap fraction"
+    )
+    p.add_argument("--min_tokens", type=int, default=2, help="Min tokens per side")
+    p.add_argument("--max_tokens", type=int, default=100, help="Max tokens per side")
+    p.add_argument("--checkpoint", default=None, help="NMT checkpoint for perplexity scoring")
+    p.add_argument(
+        "--remove_high_loss", type=float, default=0.10, help="Remove top-p fraction by loss (noisy)"
+    )
+    p.add_argument(
+        "--remove_low_loss",
+        type=float,
+        default=0.03,
+        help="Remove bottom-p fraction by loss (trivial)",
+    )
+    p.add_argument("--batch_size", type=int, default=64)
     args = p.parse_args()
 
-    in_path  = Path(args.input)
+    in_path = Path(args.input)
     out_path = Path(args.output)
 
     # Load
@@ -198,16 +215,24 @@ def main() -> None:
     print(f"  {len(all_pairs):,} pairs loaded")
 
     # Heuristic filtering
-    print(f"\nApplying heuristic filters (ratio≤{args.max_len_ratio}, overlap≤{args.max_overlap}, {args.min_tokens}–{args.max_tokens} tokens)…")
+    print(
+        f"\nApplying heuristic filters (ratio≤{args.max_len_ratio}, overlap≤{args.max_overlap}, {args.min_tokens}–{args.max_tokens} tokens)…"
+    )
     heuristic_ok_pairs = [
-        (s, t) for s, t in all_pairs
-        if heuristic_ok(s, t,
-                        max_len_ratio=args.max_len_ratio,
-                        max_overlap=args.max_overlap,
-                        min_tokens=args.min_tokens,
-                        max_tokens=args.max_tokens)
+        (s, t)
+        for s, t in all_pairs
+        if heuristic_ok(
+            s,
+            t,
+            max_len_ratio=args.max_len_ratio,
+            max_overlap=args.max_overlap,
+            min_tokens=args.min_tokens,
+            max_tokens=args.max_tokens,
+        )
     ]
-    print(f"  {len(heuristic_ok_pairs):,} pairs pass heuristics ({len(all_pairs) - len(heuristic_ok_pairs):,} removed)")
+    print(
+        f"  {len(heuristic_ok_pairs):,} pairs pass heuristics ({len(all_pairs) - len(heuristic_ok_pairs):,} removed)"
+    )
 
     # Deduplication on source
     print(f"\nDeduplicating on source…")
@@ -217,7 +242,9 @@ def main() -> None:
         if s not in seen_src:
             seen_src.add(s)
             deduped.append((s, t))
-    print(f"  {len(deduped):,} unique pairs ({len(heuristic_ok_pairs) - len(deduped):,} duplicates removed)")
+    print(
+        f"  {len(deduped):,} unique pairs ({len(heuristic_ok_pairs) - len(deduped):,} duplicates removed)"
+    )
 
     filtered = deduped
 
@@ -228,16 +255,17 @@ def main() -> None:
 
         n = len(filtered)
         n_remove_high = int(n * args.remove_high_loss)
-        n_remove_low  = int(n * args.remove_low_loss)
+        n_remove_low = int(n * args.remove_low_loss)
 
         # Sort by loss; remove top (noisy) and bottom (trivial) fractions
         indexed = sorted(enumerate(losses), key=lambda x: x[1])
         keep_indices = set(
-            i for rank, (i, _) in enumerate(indexed)
-            if n_remove_low <= rank < n - n_remove_high
+            i for rank, (i, _) in enumerate(indexed) if n_remove_low <= rank < n - n_remove_high
         )
         filtered = [filtered[i] for i in range(n) if i in keep_indices]
-        print(f"  Removed {n_remove_high:,} high-loss (noisy) and {n_remove_low:,} low-loss (trivial) pairs")
+        print(
+            f"  Removed {n_remove_high:,} high-loss (noisy) and {n_remove_low:,} low-loss (trivial) pairs"
+        )
         print(f"  {len(filtered):,} pairs remain after perplexity filtering")
 
     # Write output

@@ -51,6 +51,7 @@ from collections import Counter
 
 # ── Tokenizer ─────────────────────────────────────────────────────────────────
 
+
 def _tokenize(text: str) -> list[str]:
     """Lowercase, split on whitespace. Simple but consistent."""
     return text.lower().split()
@@ -58,9 +59,10 @@ def _tokenize(text: str) -> list[str]:
 
 # ── N-gram helpers ────────────────────────────────────────────────────────────
 
+
 def _ngram_counts(tokens: list[str], n: int) -> Counter[tuple[str, ...]]:
     """Count all n-grams in a token list."""
-    return Counter(tuple(tokens[i:i+n]) for i in range(len(tokens) - n + 1))
+    return Counter(tuple(tokens[i : i + n]) for i in range(len(tokens) - n + 1))
 
 
 def _clipped_matches(hyp: list[str], ref: list[str], n: int) -> int:
@@ -76,6 +78,7 @@ def _clipped_matches(hyp: list[str], ref: list[str], n: int) -> int:
 
 
 # ── Sentence-level BLEU ───────────────────────────────────────────────────────
+
 
 def sentence_bleu(hypothesis: str, reference: str, max_n: int = 4) -> float:
     """
@@ -99,7 +102,7 @@ def sentence_bleu(hypothesis: str, reference: str, max_n: int = 4) -> float:
             log_precision_sum += math.log(1 / (len(hyp) + 1))
             continue
         matches = _clipped_matches(hyp, ref, n) + 1  # +1 smoothing
-        total   = len(hyp) - n + 1 + 1               # +1 smoothing
+        total = len(hyp) - n + 1 + 1  # +1 smoothing
         log_precision_sum += math.log(matches / total)
 
     # Brevity penalty
@@ -110,6 +113,7 @@ def sentence_bleu(hypothesis: str, reference: str, max_n: int = 4) -> float:
 
 
 # ── Corpus-level BLEU ─────────────────────────────────────────────────────────
+
 
 def corpus_bleu(
     hypotheses: list[str],
@@ -139,8 +143,8 @@ def corpus_bleu(
         return 0.0
 
     # Corpus-level counts
-    clipped_totals = [0] * (max_n + 1)   # clipped_totals[n] = Σ clipped matches
-    candidate_totals = [0] * (max_n + 1) # candidate_totals[n] = Σ candidate ngrams
+    clipped_totals = [0] * (max_n + 1)  # clipped_totals[n] = Σ clipped matches
+    candidate_totals = [0] * (max_n + 1)  # candidate_totals[n] = Σ candidate ngrams
     total_hyp_len = 0
     total_ref_len = 0
 
@@ -154,7 +158,7 @@ def corpus_bleu(
         for n in range(1, max_n + 1):
             if len(hyp) < n:
                 continue
-            clipped_totals[n]   += _clipped_matches(hyp, ref, n)
+            clipped_totals[n] += _clipped_matches(hyp, ref, n)
             candidate_totals[n] += len(hyp) - n + 1
 
     # Check for any zero precision — BLEU is 0 if any n-gram precision is 0
@@ -163,10 +167,9 @@ def corpus_bleu(
             return 0.0
 
     # Geometric mean of precisions
-    log_avg = sum(
-        math.log(clipped_totals[n] / candidate_totals[n])
-        for n in range(1, max_n + 1)
-    ) / max_n
+    log_avg = (
+        sum(math.log(clipped_totals[n] / candidate_totals[n]) for n in range(1, max_n + 1)) / max_n
+    )
 
     # Brevity penalty
     c, r = total_hyp_len, total_ref_len
@@ -176,6 +179,7 @@ def corpus_bleu(
 
 
 # ── Detailed result ───────────────────────────────────────────────────────────
+
 
 def bleu_detail(
     hypotheses: list[str],
@@ -194,10 +198,16 @@ def bleu_detail(
         "n_sentences": int — number of sentence pairs
     """
     if not hypotheses or len(hypotheses) != len(references):
-        return {"bleu": 0.0, "bp": 0.0, "precisions": [0.0]*max_n,
-                "hyp_len": 0, "ref_len": 0, "n_sentences": 0}
+        return {
+            "bleu": 0.0,
+            "bp": 0.0,
+            "precisions": [0.0] * max_n,
+            "hyp_len": 0,
+            "ref_len": 0,
+            "n_sentences": 0,
+        }
 
-    clipped_totals   = [0] * (max_n + 1)
+    clipped_totals = [0] * (max_n + 1)
     candidate_totals = [0] * (max_n + 1)
     total_hyp_len = 0
     total_ref_len = 0
@@ -209,7 +219,7 @@ def bleu_detail(
         total_ref_len += len(ref)
         for n in range(1, max_n + 1):
             if len(hyp) >= n:
-                clipped_totals[n]   += _clipped_matches(hyp, ref, n)
+                clipped_totals[n] += _clipped_matches(hyp, ref, n)
                 candidate_totals[n] += len(hyp) - n + 1
 
     precisions = []
@@ -230,10 +240,10 @@ def bleu_detail(
     bleu = 0.0 if any_zero else 100.0 * bp * math.exp(log_avg)
 
     return {
-        "bleu":        round(bleu, 4),
-        "bp":          round(bp, 4),
-        "precisions":  [round(p, 4) for p in precisions],
-        "hyp_len":     total_hyp_len,
-        "ref_len":     total_ref_len,
+        "bleu": round(bleu, 4),
+        "bp": round(bp, 4),
+        "precisions": [round(p, 4) for p in precisions],
+        "hyp_len": total_hyp_len,
+        "ref_len": total_ref_len,
         "n_sentences": len(hypotheses),
     }

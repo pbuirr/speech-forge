@@ -20,9 +20,7 @@ Learning rate schedule:
 
 from __future__ import annotations
 
-import math
 import time
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
@@ -35,6 +33,7 @@ from speech_engine.train import cosine_lr, save_checkpoint, set_lr
 
 
 # ── Batch preparation ─────────────────────────────────────────────────────────
+
 
 def prepare_seq2seq_batch(
     batch: dict,
@@ -57,27 +56,27 @@ def prepare_seq2seq_batch(
 
     CrossEntropyLoss ignores PAD_ID positions, so the padding is harmless.
     """
-    mel           = batch["mel"].to(device)
-    mel_lengths   = batch["mel_lengths"].to(device)
-    tokens        = batch["tokens"]        # stay on CPU for list ops
+    mel = batch["mel"].to(device)
+    mel_lengths = batch["mel_lengths"].to(device)
+    tokens = batch["tokens"]  # stay on CPU for list ops
     token_lengths = batch["token_lengths"]
 
     B, L = tokens.shape
     new_L = L + 1  # +1 for the BOS token on the input side (or EOS on target side)
 
     dec_inputs = torch.full((B, new_L), PAD_ID, dtype=torch.long)
-    targets    = torch.full((B, new_L), PAD_ID, dtype=torch.long)
-    t_lengths  = torch.zeros(B, dtype=torch.long)
+    targets = torch.full((B, new_L), PAD_ID, dtype=torch.long)
+    t_lengths = torch.zeros(B, dtype=torch.long)
 
     for b in range(B):
         n = int(token_lengths[b])
         toks = tokens[b, :n].tolist()
 
-        dec_inputs[b, 0]       = BOS_ID
-        dec_inputs[b, 1:n + 1] = torch.tensor(toks, dtype=torch.long)
+        dec_inputs[b, 0] = BOS_ID
+        dec_inputs[b, 1 : n + 1] = torch.tensor(toks, dtype=torch.long)
 
-        targets[b, :n]   = torch.tensor(toks, dtype=torch.long)
-        targets[b, n]    = EOS_ID
+        targets[b, :n] = torch.tensor(toks, dtype=torch.long)
+        targets[b, n] = EOS_ID
 
         t_lengths[b] = n + 1
 
@@ -86,12 +85,13 @@ def prepare_seq2seq_batch(
 
 # ── Training / eval steps ─────────────────────────────────────────────────────
 
+
 def train_seq2seq_epoch(
     model: nn.Module,
     loader: DataLoader,
     optimizer: torch.optim.Optimizer,
     ce_loss_fn: nn.CrossEntropyLoss,
-    config,            # TrainConfig (from train.py) or dict-like with same fields
+    config,  # TrainConfig (from train.py) or dict-like with same fields
     device: torch.device,
     step: int,
     total_steps: int,
@@ -103,7 +103,7 @@ def train_seq2seq_epoch(
     """
     model.train()
     total_loss = 0.0
-    n_batches  = 0
+    n_batches = 0
 
     for batch in loader:
         lr = cosine_lr(step, config.warmup_steps, total_steps, config.peak_lr, config.min_lr)
@@ -123,8 +123,8 @@ def train_seq2seq_epoch(
         optimizer.step()
 
         total_loss += loss.item()
-        n_batches  += 1
-        step       += 1
+        n_batches += 1
+        step += 1
 
         if step % config.log_every == 0:
             print(
@@ -144,7 +144,7 @@ def eval_seq2seq_epoch(
 ) -> float:
     model.eval()
     total_loss = 0.0
-    n_batches  = 0
+    n_batches = 0
 
     for batch in loader:
         mel, mel_lengths, dec_input, target, _ = prepare_seq2seq_batch(batch, device)
@@ -152,12 +152,13 @@ def eval_seq2seq_epoch(
         B, L, V = logits.shape
         loss = ce_loss_fn(logits.reshape(B * L, V), target.reshape(B * L))
         total_loss += loss.item()
-        n_batches  += 1
+        n_batches += 1
 
     return total_loss / max(1, n_batches)
 
 
 # ── Main training function ────────────────────────────────────────────────────
+
 
 def train_transformer(
     model: nn.Module,
@@ -177,21 +178,21 @@ def train_transformer(
     """
     from speech_engine.train import load_checkpoint
 
-    ckpt_dir   = Path(config.checkpoint_dir)
-    optimizer  = torch.optim.Adam(model.parameters(), lr=config.peak_lr)
-    ce_loss    = nn.CrossEntropyLoss(ignore_index=PAD_ID)
+    ckpt_dir = Path(config.checkpoint_dir)
+    optimizer = torch.optim.Adam(model.parameters(), lr=config.peak_lr)
+    ce_loss = nn.CrossEntropyLoss(ignore_index=PAD_ID)
 
-    start_epoch   = 0
-    global_step   = 0
+    start_epoch = 0
+    global_step = 0
     best_val_loss = float("inf")
 
     steps_per_epoch = len(train_loader)
-    total_steps     = config.max_epochs * steps_per_epoch
+    total_steps = config.max_epochs * steps_per_epoch
 
     if resume_from and Path(resume_from).exists():
         ckpt = load_checkpoint(Path(resume_from), model, optimizer, device)
-        start_epoch   = ckpt.get("epoch", 0) + 1
-        global_step   = ckpt.get("step", 0)
+        start_epoch = ckpt.get("epoch", 0) + 1
+        global_step = ckpt.get("step", 0)
         best_val_loss = ckpt.get("best_loss", float("inf"))
         print(f"  Resumed from {resume_from} (epoch {start_epoch}, step {global_step})")
 
@@ -202,15 +203,21 @@ def train_transformer(
     print(f"  LR: 0 → {config.peak_lr:.0e} → {config.min_lr:.0e}  |  device: {device}\n")
 
     train_losses: list[float] = []
-    val_losses:   list[float] = []
+    val_losses: list[float] = []
 
     for epoch in range(start_epoch, config.max_epochs):
         t0 = time.perf_counter()
         print(f"Epoch {epoch + 1}/{config.max_epochs}")
 
         train_loss, global_step = train_seq2seq_epoch(
-            model, train_loader, optimizer, ce_loss,
-            config, device, global_step, total_steps,
+            model,
+            train_loader,
+            optimizer,
+            ce_loss,
+            config,
+            device,
+            global_step,
+            total_steps,
         )
         train_losses.append(train_loss)
 
@@ -219,29 +226,39 @@ def train_transformer(
             val_loss = eval_seq2seq_epoch(model, val_loader, ce_loss, device)
             val_losses.append(val_loss)
 
-        elapsed  = time.perf_counter() - t0
-        val_str  = f"  val_loss: {val_loss:.4f}" if val_loss is not None else ""
+        elapsed = time.perf_counter() - t0
+        val_str = f"  val_loss: {val_loss:.4f}" if val_loss is not None else ""
         print(f"  train_loss: {train_loss:.4f}{val_str}  ({elapsed:.1f}s)")
 
         monitor = val_loss if val_loss is not None else train_loss
         if monitor < best_val_loss:
             best_val_loss = monitor
             save_checkpoint(
-                ckpt_dir / "best_transformer.pt", model, optimizer,
-                epoch, global_step, best_val_loss, config,
+                ckpt_dir / "best_transformer.pt",
+                model,
+                optimizer,
+                epoch,
+                global_step,
+                best_val_loss,
+                config,
             )
             print(f"  ✓ New best: {best_val_loss:.4f} → {ckpt_dir}/best_transformer.pt")
 
         if (epoch + 1) % config.save_every == 0:
             save_checkpoint(
-                ckpt_dir / "latest_transformer.pt", model, optimizer,
-                epoch, global_step, best_val_loss, config,
+                ckpt_dir / "latest_transformer.pt",
+                model,
+                optimizer,
+                epoch,
+                global_step,
+                best_val_loss,
+                config,
             )
             print(f"  Checkpoint → {ckpt_dir}/latest_transformer.pt")
 
     return {
-        "train_losses":  train_losses,
-        "val_losses":    val_losses,
+        "train_losses": train_losses,
+        "val_losses": val_losses,
         "best_val_loss": best_val_loss,
-        "total_steps":   global_step,
+        "total_steps": global_step,
     }

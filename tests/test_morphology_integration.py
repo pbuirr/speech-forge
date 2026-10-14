@@ -105,8 +105,10 @@ def http_json(path, payload=None, expected_status=200):
     """Run the real HTTP parser/router without requiring network access."""
     body = json.dumps(payload).encode() if payload is not None else b""
     method = "POST" if payload is not None else "GET"
-    raw = (f"{method} {path} HTTP/1.0\r\nContent-Type: application/json\r\n"
-           f"Content-Length: {len(body)}\r\n\r\n").encode() + body
+    raw = (
+        f"{method} {path} HTTP/1.0\r\nContent-Type: application/json\r\n"
+        f"Content-Length: {len(body)}\r\n\r\n"
+    ).encode() + body
 
     class Connection:
         def __init__(self):

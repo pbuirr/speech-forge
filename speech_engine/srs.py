@@ -32,26 +32,28 @@ from typing import Optional
 #  Grades
 # ══════════════════════════════════════════════════════════════════════════════
 
+
 class Grade:
     """SM-2's original 0-5 recall-quality scale.
 
     Most flashcard UIs only expose four buttons (Again/Hard/Good/Easy) —
     `Grade.from_button` maps those onto the 0-5 scale SM-2 expects.
     """
-    BLACKOUT      = 0  # complete blank
-    INCORRECT     = 1  # wrong, but recognised the answer once shown
+
+    BLACKOUT = 0  # complete blank
+    INCORRECT = 1  # wrong, but recognised the answer once shown
     INCORRECT_EASY = 2  # wrong, but felt close
-    HESITANT      = 3  # correct, with serious difficulty
-    GOOD          = 4  # correct, with some hesitation
-    PERFECT       = 5  # correct, instant recall
+    HESITANT = 3  # correct, with serious difficulty
+    GOOD = 4  # correct, with some hesitation
+    PERFECT = 5  # correct, instant recall
 
     PASS_THRESHOLD = 3  # grades below this reset the card
 
     _BUTTON_MAP = {
         "again": INCORRECT,
-        "hard":  HESITANT,
-        "good":  GOOD,
-        "easy":  PERFECT,
+        "hard": HESITANT,
+        "good": GOOD,
+        "easy": PERFECT,
     }
 
     @classmethod
@@ -59,9 +61,7 @@ class Grade:
         try:
             return cls._BUTTON_MAP[button.strip().lower()]
         except KeyError:
-            raise ValueError(
-                f"Unknown button {button!r}; expected one of {list(cls._BUTTON_MAP)}"
-            )
+            raise ValueError(f"Unknown button {button!r}; expected one of {list(cls._BUTTON_MAP)}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -75,13 +75,14 @@ INITIAL_EASE_FACTOR = 2.5
 @dataclass
 class CardState:
     """Scheduling state for one flashcard. Pure data — no behaviour."""
-    repetitions:  int            = 0
-    interval:     int            = 0          # days
-    ease_factor:  float          = INITIAL_EASE_FACTOR
-    due_date:     date           = field(default_factory=date.today)
+
+    repetitions: int = 0
+    interval: int = 0  # days
+    ease_factor: float = INITIAL_EASE_FACTOR
+    due_date: date = field(default_factory=date.today)
     last_reviewed: Optional[date] = None
-    lapses:       int            = 0           # total times grade < PASS_THRESHOLD
-    total_reviews: int           = 0
+    lapses: int = 0  # total times grade < PASS_THRESHOLD
+    total_reviews: int = 0
 
     def is_due(self, today: Optional[date] = None) -> bool:
         return self.due_date <= (today or date.today())
@@ -104,7 +105,9 @@ class CardState:
             interval=d.get("interval", 0),
             ease_factor=d.get("ease_factor", INITIAL_EASE_FACTOR),
             due_date=date.fromisoformat(d["due_date"]) if d.get("due_date") else date.today(),
-            last_reviewed=date.fromisoformat(d["last_reviewed"]) if d.get("last_reviewed") else None,
+            last_reviewed=date.fromisoformat(d["last_reviewed"])
+            if d.get("last_reviewed")
+            else None,
             lapses=d.get("lapses", 0),
             total_reviews=d.get("total_reviews", 0),
         )
@@ -122,9 +125,9 @@ def sm2_update(state: CardState, grade: int, today: Optional[date] = None) -> Ca
     today = today or date.today()
 
     repetitions = state.repetitions
-    interval    = state.interval
-    ef          = state.ease_factor
-    lapses      = state.lapses
+    interval = state.interval
+    ef = state.ease_factor
+    lapses = state.lapses
 
     if grade < Grade.PASS_THRESHOLD:
         # Forgot it — back to the start of the learning curve, but the ease
@@ -162,6 +165,7 @@ def sm2_update(state: CardState, grade: int, today: Optional[date] = None) -> Ca
 # ══════════════════════════════════════════════════════════════════════════════
 #  Scheduler — convenience wrapper over a collection of (id -> CardState)
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 class SRSScheduler:
     """Tracks SM-2 state for a set of card ids. Card *content* (front/back

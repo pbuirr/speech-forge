@@ -34,6 +34,7 @@ import torchaudio.functional as F
 
 try:
     import sounddevice as sd
+
     _SOUNDDEVICE_AVAILABLE = True
 except ImportError:
     _SOUNDDEVICE_AVAILABLE = False
@@ -44,6 +45,7 @@ TARGET_SR = 16_000  # Hz — standard for all LinguaForge ASR models
 @dataclass
 class AudioMetadata:
     """Snapshot of audio file properties, both before and after preprocessing."""
+
     path: str
     sample_rate: int
     num_samples: int
@@ -84,6 +86,7 @@ def load_audio(path: str | Path) -> tuple[np.ndarray, int]:
     except Exception:
         # Fallback: torchaudio with whatever backend is installed (ffmpeg, sox, etc.)
         import torchaudio
+
         waveform, sr = torchaudio.load(str(path))
         return waveform.numpy(), int(sr)  # (C, N)
 

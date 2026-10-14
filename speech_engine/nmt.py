@@ -150,15 +150,16 @@ class Seq2SeqNMT(nn.Module):
         device = src_ids.device
 
         src_mask = (
-            make_padding_mask(src_lengths.to(device), S) if src_lengths is not None
+            make_padding_mask(src_lengths.to(device), S)
+            if src_lengths is not None
             else src_ids.ne(PAD_ID).unsqueeze(1).unsqueeze(2)
         )
         tgt_mask = make_causal_mask(T, device)
 
         src_emb = self.src_embed(src_ids) * math.sqrt(self.d_model)  # (B, S, d)
-        memory = self.encoder(src_emb, src_mask)                      # (B, S, d)
+        memory = self.encoder(src_emb, src_mask)  # (B, S, d)
         dec_out = self.decoder(tgt_ids, memory, tgt_mask=tgt_mask, memory_mask=src_mask)
-        return self.output_proj(dec_out)                               # (B, T, V_tgt)
+        return self.output_proj(dec_out)  # (B, T, V_tgt)
 
     # ── Inference ─────────────────────────────────────────────────────────────
 
@@ -246,13 +247,13 @@ class Seq2SeqNMT(nn.Module):
         self.eval()
         device = src_ids.device
         if repeat_exempt_ids is None:
-            repeat_exempt_ids = getattr(self, '_repeat_exempt_ids', set())
+            repeat_exempt_ids = getattr(self, "_repeat_exempt_ids", set())
 
         # Cap generation at 2× source length; floor at min_len_ratio * src_len.
         # min_len_ratio prevents the model from emitting EOS early and ignoring
         # large chunks of the source (coverage failure).
-        src_len  = src_ids.size(1)
-        max_len  = min(max_len, max(10, int(src_len * 2.0)))
+        src_len = src_ids.size(1)
+        max_len = min(max_len, max(10, int(src_len * 2.0)))
         min_out_len = max(1, int(src_len * min_len_ratio))
         eos_boost_after = max(3, src_len)  # start boosting EOS once output ≈ source length
 
@@ -322,22 +323,28 @@ class Seq2SeqNMT(nn.Module):
                 # Build the set of token ids banned by n-gram blocking + repeat guard
                 banned: set[int] = set()
                 if no_repeat_ngram > 1 and len(ids) >= no_repeat_ngram - 1:
-                    ngram_prefix = tuple(ids[-(no_repeat_ngram - 1):])
+                    ngram_prefix = tuple(ids[-(no_repeat_ngram - 1) :])
                     for start in range(len(ids) - (no_repeat_ngram - 1)):
-                        if tuple(ids[start:start + no_repeat_ngram - 1]) == ngram_prefix:
+                        if tuple(ids[start : start + no_repeat_ngram - 1]) == ngram_prefix:
                             if start + no_repeat_ngram - 1 < len(ids):
                                 banned.add(ids[start + no_repeat_ngram - 1])
                 # Ban any non-special token appearing ≥2× in the last 6 positions
                 recent = ids[-6:] if len(ids) >= 6 else ids
                 for tok_id in set(recent):
-                    if repeat_guard and tok_id not in (bos_id, eos_id) and recent.count(tok_id) >= 2:
+                    if (
+                        repeat_guard
+                        and tok_id not in (bos_id, eos_id)
+                        and recent.count(tok_id) >= 2
+                    ):
                         banned.add(tok_id)
                 # Ban immediate repetition of last token (prevents BPE fragment doubling: "c c at" → "ccat")
                 if repeat_guard and len(ids) > 1 and ids[-1] not in (bos_id, eos_id):
                     banned.add(ids[-1])
 
                 banned.difference_update(repeat_exempt_ids or ())
-                top_lps, top_ids = log_probs[i].topk(min(log_probs.size(-1), beam_size + len(banned)))
+                top_lps, top_ids = log_probs[i].topk(
+                    min(log_probs.size(-1), beam_size + len(banned))
+                )
                 added = 0
                 for j in range(len(top_ids)):
                     tok = int(top_ids[j].item())
@@ -351,7 +358,7 @@ class Seq2SeqNMT(nn.Module):
                         # coverage and the same attention at this step — they diverge
                         # only from the next step onward.
                         parent_cov = beam_covs[parent_idx]
-                        attn_step  = last_attn[i]  # type: ignore[index]
+                        attn_step = last_attn[i]  # type: ignore[index]
                         new_cov: list[float] | None = [
                             parent_cov[s] + attn_step[s] for s in range(src_len)
                         ]
@@ -370,7 +377,7 @@ class Seq2SeqNMT(nn.Module):
             def _score(c: tuple[float, list[int], bool, list[float] | None]) -> float:
                 lp, ids, _, cov = c
                 n_tokens = max(1, len(ids) - 1)  # exclude BOS
-                lp_norm = lp / ((n_tokens ** length_penalty) or 1)
+                lp_norm = lp / ((n_tokens**length_penalty) or 1)
                 lp_norm += word_penalty * n_tokens
                 if use_cov and cov is not None:
                     cp = coverage_penalty * sum(
@@ -384,13 +391,13 @@ class Seq2SeqNMT(nn.Module):
             top = candidates[:beam_size]
 
             # Unpack top candidates back into parallel lists
-            beams     = [(lp, ids, done) for lp, ids, done, _ in top]
+            beams = [(lp, ids, done) for lp, ids, done, _ in top]
             if use_cov:
                 beam_covs = [cov for _, _, _, cov in top]  # type: ignore[misc]
 
             # Move finished beams to pool
             still_active: list[tuple[float, list[int], bool]] = []
-            still_covs:   list[list[float]] = []
+            still_covs: list[list[float]] = []
             for idx, b in enumerate(beams):
                 if b[2]:  # done
                     cov_b = beam_covs[idx] if use_cov else None
@@ -434,7 +441,15 @@ class Seq2SeqNMT(nn.Module):
         """Translate, using greedy (beam_size=1) or beam search (beam_size>1)."""
         if beam_size <= 1:
             return self.translate_greedy(src_ids, max_len=max_len, bos_id=bos_id, eos_id=eos_id)
-        return self.translate_beam(src_ids, beam_size=beam_size, max_len=max_len, bos_id=bos_id, 	eos_id=eos_id,word_penalty=word_penalty, coverage_penalty=coverage_penalty)
+        return self.translate_beam(
+            src_ids,
+            beam_size=beam_size,
+            max_len=max_len,
+            bos_id=bos_id,
+            eos_id=eos_id,
+            word_penalty=word_penalty,
+            coverage_penalty=coverage_penalty,
+        )
 
     @torch.no_grad()
     def translate_with_attention(
@@ -466,15 +481,19 @@ class Seq2SeqNMT(nn.Module):
 
         # 1. Beam search to get the best output sequence
         out_ids = self.translate_beam(
-            src_ids, beam_size=beam_size, max_len=max_len,
-            bos_id=bos_id, eos_id=eos_id, **decoding_options,
+            src_ids,
+            beam_size=beam_size,
+            max_len=max_len,
+            bos_id=bos_id,
+            eos_id=eos_id,
+            **decoding_options,
         )
         if not out_ids:
             return {"out_ids": [], "attention": [], "entropy": []}
 
         # 2. One teacher-forced forward pass with the known output to get clean attention
         src_emb = self.src_embed(src_ids) * math.sqrt(self.d_model)
-        memory = self.encoder(src_emb)                                 # (1, S, d)
+        memory = self.encoder(src_emb)  # (1, S, d)
 
         tgt = torch.tensor([[bos_id] + out_ids], dtype=torch.long, device=device)
         T_out = tgt.size(1)
@@ -490,14 +509,12 @@ class Seq2SeqNMT(nn.Module):
 
         # Per-token entropy: H = -sum_s(a_s * log(a_s)), normalised by log(T_src)
         import math as _math
+
         T_src = avg_attn.size(-1)
         log_norm = _math.log(max(T_src, 2))
         entropy = []
         for row in attn_matrix:
-            h = -sum(
-                p * _math.log(max(p, 1e-9))
-                for p in row
-            ) / log_norm
+            h = -sum(p * _math.log(max(p, 1e-9)) for p in row) / log_norm
             entropy.append(round(min(h, 1.0), 4))
 
         return {
@@ -513,6 +530,7 @@ class Seq2SeqNMT(nn.Module):
 
 
 # ── Training helpers ──────────────────────────────────────────────────────────
+
 
 def nmt_loss(
     logits: torch.Tensor,
@@ -575,13 +593,14 @@ def collate_pairs(
 
     for i, (s, t) in enumerate(pairs):
         src[i, : len(s)] = torch.tensor(s, dtype=torch.long)
-        tgt_in[i, : len(t) - 1] = torch.tensor(t[:-1], dtype=torch.long)   # BOS … tn
-        tgt_out[i, : len(t) - 1] = torch.tensor(t[1:], dtype=torch.long)   # t1 … EOS
+        tgt_in[i, : len(t) - 1] = torch.tensor(t[:-1], dtype=torch.long)  # BOS … tn
+        tgt_out[i, : len(t) - 1] = torch.tensor(t[1:], dtype=torch.long)  # t1 … EOS
 
     return src, src_lens, tgt_in, tgt_out, tgt_lens
 
 
 # ── Checkpoint helpers ────────────────────────────────────────────────────────
+
 
 def save_checkpoint(
     model: Seq2SeqNMT,
@@ -641,7 +660,8 @@ def load_checkpoint(path: Path | str) -> tuple[Seq2SeqNMT, BPEVocab, BPEVocab, d
     model.eval()
 
     metadata = ckpt.get("meta", {})
-    if metadata.get('decoding_policy') == 'preserve_numeric_fragments':
-        model._repeat_exempt_ids = {i for i, token in tgt_vocab._id_to_token.items()
-                                   if token.removesuffix('</w>').isdigit()}
+    if metadata.get("decoding_policy") == "preserve_numeric_fragments":
+        model._repeat_exempt_ids = {
+            i for i, token in tgt_vocab._id_to_token.items() if token.removesuffix("</w>").isdigit()
+        }
     return model, src_vocab, tgt_vocab, metadata

@@ -101,12 +101,14 @@ _ES_VERB_FALLBACK: dict[str, str] = {
 
 # ── Tokenizer ─────────────────────────────────────────────────────────────────
 
+
 def _tokenize(text: str) -> list[str]:
     """Lowercase word tokenizer, strips punctuation."""
     return [w.lower() for w in re.findall(r"\b\w+\b", text, re.UNICODE) if w]
 
 
 # ── Corpus loader ─────────────────────────────────────────────────────────────
+
 
 def _load_pairs(
     tsv_path: Path,
@@ -197,9 +199,7 @@ def _train_ibm2(
     uniform = 1.0 / max(n_tgt, 1)
 
     # t[f][e] initialized to uniform P(e|f)
-    t: dict[str, dict[str, float]] = {
-        f: defaultdict(lambda: uniform) for f in src_vocab
-    }
+    t: dict[str, dict[str, float]] = {f: defaultdict(lambda: uniform) for f in src_vocab}
 
     for _iter in range(iterations):
         count: dict[str, dict[str, float]] = {f: defaultdict(float) for f in src_vocab}
@@ -333,6 +333,7 @@ def _best_translations(
 
 # ── PMI phrase extraction ─────────────────────────────────────────────────────
 
+
 def _extract_phrase_pairs(
     pairs: list[tuple[list[str], list[str]]],
     word_trans: dict[str, list[str]],
@@ -420,6 +421,7 @@ def _extract_phrase_pairs(
 
 # ── Core class ────────────────────────────────────────────────────────────────
 
+
 class LexicalFallback:
     """
     Language-agnostic word-level translator trained from a parallel corpus.
@@ -454,10 +456,10 @@ class LexicalFallback:
         tgt_idf: dict[str, float] | None = None,
         lm: "NgramLM | None" = None,
     ) -> None:
-        self._word_trans = word_trans      # f → [best_e, second_best_e, ...]
+        self._word_trans = word_trans  # f → [best_e, second_best_e, ...]
         self._phrase_trans = phrase_trans  # (f1,f2,...) → "e1 e2 ..."
-        self._tgt_idf = tgt_idf or {}     # target word → IDF score
-        self._lm = lm                      # n-gram LM for context-aware word selection
+        self._tgt_idf = tgt_idf or {}  # target word → IDF score
+        self._lm = lm  # n-gram LM for context-aware word selection
         self.src_lang = src_lang
         self.tgt_lang = tgt_lang
 
@@ -483,12 +485,13 @@ class LexicalFallback:
         # bypass_stop: closed-class words that must never be returned as a bypass
         #   result.  Excludes auxiliaries (have, be, could, must) so they remain
         #   reachable as legitimate translations.
-        _cc  = CLOSED_CLASS.get(tgt_lang, {})
+        _cc = CLOSED_CLASS.get(tgt_lang, {})
         _src = CLOSED_CLASS.get(src_lang, {})
         self._tgt_pron_words: frozenset[str] = frozenset(_cc.get(POS.PRON, []))
         self._src_pron_words: frozenset[str] = frozenset(_src.get(POS.PRON, []))
         self._tgt_bypass_stop: frozenset[str] = frozenset(
-            w for pos in (POS.PRON, POS.DET, POS.PREP, POS.CONJ, POS.SCONJ)
+            w
+            for pos in (POS.PRON, POS.DET, POS.PREP, POS.CONJ, POS.SCONJ)
             for w in _cc.get(pos, [])
         )
 
@@ -496,8 +499,8 @@ class LexicalFallback:
         # Allows recovering an infinitive from an unknown conjugated form, e.g.
         # "irías" (ES conditional) → strip "irías" → stem "i" + "r" = "ir" → look up.
         # Language-specific data lives entirely in morphology.py.
-        self._src_suffixes: tuple[tuple[str, list[str]], ...] = (
-            INFLECTION_SUFFIXES.get(src_lang, ())
+        self._src_suffixes: tuple[tuple[str, list[str]], ...] = INFLECTION_SUFFIXES.get(
+            src_lang, ()
         )
 
     @classmethod
@@ -644,12 +647,13 @@ class LexicalFallback:
             # Guard: if the SOURCE word is itself a pronoun (je→i, yo→i), the
             # pronoun translation IS correct — skip bypass so we don't jump to
             # a spurious high-IDF word like "please" (from "je vous en prie").
-            if (hits[0] in self._tgt_pron_words
-                    and word.lower() not in self._src_pron_words):
+            if hits[0] in self._tgt_pron_words and word.lower() not in self._src_pron_words:
                 for alt in hits[1:]:
-                    if (len(alt) >= 2
-                            and alt not in self._tgt_bypass_stop
-                            and self._tgt_idf.get(alt, 0.0) > h0_idf):
+                    if (
+                        len(alt) >= 2
+                        and alt not in self._tgt_bypass_stop
+                        and self._tgt_idf.get(alt, 0.0) > h0_idf
+                    ):
                         return alt
 
             # Low-IDF closed-class regime: triggers when top-1 is any closed-class
@@ -658,13 +662,17 @@ class LexicalFallback:
             # the two most common false alignments — while leaving "a" (≈1.65),
             # "of" (≈1.70), "in" (≈1.88) alone (they are sometimes correct).
             # Prefer a genuine content word (IDF ≥ _FUNC_WORD_IDF = 3.0).
-            elif (h0_idf < 1.5
-                    and hits[0] in self._tgt_bypass_stop
-                    and hits[0] not in self._tgt_pron_words):
+            elif (
+                h0_idf < 1.5
+                and hits[0] in self._tgt_bypass_stop
+                and hits[0] not in self._tgt_pron_words
+            ):
                 for alt in hits[1:]:
-                    if (len(alt) >= 2
-                            and alt not in self._tgt_bypass_stop
-                            and self._tgt_idf.get(alt, 0.0) >= self._FUNC_WORD_IDF):
+                    if (
+                        len(alt) >= 2
+                        and alt not in self._tgt_bypass_stop
+                        and self._tgt_idf.get(alt, 0.0) >= self._FUNC_WORD_IDF
+                    ):
                         return alt
 
             return hits[0]
@@ -702,9 +710,7 @@ class LexicalFallback:
                         return fallback
         return None
 
-    def lookup_with_context(
-        self, word: str, context: tuple[str, ...] | list[str]
-    ) -> str | None:
+    def lookup_with_context(self, word: str, context: tuple[str, ...] | list[str]) -> str | None:
         """
         Context-aware translation using the n-gram LM to disambiguate top-k candidates.
 
@@ -758,24 +764,31 @@ class LexicalFallback:
 
         # Determine candidate pool using the same bypass rules as lookup().
         # The LM then picks the best within that pool.
-        if (hits[0] in self._tgt_pron_words
-                and word.lower() not in self._src_pron_words):
+        if hits[0] in self._tgt_pron_words and word.lower() not in self._src_pron_words:
             # PRON regime: pool = non-closed-class alternatives with higher IDF
-            pool = [h for h in hits[1:]
-                    if len(h) >= 2
-                    and h not in self._tgt_bypass_stop
-                    and self._tgt_idf.get(h, 0.0) > h0_idf]
+            pool = [
+                h
+                for h in hits[1:]
+                if len(h) >= 2
+                and h not in self._tgt_bypass_stop
+                and self._tgt_idf.get(h, 0.0) > h0_idf
+            ]
             if not pool:
                 return hits[0]  # no better alternative exists
 
-        elif (h0_idf < 1.5
-                and hits[0] in self._tgt_bypass_stop
-                and hits[0] not in self._tgt_pron_words):
+        elif (
+            h0_idf < 1.5
+            and hits[0] in self._tgt_bypass_stop
+            and hits[0] not in self._tgt_pron_words
+        ):
             # Low-IDF regime: pool = content words (IDF >= FUNC_WORD_IDF)
-            pool = [h for h in hits
-                    if len(h) >= 2
-                    and h not in self._tgt_bypass_stop
-                    and self._tgt_idf.get(h, 0.0) >= self._FUNC_WORD_IDF]
+            pool = [
+                h
+                for h in hits
+                if len(h) >= 2
+                and h not in self._tgt_bypass_stop
+                and self._tgt_idf.get(h, 0.0) >= self._FUNC_WORD_IDF
+            ]
             if not pool:
                 return hits[0]
 
@@ -787,8 +800,7 @@ class LexicalFallback:
             # when the IBM1 top-1 is a content word like "world" or "understand".
             if self._tgt_idf.get(hits[0], 0.0) >= self._FUNC_WORD_IDF:
                 # Top-1 is a content word; restrict pool to content words only
-                pool = [h for h in hits
-                        if self._tgt_idf.get(h, 0.0) >= self._FUNC_WORD_IDF]
+                pool = [h for h in hits if self._tgt_idf.get(h, 0.0) >= self._FUNC_WORD_IDF]
                 if len(pool) <= 1:
                     return hits[0]  # only one content word — no ambiguity to resolve
             else:
@@ -831,7 +843,7 @@ class LexicalFallback:
             # fall through to word-level so modals/verbs aren't swallowed.
             matched = False
             for n in range(min(4, len(words) - i), 1, -1):
-                gram = tuple(words[i:i + n])
+                gram = tuple(words[i : i + n])
                 if gram not in self._phrase_trans:
                     continue
                 phrase_en = self._phrase_trans[gram]
@@ -878,6 +890,7 @@ class LexicalFallback:
 
 # ── Disk cache helpers ────────────────────────────────────────────────────────
 
+
 def _build_lm(pairs: list[tuple[list[str], list[str]]]) -> NgramLM:
     """Train a stupid-backoff trigram LM on the target (English) side of the corpus."""
     lm = NgramLM(alpha=0.4, min_count=2)
@@ -922,9 +935,7 @@ def get_fallback(
     key = f"{src_lang}→{tgt_lang}"
     if key not in _fallback_cache:
         if corpus_path is not None:
-            fb = LexicalFallback.from_corpus(
-                corpus_path, src_lang=src_lang, tgt_lang=tgt_lang
-            )
+            fb = LexicalFallback.from_corpus(corpus_path, src_lang=src_lang, tgt_lang=tgt_lang)
         else:
             fb = LexicalFallback({}, {}, src_lang, tgt_lang)
         _fallback_cache[key] = fb

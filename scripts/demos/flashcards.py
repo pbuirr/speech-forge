@@ -30,16 +30,23 @@ from speech_engine.exercise import (
     generate_multiple_choice,
     generate_word_order,
 )
-from speech_engine.flashcard import Flashcard, FlashcardDeck
+from speech_engine.flashcard import FlashcardDeck
 from speech_engine.morphology import MorphologyEngine
 from speech_engine.srs import CardState, Grade, sm2_update
 
 # ── ANSI colours (matches phase5_demo.py) ───────────────────────────────────
-_G = "\033[92m"; _B = "\033[94m"; _C = "\033[96m"
-_Y = "\033[93m"; _D = "\033[2m";  _W = "\033[1m"; _R = "\033[0m"
+_G = "\033[92m"
+_B = "\033[94m"
+_C = "\033[96m"
+_Y = "\033[93m"
+_D = "\033[2m"
+_W = "\033[1m"
+_R = "\033[0m"
+
 
 def _sec(title: str) -> None:
     print(f"\n{_C}── {title} {'─' * max(0, 56 - len(title))}{_R}")
+
 
 def _ok(label: str, value: str) -> None:
     print(f"  {_B}{label:<22}{_R} {value}")
@@ -52,28 +59,44 @@ DEFAULT_DECK_PATH = PROJECT_ROOT / "data" / "decks" / "default.json"
 #  Section 1: SM-2 scheduling
 # ══════════════════════════════════════════════════════════════════════════════
 
+
 def demo_sm2(today: date) -> None:
     _sec("SM-2 Spaced Repetition — interval/ease progression")
     print(f"\n  {'Day':<5}  {'Grade':<7}  {'Rep':<4}  {'Interval':<9}  {'Ease':<6}  {'Due'}")
-    print(f"  {'─'*5}  {'─'*7}  {'─'*4}  {'─'*9}  {'─'*6}  {'─'*12}")
+    print(f"  {'─' * 5}  {'─' * 7}  {'─' * 4}  {'─' * 9}  {'─' * 6}  {'─' * 12}")
 
     state = CardState(due_date=today)
     # Simulate a learner who mostly does well but fumbles once (day 3).
-    grades = [Grade.GOOD, Grade.GOOD, Grade.INCORRECT, Grade.HESITANT,
-              Grade.GOOD, Grade.PERFECT, Grade.PERFECT]
-    label = {Grade.INCORRECT: "again", Grade.HESITANT: "hard",
-              Grade.GOOD: "good", Grade.PERFECT: "easy"}
+    grades = [
+        Grade.GOOD,
+        Grade.GOOD,
+        Grade.INCORRECT,
+        Grade.HESITANT,
+        Grade.GOOD,
+        Grade.PERFECT,
+        Grade.PERFECT,
+    ]
+    label = {
+        Grade.INCORRECT: "again",
+        Grade.HESITANT: "hard",
+        Grade.GOOD: "good",
+        Grade.PERFECT: "easy",
+    }
     day = today
     for i, g in enumerate(grades):
         state = sm2_update(state, g, today=day)
-        print(f"  {i:<5}  {label[g]:<7}  {state.repetitions:<4}  "
-              f"{state.interval:<9}  {state.ease_factor:<6}  {state.due_date}")
+        print(
+            f"  {i:<5}  {label[g]:<7}  {state.repetitions:<4}  "
+            f"{state.interval:<9}  {state.ease_factor:<6}  {state.due_date}"
+        )
         day = state.due_date  # jump straight to when it's next due
 
-    print(f"\n  {_D}Note the lapse on day 2 ('again'): repetitions reset to 0 and the\n"
-          f"  interval drops back to 1 day, but the ease factor keeps falling rather\n"
-          f"  than resetting — a card that's been forgotten once stays \"harder\"\n"
-          f"  even after it's relearned.{_R}")
+    print(
+        f"\n  {_D}Note the lapse on day 2 ('again'): repetitions reset to 0 and the\n"
+        f"  interval drops back to 1 day, but the ease factor keeps falling rather\n"
+        f'  than resetting — a card that\'s been forgotten once stays "harder"\n'
+        f"  even after it's relearned.{_R}"
+    )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -102,14 +125,16 @@ def demo_extraction(engine: MorphologyEngine) -> FlashcardDeck:
         for c in new_cards:
             print(f"    {c.front:<12}  →  {c.back}")
 
-    print(f"\n  {_D}Total cards in deck: {len(deck)} "
-          f"(2 manual + {len(deck) - 2} auto-extracted){_R}")
+    print(
+        f"\n  {_D}Total cards in deck: {len(deck)} (2 manual + {len(deck) - 2} auto-extracted){_R}"
+    )
     return deck
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Section 3: Exercise generation
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 def demo_exercises(deck: FlashcardDeck) -> None:
     _sec("Exercise generation")
@@ -127,7 +152,7 @@ def demo_exercises(deck: FlashcardDeck) -> None:
     mcq = generate_multiple_choice(card, deck)
     if mcq:
         print(f"\n  Multiple choice  (card: {card.front})")
-        print(f"    What word means: \"{mcq.prompt}\"?")
+        print(f'    What word means: "{mcq.prompt}"?')
         for i, choice in enumerate(mcq.choices):
             print(f"      {i + 1}. {choice}")
         print(f"    {_D}answer: {mcq.choices[mcq.answer_index]}{_R}")
@@ -143,13 +168,17 @@ def demo_exercises(deck: FlashcardDeck) -> None:
 #  Section 4: Simulated multi-day review session
 # ══════════════════════════════════════════════════════════════════════════════
 
+
 def demo_review_session(deck: FlashcardDeck, today: date) -> None:
     _sec("Simulated 14-day review session")
     import random
+
     rng = random.Random(7)
 
-    print(f"\n  {'Day':<5}  {'Due':<5}  {'Reviewed':<10}  {'New avg ease':<13}  {'New avg interval'}")
-    print(f"  {'─'*5}  {'─'*5}  {'─'*10}  {'─'*13}  {'─'*16}")
+    print(
+        f"\n  {'Day':<5}  {'Due':<5}  {'Reviewed':<10}  {'New avg ease':<13}  {'New avg interval'}"
+    )
+    print(f"  {'─' * 5}  {'─' * 5}  {'─' * 10}  {'─' * 13}  {'─' * 16}")
     for day_offset in range(14):
         day = today + timedelta(days=day_offset)
         due = deck.due(today=day)
@@ -158,21 +187,27 @@ def demo_review_session(deck: FlashcardDeck, today: date) -> None:
             grade = rng.choice([Grade.GOOD, Grade.GOOD, Grade.PERFECT, Grade.INCORRECT])
             deck.review(card.id, grade, today=day)
         stats = deck.stats()
-        print(f"  {day_offset:<5}  {len(due):<5}  {len(due):<10}  "
-              f"{stats['avg_ease']:<13}  {stats['avg_interval']}")
+        print(
+            f"  {day_offset:<5}  {len(due):<5}  {len(due):<10}  "
+            f"{stats['avg_ease']:<13}  {stats['avg_interval']}"
+        )
 
     stats = deck.stats()
-    print(f"\n  Final deck stats: {stats['cards']} cards, "
-          f"{stats['lapses']} total lapses, avg ease {stats['avg_ease']}")
+    print(
+        f"\n  Final deck stats: {stats['cards']} cards, "
+        f"{stats['lapses']} total lapses, avg ease {stats['avg_ease']}"
+    )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Section 5: Persistence round-trip
 # ══════════════════════════════════════════════════════════════════════════════
 
+
 def demo_persistence(deck: FlashcardDeck) -> None:
     _sec("JSON persistence round-trip")
     import tempfile
+
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / "deck.json"
         deck.save(path)
@@ -188,6 +223,7 @@ def demo_persistence(deck: FlashcardDeck) -> None:
 # ══════════════════════════════════════════════════════════════════════════════
 #  CLI
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 def _load_or_new_deck(path: Path) -> FlashcardDeck:
     if path.exists():
@@ -239,8 +275,10 @@ def main() -> None:
         if not due:
             print("  Nothing due right now.")
             return
-        print(f"  {len(due)} card(s) due. Press Enter to reveal the answer, "
-              f"then grade: (1) again  (2) hard  (3) good  (4) easy\n")
+        print(
+            f"  {len(due)} card(s) due. Press Enter to reveal the answer, "
+            f"then grade: (1) again  (2) hard  (3) good  (4) easy\n"
+        )
         button_for = {"1": "again", "2": "hard", "3": "good", "4": "easy"}
         for card in due:
             print(f"  {card.front}")

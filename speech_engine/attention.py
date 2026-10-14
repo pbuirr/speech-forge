@@ -33,14 +33,13 @@ from __future__ import annotations
 import math
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 def scaled_dot_product_attention(
-    Q: torch.Tensor,           # (B, H, T_q, d_k)
-    K: torch.Tensor,           # (B, H, T_k, d_k)
-    V: torch.Tensor,           # (B, H, T_k, d_v)
-    mask: torch.Tensor | None = None,   # (B, 1, T_q, T_k) bool — True = attend
+    Q: torch.Tensor,  # (B, H, T_q, d_k)
+    K: torch.Tensor,  # (B, H, T_k, d_k)
+    V: torch.Tensor,  # (B, H, T_k, d_v)
+    mask: torch.Tensor | None = None,  # (B, 1, T_q, T_k) bool — True = attend
     dropout: nn.Dropout | None = None,
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """Core scaled dot-product attention.
@@ -120,9 +119,9 @@ class MultiHeadAttention(nn.Module):
 
     def forward(
         self,
-        query: torch.Tensor,               # (B, T_q, d_model)
-        key: torch.Tensor,                 # (B, T_k, d_model)
-        value: torch.Tensor,               # (B, T_k, d_model)
+        query: torch.Tensor,  # (B, T_q, d_model)
+        key: torch.Tensor,  # (B, T_k, d_model)
+        value: torch.Tensor,  # (B, T_k, d_model)
         mask: torch.Tensor | None = None,  # (B, 1, T_q, T_k) bool — True = attend
     ) -> tuple[torch.Tensor, torch.Tensor]:
         """
@@ -136,7 +135,7 @@ class MultiHeadAttention(nn.Module):
 
         # Linear projections then reshape to (B, H, T, d_k)
         Q = self.w_q(query).view(B, T_q, H, D).transpose(1, 2)  # (B, H, T_q, d_k)
-        K = self.w_k(key).view(B, T_k, H, D).transpose(1, 2)    # (B, H, T_k, d_k)
+        K = self.w_k(key).view(B, T_k, H, D).transpose(1, 2)  # (B, H, T_k, d_k)
         V = self.w_v(value).view(B, T_k, H, D).transpose(1, 2)  # (B, H, T_k, d_k)
 
         out, attn_w = scaled_dot_product_attention(Q, K, V, mask=mask, dropout=self.drop)
