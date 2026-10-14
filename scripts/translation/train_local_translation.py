@@ -93,7 +93,7 @@ def main():
         "--curriculum-epochs",
         type=int,
         default=None,
-        help="Default first 20% of epochs; set 0 for controlled shuffled comparison",
+        help="Default first 20%% of epochs; set 0 for controlled shuffled comparison",
     )
     parser.add_argument(
         "--dataset", default="User-provided parallel corpus; verify provenance and license"
