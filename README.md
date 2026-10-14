@@ -1,6 +1,6 @@
 # LinguaForge
 
-LinguaForge is a language-learning and language-analysis system I'm building from scratch. Every model in it is my own: I wrote the architectures and training code and trained the weights locally on public, licensed datasets. No pretrained weights, no hosted APIs.
+LinguaForge is a language-learning and language-analysis system built from scratch. Every model in it is trained locally on public, licensed datasets, with no pretrained weights and no hosted APIs.
 
 The goal is a tool that helps you learn a language from real material (videos, articles, books) by showing what each word is, how the sentence is built and what it means, then turning what you meet into practice.
 
@@ -88,7 +88,3 @@ Model weights and datasets aren't in the repository (they're large). The scripts
 ## Data
 
 LibriSpeech (CC BY 4.0), SLR83 UK and Ireland English dialects (CC BY-SA 4.0), VoxPopuli (CC0, test only), Universal Dependencies treebanks (licences per treebank), OPUS Tatoeba, Europarl and GlobalVoices, News Commentary (evaluation only). Licence notes are kept next to each dataset.
-
-## AI assistance
-
-I used AI tools while building this project. What they were used for, and how, is documented in [docs/ai-assistance](docs/ai-assistance/).
